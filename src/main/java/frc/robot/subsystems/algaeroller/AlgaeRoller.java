@@ -11,14 +11,17 @@ public class AlgaeRoller extends SubsystemBase {
         this.algaeRollerSystem = new LoggableSystem<>(algaeRollerIO, new AlgaeRollerInputs());
     }
 
+    @Override
     public void setRollerMotorSpeed(double speed) {
         algaeRollerSystem.getIO().setSpeed(speed);
     }
 
+    @Override
     public double getRollerMotorPosition() {
         return algaeRollerSystem.getInputs().algaeRollerEncoder;
     }
 
+    @Override
     public void stopAlgaeRollerMotor() {
         algaeRollerSystem.getIO().stop();
     }
