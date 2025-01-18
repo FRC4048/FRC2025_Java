@@ -7,4 +7,7 @@ public class Constants2025{
     public static final int SHOOTER_MOTOR_1_ID = 0; //TODO: change later
     public static final int SHOOTER_MOTOR_2_ID = 1; //TODO: change later
     public static final int SHOOTER_TILT_MOTOR_ID = 2; //TODO: change later
+    public static final int ALGAE_EXTENDER_MOTOR_ID = 3; //TODO: change later
+    public static final int EXTENDER_MOTOR_FORWARD_SPEED = 4; //TODO: change later
+    public static final int EXTENDER_MOTOR_BACKWARD_SPEED = 5; //TODO: change later
 }
