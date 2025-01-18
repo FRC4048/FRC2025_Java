@@ -19,15 +19,19 @@ public class RealAgaeExtenderIO implements AlgaeExtenderIO{
     }
     @Override
     public void extendAlgae() {
-        this.extenderMotor.set(Constants.EXTENDER_MOTOR_FORWARD_SPEED);
+        this.extenderMotor.set(algaeSpeed);
     }
     @Override
     public void retractAlgae() {
-        this.extenderMotor.set(Constants.EXTENDER_MOTOR_BACKWARD_SPEED);
+        this.extenderMotor.set(algaeSpeed*-1);
     }
     @Override
     public void stopAlgae() {
         this.extenderMotor.set(0);
+    }
+    @Override
+    public void setAlgaeExtenderSpeed(double speed) {
+        this.algaeSpeed = speed;
     }
     @Override
     public void resetExtenderEncoder() {

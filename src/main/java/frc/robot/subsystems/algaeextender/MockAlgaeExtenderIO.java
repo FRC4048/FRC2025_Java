@@ -20,4 +20,9 @@ public class MockAlgaeExtenderIO implements AlgaeExtenderIO{
     public void stopAlgae() {
 
     }
+
+    @Override
+    public void setAlgaeExtenderSpeed(double speed) {
+
+    }
 }

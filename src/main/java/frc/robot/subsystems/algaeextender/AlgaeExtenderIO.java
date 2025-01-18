@@ -9,4 +9,5 @@ public interface AlgaeExtenderIO extends LoggableIO<AlgaeExtenderInputs> {
     void extendAlgae();
     void retractAlgae();
     void stopAlgae();
+    void setAlgaeExtenderSpeed(double speed);
 }
