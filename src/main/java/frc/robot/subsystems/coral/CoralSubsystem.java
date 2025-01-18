@@ -19,9 +19,11 @@ public class CoralSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     system.updateInputs();
   }
+
   public void setAngle(double angleSpeed) {
     system.getIO().setTiltAngularVelocity(angleSpeed);
   }
+
   public void setShooterSpeed(double speed) {
     system.getIO().setShooterSpeed(speed);
   }
@@ -29,23 +31,28 @@ public class CoralSubsystem extends SubsystemBase {
   public void stopShooterMotors() {
     system.getIO().stopShooterMotors();
   }
+
   public void stopTiltMotors() {
     system.getIO().stopTiltMotors();
   }
+
   public double getAngle() {
     return system.getInputs().tiltEncoderPosition;
   }
+
   public boolean getForwardSwitchState() {
     return system.getInputs().fwdTripped;
   }
+
   public boolean getReverseSwitchState() {
     return system.getInputs().revTripped;
   }
+
   public double getDesiredTiltAngularVelocity() {
     return system.getInputs().angleSpeed;
   }
+
   public void resetEncoder() {
     system.getIO().resetTiltEncoder();
   }
-
 }
