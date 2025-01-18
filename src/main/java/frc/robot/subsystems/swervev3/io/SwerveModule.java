@@ -112,7 +112,7 @@ public class SwerveModule {
 
   public void setSteerOffset(double zeroAbs) {
     steerSystem.getIO().resetEncoder();
-    double offset = Math.toRadians(zeroAbs - getAbsPosition());
+    double offset = AngleUtils.normalizeAbsAngleRadians(zeroAbs - getAbsPosition());
     steerOffset = AngleUtils.normalizeSwerveAngle(offset);
   }
 

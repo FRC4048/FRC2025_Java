@@ -65,4 +65,3 @@ public class RealCoralIO implements CoralIO {
     inputs.angleSpeed = shooterTiltMotor.get();
   }
 }*/
-

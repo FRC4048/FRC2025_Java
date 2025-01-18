@@ -29,4 +29,3 @@ public class CoralInputs implements LoggableInputs {
     revTripped = table.get("revTripped", revTripped);
   }
 }*/
-

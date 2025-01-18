@@ -9,8 +9,7 @@ import frc.robot.autochooser.event.AutoEventProvider;
 public interface AutoChooser {
   /**
    * @return Command that corresponds to the selected {@link AutoEvent} from the {@link
-   *     AutoEventProvider}
-   *     frc.robot.autochooser.event.AutoEventProvider}
+   *     AutoEventProvider} frc.robot.autochooser.event.AutoEventProvider}
    */
   Command getAutoCommand();
 
