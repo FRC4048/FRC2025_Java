@@ -5,12 +5,12 @@
 package frc.robot.subsystems.algaeextender;
 import  org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
-import frc.robot.constants.Constants2025;
+import frc.robot.constants.Constants;
 
 /** Add your docs here. */
 public class AlgaeExtenderInputs implements LoggableInputs{
     public double algaeExtenderEncoderPos = 0;
-    public double algaeSpeed = Constants2025.EXTENDER_MOTOR_FORWARD_SPEED;
+    public double algaeSpeed = Constants.EXTENDER_MOTOR_FORWARD_SPEED;
     public boolean lowerTripped = false;
     public boolean upperTripped = false;
     @Override

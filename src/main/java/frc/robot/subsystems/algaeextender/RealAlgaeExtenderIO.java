@@ -3,7 +3,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.constants.Constants2025;
+import frc.robot.constants.Constants;
 
 public class RealAgaeExtenderIO implements AlgaeExtenderIO{
     private final WPI_TalonSRX extenderMotor; //TODO: change later to whatever
