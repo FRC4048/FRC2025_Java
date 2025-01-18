@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L-5 (Used in all L Paths)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "S-5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SR-1"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Left - 1,2,3,4,5,6 on the Reef",
+  "choreoAuto": false
+}
