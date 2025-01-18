@@ -1,4 +1,5 @@
 /*package frc.robot.subsystems.coral;
+package frc.robot.subsystems.coral;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
@@ -64,3 +65,4 @@ public class RealCoralIO implements CoralIO {
     inputs.angleSpeed = shooterTiltMotor.get();
   }
 }*/
+

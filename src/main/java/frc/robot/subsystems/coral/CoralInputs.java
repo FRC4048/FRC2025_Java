@@ -1,4 +1,5 @@
 /*package frc.robot.subsystems.coral;
+package frc.robot.subsystems.coral;
 
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
@@ -28,3 +29,4 @@ public class CoralInputs implements LoggableInputs {
     revTripped = table.get("revTripped", revTripped);
   }
 }*/
+

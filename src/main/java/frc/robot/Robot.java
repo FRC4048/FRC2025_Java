@@ -17,7 +17,6 @@ import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import frc.robot.utils.logging.LoggableCommand;
 
 public class Robot extends LoggedRobot {
 
