@@ -91,7 +91,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
-    
   }
 
   private void processInputs() {
