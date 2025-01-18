@@ -1,4 +1,4 @@
-package frc.robot.subsystems.coral;
+/*package frc.robot.subsystems.coral;
 
 public class MockCoralIO implements CoralIO {
   @Override
@@ -18,4 +18,4 @@ public class MockCoralIO implements CoralIO {
 
   @Override
   public void updateInputs(CoralInputs inputs) {}
-}
+}*/

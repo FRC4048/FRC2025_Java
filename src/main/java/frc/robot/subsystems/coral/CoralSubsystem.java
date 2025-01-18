@@ -2,14 +2,13 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.coral;
+/*package frc.robot.subsystems.coral;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.LoggableSystem;
+import frc.robot.utils.logging.LoggableSystem;
 
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIO, CoralInputs> system;
-  /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO io) {
     system = new LoggableSystem<>(io, new CoralInputs());
   }
@@ -55,4 +54,4 @@ public class CoralSubsystem extends SubsystemBase {
   public void resetEncoder() {
     system.getIO().resetTiltEncoder();
   }
-}
+}*/
