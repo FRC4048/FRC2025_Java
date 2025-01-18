@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R-3"
+                  "pathName": "R-3 (Used in all R Paths)"
                 }
               },
               {
@@ -33,6 +33,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Right - 1,2,3,4,5,6 on the Reef",
   "choreoAuto": false
 }
