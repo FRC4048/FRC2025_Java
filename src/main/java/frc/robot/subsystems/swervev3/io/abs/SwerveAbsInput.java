@@ -5,7 +5,7 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 public class SwerveAbsInput implements LoggableInputs {
 
-  public double absEncoderPosition = 0;
+  public double absEncoderPosition;
 
   @Override
   public void toLog(LogTable table) {

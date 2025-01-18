@@ -13,10 +13,11 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   private final SparkMax driveMotor;
   private final SparkBaseConfig driveConfig;
 
-  public SparkMaxDriveMotorIO(int driveMotorIO, KinematicsConversionConfig conversionConfig) {
+  public SparkMaxDriveMotorIO(
+      int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
     driveConfig = new SparkMaxConfig();
-    setMotorConfig(false);
+    setMotorConfig(driveInverted);
     setConversionFactors(conversionConfig);
   }
 

@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.CommandLogger;
@@ -16,13 +17,15 @@ import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import frc.robot.utils.logging.LoggableCommand;
 
 public class Robot extends LoggedRobot {
 
   private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
-  private final Alert alert = new Alert("Init", AlertType.kInfo);
+  private final Alert alert_InitiAlert = new Alert("Init", AlertType.kInfo);
   private RobotContainer robotContainer;
   public double counter = 0;
+  private Alert alert_Wheel_Align = new Alert("Wheel Align", AlertType.kInfo);
 
   public static RobotMode getMode() {
     return mode.get();
@@ -30,7 +33,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void robotInit() {
-    alert.set(true);
+    alert_InitiAlert.set(true);
     if (Constants.ENABLE_LOGGING) {
       Logger.recordMetadata("ProjectName", "FRC2025_Java"); // Set a metadata value
       Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
@@ -62,8 +65,9 @@ public class Robot extends LoggedRobot {
       CommandLogger.get().log();
     }
     counter++;
-    if (counter == 1) {
-      // new WheelAlign(robotContainer.getDrivetrain()).schedule();
+    if (counter == 2) {
+      alert_Wheel_Align.set(true);
+      new WheelAlign(robotContainer.getDrivetrain()).schedule();
     }
   }
 

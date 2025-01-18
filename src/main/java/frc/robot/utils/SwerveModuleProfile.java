@@ -1,8 +1,8 @@
 package frc.robot.utils;
 
 public enum SwerveModuleProfile {
-  MK4(true, false, true, false, 12.8, 6.75, false),
-  MK4I(true, false, true, false, 150f / 7f, 8.142857, true); // old
+  MK4(false, false, false, false, 12.8, 6.75, false),
+  MK4I(false, false, false, false, 150f / 7f, 8.142857, true); // old
 
   SwerveModuleProfile(
       boolean frontRightInverted,

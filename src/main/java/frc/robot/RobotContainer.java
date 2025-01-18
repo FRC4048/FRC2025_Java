@@ -104,14 +104,21 @@ public class RobotContainer {
     LoggableIO<ApriltagInputs> apriltagIO;
     if (Robot.isReal()) {
       frontLeft =
-          SwerveModule.createModule(frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT);
+          SwerveModule.createModule(
+              frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false);
       frontRight =
           SwerveModule.createModule(
-              frontRightIdConf, kConfig, pidConfig, ModulePosition.FRONT_RIGHT);
+              frontRightIdConf, kConfig, pidConfig, ModulePosition.FRONT_RIGHT, true);
       backLeft =
-          SwerveModule.createModule(backLeftIdConf, kConfig, pidConfig, ModulePosition.BACK_LEFT);
+          SwerveModule.createModule(
+              backLeftIdConf, kConfig, pidConfig, ModulePosition.BACK_LEFT, false);
       backRight =
-          SwerveModule.createModule(backRightIdConf, kConfig, pidConfig, ModulePosition.BACK_RIGHT);
+          SwerveModule.createModule(
+              backRightIdConf,
+              kConfig,
+              pidConfig,
+              ModulePosition.BACK_RIGHT,
+              true); // TODO: put these in the right SwerveModuleProfiles later
 
       //   ThreadedGyro threadedGyro =
       //       new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change com type later

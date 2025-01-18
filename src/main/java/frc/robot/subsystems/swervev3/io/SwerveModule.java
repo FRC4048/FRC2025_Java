@@ -125,9 +125,10 @@ public class SwerveModule {
       SwerveIdConfig idConf,
       KinematicsConversionConfig kinematicsConfig,
       SwervePidConfig pidConfig,
-      ModulePosition position) {
+      ModulePosition position,
+      boolean driveInverted) {
     SparkMaxDriveMotorIO frontLeftDriveMotorIO =
-        new SparkMaxDriveMotorIO(idConf.getDriveMotorId(), kinematicsConfig);
+        new SparkMaxDriveMotorIO(idConf.getDriveMotorId(), kinematicsConfig, driveInverted);
     SparkMaxSteerMotorIO frontLeftSteerMotorIO =
         new SparkMaxSteerMotorIO(
             idConf.getTurnMotorId(),

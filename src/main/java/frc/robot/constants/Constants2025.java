@@ -51,8 +51,8 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_CANCODER_BACK_LEFT = 37; // TODO: change later
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
 
-  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 261.56; // TODO: change later
-  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 190.28; // TODO: change later
-  public static final double BACK_LEFT_ABS_ENCODER_ZERO = 78.22; // TODO: change later
-  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = 306.29; // TODO: change later
+  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
+  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later
+  public static final double BACK_LEFT_ABS_ENCODER_ZERO = -0.031; // TODO: change later
+  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.3974; // TODO: change later
 }
