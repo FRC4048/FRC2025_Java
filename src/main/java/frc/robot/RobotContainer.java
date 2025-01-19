@@ -4,13 +4,22 @@
 
 package frc.robot;
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.apriltags.ApriltagInputs;
+import frc.robot.apriltags.MockApriltag;
+import frc.robot.apriltags.NtApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.gyro.GyroIO;
+import frc.robot.subsystems.gyro.MockGyroIO;
+import frc.robot.subsystems.gyro.RealGyroIO;
+import frc.robot.subsystems.gyro.ThreadedGyro;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -20,6 +29,7 @@ import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.utils.ModulePosition;
+import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
@@ -88,6 +98,8 @@ public class RobotContainer {
     SwerveModule backLeft;
     SwerveModule backRight;
 
+    GyroIO gyroIO;
+    LoggableIO<ApriltagInputs> apriltagIO;
     if (Robot.isReal()) {
       frontLeft =
           SwerveModule.createModule(
@@ -106,6 +118,11 @@ public class RobotContainer {
               ModulePosition.BACK_RIGHT,
               true); // TODO: put these in the right SwerveModuleProfiles later
 
+      ThreadedGyro threadedGyro =
+          new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
+      threadedGyro.start();
+      gyroIO = new RealGyroIO(threadedGyro);
+      apriltagIO = new NtApriltag();
     } else {
       frontLeft =
           new SwerveModule(
@@ -135,8 +152,11 @@ public class RobotContainer {
               new MockAbsIO(),
               pidConfig,
               "backRight");
+      gyroIO = new MockGyroIO();
+      apriltagIO = new MockApriltag();
     }
-    drivetrain = new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight);
+    drivetrain =
+        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
   }
 
   public SwerveDrivetrain getDrivetrain() {

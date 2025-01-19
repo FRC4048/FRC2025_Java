@@ -1,15 +1,25 @@
 package frc.robot.subsystems.swervev3;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.gyro.GyroIO;
+import frc.robot.subsystems.gyro.GyroInputs;
+import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
+import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.SwerveModuleProfile;
+import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
 
@@ -30,23 +40,48 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
+  private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
+  private final PoseEstimator poseEstimator;
+  private final PIDController alignableTurnPid =
+      new PIDController(
+          Constants.ALIGNABLE_PID_P, Constants.ALIGNABLE_PID_I, Constants.ALIGNABLE_PID_D);
   private boolean facingTarget = false;
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
       SwerveModule frontRightModule,
       SwerveModule backLeftModule,
-      SwerveModule backRightModule) {
+      SwerveModule backRightModule,
+      GyroIO gyroIO,
+      LoggableIO<ApriltagInputs> apriltagIO) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
     this.backRight = backRightModule;
+    this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
+    this.poseEstimator =
+        new PoseEstimator(
+            frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+    alignableTurnPid.enableContinuousInput(-180, 180);
   }
 
   @Override
   public void periodic() {
+    poseEstimator.updateInputs();
     processInputs();
+    OdometryMeasurement odom =
+        new OdometryMeasurement(
+            new SwerveModulePosition[] {
+              frontLeft.getPosition(),
+              frontRight.getPosition(),
+              backLeft.getPosition(),
+              backRight.getPosition()
+            },
+            getLastGyro());
+    Logger.recordOutput("LastOdomModPoses", odom.modulePosition());
+    poseEstimator.updatePosition(odom);
+    poseEstimator.updateVision();
     Logger.recordOutput(
         "realSwerveStates",
         frontLeft.getLatestState(),
@@ -66,12 +101,14 @@ public class SwerveDrivetrain extends SubsystemBase {
     frontRight.updateInputs();
     backLeft.updateInputs();
     backRight.updateInputs();
+    gyroSystem.updateInputs();
   }
 
   public ChassisSpeeds createChassisSpeeds(
       double xSpeed, double ySpeed, double rotation, DriveMode driveMode) {
     return driveMode.equals(DriveMode.FIELD_CENTRIC)
-        ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotation, Rotation2d.fromDegrees(0))
+        ? ChassisSpeeds.fromFieldRelativeSpeeds(
+            xSpeed, ySpeed, rotation, Rotation2d.fromDegrees(getLastGyro()))
         : new ChassisSpeeds(xSpeed, ySpeed, rotation);
   }
 
@@ -122,6 +159,14 @@ public class SwerveDrivetrain extends SubsystemBase {
     backRight.setSteerOffset(absEncoderZeroBR);
   }
 
+  public void resetGyro() {
+    gyroSystem.getIO().resetGyro();
+  }
+
+  public double getLastGyro() {
+    return gyroSystem.getInputs().anglesInDeg;
+  }
+
   public void setDriveMode(DriveMode driveMode) {
     this.driveMode = driveMode;
   }
@@ -130,12 +175,37 @@ public class SwerveDrivetrain extends SubsystemBase {
     return driveMode;
   }
 
+  public Pose2d getPose() {
+    return poseEstimator.getEstimatedPose();
+  }
+
+  public void setGyroOffset(double offset) {
+    gyroSystem.getIO().setAngleOffset(offset);
+  }
+
+  public void resetOdometry(Pose2d startingPosition) {
+    poseEstimator.resetOdometry(
+        startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
+  }
+
+  public Rotation2d getGyroAngle() {
+    return Rotation2d.fromDegrees(getLastGyro());
+  }
+
   public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(
         frontLeft.getLatestState(),
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
+  }
+
+  public ChassisSpeeds getFieldChassisSpeeds() {
+    return ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
+  }
+
+  public PIDController getAlignableTurnPid() {
+    return alignableTurnPid;
   }
 
   public void setFacingTarget(boolean facingTarget) {
