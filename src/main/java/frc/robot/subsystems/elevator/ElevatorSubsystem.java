@@ -12,6 +12,13 @@ public class ElevatorSubsystem extends SubsystemBase{
     public void setElevatorMotorSpeed(double speed) {
         elevatorSystem.getIO().setSpeed(speed);
     }
+    public double getEncoderValue1(){
+        return elevatorSystem.getIO().getEncoderValue1();
+    }
+    public double getEncoderValue2(){
+        return elevatorSystem.getIO().getEncoderValue2();
+    }
+    
     @Override
     public void periodic() {
         elevatorSystem.updateInputs();

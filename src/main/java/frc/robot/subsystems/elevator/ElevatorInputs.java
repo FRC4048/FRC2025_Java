@@ -4,8 +4,8 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 
 public class ElevatorInputs implements LoggableInputs{
-    public static double elevatorMotor1EncoderValue = 0;
-    public static double elevatorMotor2EncoderValue = 0;
+    public double elevatorMotor1EncoderValue = 0;
+    public double elevatorMotor2EncoderValue = 0;
     @Override
     public void toLog(LogTable table){
         table.put("elevatorMotor1EncoderValue", elevatorMotor1EncoderValue);
@@ -16,4 +16,5 @@ public class ElevatorInputs implements LoggableInputs{
         elevatorMotor1EncoderValue = table.get("elevatorMotor1EncoderValue", elevatorMotor1EncoderValue);
         elevatorMotor2EncoderValue = table.get("elevatorMotor2EncoderValue", elevatorMotor2EncoderValue);
     }
+
 }

@@ -12,14 +12,11 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 public class ElevatorSpinMotors extends Command {
   /** Creates a new ElevatorSpinMotors. */
   private ElevatorSubsystem elevator;
-  private double elevatorMotor1EncoderValue;
-  private double elevatorMotor2EncoderValue;
 
-  public ElevatorSpinMotors(ElevatorSubsystem elevator, double elevatorMotor1EncoderValue, double elevatorMotor2EncoderValue ) {
+  public ElevatorSpinMotors(ElevatorSubsystem elevator) {
     this.elevator = elevator;
     addRequirements(elevator);
-    this.elevatorMotor1EncoderValue = elevatorMotor1EncoderValue;
-    this.elevatorMotor2EncoderValue = elevatorMotor2EncoderValue;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,8 +30,8 @@ public class ElevatorSpinMotors extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorMotor1EncoderValue = ElevatorInputs.elevatorMotor1EncoderValue;
-    elevatorMotor1EncoderValue = ElevatorInputs.elevatorMotor2EncoderValue;
+   
+   
       elevator.setElevatorMotorSpeed(0.5);
 
   }
@@ -49,6 +46,6 @@ public class ElevatorSpinMotors extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevatorMotor2EncoderValue >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevatorMotor1EncoderValue >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
+    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
 }
 }
