@@ -6,10 +6,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
-// import frc.robot.subsystems.gyro.GyroIO;
-// import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.SwerveModuleProfile;
@@ -33,32 +30,18 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
-  // private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
-  // private final PoseEstimator poseEstimator;
-  //    private final PIDController alignableTurnPid =
-  //            new PIDController(
-  //                    Constants.ALIGNABLE_PID_P, Constants.ALIGNABLE_PID_I,
-  // Constants.ALIGNABLE_PID_D);
-  // private Alignable alignable = null;
   private boolean facingTarget = false;
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
       SwerveModule frontRightModule,
       SwerveModule backLeftModule,
-      SwerveModule backRightModule
-      // GyroIO gyroIO,
-      /* LoggableIO<ApriltagInputs> apriltagIO*/ ) {
+      SwerveModule backRightModule){
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
     this.backRight = backRightModule;
-    // this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
-    // this.poseEstimator =
-    //     new PoseEstimator(
-    //         frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-    // alignableTurnPid.enableContinuousInput(-180, 180);
   }
 
   @Override
