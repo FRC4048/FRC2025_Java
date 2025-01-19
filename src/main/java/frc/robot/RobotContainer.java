@@ -95,7 +95,6 @@ public class RobotContainer {
     SwerveModule backRight;
 
     GyroIO gyroIO;
-    // LoggableIO<ApriltagInputs> apriltagIO;
     if (Robot.isReal()) {
       frontLeft =
           SwerveModule.createModule(
@@ -118,7 +117,6 @@ public class RobotContainer {
           new ThreadedGyro(new AHRS(NavXComType.kMXP_UART)); // TODO: change comtype later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
-      // apriltagIO = new NtApriltag();
     } else {
       frontLeft =
           new SwerveModule(
@@ -149,10 +147,9 @@ public class RobotContainer {
               pidConfig,
               "backRight");
       gyroIO = new MockGyroIO();
-      // apriltagIO = new MockApriltag();
     }
     drivetrain =
-        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO /*, apriltagIO*/);
+        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO);
   }
 
   public SwerveDrivetrain getDrivetrain() {
