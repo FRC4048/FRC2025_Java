@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,9 +29,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
-
-import com.studica.frc.AHRS;
-import com.studica.frc.AHRS.NavXComType;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
@@ -115,7 +114,8 @@ public class RobotContainer {
               ModulePosition.BACK_RIGHT,
               true); // TODO: put these in the right SwerveModuleProfiles later
 
-      ThreadedGyro threadedGyro = new ThreadedGyro(new AHRS(NavXComType.kMXP_UART)); //TODO: change comtype later
+      ThreadedGyro threadedGyro =
+          new ThreadedGyro(new AHRS(NavXComType.kMXP_UART)); // TODO: change comtype later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       // apriltagIO = new NtApriltag();

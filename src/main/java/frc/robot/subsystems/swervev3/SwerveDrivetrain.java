@@ -4,20 +4,20 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.GyroInputs;
+import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.SwerveModuleProfile;
+import frc.robot.utils.logging.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
-import frc.robot.utils.logging.LoggableSystem;
-import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 public class SwerveDrivetrain extends SubsystemBase {
   public static final SwerveModuleProfile SWERVE_MODULE_PROFILE = SwerveModuleProfile.MK4;
@@ -106,10 +106,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       double xSpeed, double ySpeed, double rotation, DriveMode driveMode) {
     return driveMode.equals(DriveMode.FIELD_CENTRIC)
         ? ChassisSpeeds.fromFieldRelativeSpeeds(
-            xSpeed,
-            ySpeed,
-            rotation,
-            Rotation2d.fromDegrees(getLastGyro()))
+            xSpeed, ySpeed, rotation, Rotation2d.fromDegrees(getLastGyro()))
         : new ChassisSpeeds(xSpeed, ySpeed, rotation);
   }
 
