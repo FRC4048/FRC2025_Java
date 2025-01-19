@@ -44,7 +44,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule frontRightModule,
       SwerveModule backLeftModule,
       SwerveModule backRightModule,
-      GyroIO gyroIO){
+      GyroIO gyroIO) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
@@ -158,11 +158,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     return driveMode;
   }
 
-
   public void setGyroOffset(double offset) {
     gyroSystem.getIO().setAngleOffset(offset);
   }
-
 
   public Rotation2d getGyroAngle() {
     return Rotation2d.fromDegrees(getLastGyro());

@@ -148,8 +148,7 @@ public class RobotContainer {
               "backRight");
       gyroIO = new MockGyroIO();
     }
-    drivetrain =
-        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO);
+    drivetrain = new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO);
   }
 
   public SwerveDrivetrain getDrivetrain() {
