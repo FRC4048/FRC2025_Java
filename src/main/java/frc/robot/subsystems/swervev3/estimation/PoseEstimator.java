@@ -21,9 +21,7 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
-import frc.robot.utils.Apriltag;
 import frc.robot.utils.RobotMode;
-import frc.robot.utils.logging.CommandLogger;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.LoggableSystem;
 import frc.robot.utils.math.ArrayUtils;
@@ -142,17 +140,9 @@ public class PoseEstimator {
           double diff =
               apriltagSystem.getInputs().serverTime[i] - apriltagSystem.getInputs().timestamp[i];
           double latencyInSec = diff / 1000;
-          Apriltag apriltag = Apriltag.of(apriltagSystem.getInputs().apriltagNumber[i]);
-          if (apriltag == null) {
-            invalidApriltagNum++;
-            CommandLogger.get().logMessage("InvalidApriltagNumber", invalidApriltagNum);
-            continue;
-          }
           VisionMeasurement measurement =
               new VisionMeasurement(
-                  new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation()),
-                  apriltag,
-                  latencyInSec);
+                  new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation()), latencyInSec);
           poseManager.registerVisionMeasurement(measurement);
         }
       }
