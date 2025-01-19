@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorInputs;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 
@@ -32,7 +33,8 @@ public class ElevatorSpinMotors extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
+    elevatorMotor1EncoderValue = ElevatorInputs.elevatorMotor1EncoderValue;
+    elevatorMotor1EncoderValue = ElevatorInputs.elevatorMotor2EncoderValue;
       elevator.setElevatorMotorSpeed(0.5);
 
   }
@@ -47,6 +49,6 @@ public class ElevatorSpinMotors extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevatorMotor2EncoderValue >= 12 && elevatorMotor1EncoderValue >= 12);// 12 is an arbitary value used as a placeholder
-  }
+    return (elevatorMotor2EncoderValue >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevatorMotor1EncoderValue >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
+}
 }
