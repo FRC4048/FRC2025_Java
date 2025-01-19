@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2025.2.1"
     id "com.peterabeles.gversion" version "1.10"
-    id "com.diffplug.spotless" version "6.12.0"
+    id "com.diffplug.spotless" version "7.0.2"
 }
 
 java {
@@ -101,7 +101,11 @@ wpi.sim.addDriverstation()
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
 jar {
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
     from sourceSets.main.allSource
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -172,8 +176,19 @@ spotless {
         toggleOffOn()
         googleJavaFormat()
         removeUnusedImports()
-        indentWithSpaces(4)
+        leadingTabsToSpaces(4)
         trimTrailingWhitespace()
+        custom("ClassNameUppercase"){line ->
+            def pattern = "(?<=\\n|\\A)(?:public\\s+)?(?:abstract\\s+)?(class|interface|enum|record)\\s+([^\\n\\s]*)"; //https://regex101.com/r/u5drEb/1
+            def matcher = line =~ pattern
+            if(matcher.find()){
+                def className = matcher.group(2)
+                if (!(className.substring(0, 1).toUpperCase() == className.substring(0, 1))){
+                    throw new IllegalArgumentException('Class names must start with an uppercase letter.');
+                }
+            }
+            return line;
+        }
     }
     groovyGradle {
         target fileTree(".") {
@@ -181,7 +196,7 @@ spotless {
             exclude "**/build/**", "**/build-*/**"
         }
         greclipse()
-        indentWithSpaces(4)
+        leadingTabsToSpaces(4)
         trimTrailingWhitespace()
     }
     json {
@@ -197,6 +212,6 @@ spotless {
             exclude "**/build/**", "**/build-*/**"
         }
         trimTrailingWhitespace()
-        indentWithSpaces(2)
+        leadingTabsToSpaces(2)
     }
 }
