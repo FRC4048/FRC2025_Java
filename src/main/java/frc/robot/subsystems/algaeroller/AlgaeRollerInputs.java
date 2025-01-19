@@ -3,17 +3,17 @@ package frc.robot.subsystems.algaeroller;
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-public class AlgaeRollerInputs implements LoggableInputs{
-    
-    public double algaeRollerEncoder = 0;
+public class AlgaeRollerInputs implements LoggableInputs {
 
-    @Override
-    public void toLog(logTable table) {
-        table.put("algaeRollerEncoder", algaeRollerEncoder);
-    }
+  public double algaeRollerEncoder = 0;
 
-    @Override
-    public void fromLog(logTable table) {
-        algaeRollerEncoder = table.get("algaeRollerEncoder", algaeRollerEncoder);
-    }
+  @Override
+  public void toLog(LogTable table) {
+    table.put("algaeRollerEncoder", algaeRollerEncoder);
+  }
+
+  @Override
+  public void fromLog(LogTable table) {
+    algaeRollerEncoder = table.get("algaeRollerEncoder", algaeRollerEncoder);
+  }
 }
