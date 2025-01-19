@@ -7,6 +7,7 @@ public class Constants extends Constants2025 {
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
   public static final long MAX_LOG_TIME_WAIT = 10;
   public static final boolean ENABLE_LOGGING = true;
+  public static final long GYRO_THREAD_RATE_MS = 10;
 
   public enum Mode {
     /** Running on a real robot. */
