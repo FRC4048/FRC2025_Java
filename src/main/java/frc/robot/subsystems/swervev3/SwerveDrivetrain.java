@@ -39,12 +39,6 @@ public class SwerveDrivetrain extends SubsystemBase {
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
   private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
-  // private final PoseEstimator poseEstimator;
-  //    private final PIDController alignableTurnPid =
-  //            new PIDController(
-  //                    Constants.ALIGNABLE_PID_P, Constants.ALIGNABLE_PID_I,
-  // Constants.ALIGNABLE_PID_D);
-  // private Alignable alignable = null;
   private boolean facingTarget = false;
 
   public SwerveDrivetrain(
@@ -59,15 +53,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.backLeft = backLeftModule;
     this.backRight = backRightModule;
     this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
-    // this.poseEstimator =
-    //     new PoseEstimator(
-    //         frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-    // alignableTurnPid.enableContinuousInput(-180, 180);
   }
 
   @Override
   public void periodic() {
-    // poseEstimator.updateInputs();
     processInputs();
     OdometryMeasurement odom =
         new OdometryMeasurement(
@@ -79,8 +68,6 @@ public class SwerveDrivetrain extends SubsystemBase {
             },
             getLastGyro());
     Logger.recordOutput("LastOdomModPoses", odom.modulePosition());
-    // poseEstimator.updatePosition(odom);
-    // poseEstimator.updateVision();
     Logger.recordOutput(
         "realSwerveStates",
         frontLeft.getLatestState(),
@@ -174,18 +161,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     return driveMode;
   }
 
-  // public Pose2d getPose() {
-  //   return poseEstimator.getEstimatedPose();
-  // }
-
   public void setGyroOffset(double offset) {
     gyroSystem.getIO().setAngleOffset(offset);
   }
-
-  // public void resetOdometry(Pose2d startingPosition) {
-  //   poseEstimator.resetOdometry(
-  //       startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
-  // }
 
   public Rotation2d getGyroAngle() {
     return Rotation2d.fromDegrees(getLastGyro());
@@ -199,18 +177,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         backRight.getLatestState());
   }
 
-  // public ChassisSpeeds getFieldChassisSpeeds() {
-  //   return ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
-  // }
-
-  //    public Alignable getAlignable() {
-  //        return alignable;
-  //    }
-
-  //    public PIDController getAlignableTurnPid() {
-  //        return alignableTurnPid;
-  //    }
-
   public void setFacingTarget(boolean facingTarget) {
     this.facingTarget = facingTarget;
   }
@@ -218,8 +184,4 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
-
-  //    public void setAlignable(Alignable alignable) {
-  //        this.alignable = alignable;
-  //    }
 }
