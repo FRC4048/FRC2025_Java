@@ -45,7 +45,6 @@ public class AngleUtils {
   }
 
   public static double normalizeAbsAngleRadians(double angleInRev) {
-    double angleInRad = angleInRev * 2 * Math.PI;
-    return angleInRad;
+    return angleInRev * 2 * Math.PI;
   }
 }
