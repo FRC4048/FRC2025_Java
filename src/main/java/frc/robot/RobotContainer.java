@@ -4,11 +4,10 @@
 
 package frc.robot;
 
-import java.util.Optional;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import java.util.Optional;
 
 public class RobotContainer {
   public RobotContainer() {
@@ -22,7 +21,7 @@ public class RobotContainer {
   }
 
   public static boolean isRedAlliance() {
-        Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
-        return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
+    Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
+    return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
   }
 }
