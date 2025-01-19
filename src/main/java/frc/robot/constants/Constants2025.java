@@ -46,4 +46,7 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_SMART_LIMIT = 38; // TODO: change later
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
+  public static final double ALIGNABLE_PID_P = 0.01; // TODO: change later
+  public static final double ALIGNABLE_PID_I = 0.003; // TODO: change later
+  public static final double ALIGNABLE_PID_D = 0.0004; // TODO: change later
 }
