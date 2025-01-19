@@ -27,12 +27,10 @@ public class RealElevatorIO implements ElevatorIO{
         inputs.elevatorMotor1EncoderValue = elevatorMotor1.getEncoder().getPosition();
         inputs.elevatorMotor2EncoderValue = elevatorMotor2.getEncoder().getPosition();
     }
-    @Override
     public double getEncoderValue1(){
         return elevatorMotor1.getEncoder().getPosition();
     
     }
-    @Override
     public double getEncoderValue2(){
         return elevatorMotor2.getEncoder().getPosition();
 
