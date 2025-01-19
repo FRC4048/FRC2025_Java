@@ -37,7 +37,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule frontLeftModule,
       SwerveModule frontRightModule,
       SwerveModule backLeftModule,
-      SwerveModule backRightModule){
+      SwerveModule backRightModule) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
@@ -71,11 +71,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public ChassisSpeeds createChassisSpeeds(
       double xSpeed, double ySpeed, double rotation, DriveMode driveMode) {
     return driveMode.equals(DriveMode.FIELD_CENTRIC)
-        ? ChassisSpeeds.fromFieldRelativeSpeeds(
-            xSpeed,
-            ySpeed,
-            rotation,
-            Rotation2d.fromDegrees(0))
+        ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotation, Rotation2d.fromDegrees(0))
         : new ChassisSpeeds(xSpeed, ySpeed, rotation);
   }
 
@@ -126,7 +122,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     backRight.setSteerOffset(absEncoderZeroBR);
   }
 
-
   public void setDriveMode(DriveMode driveMode) {
     this.driveMode = driveMode;
   }
@@ -134,7 +129,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   public DriveMode getDriveMode() {
     return driveMode;
   }
-
 
   public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(
@@ -144,7 +138,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         backRight.getLatestState());
   }
 
-
   public void setFacingTarget(boolean facingTarget) {
     this.facingTarget = facingTarget;
   }
@@ -152,5 +145,4 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
-
 }

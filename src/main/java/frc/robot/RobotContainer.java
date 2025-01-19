@@ -136,8 +136,7 @@ public class RobotContainer {
               pidConfig,
               "backRight");
     }
-    drivetrain =
-        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight);
+    drivetrain = new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight);
   }
 
   public SwerveDrivetrain getDrivetrain() {
