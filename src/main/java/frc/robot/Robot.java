@@ -72,16 +72,18 @@ public class Robot extends LoggedRobot {
     m_robotContainer = new RobotContainer();
   }
 
+
+
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
     if (Constants.ENABLE_LOGGING) {
       CommandLogger.get().log();
     }
-    counter++;
-    if (counter == 2) {
+    if (counter == 0) {
       new WheelAlign(m_robotContainer.getDrivetrain()).schedule();
     }
+    counter++;
   }
 
   @Override
