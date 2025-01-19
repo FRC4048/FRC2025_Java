@@ -29,6 +29,10 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
+import frc.robot.apriltags.ApriltagInputs;
+import frc.robot.apriltags.MockApriltag;
+import frc.robot.apriltags.NtApriltag;
+import frc.robot.utils.logging.LoggableIO;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
@@ -95,7 +99,7 @@ public class RobotContainer {
     SwerveModule backRight;
 
     GyroIO gyroIO;
-    // LoggableIO<ApriltagInputs> apriltagIO;
+    LoggableIO<ApriltagInputs> apriltagIO;
     if (Robot.isReal()) {
       frontLeft =
           SwerveModule.createModule(
@@ -118,7 +122,7 @@ public class RobotContainer {
           new ThreadedGyro(new AHRS(NavXComType.kMXP_UART)); // TODO: change comtype later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
-      // apriltagIO = new NtApriltag();
+      apriltagIO = new NtApriltag();
     } else {
       frontLeft =
           new SwerveModule(
@@ -149,10 +153,10 @@ public class RobotContainer {
               pidConfig,
               "backRight");
       gyroIO = new MockGyroIO();
-      // apriltagIO = new MockApriltag();
+      apriltagIO = new MockApriltag();
     }
     drivetrain =
-        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO /*, apriltagIO*/);
+        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO , apriltagIO);
   }
 
   public SwerveDrivetrain getDrivetrain() {

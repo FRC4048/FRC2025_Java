@@ -7,7 +7,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// import frc.robot.apriltags.ApriltagInputs;
+import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.GyroInputs;
@@ -18,6 +18,7 @@ import frc.robot.utils.SwerveModuleProfile;
 import frc.robot.utils.logging.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
+import frc.robot.utils.logging.LoggableIO;
 
 public class SwerveDrivetrain extends SubsystemBase {
   public static final SwerveModuleProfile SWERVE_MODULE_PROFILE = SwerveModuleProfile.MK4;
@@ -51,8 +52,8 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule frontRightModule,
       SwerveModule backLeftModule,
       SwerveModule backRightModule,
-      GyroIO gyroIO
-      /* LoggableIO<ApriltagInputs> apriltagIO*/ ) {
+      GyroIO gyroIO,
+      LoggableIO<ApriltagInputs> apriltagIO) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
