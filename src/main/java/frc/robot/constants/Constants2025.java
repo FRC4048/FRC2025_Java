@@ -2,7 +2,7 @@ package frc.robot.constants;
 
 import frc.robot.utils.SwerveModuleProfileV2;
 
-public class Constants2025 extends GameConstants{
+public class Constants2025 extends GameConstants {
   public static final int ELEVATOR_MOTOR_1_ID = 0; // TODO: change later
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final int ELEVATOR_MOTOR_2_ID = 1; // TODO: change later
@@ -39,7 +39,7 @@ public class Constants2025 extends GameConstants{
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
-          SwerveModuleProfileV2.MK4I; // TODO: change later
+      SwerveModuleProfileV2.MK4I; // TODO: change later
   public static final double ROBOT_WIDTH = 0.8636; // TODO: change later
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
   public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later

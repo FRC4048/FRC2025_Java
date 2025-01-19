@@ -22,13 +22,13 @@ import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-
 import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
+
   public RobotContainer() {
     setupDriveTrain();
     configureBindings();
@@ -36,8 +36,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivetrain.setDefaultCommand(
-            new Drive(
-                    drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
+        new Drive(
+            drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
   }
 
   public Command getAutonomousCommand() {
@@ -48,39 +48,40 @@ public class RobotContainer {
     Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
     return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
   }
+
   private void setupDriveTrain() {
     SwerveIdConfig frontLeftIdConf =
-            new SwerveIdConfig(
-                    Constants.DRIVE_FRONT_LEFT_D,
-                    Constants.DRIVE_FRONT_LEFT_S,
-                    Constants.DRIVE_CANCODER_FRONT_LEFT);
+        new SwerveIdConfig(
+            Constants.DRIVE_FRONT_LEFT_D,
+            Constants.DRIVE_FRONT_LEFT_S,
+            Constants.DRIVE_CANCODER_FRONT_LEFT);
     SwerveIdConfig frontRightIdConf =
-            new SwerveIdConfig(
-                    Constants.DRIVE_FRONT_RIGHT_D,
-                    Constants.DRIVE_FRONT_RIGHT_S,
-                    Constants.DRIVE_CANCODER_FRONT_RIGHT);
+        new SwerveIdConfig(
+            Constants.DRIVE_FRONT_RIGHT_D,
+            Constants.DRIVE_FRONT_RIGHT_S,
+            Constants.DRIVE_CANCODER_FRONT_RIGHT);
     SwerveIdConfig backLeftIdConf =
-            new SwerveIdConfig(
-                    Constants.DRIVE_BACK_LEFT_D,
-                    Constants.DRIVE_BACK_LEFT_S,
-                    Constants.DRIVE_CANCODER_BACK_LEFT);
+        new SwerveIdConfig(
+            Constants.DRIVE_BACK_LEFT_D,
+            Constants.DRIVE_BACK_LEFT_S,
+            Constants.DRIVE_CANCODER_BACK_LEFT);
     SwerveIdConfig backRightIdConf =
-            new SwerveIdConfig(
-                    Constants.DRIVE_BACK_RIGHT_D,
-                    Constants.DRIVE_BACK_RIGHT_S,
-                    Constants.DRIVE_CANCODER_BACK_RIGHT);
+        new SwerveIdConfig(
+            Constants.DRIVE_BACK_RIGHT_D,
+            Constants.DRIVE_BACK_RIGHT_S,
+            Constants.DRIVE_CANCODER_BACK_RIGHT);
 
     TrapezoidProfile.Constraints constraints =
-            new TrapezoidProfile.Constraints(Constants.MAX_ANGULAR_SPEED * 150, 2 * Math.PI * 150);
+        new TrapezoidProfile.Constraints(Constants.MAX_ANGULAR_SPEED * 150, 2 * Math.PI * 150);
     PID drivePid = PID.of(Constants.DRIVE_PID_P, Constants.DRIVE_PID_I, Constants.DRIVE_PID_D);
     PID steerPid = PID.of(Constants.STEER_PID_P, Constants.STEER_PID_I, Constants.STEER_PID_D);
     Gain driveGain = Gain.of(Constants.DRIVE_PID_FF_V, Constants.DRIVE_PID_FF_S);
     Gain steerGain = Gain.of(Constants.STEER_PID_FF_V, Constants.STEER_PID_FF_S);
 
     KinematicsConversionConfig kConfig =
-            new KinematicsConversionConfig(Constants.WHEEL_RADIUS, Constants.SWERVE_MODULE_PROFILE);
+        new KinematicsConversionConfig(Constants.WHEEL_RADIUS, Constants.SWERVE_MODULE_PROFILE);
     SwervePidConfig pidConfig =
-            new SwervePidConfig(drivePid, steerPid, driveGain, steerGain, constraints);
+        new SwervePidConfig(drivePid, steerPid, driveGain, steerGain, constraints);
 
     SwerveModule frontLeft;
     SwerveModule frontRight;
@@ -91,21 +92,21 @@ public class RobotContainer {
     // LoggableIO<ApriltagInputs> apriltagIO;
     if (Robot.isReal()) {
       frontLeft =
-              SwerveModule.createModule(
-                      frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false);
+          SwerveModule.createModule(
+              frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false);
       frontRight =
-              SwerveModule.createModule(
-                      frontRightIdConf, kConfig, pidConfig, ModulePosition.FRONT_RIGHT, true);
+          SwerveModule.createModule(
+              frontRightIdConf, kConfig, pidConfig, ModulePosition.FRONT_RIGHT, true);
       backLeft =
-              SwerveModule.createModule(
-                      backLeftIdConf, kConfig, pidConfig, ModulePosition.BACK_LEFT, false);
+          SwerveModule.createModule(
+              backLeftIdConf, kConfig, pidConfig, ModulePosition.BACK_LEFT, false);
       backRight =
-              SwerveModule.createModule(
-                      backRightIdConf,
-                      kConfig,
-                      pidConfig,
-                      ModulePosition.BACK_RIGHT,
-                      true); // TODO: put these in the right SwerveModuleProfiles later
+          SwerveModule.createModule(
+              backRightIdConf,
+              kConfig,
+              pidConfig,
+              ModulePosition.BACK_RIGHT,
+              true); // TODO: put these in the right SwerveModuleProfiles later
 
       //   ThreadedGyro threadedGyro =
       //       new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change com type later
@@ -114,39 +115,40 @@ public class RobotContainer {
       // apriltagIO = new NtApriltag();
     } else {
       frontLeft =
-              new SwerveModule(
-                      new MockDriveMotorIO(),
-                      new MockSteerMotorIO(),
-                      new MockAbsIO(),
-                      pidConfig,
-                      "frontLeft");
+          new SwerveModule(
+              new MockDriveMotorIO(),
+              new MockSteerMotorIO(),
+              new MockAbsIO(),
+              pidConfig,
+              "frontLeft");
       frontRight =
-              new SwerveModule(
-                      new MockDriveMotorIO(),
-                      new MockSteerMotorIO(),
-                      new MockAbsIO(),
-                      pidConfig,
-                      "frontRight");
+          new SwerveModule(
+              new MockDriveMotorIO(),
+              new MockSteerMotorIO(),
+              new MockAbsIO(),
+              pidConfig,
+              "frontRight");
       backLeft =
-              new SwerveModule(
-                      new MockDriveMotorIO(),
-                      new MockSteerMotorIO(),
-                      new MockAbsIO(),
-                      pidConfig,
-                      "backLeft");
+          new SwerveModule(
+              new MockDriveMotorIO(),
+              new MockSteerMotorIO(),
+              new MockAbsIO(),
+              pidConfig,
+              "backLeft");
       backRight =
-              new SwerveModule(
-                      new MockDriveMotorIO(),
-                      new MockSteerMotorIO(),
-                      new MockAbsIO(),
-                      pidConfig,
-                      "backRight");
+          new SwerveModule(
+              new MockDriveMotorIO(),
+              new MockSteerMotorIO(),
+              new MockAbsIO(),
+              pidConfig,
+              "backRight");
       //   gyroIO = new MockGyroIO();
       // apriltagIO = new MockApriltag();
     }
     drivetrain =
-            new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight/*, gyroIO, apriltagIO*/);
+        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight /*, gyroIO, apriltagIO*/);
   }
+
   public SwerveDrivetrain getDrivetrain() {
     return drivetrain;
   }

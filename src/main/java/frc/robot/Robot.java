@@ -9,15 +9,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.CommandLogger;
+import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import frc.robot.utils.RobotMode;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
@@ -82,19 +82,20 @@ public class Robot extends LoggedRobot {
       } else {
         setUseTiming(false); // Run as fast as possible (false == run fast, true == run real)
         String logPath =
-                LogFileUtil
-                        .findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
+            LogFileUtil
+                .findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
         Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
         Logger.addDataReceiver(
-                new WPILOGWriter(
-                        LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
+            new WPILOGWriter(
+                LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
       }
       Logger
-              .start(); // Start logging! No more data receivers, replay sources, or metadata values may
+          .start(); // Start logging! No more data receivers, replay sources, or metadata values may
       // be added.
       // Log active commands
-      CommandLogger.get().init();}
+      CommandLogger.get().init();
     }
+  }
 
   @Override
   public void robotPeriodic() {
@@ -160,6 +161,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void testExit() {}
+
   public void simulationInit() {
     mode.set(RobotMode.SIMULATION);
   }
