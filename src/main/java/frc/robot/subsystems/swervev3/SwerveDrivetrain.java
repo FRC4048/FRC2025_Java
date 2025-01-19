@@ -18,7 +18,6 @@ import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.SwerveModuleProfile;
-import frc.robot.utils.advanced.Alignable;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
@@ -47,7 +46,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final PIDController alignableTurnPid =
       new PIDController(
           Constants.ALIGNABLE_PID_P, Constants.ALIGNABLE_PID_I, Constants.ALIGNABLE_PID_D);
-  private Alignable alignable = null;
   private boolean facingTarget = false;
 
   public SwerveDrivetrain(
@@ -206,9 +204,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     return ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
   }
 
-  public Alignable getAlignable() {
-    return alignable;
-  }
 
   public PIDController getAlignableTurnPid() {
     return alignableTurnPid;
@@ -222,7 +217,4 @@ public class SwerveDrivetrain extends SubsystemBase {
     return facingTarget;
   }
 
-  public void setAlignable(Alignable alignable) {
-    this.alignable = alignable;
-  }
 }
