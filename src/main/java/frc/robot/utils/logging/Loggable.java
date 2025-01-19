@@ -6,4 +6,4 @@ public interface Loggable {
   String getBasicName();
 
   void setParent(Command loggable);
-}   
+}

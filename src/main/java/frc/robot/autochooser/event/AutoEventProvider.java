@@ -4,7 +4,6 @@ import frc.robot.Robot;
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.utils.logging.LoggableSystem;
-
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
