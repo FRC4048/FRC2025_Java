@@ -114,7 +114,7 @@ public class RobotContainer {
               true); // TODO: put these in the right SwerveModuleProfiles later
 
       ThreadedGyro threadedGyro =
-          new ThreadedGyro(new AHRS(NavXComType.kMXP_UART)); // TODO: change comtype later
+          new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
     } else {
