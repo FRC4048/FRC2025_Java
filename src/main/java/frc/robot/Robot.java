@@ -93,7 +93,7 @@ public class Robot extends LoggedRobot {
               .start(); // Start logging! No more data receivers, replay sources, or metadata values may
       // be added.
       // Log active commands
-      CommandLogger.get().init();
+      CommandLogger.get().init();}
     }
 
   @Override

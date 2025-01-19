@@ -43,4 +43,7 @@ public class Constants2025 extends GameConstants{
   public static final double ROBOT_WIDTH = 0.8636; // TODO: change later
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
   public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later
+  public static final int DRIVE_SMART_LIMIT = 38; // TODO: change later
+  public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
+  public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
 }
