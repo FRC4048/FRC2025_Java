@@ -28,6 +28,9 @@ import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
+
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -112,8 +115,7 @@ public class RobotContainer {
               ModulePosition.BACK_RIGHT,
               true); // TODO: put these in the right SwerveModuleProfiles later
 
-      ThreadedGyro threadedGyro =
-          ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change com type later
+      ThreadedGyro threadedGyro = new ThreadedGyro(new AHRS(NavXComType.kMXP_UART)); //TODO: change comtype later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       // apriltagIO = new NtApriltag();
