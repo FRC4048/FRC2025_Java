@@ -179,7 +179,7 @@ spotless {
         leadingTabsToSpaces(4)
         trimTrailingWhitespace()
         custom("ClassNameUppercase"){line ->
-            def pattern = "(?<=\\n|\\A)(?:public\\s+)?(?:abstract\\s+)?(class|interface|enum|record)\\s+([^\\n\\s]*)"; //https://regex101.com/r/u5drEb/1
+            def pattern = "(?<=\\n|\\A)(?:public\\s+|protected\\s+|private\\s+)?(?:abstract\\s+)?(?:static\\s+)?(class|interface|enum|record)\\s+([^\\n\\s]*)"; //https://regex101.com/r/dzmrrd/1
             def matcher = line =~ pattern
             if(matcher.find()){
                 def className = matcher.group(2)
