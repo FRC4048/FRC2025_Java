@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.gyro.GyroIO;
+import frc.robot.subsystems.gyro.MockGyroIO;
+import frc.robot.subsystems.gyro.RealGyroIO;
+import frc.robot.subsystems.gyro.ThreadedGyro;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -23,10 +27,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
-import frc.robot.subsystems.gyro.GyroIO;
-import frc.robot.subsystems.gyro.MockGyroIO;
-import frc.robot.subsystems.gyro.RealGyroIO;
-import frc.robot.subsystems.gyro.ThreadedGyro;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
@@ -113,7 +113,7 @@ public class RobotContainer {
               true); // TODO: put these in the right SwerveModuleProfiles later
 
       ThreadedGyro threadedGyro =
-      ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change com type later
+          ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change com type later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       // apriltagIO = new NtApriltag();
@@ -150,7 +150,7 @@ public class RobotContainer {
       // apriltagIO = new MockApriltag();
     }
     drivetrain =
-        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight , gyroIO/*, apriltagIO*/);
+        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO /*, apriltagIO*/);
   }
 
   public SwerveDrivetrain getDrivetrain() {
