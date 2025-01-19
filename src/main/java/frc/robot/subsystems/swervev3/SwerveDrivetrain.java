@@ -44,10 +44,9 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
-     private final PIDController alignableTurnPid =
-             new PIDController(
-                     Constants.ALIGNABLE_PID_P, Constants.ALIGNABLE_PID_I,
-  Constants.ALIGNABLE_PID_D);
+  private final PIDController alignableTurnPid =
+      new PIDController(
+          Constants.ALIGNABLE_PID_P, Constants.ALIGNABLE_PID_I, Constants.ALIGNABLE_PID_D);
   private Alignable alignable = null;
   private boolean facingTarget = false;
 
@@ -64,8 +63,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.backRight = backRightModule;
     this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
     this.poseEstimator =
-    new PoseEstimator(
-    frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+        new PoseEstimator(
+            frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
     alignableTurnPid.enableContinuousInput(-180, 180);
   }
 
@@ -188,7 +187,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void resetOdometry(Pose2d startingPosition) {
     poseEstimator.resetOdometry(
-    startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
+        startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
   }
 
   public Rotation2d getGyroAngle() {
