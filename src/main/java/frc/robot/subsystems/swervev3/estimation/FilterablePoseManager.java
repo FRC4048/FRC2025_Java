@@ -7,9 +7,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N3;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
-import frc.robot.subsystems.swervev3.vision.FilterResult;
-import frc.robot.subsystems.swervev3.vision.PoseDeviation;
-import frc.robot.subsystems.swervev3.vision.VisionFilter;
 import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.littletonrobotics.junction.Logger;
@@ -19,16 +16,12 @@ import org.littletonrobotics.junction.Logger;
  * filter.
  */
 public class FilterablePoseManager extends PoseManager {
-  private final VisionFilter filter;
 
   public FilterablePoseManager(
-      PoseDeviation PoseDeviation,
       SwerveDriveKinematics kinematics,
       OdometryMeasurement initialOdom,
-      TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer,
-      VisionFilter filter) {
-    super(PoseDeviation, kinematics, initialOdom, estimatedPoseBuffer);
-    this.filter = filter;
+      TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer) {
+    super(kinematics, initialOdom, estimatedPoseBuffer);
   }
 
   public FilterablePoseManager(
@@ -36,29 +29,17 @@ public class FilterablePoseManager extends PoseManager {
       Vector<N3> visionStd,
       SwerveDriveKinematics kinematics,
       OdometryMeasurement initialOdom,
-      TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer,
-      VisionFilter filter) {
+      TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer) {
     this(
-        new PoseDeviation(wheelStd, visionStd),
         kinematics,
         initialOdom,
-        estimatedPoseBuffer,
-        filter);
+        estimatedPoseBuffer);
   }
 
   @Override
   protected void processQueue() {
-    LinkedHashMap<VisionMeasurement, FilterResult> filter1 = filter.filter(visionMeasurementQueue);
     visionMeasurementQueue.clear();
     AtomicInteger numRejected = new AtomicInteger();
-    filter1.forEach(
-        (v, r) -> {
-          switch (r) {
-            case ACCEPTED -> addVisionMeasurement(v);
-            case NOT_PROCESSED -> visionMeasurementQueue.add(v);
-            case REJECTED -> numRejected.getAndIncrement();
-          }
-        });
     Logger.recordOutput("rejectedMeasurementsCount", numRejected.get());
   }
 }

@@ -9,7 +9,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.GyroInputs;
@@ -53,8 +52,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule frontRightModule,
       SwerveModule backLeftModule,
       SwerveModule backRightModule,
-      GyroIO gyroIO,
-      LoggableIO<ApriltagInputs> apriltagIO) {
+      GyroIO gyroIO) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
@@ -62,13 +60,12 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
     this.poseEstimator =
         new PoseEstimator(
-            frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+            frontLeft, frontRight, backLeft, backRight, kinematics, getLastGyro());
     alignableTurnPid.enableContinuousInput(-180, 180);
   }
 
   @Override
   public void periodic() {
-    poseEstimator.updateInputs();
     processInputs();
     OdometryMeasurement odom =
         new OdometryMeasurement(
@@ -81,7 +78,6 @@ public class SwerveDrivetrain extends SubsystemBase {
             getLastGyro());
     Logger.recordOutput("LastOdomModPoses", odom.modulePosition());
     poseEstimator.updatePosition(odom);
-    poseEstimator.updateVision();
     Logger.recordOutput(
         "realSwerveStates",
         frontLeft.getLatestState(),

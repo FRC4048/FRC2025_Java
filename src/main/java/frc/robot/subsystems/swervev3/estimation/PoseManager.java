@@ -10,7 +10,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N3;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
-import frc.robot.subsystems.swervev3.vision.PoseDeviation;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -24,7 +23,6 @@ public class PoseManager {
   protected final Queue<VisionMeasurement> visionMeasurementQueue = new LinkedList<>();
 
   public PoseManager(
-      PoseDeviation PoseDeviation,
       SwerveDriveKinematics kinematics,
       OdometryMeasurement initialOdom,
       TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer) {
@@ -33,9 +31,7 @@ public class PoseManager {
             kinematics,
             Rotation2d.fromDegrees(initialOdom.gyroValueDeg()),
             initialOdom.modulePosition(),
-            new Pose2d(),
-            PoseDeviation.getWheelStd(),
-            PoseDeviation.getVisionStd());
+            new Pose2d());
     this.estimatedPoseBuffer = estimatedPoseBuffer;
   }
 
@@ -45,7 +41,7 @@ public class PoseManager {
       SwerveDriveKinematics kinematics,
       OdometryMeasurement initialOdom,
       TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer) {
-    this(new PoseDeviation(wheelStd, visionStd), kinematics, initialOdom, estimatedPoseBuffer);
+    this(kinematics, initialOdom, estimatedPoseBuffer);
   }
 
   public void addOdomMeasurement(OdometryMeasurement m, long timestamp) {

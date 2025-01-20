@@ -15,12 +15,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
-import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.LoggableSystem;
@@ -37,8 +35,7 @@ public class PoseEstimator {
   private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
-  private final SwerveModule backRight;
-  private final LoggableSystem<LoggableIO<ApriltagInputs>, ApriltagInputs> apriltagSystem;
+  private final SwerveModule backRight;;
 
   /* standard deviation of robot states, the lower the numbers arm, the more we trust odometry */
   private static final Vector<N3> stateStdDevs1 = VecBuilder.fill(0.075, 0.075, 0.001);
@@ -66,14 +63,12 @@ public class PoseEstimator {
       SwerveModule frontRightMotor,
       SwerveModule backLeftMotor,
       SwerveModule backRightMotor,
-      LoggableIO<ApriltagInputs> apriltagIO,
       SwerveDriveKinematics kinematics,
       double initGyroValueDeg) {
     this.frontLeft = frontLeftMotor;
     this.frontRight = frontRightMotor;
     this.backLeft = backLeftMotor;
     this.backRight = backRightMotor;
-    this.apriltagSystem = new LoggableSystem<>(apriltagIO, new ApriltagInputs());
     invalidApriltagNum = 0;
     OdometryMeasurement initMeasurement =
         new OdometryMeasurement(
@@ -92,19 +87,10 @@ public class PoseEstimator {
             visionMeasurementStdDevs1,
             kinematics,
             initMeasurement,
-            m1Buffer,
-            new BasicVisionFilter(m1Buffer) {
-              @Override
-              public Pose2d getVisionPose(VisionMeasurement measurement) {
-                return measurement.measurement().plus(cameraOneTransform);
-              }
-            });
+            m1Buffer);
     SmartDashboard.putData(field);
   }
 
-  public void updateInputs() {
-    apriltagSystem.updateInputs();
-  }
 
   /**
    * updates odometry, should be called in periodic
@@ -127,27 +113,7 @@ public class PoseEstimator {
    * Collects Apriltag measurement(s) from the IO and checks their validity. If they are valid they
    * are sent to the {@link PoseManager} for further processing
    */
-  public void updateVision() {
-    if (Robot.getMode().equals(RobotMode.TELEOP) && Constants.ENABLE_VISION) {
-      for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
-        double[] pos =
-            new double[] {
-              apriltagSystem.getInputs().posX[i],
-              apriltagSystem.getInputs().posY[i],
-              apriltagSystem.getInputs().rotationDeg[i]
-            };
-        if (validAprilTagPose(pos)) {
-          double diff =
-              apriltagSystem.getInputs().serverTime[i] - apriltagSystem.getInputs().timestamp[i];
-          double latencyInSec = diff / 1000;
-          VisionMeasurement measurement =
-              new VisionMeasurement(
-                  new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation()), latencyInSec);
-          poseManager.registerVisionMeasurement(measurement);
-        }
-      }
-    }
-  }
+
 
   /**
    * @param radians robot angle to reset odometry to
