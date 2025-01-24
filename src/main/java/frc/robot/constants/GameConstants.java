@@ -7,5 +7,4 @@ public class GameConstants {
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final boolean ENABLE_VISION = true; // TODO: change
-  public static final boolean ENABLE_LOGGING = true;
 }

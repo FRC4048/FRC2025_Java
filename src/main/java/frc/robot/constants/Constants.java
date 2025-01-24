@@ -19,9 +19,9 @@ public class Constants extends Constants2025 {
     /** Running on a real robot. */
     REAL,
 
-    /** Running a physics simulator. */
-    SIM,
-    /** Replaying from a log file. */
-    REPLAY
+      /** Running a physics simulator. */
+      SIM,
+      /** Replaying from a log file. */
+      REPLAY
+    }
   }
-}
