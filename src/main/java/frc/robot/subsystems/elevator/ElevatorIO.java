@@ -4,7 +4,6 @@ import frc.robot.utils.LoggableIO;
 
 public interface ElevatorIO extends LoggableIO <ElevatorInputs> {
     void setSpeed(double spd);
-    double getEncoderValue1();
-    double getEncoderValue2();
+  
     
 }
