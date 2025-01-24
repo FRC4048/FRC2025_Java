@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.apriltags.ApriltagInputs;
+import frc.robot.apriltags.MockApriltag;
+import frc.robot.apriltags.NtApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
@@ -26,6 +29,7 @@ import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.utils.ModulePosition;
+import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
@@ -95,6 +99,7 @@ public class RobotContainer {
     SwerveModule backRight;
 
     GyroIO gyroIO;
+    LoggableIO<ApriltagInputs> apriltagIO;
     if (Robot.isReal()) {
       frontLeft =
           SwerveModule.createModule(
@@ -117,6 +122,7 @@ public class RobotContainer {
           new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
+      apriltagIO = new NtApriltag();
     } else {
       frontLeft =
           new SwerveModule(
@@ -147,8 +153,10 @@ public class RobotContainer {
               pidConfig,
               "backRight");
       gyroIO = new MockGyroIO();
+      apriltagIO = new MockApriltag();
     }
-    drivetrain = new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO);
+    drivetrain =
+        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
   }
 
   public SwerveDrivetrain getDrivetrain() {
