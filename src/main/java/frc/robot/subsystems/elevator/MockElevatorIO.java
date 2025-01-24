@@ -9,13 +9,4 @@ public class MockElevatorIO implements ElevatorIO{
     public void updateInputs(ElevatorInputs inputs) {
         
     }    
-    @Override
-    public double getEncoderValue1(){
-            return 0;
-
-    }
-    @Override
-    public double getEncoderValue2(){
-        return 0;
-    }
 }
