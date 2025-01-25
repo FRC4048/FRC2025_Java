@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -21,30 +22,25 @@ public class ElevatorSpinMotors extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  
-   
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
-   
-      elevator.setElevatorMotorSpeed(Constants.ELEVATOR_RISE_SPEED);  
 
+    elevator.setElevatorMotorSpeed(Constants.ELEVATOR_RISE_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     elevator.setElevatorMotorSpeed(0);
-
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
-}
+    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR
+        || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
+  }
 }
