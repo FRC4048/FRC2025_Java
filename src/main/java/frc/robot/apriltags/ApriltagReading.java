@@ -5,6 +5,6 @@ public record ApriltagReading(
     double posY,
     double poseYaw,
     double distanceToTag,
-    int tag,
+    int apriltagNumber,
     double latency,
     double measurementTime) {}

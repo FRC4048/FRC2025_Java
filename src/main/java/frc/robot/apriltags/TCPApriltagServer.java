@@ -12,7 +12,7 @@ public class TCPApriltagServer extends TCPServer<ApriltagReading> {
 
   /**
    * Format of message: [(double)x, (double)y, (double)yaw, (double)distance,(double)timestamp,
-   * (int)tag]
+   * (int)apriltagNumber]
    */
   @Override
   protected ApriltagReading extractFromStream(DataInputStream stream) throws IOException {

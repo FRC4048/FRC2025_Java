@@ -30,7 +30,7 @@ public class TCPApriltag implements LoggableIO<ApriltagInputs> {
       inputs.posY[i] = measurement.posY();
       inputs.poseYaw[i] = measurement.poseYaw();
       inputs.distanceToTag[i] = measurement.distanceToTag();
-      inputs.apriltagNumber[i] = measurement.tag();
+      inputs.apriltagNumber[i] = measurement.apriltagNumber();
       inputs.timestamp[i] = measurement.latency();
       inputs.serverTime[i] = measurement.measurementTime();
     }
