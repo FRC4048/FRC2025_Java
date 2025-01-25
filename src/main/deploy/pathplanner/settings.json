@@ -8,10 +8,10 @@
     "Station to Reef"
   ],
   "autoFolders": [
-    "Robot 3 to Reefs",
-    "Robot 1 to Reefs",
+    "Robot 1 to Reefs FINISHED",
     "Robot 2 to Reefs",
-    "Robot 4 to Reefs"
+    "Robot 3 to Reefs FINISHED",
+    "Robot 4 to Reefs FINISHED"
   ],
   "defaultMaxVel": 4.0,
   "defaultMaxAccel": 4.0,

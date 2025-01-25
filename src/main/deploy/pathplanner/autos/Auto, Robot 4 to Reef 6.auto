@@ -19,13 +19,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Station 2 to Reef 5"
+            "pathName": "Station 2 to Reef 6"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Robot 4 to Reefs",
+  "folder": "Robot 4 to Reefs FINISHED",
   "choreoAuto": false
 }
