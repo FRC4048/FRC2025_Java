@@ -1,0 +1,75 @@
+Robot controller mapping
+
+DRIVER (same as last year)
+Drive on left controller module (forward, backward, left, right)
+Steer on right controller module (clockwise, counterclockwise)
+Left trigger - Enable reef circle mode
+Right trigger - Disable reef circle mode
+
+OPERATOR
+Down arrow - Intake Coral
+Left arrow - Bye-bye lower
+Right arrow - Bye-bye upper
+LB - Take algae in
+RB - Let algae into processor
+Green A - shoot L1
+Blue X - shoot L2
+Red B - shoot L3
+Yellow Y - shoot L4
+START - Lift onto cage
+
+
+
+Robot Functions
+
+SWERVE
+Drive forward
+Drive backward
+Drive left
+Drive right
+Steer Clockwise
+Steer Counterclockwise
+
+ALGAE BYE BYE
+Activate bye-bye sequence
+    Extend arm
+    Spin wheels
+    Stop wheels
+    Retract arm
+
+ALGAE HI HI
+* Note: algae intake rests at processor angle, holds algae in possession angle
+Take algae in
+    Spin wheels in (from processor angle to procesor anngle)
+    Extend hi-hi
+Let algae into processor
+    Spin wheels out
+    Retract hi-hi (from possesion angle to processor angle)
+
+ELEVATOR
+Intake Coral 
+    Go to intake position
+    Run intake motors util coral is in neutral position
+Shoot L1
+    Go to L1 position
+    Run intake motors
+Shoot L2
+    Go to L2 position
+    Run intake motors
+Shoot L3
+    Go to L3 position
+    Run intake motors
+Shoot L4
+    Go to L4 position
+    Run intake motors
+Bye-Bye Lower
+    Go to bye-bye lower position
+    bye-bye sequence
+Bye-Bye Upper
+    Go to bye-bye upper position
+    bye-bye sequence
+Enable reef circle mode
+Disable reef circle mode
+
+LIFT
+Lift onto cage
