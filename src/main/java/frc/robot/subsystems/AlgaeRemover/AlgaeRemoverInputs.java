@@ -9,23 +9,16 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /** Add your docs here. */
 public class AlgaeRemoverInputs implements LoggableInputs{
-  public double removerSpeed = 0;
-  public double tiltSpeed = 0;
   public double tiltMotorEncoderPosition = 0;
   public boolean backLimitSwitchState;
   public boolean forwardLimitSwitchState;
 
   public void toLog(LogTable table){
-    table.put("removerSpeed", removerSpeed);
-    table.put("tiltSPeed", tiltSpeed);
     table.put("tiltMotorEncoderPosition", tiltMotorEncoderPosition);
     table.put("backLimitSwitchState", backLimitSwitchState);
     table.put("forwardLimitSwitchState", forwardLimitSwitchState);
 }
 public void fromLog(LogTable table){
-
-    removerSpeed = table.get("removerSpeed", removerSpeed);
-    tiltSpeed = table.get("tiltSPeed", tiltSpeed);
     tiltMotorEncoderPosition = table.get("tiltMotorEncoderPosition", tiltMotorEncoderPosition);
     backLimitSwitchState = table.get("backLimitSwitchState", backLimitSwitchState);
     forwardLimitSwitchState = table.get("forwardLimitSwitchState", forwardLimitSwitchState);

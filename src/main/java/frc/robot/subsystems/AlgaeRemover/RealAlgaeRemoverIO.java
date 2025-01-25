@@ -55,8 +55,6 @@ this.removerTiltMotor.set(tiltSpeed);
   public void updateInputs(AlgaeRemoverInputs inputs){
     inputs.forwardLimitSwitchState = removerTiltMotor.getSensorCollection().isFwdLimitSwitchClosed();
     inputs.backLimitSwitchState = removerTiltMotor.getSensorCollection().isRevLimitSwitchClosed();
-    inputs.removerSpeed = removerMotor.get();
-    inputs.tiltSpeed = removerTiltMotor.get();
     inputs.tiltMotorEncoderPosition = removerTiltMotor.getSelectedSensorPosition();
   }
 }
