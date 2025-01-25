@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.1904974780036397,
-        "y": 7.056457875075849
+        "x": 7.120353763204225,
+        "y": 4.89766415878081
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5662473404596258,
-        "y": 6.97324362276511
+        "x": 6.630131423305457,
+        "y": 4.6423945037411976
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.772468759481189,
-        "y": 3.994852188258494
+        "x": 5.780922301386443,
+        "y": 4.019810120488557
       },
       "prevControl": {
-        "x": 6.897948444230308,
-        "y": 5.9642706521669435
+        "x": 6.044560134242957,
+        "y": 4.153861892055459
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.1561896285205
+    "rotation": -179.77105494143672
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Robot to Reef STARTER",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.30023439829488
+    "rotation": 179.72137313674
   },
   "useDefaultConstraints": true
 }

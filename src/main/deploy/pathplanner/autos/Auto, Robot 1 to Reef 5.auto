@@ -11,19 +11,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R-3 (Used in all R Paths)"
+                  "pathName": "Path, Robot 1 to Reef 3 STARTER"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Reef 3 to Station 1 Done"
+                  "pathName": "Path, Reef 3 to Station 1 FINAL "
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Station 1 to Reef 4"
+                  "pathName": "Station 1 to Reef 5 Done"
                 }
               }
             ]
@@ -33,6 +33,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Right - 1,2,3,4,5,6 on the Reef",
+  "folder": "Robot 1 to Reefs",
   "choreoAuto": false
 }

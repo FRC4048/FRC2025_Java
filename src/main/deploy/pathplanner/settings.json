@@ -3,11 +3,15 @@
   "robotLength": 0.88,
   "holonomicMode": true,
   "pathFolders": [
-    "Used in all Paths"
+    "Reef to Station ",
+    "Robot to Reef STARTER",
+    "Station to Reef"
   ],
   "autoFolders": [
-    "Left - 1,2,3,4,5,6 on the Reef",
-    "Right - 1,2,3,4,5,6 on the Reef"
+    "Robot 3 to Reefs",
+    "Robot 1 to Reefs",
+    "Robot 2 to Reefs",
+    "Robot 4 to Reefs"
   ],
   "defaultMaxVel": 4.0,
   "defaultMaxAccel": 4.0,

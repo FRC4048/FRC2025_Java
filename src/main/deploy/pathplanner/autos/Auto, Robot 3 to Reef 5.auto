@@ -7,25 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L-5 (Used in all L Paths)"
+            "pathName": "Path, Robot 3 to Reef 4 STARTER"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Station 2 to Reef 5 Done"
+            "pathName": "Reef 4 to Station 2 Done"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Reef 5 to Station 2"
+            "pathName": "Path, Station 2 to Reef 5 FINAL"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Left - 1,2,3,4,5,6 on the Reef",
+  "folder": "Robot 3 to Reefs",
   "choreoAuto": false
 }

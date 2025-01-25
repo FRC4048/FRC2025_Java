@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.121842333296655,
+        "y": 6.740876017825704
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.590339596170775,
+        "y": 7.092379717759683
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.134802418023768,
+        "y": 5.14174942231514
+      },
+      "prevControl": {
+        "x": 4.519862043353873,
+        "y": 4.727082072513204
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -120.81000000000002
+  },
+  "reversed": false,
+  "folder": "Robot to Reef STARTER",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -179.9950666564068
+  },
+  "useDefaultConstraints": true
+}

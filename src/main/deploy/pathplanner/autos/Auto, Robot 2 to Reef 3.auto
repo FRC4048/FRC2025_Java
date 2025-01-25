@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Path, Robot 2 to Reef 4 STARTER"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Path, Reef 4 to Station 1 FINAL"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 1 to Reef 3 Done"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Robot 2 to Reefs",
+  "choreoAuto": false
+}
