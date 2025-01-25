@@ -18,8 +18,28 @@ public class AlgaeRemoverSubsystem extends SubsystemBase {
   public void periodic() {
    algaeSystem.updateInputs();
   }
+  
+  public void setRemoverSpeed(double speed){
+    algaeSystem.getIO().setRemoverSpeed(speed);
 
+  }
 
+  public void setTiltMotorSpeed(double speed){
+    algaeSystem.getIO().setTiltMotorSpeed(speed);
 
+  }
+  public void stopTiltMotors(){
+    algaeSystem.getIO().stopTiltMotors();
+
+  }
+
+  public void stopRemoverMotors(){
+    algaeSystem.getIO().stopRemoverMotors();
+
+  }
+  public void resetTiltEncoder(){
+    algaeSystem.getIO().resetTiltEncoder();
+
+  }
 
 }
