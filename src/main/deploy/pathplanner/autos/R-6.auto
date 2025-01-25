@@ -17,13 +17,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3-SL"
+                  "pathName": "Reef 3 to Station 1"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SL-6"
+                  "pathName": "Station 1 to Reef 6"
                 }
               }
             ]
