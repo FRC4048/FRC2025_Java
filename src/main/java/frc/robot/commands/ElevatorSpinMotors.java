@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
+import frc.robot.constants.GameConstants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -45,7 +46,7 @@ public double startTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMER_THRESHHOLD >= startTime);
+    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime);
   }
 
 }
