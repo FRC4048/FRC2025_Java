@@ -5,13 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
-import frc.robot.constants.GameConstants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.utils.logging.LoggableCommand;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorSpinMotors extends Command {
+public class ElevatorSpinMotors extends LoggableCommand{
   /** Creates a new ElevatorSpinMotors. */
   private ElevatorSubsystem elevator;
 public double startTime;
