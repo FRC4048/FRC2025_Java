@@ -1,4 +1,4 @@
-package frc.robot.subsystems.algaeroller;
+package frc.robot.subsystems.algaeRoller;
 
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;

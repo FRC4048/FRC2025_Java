@@ -1,4 +1,4 @@
-package frc.robot.subsystems.algaeroller;
+package frc.robot.subsystems.algaeRoller;
 
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;

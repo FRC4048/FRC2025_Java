@@ -1,4 +1,4 @@
-package frc.robot.subsystems.algaeroller;
+package frc.robot.subsystems.algaeRoller;
 
 public class MockAlgaeRollerIO implements AlgaeRollerIO {
   @Override

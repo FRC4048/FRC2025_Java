@@ -1,12 +1,12 @@
-package frc.robot.subsystems.algaeroller;
+package frc.robot.subsystems.algaeRoller;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
 
-public class AlgaeRoller extends SubsystemBase {
+public class AlgaeRollerSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeRollerIO, AlgaeRollerInputs> algaeRollerSystem;
 
-  public AlgaeRoller(AlgaeRollerIO algaeRollerIO) {
+  public AlgaeRollerSubsystem(AlgaeRollerIO algaeRollerIO) {
     this.algaeRollerSystem = new LoggableSystem<>(algaeRollerIO, new AlgaeRollerInputs());
   }
 
