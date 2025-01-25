@@ -53,8 +53,5 @@ public class RealAlgaeRollerIO implements AlgaeRollerIO {
   public void updateInputs(AlgaeRollerInputs inputs) {
     inputs.algaeRollerEncoder = algaeRollerMotor.getEncoder().getPosition();
     inputs.algaeAngleEncoder = algaeAngleMotor.getSelectedSensorPosition();
-    inputs.algaeAngleSpeed = algaeAngleMotor.get();
-    inputs.algaeRollerSpeed = algaeRollerMotor.get();
-
   }
 }
