@@ -10,10 +10,11 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorSpinMotors extends LoggableCommand{
+public class ElevatorSpinMotors extends LoggableCommand {
   /** Creates a new ElevatorSpinMotors. */
   private ElevatorSubsystem elevator;
-public double startTime;
+
+  public double startTime;
 
   public ElevatorSpinMotors(ElevatorSubsystem elevator) {
     this.elevator = elevator;
@@ -25,8 +26,7 @@ public double startTime;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  startTime = Timer.getFPGATimestamp();
-   
+    startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,7 +45,8 @@ public double startTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime);
+    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR
+        || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR
+        || Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime);
   }
-
 }
