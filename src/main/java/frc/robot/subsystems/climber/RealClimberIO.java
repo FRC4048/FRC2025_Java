@@ -18,8 +18,9 @@ public class RealClimberIO implements ClimberIO{
 
     public RealClimberIO(){
         this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
-        configureMotor();
         climberConfig = new SparkMaxConfig();
+        configureMotor();
+       
     }
 
     public void configureMotor(){
@@ -40,6 +41,6 @@ public class RealClimberIO implements ClimberIO{
     
     @Override
     public void updateInputs(ClimberInputs inputs) {
-        inputs.speedMotor = climberMotor.get();
+        inputs.climberMotorEncoder = climberMotor.getEncoder().getPosition();
     }
 }

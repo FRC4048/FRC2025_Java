@@ -9,16 +9,16 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /** Add your docs here. */
 public class ClimberInputs implements LoggableInputs{
-  public double speedMotor;
+  public double climberMotorEncoder;
 
   @Override
 public void toLog(LogTable table){
-table.put("speedMotor", speedMotor);
+table.put("climberMotorEncoder", climberMotorEncoder);
 }
 
   @Override
   public void fromLog(LogTable table){
-    speedMotor = table.get("speedMotor", speedMotor);
+    climberMotorEncoder = table.get("climberMotorEncoder", climberMotorEncoder);
 
   }
 }
