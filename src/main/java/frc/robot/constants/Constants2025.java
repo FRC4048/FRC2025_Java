@@ -51,4 +51,5 @@ public class Constants2025 extends GameConstants {
 
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int SERVER_SOCKET_ATTEMPT_DELAY = 100;
+  public static final int TCP_SERVER_PORT = 5806;
 }
