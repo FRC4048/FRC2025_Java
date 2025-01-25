@@ -41,5 +41,16 @@ public class AlgaeRemoverSubsystem extends SubsystemBase {
     algaeSystem.getIO().resetTiltEncoder();
 
   }
+  public double getAngle(){
+    return algaeSystem.getInputs().tiltMotorEncoderPosition;
+  }
+  public boolean getForwardSwitchState(){
+    return algaeSystem.getInputs().forwardLimitSwitchState;
 
+  }
+  public boolean getReverseSwitchState(){
+    return algaeSystem.getInputs().backLimitSwitchState;
+
+  }
 }
+

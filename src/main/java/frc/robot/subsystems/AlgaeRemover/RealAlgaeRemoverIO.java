@@ -9,14 +9,16 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import frc.robot.constants.Constants;
+
 /** Add your docs here. */
 public class RealAlgaeRemoverIO implements AlgaeRemoverIO{
 private final WPI_TalonSRX removerMotor;
 private final WPI_TalonSRX removerTiltMotor; //SnowblowerMotor
 
 public RealAlgaeRemoverIO(){
-this.removerMotor = new WPI_TalonSRX(0);
-this.removerTiltMotor = new WPI_TalonSRX(0);
+this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_SPINING_ID);
+this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_TILT_ID);
 configureMotor();
 resetTiltEncoder();
 }
