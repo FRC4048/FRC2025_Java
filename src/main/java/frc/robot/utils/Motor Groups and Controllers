@@ -49,18 +49,22 @@ Let algae into processor
 ELEVATOR
 Intake Coral 
     Go to intake position
+    Ensure tilt is horizontal
     Run intake motors util coral is in neutral position
 Shoot L1
     Go to L1 position
     Run intake motors
 Shoot L2
     Go to L2 position
+    Ensure tilt is angled
     Run intake motors
 Shoot L3
     Go to L3 position
+    Ensure tilt is angled
     Run intake motors
 Shoot L4
     Go to L4 position
+    Ensure tilt is angled
     Run intake motors
 Bye-Bye Lower
     Go to bye-bye lower position
