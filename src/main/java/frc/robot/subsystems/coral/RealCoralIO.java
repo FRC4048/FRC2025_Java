@@ -3,15 +3,14 @@ package frc.robot.subsystems.coral;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotor1; // TODO: change later to whatever
   private final SparkMax shooterMotor2; // TODO: change later to whatever
   private final SparkMax shooterTiltMotor; // TODO: change later to whatever
-   private final SparkBaseConfig coralConfig;
+  private final SparkBaseConfig coralConfig;
 
   public RealCoralIO(int RealCoralIO) {
     shooterMotor1 = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
@@ -21,13 +20,22 @@ public class RealCoralIO implements CoralIO {
     resetTiltEncoder();
     coralConfig = new SparkMaxConfig();
   }
+
   private void configureMotor() {
-    coralConfig
-      .idleMode(IdleMode.kBrake);
-       shooterMotor1.configure(coralConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
-       shooterMotor2.configure(coralConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
-       shooterTiltMotor.configure(coralConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
-      }
+    coralConfig.idleMode(IdleMode.kBrake);
+    shooterMotor1.configure(
+        coralConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
+    shooterMotor2.configure(
+        coralConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
+    shooterTiltMotor.configure(
+        coralConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
+  }
 
   @Override
   public void setShooterSpeed(double speed) {
