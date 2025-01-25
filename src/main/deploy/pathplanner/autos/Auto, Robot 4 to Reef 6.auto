@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Path, Robot 4 to Reef 5 STARTER"
+            "pathName": "Robot 4 to Reef 5 STARTER"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Path, Reef 5 to Station 2 FINAL"
+            "pathName": "Reef 5 to Station 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Path, Station 2 to Reef 5 FINAL"
+            "pathName": "Station 2 to Reef 5"
           }
         }
       ]

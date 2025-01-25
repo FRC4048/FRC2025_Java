@@ -11,19 +11,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Path, Robot 1 to Reef 3 STARTER"
+                  "pathName": "Robot 1 to Reef 3 STARTER"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Path, Reef 3 to Station 1 FINAL "
+                  "pathName": "Reef 3 to Station 1 "
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Station 1 to Reef 2 Done"
+                  "pathName": "Station 1 to Reef 2"
                 }
               }
             ]
