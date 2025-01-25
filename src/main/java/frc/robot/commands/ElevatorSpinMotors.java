@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -11,6 +12,7 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 public class ElevatorSpinMotors extends Command {
   /** Creates a new ElevatorSpinMotors. */
   private ElevatorSubsystem elevator;
+public double startTime;
 
   public ElevatorSpinMotors(ElevatorSubsystem elevator) {
     this.elevator = elevator;
@@ -22,7 +24,7 @@ public class ElevatorSpinMotors extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  
+  startTime = Timer.getFPGATimestamp();
    
   }
 
@@ -45,6 +47,6 @@ public class ElevatorSpinMotors extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
+    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || Timer.getFPGATimestamp() - 10 == startTime);
 }
 }
