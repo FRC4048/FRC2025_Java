@@ -13,6 +13,7 @@ public class Constants2025 extends GameConstants {
   public static final int ALGAE_ROLLER_CAN_ID = 7; // change later
   public static final double ENCODER_THRESHHOLD_ELEVATOR = 12; // TODO: change later
   public static final double ELEVATOR_RISE_SPEED = 0.5; // TODO: change later
+  public static final double ELEVATOR_SPIN_MOTOR_TIMER_THRESHHOLD = 10;//TODO: change later
 
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
   public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later

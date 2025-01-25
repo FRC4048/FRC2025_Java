@@ -45,7 +45,7 @@ public double startTime;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || Timer.getFPGATimestamp() - 10 >= startTime);
+    return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR || Timer.getFPGATimestamp() - Constants.ELEVATOR_SPIN_MOTOR_TIMER_THRESHHOLD >= startTime);
   }
 
 }
