@@ -17,13 +17,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Reef 3 to Station 1"
+                  "pathName": "Reef 3 to Station 1 Done"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Station 1 to Reef 5"
+                  "pathName": "Station 1 to Reef 5 Done"
                 }
               }
             ]
