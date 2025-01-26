@@ -16,6 +16,6 @@ public class AlgaeRollerInputs implements LoggableInputs {
   @Override
   public void fromLog(LogTable table) {
     algaeRollerEncoder = table.get("algaeRollerEncoder", algaeRollerEncoder);
-    algaeAngleEncoder = table.get("algaeAngleEncoder",algaeAngleEncoder);
+    algaeAngleEncoder = table.get("algaeAngleEncoder", algaeAngleEncoder);
   }
 }
