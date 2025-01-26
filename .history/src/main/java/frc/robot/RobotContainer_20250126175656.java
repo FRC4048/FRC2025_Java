@@ -15,6 +15,7 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Intake.IntakeCoral;
+import frc.robot.commands.Intake.StopIntake;
 import frc.robot.commands.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.constants.Constants;
@@ -180,6 +181,7 @@ public class RobotContainer {
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.put("Commands", "Intake Coral", new IntakeCoral(shooter, 0.5));
       SmartShuffleboard.put("Commands", "Shoot Coral", new ShootCoral(shooter, 0.5));
+      SmartShuffleboard.put("Commands", "Stop Intake", new StopIntake(shooter));
     }
   }
 }
