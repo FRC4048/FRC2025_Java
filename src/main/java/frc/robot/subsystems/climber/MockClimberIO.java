@@ -5,14 +5,13 @@
 package frc.robot.subsystems.climber;
 
 /** Add your docs here. */
-public class MockClimberIO implements ClimberIO{
-    @Override
-    public void setClimberSpeed(double speed) {}
-    
-    @Override
-    public void stopClimber(){}
+public class MockClimberIO implements ClimberIO {
+  @Override
+  public void setClimberSpeed(double speed) {}
 
-    @Override
-    public void updateInputs(ClimberInputs inputs) {}
+  @Override
+  public void stopClimber() {}
 
+  @Override
+  public void updateInputs(ClimberInputs inputs) {}
 }

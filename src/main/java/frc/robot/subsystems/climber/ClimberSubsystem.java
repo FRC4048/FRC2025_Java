@@ -10,6 +10,7 @@ import frc.robot.utils.logging.LoggableSystem;
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
   private final LoggableSystem<ClimberIO, ClimberInputs> climberSystem;
+
   public ClimberSubsystem(ClimberIO io) {
 
     climberSystem = new LoggableSystem<>(io, new ClimberInputs());
@@ -20,11 +21,11 @@ public class ClimberSubsystem extends SubsystemBase {
     climberSystem.updateInputs();
   }
 
-  public void setClimberSpeed(double speed){
+  public void setClimberSpeed(double speed) {
     climberSystem.getIO().setClimberSpeed(speed);
   }
-  public void stopClimber(){
-    climberSystem.getIO().stopClimber();
 
+  public void stopClimber() {
+    climberSystem.getIO().stopClimber();
   }
 }

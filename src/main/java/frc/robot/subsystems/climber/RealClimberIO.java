@@ -6,41 +6,41 @@ package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
+import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
 /** Add your docs here. */
-public class RealClimberIO implements ClimberIO{
-    private final SparkMax climberMotor;
-    private final SparkMaxConfig climberConfig;
+public class RealClimberIO implements ClimberIO {
+  private final SparkMax climberMotor;
+  private final SparkMaxConfig climberConfig;
 
-    public RealClimberIO(){
-        this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
-        climberConfig = new SparkMaxConfig();
-        configureMotor();
-       
-    }
+  public RealClimberIO() {
+    this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
+    climberConfig = new SparkMaxConfig();
+    configureMotor();
+  }
 
-    public void configureMotor(){
-        climberConfig
-            .idleMode(IdleMode.kBrake);
-            climberMotor.configure(climberConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
+  public void configureMotor() {
+    climberConfig.idleMode(IdleMode.kBrake);
+    climberMotor.configure(
+        climberConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
+  }
 
-    }
-    @Override
-    public void setClimberSpeed(double speed) {
-        climberMotor.set(speed);
-    }
+  @Override
+  public void setClimberSpeed(double speed) {
+    climberMotor.set(speed);
+  }
 
-    @Override
-    public void stopClimber() {
-     climberMotor.set(0);
-    }
-    
-    @Override
-    public void updateInputs(ClimberInputs inputs) {
-        inputs.climberMotorEncoder = climberMotor.getEncoder().getPosition();
-    }
+  @Override
+  public void stopClimber() {
+    climberMotor.set(0);
+  }
+
+  @Override
+  public void updateInputs(ClimberInputs inputs) {
+    inputs.climberMotorEncoder = climberMotor.getEncoder().getPosition();
+  }
 }
