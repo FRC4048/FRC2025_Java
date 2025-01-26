@@ -32,7 +32,6 @@ public class ElevatorSpinMotors extends LoggableCommand {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
     elevator.setElevatorMotorSpeed(Constants.ELEVATOR_RISE_SPEED);
   }
 
