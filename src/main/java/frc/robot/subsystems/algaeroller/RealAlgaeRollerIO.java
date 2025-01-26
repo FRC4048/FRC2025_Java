@@ -32,7 +32,7 @@ public class RealAlgaeRollerIO implements AlgaeRollerIO {
   }
 
   @Override
-  public void setSpeedRoller(double speed) {
+  public void setRollerSpeed(double speed) {
     algaeRollerMotor.set(speed);
   }
 
@@ -42,7 +42,7 @@ public class RealAlgaeRollerIO implements AlgaeRollerIO {
   }
 
   @Override
-  public void setSpeedAngle(double speed) {
+  public void setTiltSpeed(double speed) {
     algaeAngleMotor.set(speed);
   }
 

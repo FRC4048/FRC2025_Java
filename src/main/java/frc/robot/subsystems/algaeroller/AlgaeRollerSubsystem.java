@@ -11,7 +11,7 @@ public class AlgaeRollerSubsystem extends SubsystemBase {
   }
 
   public void setRollerMotorSpeed(double speed) {
-    algaeRollerSystem.getIO().setSpeedRoller(speed);
+    algaeRollerSystem.getIO().setRollerSpeed(speed);
   }
 
   public double getRollerMotorPosition() {
@@ -23,7 +23,7 @@ public class AlgaeRollerSubsystem extends SubsystemBase {
   }
 
   public void setSpeedAngle(double speed) {
-    algaeRollerSystem.getIO().setSpeedAngle(speed);
+    algaeRollerSystem.getIO().setTiltSpeed(speed);
   }
 
   public void stopAngleMotor() {

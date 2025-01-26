@@ -2,7 +2,7 @@ package frc.robot.subsystems.algaeroller;
 
 public class MockAlgaeRollerIO implements AlgaeRollerIO {
   @Override
-  public void setSpeedRoller(double speed) {}
+  public void setRollerSpeed(double speed) {}
 
   @Override
   public void stopRollerMotor() {}
@@ -11,7 +11,7 @@ public class MockAlgaeRollerIO implements AlgaeRollerIO {
   public void updateInputs(AlgaeRollerInputs inputs) {}
 
   @Override
-  public void setSpeedAngle(double speed) {}
+  public void setTiltSpeed(double speed) {}
 
   @Override
   public void stopAngleMotor() {}
