@@ -64,4 +64,7 @@ public class GameConstants {
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double ENCODER_THRESHHOLD_ELEVATOR = 12; // TODO: change later
+  public static final boolean ENABLE_VISION = true;
+  public static final double VISION_CONSISTANCY_THRESHOLD = 0.25;
+  public static final long POSE_BUFFER_STORAGE_TIME = 2;
 }
