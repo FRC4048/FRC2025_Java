@@ -62,6 +62,6 @@ public class GameConstants {
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
 
-  //vision
+  // vision
   public static final boolean ENABLE_VISION = true;
 }
