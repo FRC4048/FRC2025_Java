@@ -5,12 +5,12 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class StartIntake extends LoggableCommand {
+public class IntakeCoral extends LoggableCommand {
   private final CoralSubsystem intake;
   private final Timer timer = new Timer();
   private final double motorRunTime; // temporary until  done testing
 
-  public StartIntake(CoralSubsystem intake, double motorRunTime) {
+  public IntakeCoral(CoralSubsystem intake, double motorRunTime) {
     addRequirements(intake);
     this.intake = intake;
     this.motorRunTime = motorRunTime;

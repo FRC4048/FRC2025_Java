@@ -13,6 +13,8 @@ public class GameConstants {
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
+  public static final double INTAKE_MOTOR_SPEED = 0.5; // TODO: change later
+  public static final double INTAKE_TILT_SPEED = 0.5; // TODO: change later
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
