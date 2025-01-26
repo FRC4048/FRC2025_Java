@@ -45,13 +45,13 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_FRONT_LEFT_S = 28; // TODO: change later
   public static final int DRIVE_BACK_LEFT_S = 27; // TODO: change later
 
+  // Algae Extender
+  public static final int ALGAE_EXTENDER_MOTOR_ID = 3; // TODO: change later
+
   // Hardware Specs
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
   public static final double ROBOT_WIDTH = 0.8636; // TODO: change later
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
   public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
-
-  // Algae Extender
-  public static final int ALGAE_EXTENDER_MOTOR_ID = 3; // TODO: change later
 }
