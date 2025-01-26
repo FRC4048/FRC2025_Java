@@ -1,4 +1,4 @@
-package frc.robot.subsystems.algaeRoller;
+package frc.robot.subsystems.algaeroller;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;

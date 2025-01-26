@@ -1,4 +1,4 @@
-package frc.robot.subsystems.algaeRoller;
+package frc.robot.subsystems.algaeroller;
 
 import frc.robot.utils.logging.LoggableIO;
 

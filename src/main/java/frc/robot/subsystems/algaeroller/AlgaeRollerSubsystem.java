@@ -1,4 +1,4 @@
-package frc.robot.subsystems.algaeRoller;
+package frc.robot.subsystems.algaeroller;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
