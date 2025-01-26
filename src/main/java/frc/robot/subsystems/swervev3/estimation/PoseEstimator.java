@@ -120,7 +120,7 @@ public class PoseEstimator {
             new double[] {
               apriltagSystem.getInputs().posX[i],
               apriltagSystem.getInputs().posY[i],
-              apriltagSystem.getInputs().rotationDeg[i]
+              apriltagSystem.getInputs().poseYaw[i]
             };
         if (validAprilTagPose(pos)) {
           double diff =
