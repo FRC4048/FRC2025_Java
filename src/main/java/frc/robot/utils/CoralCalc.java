@@ -18,21 +18,22 @@ public class CoralCalc {
     this.y = y;
     this.x = x;
     this.theta = theta;
-    this.r = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+    this.r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     calculateVelocities();
   }
 
   private void calculateVelocities() {
-    this.yVelocity = (Math.pow(1/Math.cos(this.theta),2) * Math.pow(this.x,2) * this.angularVelocity);
-    this.yVelocity /= (this.x + (Math.pow(this.y,2) / this.x));
-    this.xVelocity = this.yVelocity * -1 * (this.y/this.x);
+    this.yVelocity =
+        (Math.pow(1 / Math.cos(this.theta), 2) * Math.pow(this.x, 2) * this.angularVelocity);
+    this.yVelocity /= (this.x + (Math.pow(this.y, 2) / this.x));
+    this.xVelocity = this.yVelocity * -1 * (this.y / this.x);
   }
 
   public double getVelocity() {
-    return Math.sqrt(Math.pow(this.xVelocity,2), Math.pow(this.yVelocity,2));
+    return (Math.sqrt(Math.pow(this.xVelocity, 2) + Math.pow(this.yVelocity, 2)));
   }
 
   public double getAngle() {
-    return Math.atan(this.yVelocity/this.xVelocity);
+    return Math.atan(this.yVelocity / this.xVelocity);
   }
 }
