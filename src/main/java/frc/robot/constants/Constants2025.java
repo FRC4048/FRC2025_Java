@@ -46,8 +46,10 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_SMART_LIMIT = 38; // TODO: change later
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
+
   public static final long MAX_LOG_TIME_WAIT = 10;
   public static final long GYRO_THREAD_RATE_MS = 10;
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int SERVER_SOCKET_ATTEMPT_DELAY = 100;
+  public static final int TCP_SERVER_PORT = 5806;
 }
