@@ -19,7 +19,6 @@ public class ElevatorSpinMotors extends LoggableCommand {
   public ElevatorSpinMotors(ElevatorSubsystem elevator) {
     this.elevator = elevator;
     addRequirements(elevator);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
