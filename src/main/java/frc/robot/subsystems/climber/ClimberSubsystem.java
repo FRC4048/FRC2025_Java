@@ -12,7 +12,6 @@ public class ClimberSubsystem extends SubsystemBase {
   private final LoggableSystem<ClimberIO, ClimberInputs> climberSystem;
 
   public ClimberSubsystem(ClimberIO io) {
-
     climberSystem = new LoggableSystem<>(io, new ClimberInputs());
   }
 
