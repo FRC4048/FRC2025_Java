@@ -19,7 +19,6 @@ public class RealCoralIO implements CoralIO {
     coralConfig = new SparkMaxConfig();
     configureMotor();
     resetTiltEncoder();
-    
   }
 
   private void configureMotor() {
