@@ -63,6 +63,5 @@ public class GameConstants {
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
 
   // Algae Extender
-  public static final int EXTENDER_MOTOR_FORWARD_SPEED = 4; // TODO: change later
-  public static final int EXTENDER_MOTOR_BACKWARD_SPEED = 5; // TODO: change later
+  public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
 }
