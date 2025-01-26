@@ -11,6 +11,8 @@ public class Constants2025 extends GameConstants {
   public static final int SHOOTER_TILT_MOTOR_ID = 2; // TODO: change later
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final int ALGAE_ROLLER_CAN_ID = 7; // change later
+  public static final int ALGAE_REMOVER_SPINING_ID = 1; // TODO: change later
+  public static final int ALGAE_REMOVER_TILT_ID = 2; // TODO: change later
 
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
   public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later
@@ -48,4 +50,8 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_SMART_LIMIT = 38; // TODO: change later
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
+
+  public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
+  public static final int SERVER_SOCKET_ATTEMPT_DELAY = 100;
+  public static final int TCP_SERVER_PORT = 5806;
 }
