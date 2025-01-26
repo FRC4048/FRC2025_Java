@@ -5,10 +5,11 @@
 package frc.robot.subsystems.algaeextender;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.LoggableSystem;
+import frc.robot.utils.logging.LoggableSystem;
 
 public class AlgaeExtenderSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeExtenderIO, AlgaeExtenderInputs> system;
+
   /** Creates a new Extender. */
   public AlgaeExtenderSubsystem(AlgaeExtenderIO io) {
     system = new LoggableSystem<>(io, new AlgaeExtenderInputs());

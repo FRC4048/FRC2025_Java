@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.algaeextender;
 
-import frc.robot.utils.LoggableIO;
+import frc.robot.utils.logging.LoggableIO;
 
 public interface AlgaeExtenderIO extends LoggableIO<AlgaeExtenderInputs> {
   void stopAlgae();
