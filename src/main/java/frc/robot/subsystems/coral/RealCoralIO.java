@@ -2,7 +2,6 @@ package frc.robot.subsystems.coral;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -10,18 +9,17 @@ public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotor1; // TODO: change later to whatever
   private final SparkMax shooterMotor2; // TODO: change later to whatever
   private final SparkMax shooterTiltMotor; // TODO: change later to whatever
-  private final SparkBaseConfig coralConfig;
 
   public RealCoralIO(int RealCoralIO) {
     shooterMotor1 = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
     shooterMotor2 = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
     shooterTiltMotor = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
-    coralConfig = new SparkMaxConfig();
     configureMotor();
     resetTiltEncoder();
   }
 
   private void configureMotor() {
+    SparkMaxConfig coralConfig = new SparkMaxConfig();
     coralConfig.idleMode(IdleMode.kBrake);
     shooterMotor1.configure(
         coralConfig,

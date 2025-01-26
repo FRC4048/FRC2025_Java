@@ -12,7 +12,6 @@ import java.util.function.Supplier;
 
 public class Drive extends LoggableCommand {
   private final SwerveDrivetrain drivetrain;
-
   private final DoubleSupplier fwdSupplier;
   private final DoubleSupplier strSupplier;
   private final DoubleSupplier rtSupplier;

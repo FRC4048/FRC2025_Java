@@ -17,7 +17,6 @@ public class CoralSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     system.updateInputs();
   }
 
@@ -47,10 +46,6 @@ public class CoralSubsystem extends SubsystemBase {
 
   public boolean getReverseSwitchState() {
     return system.getInputs().revTripped;
-  }
-
-  public double getDesiredTiltAngularVelocity() {
-    return system.getInputs().angleSpeed;
   }
 
   public void resetEncoder() {
