@@ -18,8 +18,7 @@ public class IntakeCoral extends LoggableCommand {
 
   @Override
   public void initialize() {
-    timer.reset();
-    timer.start();
+    timer.restart();
   }
 
   @Override
