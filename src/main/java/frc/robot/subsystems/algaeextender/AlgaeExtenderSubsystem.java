@@ -26,7 +26,7 @@ public class AlgaeExtenderSubsystem extends SubsystemBase {
   }
 
   public void stopExtenderMotors() {
-    system.getIO().stopAlgae();
+    system.getIO().stopAlgaeExtenderMotor();
   }
 
   public boolean getForwardSwitchState() {

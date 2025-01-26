@@ -24,7 +24,7 @@ public class RealAlgaeExtenderIO implements AlgaeExtenderIO {
   }
 
   @Override
-  public void stopAlgae() {
+  public void stopAlgaeExtenderMotor() {
     this.extenderMotor.set(0);
   }
 
