@@ -3,11 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems.algaeextender;
+
 import frc.robot.utils.LoggableIO;
 
 public interface AlgaeExtenderIO extends LoggableIO<AlgaeExtenderInputs> {
-    void extendAlgae();
-    void retractAlgae();
-    void stopAlgae();
-    void setAlgaeExtenderSpeed(double speed);
+  void stopAlgae();
+
+  void setAlgaeExtenderSpeed(double speed);
+
+  void resetExtenderEncoder();
 }

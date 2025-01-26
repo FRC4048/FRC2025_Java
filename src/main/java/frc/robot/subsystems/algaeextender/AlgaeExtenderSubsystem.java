@@ -19,26 +19,24 @@ public class AlgaeExtenderSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     system.updateInputs();
   }
+
   public void setExtenderSpeed(double speed) {
     system.getIO().setAlgaeExtenderSpeed(speed);
   }
-  public void extendAlgaeMotor() {
-    system.getIO().extendAlgae();
-  }
-  public void retractAlgaeMotor() {
-    system.getIO().retractAlgae();
-  }
+
   public void stopExtenderMotors() {
     system.getIO().stopAlgae();
   }
+
   public boolean getForwardSwitchState() {
     return system.getInputs().fwdTripped;
   }
+
   public boolean getReverseSwitchState() {
     return system.getInputs().revTripped;
   }
+
   public void resetEncoder() {
     system.getIO().resetExtenderEncoder();
   }
-
 }
