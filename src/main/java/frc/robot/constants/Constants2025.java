@@ -4,12 +4,10 @@ import frc.robot.utils.SwerveModuleProfileV2;
 
 public class Constants2025 extends GameConstants {
   public static final int ELEVATOR_MOTOR_1_ID = 0; // TODO: change later
-  public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final int ELEVATOR_MOTOR_2_ID = 1; // TODO: change later
   public static final int SHOOTER_MOTOR_1_ID = 0; // TODO: change later
   public static final int SHOOTER_MOTOR_2_ID = 1; // TODO: change later
   public static final int SHOOTER_TILT_MOTOR_ID = 2; // TODO: change later
-  public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final int ALGAE_ROLLER_CAN_ID = 7; // change later
 
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
@@ -48,4 +46,8 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_SMART_LIMIT = 38; // TODO: change later
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
+  public static final long MAX_LOG_TIME_WAIT = 10;
+  public static final long GYRO_THREAD_RATE_MS = 10;
+  public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
+  public static final int SERVER_SOCKET_ATTEMPT_DELAY = 100;
 }

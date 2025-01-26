@@ -58,9 +58,7 @@ public class RealCoralIO implements CoralIO {
 
   @Override
   public void updateInputs(CoralInputs inputs) {
-    inputs.shooterSpeed = shooterMotor1.get();
     inputs.fwdTripped = shooterTiltMotor.getSensorCollection().isFwdLimitSwitchClosed();
     inputs.revTripped = shooterTiltMotor.getSensorCollection().isRevLimitSwitchClosed();
-    inputs.angleSpeed = shooterTiltMotor.get();
   }
 }
