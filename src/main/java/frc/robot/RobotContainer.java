@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
-import frc.robot.apriltags.NtApriltag;
+import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
@@ -122,7 +122,7 @@ public class RobotContainer {
           new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
-      apriltagIO = new NtApriltag();
+      apriltagIO = new TCPApriltag();
     } else {
       frontLeft =
           new SwerveModule(
