@@ -51,4 +51,7 @@ public class Constants2025 extends GameConstants {
   public static final double ALIGNABLE_PID_P = 0.01; // TODO: change later
   public static final double ALIGNABLE_PID_I = 0.003; // TODO: change later
   public static final double ALIGNABLE_PID_D = 0.0004; // TODO: change later
+  public static final long POSE_BUFFER_STORAGE_TIME = 2;
+  public static final double VISION_CONSISTANCY_THRESHOLD = 0.25;
+  public static final boolean ENABLE_VISION = true; // TODO: change
 }

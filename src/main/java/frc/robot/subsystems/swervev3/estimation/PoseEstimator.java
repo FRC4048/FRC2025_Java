@@ -5,7 +5,6 @@ import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -48,18 +47,7 @@ public class PoseEstimator {
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.001);
-  private static final Transform2d cameraOneTransform =
-      new Transform2d(
-          Constants.CAMERA_OFFSET_FROM_CENTER_X,
-          Constants.CAMERA_OFFSET_FROM_CENTER_Y,
-          new Rotation2d());
-  private static final Transform2d cameraTwoTransform =
-      new Transform2d(
-          Constants.CAMERA_OFFSET_FROM_CENTER_X,
-          Constants.CAMERA_OFFSET_FROM_CENTER_Y,
-          new Rotation2d());
   private final PoseManager poseManager;
-  private int invalidApriltagNum;
 
   public PoseEstimator(
       SwerveModule frontLeftMotor,
@@ -74,7 +62,6 @@ public class PoseEstimator {
     this.backLeft = backLeftMotor;
     this.backRight = backRightMotor;
     this.apriltagSystem = new LoggableSystem<>(apriltagIO, new ApriltagInputs());
-    invalidApriltagNum = 0;
     OdometryMeasurement initMeasurement =
         new OdometryMeasurement(
             new SwerveModulePosition[] {
@@ -96,7 +83,7 @@ public class PoseEstimator {
             new BasicVisionFilter(m1Buffer) {
               @Override
               public Pose2d getVisionPose(VisionMeasurement measurement) {
-                return measurement.measurement().plus(cameraOneTransform);
+                return measurement.measurement();
               }
             });
     SmartDashboard.putData(field);
@@ -113,7 +100,6 @@ public class PoseEstimator {
    */
   public void updatePosition(OdometryMeasurement m) {
     if (DriverStation.isEnabled()) {
-      // poseManager.addOdomMeasurement(m, Logger.getRealTimestamp());
       poseManager.addOdomMeasurement(m, Logger.getTimestamp());
     }
     field.setRobotPose(poseManager.getEstimatedPosition());
@@ -140,9 +126,8 @@ public class PoseEstimator {
           double diff =
               apriltagSystem.getInputs().serverTime[i] - apriltagSystem.getInputs().timestamp[i];
           double latencyInSec = diff / 1000;
-          VisionMeasurement measurement =
-              new VisionMeasurement(
-                  new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation()), latencyInSec);
+          Pose2d visionPose = new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation());
+          VisionMeasurement measurement = new VisionMeasurement(visionPose, latencyInSec);
           poseManager.registerVisionMeasurement(measurement);
         }
       }
