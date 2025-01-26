@@ -1,12 +1,12 @@
 package frc.robot.commands.Intake;
 
-import frc.robot.subsystems.intake.Intake;
-import frc.robot.utils.loggingv2.LoggableCommand;
+import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.utils.logging.LoggableCommand;
 
 public class StopIntake extends LoggableCommand {
-  private final Intake intake;
+  private final CoralSubsystem intake;
 
-  public StopIntake(Intake intake) {
+  public StopIntake(CoralSubsystem intake) {
     addRequirements(intake);
     this.intake = intake;
   }
@@ -16,7 +16,8 @@ public class StopIntake extends LoggableCommand {
 
   @Override
   public void execute() {
-    intake.stopMotors();
+    intake.stopShooterMotors();
+    intake.stopTiltMotors();
   }
 
   @Override
