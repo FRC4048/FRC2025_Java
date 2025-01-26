@@ -10,6 +10,7 @@ public class GameConstants {
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
+  public static final boolean COMMAND_DEBUG = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;

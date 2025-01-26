@@ -14,8 +14,14 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.Intake.IntakeCoral;
+import frc.robot.commands.Intake.StopIntake;
+import frc.robot.commands.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.subsystems.coral.MockCoralIO;
+import frc.robot.subsystems.coral.RealCoralIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -32,16 +38,24 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
+  private final CoralSubsystem shooter;
 
   public RobotContainer() {
+    if (Robot.isReal()) {
+      shooter = new CoralSubsystem(new RealCoralIO());
+    } else {
+      shooter = new CoralSubsystem(new MockCoralIO());
+    }
     setupDriveTrain();
     configureBindings();
+    putShuffleboardCommands();
   }
 
   private void configureBindings() {
@@ -161,5 +175,13 @@ public class RobotContainer {
 
   public SwerveDrivetrain getDrivetrain() {
     return drivetrain;
+  }
+
+  public void putShuffleboardCommands() {
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.put("Commands", "Intake Coral", new IntakeCoral(shooter, 0.5));
+      SmartShuffleboard.put("Commands", "Shoot Coral", new ShootCoral(shooter, 0.5));
+      SmartShuffleboard.put("Commands", "Stop Intake", new StopIntake(shooter));
+    }
   }
 }
