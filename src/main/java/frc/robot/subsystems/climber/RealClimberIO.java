@@ -21,8 +21,7 @@ public class RealClimberIO implements ClimberIO {
   }
 
   public void configureMotor() {
-    SparkMaxConfig climberConfig;
-    climberConfig = new SparkMaxConfig();
+    SparkMaxConfig climberConfig = new SparkMaxConfig();
     climberConfig.idleMode(IdleMode.kBrake);
     climberMotor.configure(
         climberConfig,
