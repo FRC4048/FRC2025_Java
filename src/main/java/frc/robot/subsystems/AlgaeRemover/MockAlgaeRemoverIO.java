@@ -5,21 +5,21 @@
 package frc.robot.subsystems.AlgaeRemover;
 
 /** Add your docs here. */
-public class MockAlgaeRemoverIO implements AlgaeRemoverIO{
+public class MockAlgaeRemoverIO implements AlgaeRemoverIO {
   @Override
-  public void setRemoverSpeed(double speed)  {}
-    
-  @Override
-  public void setTiltMotorSpeed(double tiltSpeed)  {}
+  public void setRemoverSpeed(double speed) {}
 
   @Override
-  public void stopRemoverMotors()  {}
+  public void setTiltMotorSpeed(double tiltSpeed) {}
 
   @Override
-  public void stopTiltMotors()  {}
+  public void stopRemoverMotors() {}
 
   @Override
-  public void resetTiltEncoder()  {}
+  public void stopTiltMotors() {}
+
+  @Override
+  public void resetTiltEncoder() {}
 
   @Override
   public void updateInputs(AlgaeRemoverInputs inputs) {}

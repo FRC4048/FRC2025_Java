@@ -10,47 +10,45 @@ import frc.robot.utils.logging.LoggableSystem;
 public class AlgaeRemoverSubsystem extends SubsystemBase {
   /** Creates a new AlgaeRemoverSubsystem. */
   private final LoggableSystem<AlgaeRemoverIO, AlgaeRemoverInputs> algaeSystem;
+
   public AlgaeRemoverSubsystem(AlgaeRemoverIO io) {
     algaeSystem = new LoggableSystem<>(io, new AlgaeRemoverInputs());
   }
 
   @Override
   public void periodic() {
-   algaeSystem.updateInputs();
+    algaeSystem.updateInputs();
   }
-  
-  public void setRemoverSpeed(double speed){
+
+  public void setRemoverSpeed(double speed) {
     algaeSystem.getIO().setRemoverSpeed(speed);
-
   }
 
-  public void setTiltMotorSpeed(double speed){
+  public void setTiltMotorSpeed(double speed) {
     algaeSystem.getIO().setTiltMotorSpeed(speed);
-
   }
-  public void stopTiltMotors(){
+
+  public void stopTiltMotors() {
     algaeSystem.getIO().stopTiltMotors();
-
   }
 
-  public void stopRemoverMotors(){
+  public void stopRemoverMotors() {
     algaeSystem.getIO().stopRemoverMotors();
-
   }
-  public void resetTiltEncoder(){
+
+  public void resetTiltEncoder() {
     algaeSystem.getIO().resetTiltEncoder();
-
   }
-  public double getAngle(){
+
+  public double getAngle() {
     return algaeSystem.getInputs().tiltMotorEncoderPosition;
   }
-  public boolean getForwardSwitchState(){
+
+  public boolean getForwardSwitchState() {
     return algaeSystem.getInputs().forwardLimitSwitchState;
-
   }
-  public boolean getReverseSwitchState(){
-    return algaeSystem.getInputs().backLimitSwitchState;
 
+  public boolean getReverseSwitchState() {
+    return algaeSystem.getInputs().backLimitSwitchState;
   }
 }
-

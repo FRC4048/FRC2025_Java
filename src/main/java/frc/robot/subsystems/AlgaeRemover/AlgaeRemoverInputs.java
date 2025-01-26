@@ -8,21 +8,20 @@ import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /** Add your docs here. */
-public class AlgaeRemoverInputs implements LoggableInputs{
+public class AlgaeRemoverInputs implements LoggableInputs {
   public double tiltMotorEncoderPosition = 0;
   public boolean backLimitSwitchState;
   public boolean forwardLimitSwitchState;
 
-  public void toLog(LogTable table){
+  public void toLog(LogTable table) {
     table.put("tiltMotorEncoderPosition", tiltMotorEncoderPosition);
     table.put("backLimitSwitchState", backLimitSwitchState);
     table.put("forwardLimitSwitchState", forwardLimitSwitchState);
-}
-public void fromLog(LogTable table){
+  }
+
+  public void fromLog(LogTable table) {
     tiltMotorEncoderPosition = table.get("tiltMotorEncoderPosition", tiltMotorEncoderPosition);
     backLimitSwitchState = table.get("backLimitSwitchState", backLimitSwitchState);
     forwardLimitSwitchState = table.get("forwardLimitSwitchState", forwardLimitSwitchState);
-}
-
-
+  }
 }
