@@ -14,14 +14,12 @@ import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
-import frc.robot.utils.SwerveModuleProfileV2;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
-  public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE = SwerveModuleProfileV2.MK4;
   private final SwerveModule frontLeft;
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
