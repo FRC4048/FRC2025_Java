@@ -13,15 +13,16 @@ import frc.robot.constants.Constants;
 /** Add your docs here. */
 public class RealClimberIO implements ClimberIO {
   private final SparkMax climberMotor;
-  private final SparkMaxConfig climberConfig;
 
   public RealClimberIO() {
     this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
-    climberConfig = new SparkMaxConfig();
+
     configureMotor();
   }
 
   public void configureMotor() {
+    SparkMaxConfig climberConfig;
+    climberConfig = new SparkMaxConfig();
     climberConfig.idleMode(IdleMode.kBrake);
     climberMotor.configure(
         climberConfig,
