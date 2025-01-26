@@ -1,29 +1,59 @@
 package frc.robot.subsystems.algaeroller;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
 public class RealAlgaeRollerIO implements AlgaeRollerIO {
-  private final SparkMax algaeRoller;
+  private final SparkMax algaeRollerMotor;
+  private final SparkMaxConfig algaeRollerConfig;
+  private final WPI_TalonSRX algaeAngleMotor;
 
   public RealAlgaeRollerIO() {
-    this.algaeRoller =
+    this.algaeAngleMotor = new WPI_TalonSRX(Constants.ALGAE_ANGLE_MOTOR_ID);
+    this.algaeRollerMotor =
         new SparkMax(Constants.ALGAE_ROLLER_CAN_ID, SparkLowLevel.MotorType.kBrushless);
+    algaeRollerConfig = new SparkMaxConfig();
+  }
+
+  public void configureMotor() {
+    this.algaeAngleMotor.setNeutralMode(NeutralMode.Brake);
+
+    algaeRollerConfig.idleMode(IdleMode.kBrake);
+    algaeRollerMotor.configure(
+        algaeRollerConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
-  public void setSpeed(double speed) {
-    algaeRoller.set(speed);
+  public void setRollerSpeed(double speed) {
+    algaeRollerMotor.set(speed);
   }
 
   @Override
-  public void stop() {
-    algaeRoller.set(0);
+  public void stopRollerMotor() {
+    algaeRollerMotor.set(0);
+  }
+
+  @Override
+  public void setTiltSpeed(double speed) {
+    algaeAngleMotor.set(speed);
+  }
+
+  @Override
+  public void stopAngleMotor() {
+    algaeAngleMotor.set(0);
   }
 
   @Override
   public void updateInputs(AlgaeRollerInputs inputs) {
-    inputs.algaeRollerEncoder = algaeRoller.getEncoder().getPosition();
+    inputs.algaeRollerEncoder = algaeRollerMotor.getEncoder().getPosition();
+    inputs.algaeAngleEncoder = algaeAngleMotor.getSelectedSensorPosition();
   }
 }
