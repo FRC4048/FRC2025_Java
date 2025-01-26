@@ -1,32 +1,41 @@
 package frc.robot.subsystems.coral;
 
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.constants.Constants;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class RealCoralIO implements CoralIO {
-  private final WPI_TalonSRX shooterMotor1; // TODO: change later to whatever
-  private final WPI_TalonSRX shooterMotor2; // TODO: change later to whatever
-  private final WPI_TalonSRX shooterTiltMotor; // TODO: change later to whatever
+  private final SparkMax shooterMotor1; // TODO: change later to whatever
+  private final SparkMax shooterMotor2; // TODO: change later to whatever
+  private final SparkMax shooterTiltMotor; // TODO: change later to whatever
+  private final SparkBaseConfig coralConfig;
 
-  public RealCoralIO() {
-    this.shooterMotor1 = new WPI_TalonSRX(Constants.SHOOTER_MOTOR_1_ID);
-    this.shooterMotor2 = new WPI_TalonSRX(Constants.SHOOTER_MOTOR_2_ID);
-    this.shooterTiltMotor = new WPI_TalonSRX(Constants.SHOOTER_TILT_MOTOR_ID);
+  public RealCoralIO(int RealCoralIO) {
+    shooterMotor1 = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
+    shooterMotor2 = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
+    shooterTiltMotor = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
+    coralConfig = new SparkMaxConfig();
     configureMotor();
     resetTiltEncoder();
+    
   }
 
   private void configureMotor() {
-    this.shooterMotor1.setNeutralMode(NeutralMode.Brake);
-    this.shooterMotor2.setNeutralMode(NeutralMode.Brake);
-    this.shooterTiltMotor.setNeutralMode(NeutralMode.Brake);
-    this.shooterTiltMotor.configForwardLimitSwitchSource(
-        LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    this.shooterTiltMotor.configReverseLimitSwitchSource(
-        LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    coralConfig.idleMode(IdleMode.kBrake);
+    shooterMotor1.configure(
+        coralConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
+    shooterMotor2.configure(
+        coralConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
+    shooterTiltMotor.configure(
+        coralConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
@@ -53,14 +62,14 @@ public class RealCoralIO implements CoralIO {
 
   @Override
   public void resetTiltEncoder() {
-    this.shooterTiltMotor.setSelectedSensorPosition(0);
+    this.shooterTiltMotor.getEncoder().setPosition(0);
   }
 
   @Override
   public void updateInputs(CoralInputs inputs) {
     inputs.shooterSpeed = shooterMotor1.get();
-    inputs.fwdTripped = shooterTiltMotor.getSensorCollection().isFwdLimitSwitchClosed();
-    inputs.revTripped = shooterTiltMotor.getSensorCollection().isRevLimitSwitchClosed();
+    inputs.fwdTripped = shooterTiltMotor.getForwardLimitSwitch().isPressed();
+    inputs.revTripped = shooterTiltMotor.getReverseLimitSwitch().isPressed();
     inputs.angleSpeed = shooterTiltMotor.get();
   }
 }
