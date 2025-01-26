@@ -17,9 +17,10 @@ public class RealCoralIO implements CoralIO {
     shooterMotor1 = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
     shooterMotor2 = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
     shooterTiltMotor = new SparkMax(RealCoralIO, SparkMax.MotorType.kBrushless);
+    coralConfig = new SparkMaxConfig();
     configureMotor();
     resetTiltEncoder();
-    coralConfig = new SparkMaxConfig();
+    
   }
   private void configureMotor() {
     coralConfig
