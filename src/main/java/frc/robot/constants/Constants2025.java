@@ -11,6 +11,8 @@ public class Constants2025 extends GameConstants {
   public static final int SHOOTER_TILT_MOTOR_ID = 2; // TODO: change later
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final int ALGAE_ROLLER_CAN_ID = 7; // change later
+  public static final int ALGAE_REMOVER_SPINING_ID = 1; // TODO: change later
+  public static final int ALGAE_REMOVER_TILT_ID = 2; // TODO: change later
 
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
   public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later
