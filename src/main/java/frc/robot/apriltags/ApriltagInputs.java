@@ -8,7 +8,8 @@ public class ApriltagInputs implements LoggableInputs {
   public double[] serverTime = new double[0];
   public double[] posX = new double[0];
   public double[] posY = new double[0];
-  public double[] rotationDeg = new double[0];
+  public double[] poseYaw = new double[0];
+  public double[] distanceToTag = new double[0];
   public int[] apriltagNumber = new int[0];
 
   @Override
@@ -17,7 +18,8 @@ public class ApriltagInputs implements LoggableInputs {
     table.put("serverTime", serverTime);
     table.put("posX", posX);
     table.put("posY", posY);
-    table.put("rotationDeg", rotationDeg);
+    table.put("poseYaw", poseYaw);
+    table.put("distanceToTag", distanceToTag);
     table.put("apriltagNumber", apriltagNumber);
   }
 
@@ -27,7 +29,8 @@ public class ApriltagInputs implements LoggableInputs {
     serverTime = table.get("serverTime", serverTime);
     posX = table.get("posX", posX);
     posY = table.get("posY", posY);
-    rotationDeg = table.get("rotationDeg", rotationDeg);
+    poseYaw = table.get("poseYaw", poseYaw);
+    distanceToTag = table.get("distanceToTag", distanceToTag);
     apriltagNumber = table.get("apriltagNumber", apriltagNumber);
   }
 }
