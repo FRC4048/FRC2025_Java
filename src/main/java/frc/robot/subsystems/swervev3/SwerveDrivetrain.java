@@ -1,5 +1,6 @@
 package frc.robot.subsystems.swervev3;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -12,6 +13,7 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
+import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
@@ -37,6 +39,7 @@ public class SwerveDrivetrain extends SubsystemBase {
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
   private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
+  private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
 
   public SwerveDrivetrain(
@@ -51,10 +54,14 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.backLeft = backLeftModule;
     this.backRight = backRightModule;
     this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
+    this.poseEstimator =
+        new PoseEstimator(
+            frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
   }
 
   @Override
   public void periodic() {
+    poseEstimator.updateInputs();
     processInputs();
     OdometryMeasurement odom =
         new OdometryMeasurement(
@@ -66,6 +73,8 @@ public class SwerveDrivetrain extends SubsystemBase {
             },
             getLastGyro());
     Logger.recordOutput("LastOdomModPoses", odom.modulePosition());
+    poseEstimator.updatePosition(odom);
+    poseEstimator.updateVision();
     Logger.recordOutput(
         "realSwerveStates",
         frontLeft.getLatestState(),
@@ -159,8 +168,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     return driveMode;
   }
 
+  public Pose2d getPose() {
+    return poseEstimator.getEstimatedPose();
+  }
+
   public void setGyroOffset(double offset) {
     gyroSystem.getIO().setAngleOffset(offset);
+  }
+
+  public void resetOdometry(Pose2d startingPosition) {
+    poseEstimator.resetOdometry(
+        startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
   }
 
   public Rotation2d getGyroAngle() {
@@ -173,6 +191,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
+  }
+
+  public ChassisSpeeds getFieldChassisSpeeds() {
+    return ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
   }
 
   public void setFacingTarget(boolean facingTarget) {
