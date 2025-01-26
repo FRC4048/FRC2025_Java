@@ -68,4 +68,6 @@ public class GameConstants {
   // vision
   public static final boolean ENABLE_VISION = true;
 
+  // pose estimation
+  public static final long POSE_BUFFER_STORAGE_TIME = 2;
 }
