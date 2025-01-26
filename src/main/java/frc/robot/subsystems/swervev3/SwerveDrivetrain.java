@@ -1,6 +1,5 @@
 package frc.robot.subsystems.swervev3;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -43,9 +42,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
-  private final PIDController alignableTurnPid =
-      new PIDController(
-          Constants.ALIGNABLE_PID_P, Constants.ALIGNABLE_PID_I, Constants.ALIGNABLE_PID_D);
   private boolean facingTarget = false;
 
   public SwerveDrivetrain(
@@ -63,7 +59,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-    alignableTurnPid.enableContinuousInput(-180, 180);
   }
 
   @Override
@@ -202,10 +197,6 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public ChassisSpeeds getFieldChassisSpeeds() {
     return ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
-  }
-
-  public PIDController getAlignableTurnPid() {
-    return alignableTurnPid;
   }
 
   public void setFacingTarget(boolean facingTarget) {

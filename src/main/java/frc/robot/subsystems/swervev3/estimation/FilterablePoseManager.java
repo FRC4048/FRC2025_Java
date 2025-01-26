@@ -11,7 +11,7 @@ import frc.robot.subsystems.swervev3.vision.FilterResult;
 import frc.robot.subsystems.swervev3.vision.PoseDeviation;
 import frc.robot.subsystems.swervev3.vision.VisionFilter;
 import java.util.LinkedHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
 import org.littletonrobotics.junction.Logger;
 
 /**
@@ -50,15 +50,16 @@ public class FilterablePoseManager extends PoseManager {
   protected void processQueue() {
     LinkedHashMap<VisionMeasurement, FilterResult> filter1 = filter.filter(visionMeasurementQueue);
     visionMeasurementQueue.clear();
-    AtomicInteger numRejected = new AtomicInteger();
-    filter1.forEach(
-        (v, r) -> {
-          switch (r) {
-            case ACCEPTED -> addVisionMeasurement(v);
-            case NOT_PROCESSED -> visionMeasurementQueue.add(v);
-            case REJECTED -> numRejected.getAndIncrement();
-          }
-        });
-    Logger.recordOutput("rejectedMeasurementsCount", numRejected.get());
+    int numRejected = 0;
+    for (Map.Entry<VisionMeasurement, FilterResult> entry : filter1.entrySet()) {
+      VisionMeasurement v = entry.getKey();
+      FilterResult r = entry.getValue();
+      switch (r) {
+        case ACCEPTED -> addVisionMeasurement(v);
+        case NOT_PROCESSED -> visionMeasurementQueue.add(v);
+        case REJECTED -> numRejected += 1;
+      }
+    }
+    Logger.recordOutput("rejectedMeasurementsCount", numRejected);
   }
 }
