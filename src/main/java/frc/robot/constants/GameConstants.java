@@ -14,11 +14,13 @@ public class GameConstants {
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
+  public static final double ELEVATOR_RISE_SPEED = 0.66;
   public static final double INTAKE_MOTOR_SPEED = 0.5; // TODO: change later
   public static final double INTAKE_TILT_SPEED = 0.5; // TODO: change later
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
+  public static final int ELEVATOR_TIMEOUT = 10;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -64,4 +66,5 @@ public class GameConstants {
   public static final int TCP_SERVER_PORT = 5806;
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
+  public static final double ENCODER_THRESHHOLD_ELEVATOR = 12; // TODO: change later
 }
