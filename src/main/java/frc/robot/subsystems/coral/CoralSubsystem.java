@@ -5,10 +5,11 @@
 package frc.robot.subsystems.coral;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.LoggableSystem;
+import frc.robot.utils.logging.LoggableSystem;
 
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIO, CoralInputs> system;
+
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO io) {
     system = new LoggableSystem<>(io, new CoralInputs());
@@ -16,7 +17,6 @@ public class CoralSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     system.updateInputs();
   }
 
@@ -46,10 +46,6 @@ public class CoralSubsystem extends SubsystemBase {
 
   public boolean getReverseSwitchState() {
     return system.getInputs().revTripped;
-  }
-
-  public double getDesiredTiltAngularVelocity() {
-    return system.getInputs().angleSpeed;
   }
 
   public void resetEncoder() {

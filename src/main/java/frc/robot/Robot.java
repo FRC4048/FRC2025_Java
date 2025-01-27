@@ -7,7 +7,11 @@ package frc.robot;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
+import frc.robot.utils.logging.CommandLogger;
+import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -19,6 +23,8 @@ public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
+  private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
+  public double counter = 0;
 
   public Robot() {
     Pathfinding.setPathfinder(new LocalADStarAK());
@@ -66,13 +72,26 @@ public class Robot extends LoggedRobot {
     m_robotContainer = new RobotContainer();
   }
 
-  @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
+  public static RobotMode getMode() {
+    return mode.get();
   }
 
   @Override
-  public void disabledInit() {}
+  public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
+    if (Constants.ENABLE_LOGGING) {
+      CommandLogger.get().log();
+    }
+    if (counter == 0) {
+      new WheelAlign(m_robotContainer.getDrivetrain()).schedule();
+    }
+    counter++;
+  }
+
+  @Override
+  public void disabledInit() {
+    mode.set(RobotMode.DISABLED);
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -87,6 +106,7 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    mode.set(RobotMode.AUTONOMOUS);
   }
 
   @Override
@@ -100,6 +120,7 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    mode.set(RobotMode.TELEOP);
   }
 
   @Override
@@ -111,6 +132,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
+    mode.set(RobotMode.TEST);
   }
 
   @Override
@@ -118,4 +140,8 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void testExit() {}
+
+  public void simulationInit() {
+    mode.set(RobotMode.SIMULATION);
+  }
 }
