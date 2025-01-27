@@ -8,13 +8,14 @@ import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.event.AutoEvent;
 import frc.robot.autochooser.event.AutoEventProvider;
 import frc.robot.autochooser.event.AutoEventProviderIO;
+
 import java.util.Map;
 
-public class AutoChooser2024 extends SubsystemBase implements AutoChooser {
+public class AutoChooser2025Subsystem extends SubsystemBase implements AutoChooser {
   private final Map<AutoEvent, Command> commandMap;
   private final AutoEventProvider provider;
 
-  public AutoChooser2024(
+    public AutoChooser2025Subsystem(
       AutoEventProviderIO
           providerIO /*, SwerveDrivetrain drivetrain, Intake intake, Shooter shooter, Feeder feeder, Deployer deployer, Ramp ramp, LightStrip lightStrip, Vision vision*/) {
     this.provider = new AutoEventProvider(providerIO, this::isValid);

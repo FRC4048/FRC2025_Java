@@ -11,13 +11,14 @@ import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.CommandLogger;
-import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
@@ -71,6 +72,10 @@ public class Robot extends LoggedRobot {
     Logger.start();
     m_robotContainer = new RobotContainer();
   }
+
+    public static RobotMode getMode() {
+        return mode.get();
+    }
 
   @Override
   public void robotPeriodic() {

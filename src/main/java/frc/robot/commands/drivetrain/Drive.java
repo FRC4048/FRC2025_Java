@@ -2,25 +2,22 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.Alert;
-import edu.wpi.first.wpilibj.Alert.AlertType;
 import frc.robot.RobotContainer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableCommand;
+
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 public class Drive extends LoggableCommand {
   private final SwerveDrivetrain drivetrain;
-
   private final DoubleSupplier fwdSupplier;
   private final DoubleSupplier strSupplier;
   private final DoubleSupplier rtSupplier;
   private boolean shouldFlip;
   private final Supplier<DriveMode> driveMode;
-  private Alert alert = new Alert("Drive command ran", AlertType.kInfo);
 
   public Drive(
       SwerveDrivetrain drivetrain,
@@ -38,7 +35,6 @@ public class Drive extends LoggableCommand {
 
   @Override
   public void initialize() {
-    alert.set(true);
     this.shouldFlip = RobotContainer.isRedAlliance();
   }
 

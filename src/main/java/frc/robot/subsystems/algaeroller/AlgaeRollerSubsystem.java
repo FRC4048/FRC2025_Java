@@ -3,15 +3,15 @@ package frc.robot.subsystems.algaeroller;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
 
-public class AlgaeRoller extends SubsystemBase {
+public class AlgaeRollerSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeRollerIO, AlgaeRollerInputs> algaeRollerSystem;
 
-  public AlgaeRoller(AlgaeRollerIO algaeRollerIO) {
+    public AlgaeRollerSubsystem(AlgaeRollerIO algaeRollerIO) {
     this.algaeRollerSystem = new LoggableSystem<>(algaeRollerIO, new AlgaeRollerInputs());
   }
 
   public void setRollerMotorSpeed(double speed) {
-    algaeRollerSystem.getIO().setSpeed(speed);
+      algaeRollerSystem.getIO().setRollerSpeed(speed);
   }
 
   public double getRollerMotorPosition() {
@@ -19,7 +19,15 @@ public class AlgaeRoller extends SubsystemBase {
   }
 
   public void stopAlgaeRollerMotor() {
-    algaeRollerSystem.getIO().stop();
+      algaeRollerSystem.getIO().stopRollerMotor();
+  }
+
+    public void setSpeedAngle(double speed) {
+        algaeRollerSystem.getIO().setTiltSpeed(speed);
+    }
+
+    public void stopAngleMotor() {
+        algaeRollerSystem.getIO().stopAngleMotor();
   }
 
   @Override
