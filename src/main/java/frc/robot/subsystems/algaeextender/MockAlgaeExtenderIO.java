@@ -4,25 +4,17 @@
 
 package frc.robot.subsystems.algaeextender;
 
-public class MockAlgaeExtenderIO implements AlgaeExtenderIO{
-    
-    @Override
-    public void extendAlgae() {
-        
-    }
+public class MockAlgaeExtenderIO implements AlgaeExtenderIO {
 
-    @Override
-    public void retractAlgae() {
+  @Override
+  public void stopAlgaeExtenderMotor() {}
 
-    }
+  @Override
+  public void setAlgaeExtenderSpeed(double speed) {}
 
-    @Override
-    public void stopAlgae() {
+  @Override
+  public void resetExtenderEncoder() {}
 
-    }
-
-    @Override
-    public void setAlgaeExtenderSpeed(double speed) {
-
-    }
+  @Override
+  public void updateInputs(AlgaeExtenderInputs inputs) {}
 }

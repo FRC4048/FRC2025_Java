@@ -5,10 +5,11 @@
 package frc.robot.subsystems.algaeextender;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.LoggableSystem;
+import frc.robot.utils.logging.LoggableSystem;
 
 public class AlgaeExtenderSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeExtenderIO, AlgaeExtenderInputs> system;
+
   /** Creates a new Extender. */
   public AlgaeExtenderSubsystem(AlgaeExtenderIO io) {
     system = new LoggableSystem<>(io, new AlgaeExtenderInputs());
@@ -19,26 +20,24 @@ public class AlgaeExtenderSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     system.updateInputs();
   }
+
   public void setExtenderSpeed(double speed) {
     system.getIO().setAlgaeExtenderSpeed(speed);
   }
-  public void extendAlgaeMotor() {
-    system.getIO().extendAlgae();
-  }
-  public void retractAlgaeMotor() {
-    system.getIO().retractAlgae();
-  }
+
   public void stopExtenderMotors() {
-    system.getIO().stopAlgae();
+    system.getIO().stopAlgaeExtenderMotor();
   }
+
   public boolean getForwardSwitchState() {
     return system.getInputs().fwdTripped;
   }
+
   public boolean getReverseSwitchState() {
     return system.getInputs().revTripped;
   }
+
   public void resetEncoder() {
     system.getIO().resetExtenderEncoder();
   }
-
 }
