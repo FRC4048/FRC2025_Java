@@ -17,6 +17,8 @@ public class GameConstants {
   public static final double ELEVATOR_RISE_SPEED = 0.66;
   public static final double INTAKE_MOTOR_SPEED = 0.5; // TODO: change later
   public static final double INTAKE_TILT_SPEED = 0.5; // TODO: change later
+  public static final double CORAL_SHOOTER_SPEED = 0.5;
+  public static final double CORAL_INTAKE_MOTOR_RUN_TIME = 0.5;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;

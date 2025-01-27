@@ -38,6 +38,7 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
+
 import java.util.Optional;
 
 public class RobotContainer {
@@ -178,8 +179,12 @@ public class RobotContainer {
 
   public void putShuffleboardCommands() {
     if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.put("Commands", "Intake Coral", new IntakeCoral(shooter, 0.5));
-      SmartShuffleboard.put("Commands", "Shoot Coral", new ShootCoral(shooter, 0.5));
+      SmartShuffleboard.put(
+              "Commands",
+              "Intake Coral",
+              new IntakeCoral(shooter, Constants.CORAL_INTAKE_MOTOR_RUN_TIME));
+      SmartShuffleboard.put(
+              "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }
   }
 }
