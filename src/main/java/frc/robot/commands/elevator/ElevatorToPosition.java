@@ -31,8 +31,8 @@ public class ElevatorToPosition extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (((elevator.getEncoderValue1() >= (targetPosition.getHeight() - 1))
-            && (elevator.getEncoderValue1() <= (targetPosition.getHeight() + 1)))
+    return (((elevator.getEncoderValue1() >= (targetPosition.getHeight() - Constants.ELEVATOR_MIN_WINDOW))
+            && (elevator.getEncoderValue1() <= (targetPosition.getHeight() + Constants.ELEVATOR_MAX_WINDOW)))
         || (Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime));
   }
 }
