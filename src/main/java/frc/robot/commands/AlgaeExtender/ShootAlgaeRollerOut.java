@@ -9,6 +9,7 @@ import frc.robot.utils.logging.LoggableCommand;
 public class ShootAlgaeRollerOut extends LoggableCommand {
   /** Creates a new ShootCoral. */
   private final HihiExtenderSubsystem hihiExtender;
+
   private final HihiRollerSubsystem hihiRoller;
   private double time;
 

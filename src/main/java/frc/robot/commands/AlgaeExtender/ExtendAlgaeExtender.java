@@ -8,6 +8,7 @@ import frc.robot.utils.logging.LoggableCommand;
 public class ExtendAlgaeExtender extends LoggableCommand {
   /** Creates a new ShootCoral. */
   private final HihiExtenderSubsystem hihiExtender;
+
   private final HihiRollerSubsystem hihiRoller;
 
   public ExtendAlgaeExtender(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
