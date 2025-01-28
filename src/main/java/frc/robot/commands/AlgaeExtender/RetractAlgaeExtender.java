@@ -1,15 +1,15 @@
 package frc.robot.commands.AlgaeExtender;
 
-import frc.robot.constants.Constants2025;
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 public class RetractAlgaeExtender extends LoggableCommand {
-  /** Creates a new ShootCoral. */
   private final HihiExtenderSubsystem hihiExtender;
-
   private final HihiRollerSubsystem hihiRoller;
+  private double time;
 
   public RetractAlgaeExtender(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
     this.hihiExtender = hihiExtender;
@@ -19,7 +19,8 @@ public class RetractAlgaeExtender extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(-1 * Constants2025.EXTENDER_MOTOR_SPEED);
+    hihiExtender.setExtenderSpeed(-1 * Constants.EXTENDER_MOTOR_SPEED);
+    time = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -32,6 +33,6 @@ public class RetractAlgaeExtender extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return hihiExtender.getReverseSwitchState();
+    return (hihiExtender.getReverseSwitchState() || Timer.getFPGATimestamp() - time >= Constants.HIHI_EXTENDER_TIMEOUT);
   }
 }
