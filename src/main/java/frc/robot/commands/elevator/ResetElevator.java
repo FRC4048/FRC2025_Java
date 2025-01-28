@@ -1,16 +1,14 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-//ALL COMMENTED CODE REQUIRES METHODS THAT DON'T EXIST YET
+// ALL COMMENTED CODE REQUIRES METHODS THAT DON'T EXIST YET
 
-public class ResetElevator extends LoggableCommand{
-    private final ElevatorSubsystem elevator;
-    private double startTime;
+public class ResetElevator extends LoggableCommand {
+  private final ElevatorSubsystem elevator;
+  private double startTime;
 
   public ResetElevator(ElevatorSubsystem elevator) {
     this.elevator = elevator;
