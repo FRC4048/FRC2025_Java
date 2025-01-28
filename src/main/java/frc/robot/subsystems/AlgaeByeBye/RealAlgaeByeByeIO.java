@@ -11,7 +11,6 @@ import frc.robot.constants.Constants;
 /** Add your docs here. */
 public class RealAlgaeByeByeIO implements AlgaeByeByeIO {
   private final WPI_TalonSRX removerMotor;
-  
 
   public RealAlgaeByeByeIO() {
     this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_SPINING_ID);
@@ -20,7 +19,6 @@ public class RealAlgaeByeByeIO implements AlgaeByeByeIO {
 
   private void configureMotor() {
     this.removerMotor.setNeutralMode(NeutralMode.Brake);
-    
   }
 
   @Override
@@ -32,7 +30,6 @@ public class RealAlgaeByeByeIO implements AlgaeByeByeIO {
   public void stopRemoverMotors() {
     this.removerMotor.set(0);
   }
-  public void updateInputs(AlgaeByeByeInputs inputs) {
-   
-}
+
+  public void updateInputs(AlgaeByeByeInputs inputs) {}
 }

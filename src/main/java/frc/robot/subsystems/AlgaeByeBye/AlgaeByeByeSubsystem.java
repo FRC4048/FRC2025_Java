@@ -24,10 +24,7 @@ public class AlgaeByeByeSubsystem extends SubsystemBase {
     algaeSystem.getIO().setRemoverSpeed(speed);
   }
 
- 
   public void stopRemoverMotors() {
     algaeSystem.getIO().stopRemoverMotors();
   }
-
-  
 }

@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems.AlgaeByeBye;
 
-
 /** Add your docs here. */
 public class MockAlgaeByeByeIO implements AlgaeByeByeIO {
   @Override

@@ -8,8 +8,8 @@ import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /** Add your docs here. */
-public class AlgaeByeByeTiltInputs implements LoggableInputs{
- public double tiltMotorEncoderPosition = 0;
+public class AlgaeByeByeTiltInputs implements LoggableInputs {
+  public double tiltMotorEncoderPosition = 0;
   public boolean backLimitSwitchState;
   public boolean forwardLimitSwitchState;
 
@@ -24,5 +24,4 @@ public class AlgaeByeByeTiltInputs implements LoggableInputs{
     backLimitSwitchState = table.get("backLimitSwitchState", backLimitSwitchState);
     forwardLimitSwitchState = table.get("forwardLimitSwitchState", forwardLimitSwitchState);
   }
-
 }

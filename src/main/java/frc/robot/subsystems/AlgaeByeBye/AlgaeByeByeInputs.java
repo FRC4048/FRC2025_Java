@@ -11,11 +11,8 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 public class AlgaeByeByeInputs implements LoggableInputs {
 
   @Override
-  public void toLog(LogTable table) {
-  }
+  public void toLog(LogTable table) {}
 
   @Override
-  public void fromLog(LogTable table) {
-  }
- 
+  public void fromLog(LogTable table) {}
 }

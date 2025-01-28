@@ -10,19 +10,20 @@ import frc.robot.utils.logging.LoggableSystem;
 public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   /** Creates a new AlgaeByeByeTiltSubsystem. */
   private final LoggableSystem<AlgaeByeByeTiltIO, AlgaeByeByeTiltInputs> algaeTiltSystem;
-  public AlgaeByeByeTiltSubsystem(AlgaeByeByeTiltIO io) {
- algaeTiltSystem = new LoggableSystem<>(io, new AlgaeByeByeTiltInputs());
 
+  public AlgaeByeByeTiltSubsystem(AlgaeByeByeTiltIO io) {
+    algaeTiltSystem = new LoggableSystem<>(io, new AlgaeByeByeTiltInputs());
   }
-  
+
   @Override
   public void periodic() {
-   algaeTiltSystem.updateInputs();
+    algaeTiltSystem.updateInputs();
   }
-  
+
   public void stopTiltMotors() {
     algaeTiltSystem.getIO().stopTiltMotors();
   }
+
   public void resetTiltEncoder() {
     algaeTiltSystem.getIO().resetTiltEncoder();
   }
@@ -38,5 +39,4 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   public boolean getReverseSwitchState() {
     return algaeTiltSystem.getInputs().backLimitSwitchState;
   }
-
 }

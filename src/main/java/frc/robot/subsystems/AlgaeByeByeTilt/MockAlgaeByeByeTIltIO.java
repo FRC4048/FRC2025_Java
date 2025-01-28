@@ -5,17 +5,17 @@
 package frc.robot.subsystems.AlgaeByeByeTilt;
 
 /** Add your docs here. */
-public class MockAlgaeByeByeTIltIO implements AlgaeByeByeTiltIO{
+public class MockAlgaeByeByeTIltIO implements AlgaeByeByeTiltIO {
 
-@Override
-public void updateInputs(AlgaeByeByeTiltInputs inputs) {}
+  @Override
+  public void updateInputs(AlgaeByeByeTiltInputs inputs) {}
 
-@Override
-public void setTiltSpeed(double speed) {}
+  @Override
+  public void setTiltSpeed(double speed) {}
 
-@Override
-public void stopTiltMotors() {}
+  @Override
+  public void stopTiltMotors() {}
 
-@Override
-public void resetTiltEncoder() {}
+  @Override
+  public void resetTiltEncoder() {}
 }

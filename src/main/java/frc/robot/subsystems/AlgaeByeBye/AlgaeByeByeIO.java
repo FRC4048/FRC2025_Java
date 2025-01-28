@@ -6,5 +6,4 @@ public interface AlgaeByeByeIO extends LoggableIO<AlgaeByeByeInputs> {
   void setRemoverSpeed(double speed);
 
   void stopRemoverMotors();
-
 }
