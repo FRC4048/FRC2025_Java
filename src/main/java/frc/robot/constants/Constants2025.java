@@ -14,7 +14,6 @@ public class Constants2025 extends GameConstants {
   public static final int SHOOTER_TILT_MOTOR_ID = 2; // TODO: change later
 
   // Algae Roller
-  public static final int ALGAE_ANGLE_MOTOR_ID = 1; // TODO: change later
   public static final int ALGAE_ROLLER_CAN_ID = 7; // TODO: change later
 
   // Algae Extender
@@ -50,9 +49,6 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_BACK_RIGHT_S = 30; // TODO: change later
   public static final int DRIVE_FRONT_LEFT_S = 28; // TODO: change later
   public static final int DRIVE_BACK_LEFT_S = 27; // TODO: change later
-
-  // Algae Extender
-  public static final int ALGAE_EXTENDER_MOTOR_ID = 3; // TODO: change later
 
   // Hardware Specs
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
