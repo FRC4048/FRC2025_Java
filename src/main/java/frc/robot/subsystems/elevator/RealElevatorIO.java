@@ -18,7 +18,7 @@ public class RealElevatorIO implements ElevatorIO {
         new SparkMax(Constants.ELEVATOR_MOTOR_2_ID, SparkLowLevel.MotorType.kBrushless);
     SparkBaseConfig conf = new SparkMaxConfig().follow(Constants.ELEVATOR_MOTOR_1_ID);
     elevatorMotor2.configure(
-        conf, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kNoPersistParameters);
+        conf, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override

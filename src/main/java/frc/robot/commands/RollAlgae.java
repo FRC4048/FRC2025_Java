@@ -6,17 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.algaeroller.AlgaeRoller;
+import frc.robot.subsystems.algaeroller.AlgaeRollerSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class RollAlgae extends Command {
   /** Creates a new AlgaeRoller. */
-  private AlgaeRoller roller;
+  private AlgaeRollerSubsystem roller;
 
   private double startTime;
   private double speed;
 
-  public RollAlgae(AlgaeRoller roller, double speed) {
+  public RollAlgae(AlgaeRollerSubsystem roller, double speed) {
 
     this.speed = speed;
     this.roller = roller;
