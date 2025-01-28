@@ -11,10 +11,8 @@ import frc.robot.constants.Constants;
 
 public class RealAlgaeRollerIO implements AlgaeRollerIO {
   private final SparkMax algaeRollerMotor;
-  private final WPI_TalonSRX algaeAngleMotor;
 
   public RealAlgaeRollerIO() {
-    this.algaeAngleMotor = new WPI_TalonSRX(Constants.ALGAE_ANGLE_MOTOR_ID);
     this.algaeRollerMotor =
         new SparkMax(Constants.ALGAE_ROLLER_CAN_ID, SparkLowLevel.MotorType.kBrushless);
     configureMotor();
@@ -22,7 +20,6 @@ public class RealAlgaeRollerIO implements AlgaeRollerIO {
 
   public void configureMotor() {
     SparkMaxConfig algaeRollerConfig = new SparkMaxConfig();
-    this.algaeAngleMotor.setNeutralMode(NeutralMode.Brake);
     algaeRollerConfig.idleMode(IdleMode.kBrake);
     algaeRollerMotor.configure(
         algaeRollerConfig,
@@ -41,18 +38,7 @@ public class RealAlgaeRollerIO implements AlgaeRollerIO {
   }
 
   @Override
-  public void setTiltSpeed(double speed) {
-    algaeAngleMotor.set(speed);
-  }
-
-  @Override
-  public void stopAngleMotor() {
-    algaeAngleMotor.set(0);
-  }
-
-  @Override
   public void updateInputs(AlgaeRollerInputs inputs) {
     inputs.algaeRollerEncoder = algaeRollerMotor.getEncoder().getPosition();
-    inputs.algaeAngleEncoder = algaeAngleMotor.getSelectedSensorPosition();
   }
 }

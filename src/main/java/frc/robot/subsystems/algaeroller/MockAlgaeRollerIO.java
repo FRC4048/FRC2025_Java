@@ -9,10 +9,4 @@ public class MockAlgaeRollerIO implements AlgaeRollerIO {
 
   @Override
   public void updateInputs(AlgaeRollerInputs inputs) {}
-
-  @Override
-  public void setTiltSpeed(double speed) {}
-
-  @Override
-  public void stopAngleMotor() {}
 }

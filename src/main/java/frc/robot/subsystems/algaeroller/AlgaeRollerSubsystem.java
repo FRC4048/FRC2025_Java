@@ -22,14 +22,6 @@ public class AlgaeRollerSubsystem extends SubsystemBase {
     algaeRollerSystem.getIO().stopRollerMotor();
   }
 
-  public void setSpeedAngle(double speed) {
-    algaeRollerSystem.getIO().setTiltSpeed(speed);
-  }
-
-  public void stopAngleMotor() {
-    algaeRollerSystem.getIO().stopAngleMotor();
-  }
-
   @Override
   public void periodic() {
     algaeRollerSystem.updateInputs();
