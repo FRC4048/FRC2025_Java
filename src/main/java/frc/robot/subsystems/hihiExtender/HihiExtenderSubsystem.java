@@ -2,17 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.algaeextender;
+package frc.robot.subsystems.hihiExtender;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
 
-public class AlgaeExtenderSubsystem extends SubsystemBase {
-  private final LoggableSystem<AlgaeExtenderIO, AlgaeExtenderInputs> system;
+public class HihiExtenderSubsystem extends SubsystemBase {
+  private final LoggableSystem<HihiExtenderIO HihiExtenderInputs> system;
 
   /** Creates a new Extender. */
-  public AlgaeExtenderSubsystem(AlgaeExtenderIO io) {
-    system = new LoggableSystem<>(io, new AlgaeExtenderInputs());
+  public HihiExtenderSubsystem(HihiExtenderIO io) {
+    system = new LoggableSystem<>(io, new HihiExtenderInputs());
   }
 
   @Override
@@ -22,11 +22,11 @@ public class AlgaeExtenderSubsystem extends SubsystemBase {
   }
 
   public void setExtenderSpeed(double speed) {
-    system.getIO().setAlgaeExtenderSpeed(speed);
+    system.getIO().setHihiExtenderSpeed(speed);
   }
 
   public void stopExtenderMotors() {
-    system.getIO().stopAlgaeExtenderMotor();
+    system.getIO().stopHihiExtenderMotor();
   }
 
   public boolean getForwardSwitchState() {

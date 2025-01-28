@@ -1,4 +1,4 @@
-package frc.robot.subsystems.algaeroller;
+package frc.robot.subsystems.hihiExtender;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -9,36 +9,36 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
-public class RealAlgaeRollerIO implements AlgaeRollerIO {
-  private final SparkMax algaeRollerMotor;
+public class RealHihiRollerIO implements HihiRollerIO {
+  private final SparkMax hihiRollerMotor;
 
-  public RealAlgaeRollerIO() {
-    this.algaeRollerMotor =
+  public RealHihiRollerIO() {
+    this.hihiRollerMotor =
         new SparkMax(Constants.ALGAE_ROLLER_CAN_ID, SparkLowLevel.MotorType.kBrushless);
     configureMotor();
   }
 
   public void configureMotor() {
-    SparkMaxConfig algaeRollerConfig = new SparkMaxConfig();
-    algaeRollerConfig.idleMode(IdleMode.kBrake);
-    algaeRollerMotor.configure(
-        algaeRollerConfig,
+    SparkMaxConfig hihiRollerConfig = new SparkMaxConfig();
+    hihiRollerConfig.idleMode(IdleMode.kBrake);
+    hihiRollerMotor.configure(
+        hihiRollerConfig,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
   public void setRollerSpeed(double speed) {
-    algaeRollerMotor.set(speed);
+    hihiRollerMotor.set(speed);
   }
 
   @Override
   public void stopRollerMotor() {
-    algaeRollerMotor.set(0);
+    hihiRollerMotor.set(0);
   }
 
   @Override
-  public void updateInputs(AlgaeRollerInputs inputs) {
-    inputs.algaeRollerEncoder = algaeRollerMotor.getEncoder().getPosition();
+  public void updateInputs(HihiRollerInputs inputs) {
+    inputs.hihiRollerEncoder = hihiRollerMotor.getEncoder().getPosition();
   }
 }
