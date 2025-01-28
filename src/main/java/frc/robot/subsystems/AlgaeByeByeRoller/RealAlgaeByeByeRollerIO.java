@@ -22,12 +22,12 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   }
 
   @Override
-  public void setRemoverSpeed(double speed) {
+  public void setSpeed(double speed) {
     this.removerMotor.set(speed);
   }
 
   @Override
-  public void stopRemoverMotors() {
+  public void stopMotors() {
     this.removerMotor.set(0);
   }
 
