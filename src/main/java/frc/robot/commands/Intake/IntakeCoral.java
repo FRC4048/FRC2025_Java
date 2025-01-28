@@ -8,12 +8,10 @@ import frc.robot.utils.logging.LoggableCommand;
 public class IntakeCoral extends LoggableCommand {
   private final CoralSubsystem intake;
   private final Timer timer = new Timer();
-  private final double motorRunTime; // temporary until  done testing
 
-  public IntakeCoral(CoralSubsystem intake, double motorRunTime) {
+  public IntakeCoral(CoralSubsystem intake) {
     addRequirements(intake);
     this.intake = intake;
-    this.motorRunTime = motorRunTime;
   }
 
   @Override
@@ -35,6 +33,6 @@ public class IntakeCoral extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(motorRunTime);
+    return timer.hasElapsed(Constants.INTAKE_CORAL_TIMEOUT);
   }
 }

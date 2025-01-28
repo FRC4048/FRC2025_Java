@@ -10,7 +10,7 @@ public class GameConstants {
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
-  public static final boolean COMMAND_DEBUG = true;
+  public static final boolean COMMAND_DEBUG = false;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -18,11 +18,11 @@ public class GameConstants {
   public static final double INTAKE_MOTOR_SPEED = 0.5; // TODO: change later
   public static final double INTAKE_TILT_SPEED = 0.5; // TODO: change later
   public static final double CORAL_SHOOTER_SPEED = 0.5;
-  public static final double CORAL_INTAKE_MOTOR_RUN_TIME = 0.5;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
+  public static final double INTAKE_CORAL_TIMEOUT = 5;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;

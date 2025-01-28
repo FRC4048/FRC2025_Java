@@ -179,10 +179,7 @@ public class RobotContainer {
 
   public void putShuffleboardCommands() {
     if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.put(
-              "Commands",
-              "Intake Coral",
-              new IntakeCoral(shooter, Constants.CORAL_INTAKE_MOTOR_RUN_TIME));
+      SmartShuffleboard.put("Commands", "Intake Coral", new IntakeCoral(shooter));
       SmartShuffleboard.put(
               "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }
