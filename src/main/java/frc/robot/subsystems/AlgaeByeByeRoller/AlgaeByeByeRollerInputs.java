@@ -4,14 +4,15 @@
 
 package frc.robot.subsystems.AlgaeByeByeRoller;
 
+import org.littletonrobotics.junction.LogTable;
+import org.littletonrobotics.junction.inputs.LoggableInputs;
+
 /** Add your docs here. */
-public class MockAlgaeByeByeIO implements AlgaeByeByeIO {
-  @Override
-  public void setRemoverSpeed(double speed) {}
+public class AlgaeByeByeRollerInputs implements LoggableInputs {
 
   @Override
-  public void stopRemoverMotors() {}
+  public void toLog(LogTable table) {}
 
   @Override
-  public void updateInputs(AlgaeByeByeInputs inputs) {}
+  public void fromLog(LogTable table) {}
 }

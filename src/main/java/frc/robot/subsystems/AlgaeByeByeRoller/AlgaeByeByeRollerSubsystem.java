@@ -7,12 +7,12 @@ package frc.robot.subsystems.AlgaeByeByeRoller;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
 
-public class AlgaeByeByeSubsystem extends SubsystemBase {
+public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
   /** Creates a new AlgaeRemoverSubsystem. */
-  private final LoggableSystem<AlgaeByeByeIO, AlgaeByeByeInputs> algaeSystem;
+  private final LoggableSystem<AlgaeByeByeRollerIO, AlgaeByeByeRollerInputs> algaeSystem;
 
-  public AlgaeByeByeSubsystem(AlgaeByeByeIO io) {
-    algaeSystem = new LoggableSystem<>(io, new AlgaeByeByeInputs());
+  public AlgaeByeByeRollerSubsystem(AlgaeByeByeRollerIO io) {
+    algaeSystem = new LoggableSystem<>(io, new AlgaeByeByeRollerInputs());
   }
 
   @Override

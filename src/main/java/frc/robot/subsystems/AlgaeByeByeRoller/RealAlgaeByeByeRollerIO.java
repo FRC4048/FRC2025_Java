@@ -9,10 +9,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.constants.Constants;
 
 /** Add your docs here. */
-public class RealAlgaeByeByeIO implements AlgaeByeByeIO {
+public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   private final WPI_TalonSRX removerMotor;
 
-  public RealAlgaeByeByeIO() {
+  public RealAlgaeByeByeRollerIO() {
     this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_SPINING_ID);
     configureMotor();
   }
@@ -31,5 +31,5 @@ public class RealAlgaeByeByeIO implements AlgaeByeByeIO {
     this.removerMotor.set(0);
   }
 
-  public void updateInputs(AlgaeByeByeInputs inputs) {}
+  public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
 }
