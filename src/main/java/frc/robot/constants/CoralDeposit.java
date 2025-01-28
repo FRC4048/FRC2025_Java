@@ -2,9 +2,9 @@ package frc.robot.constants;
 
 public enum CoralDeposit {
   INTAKE(0, 0),
-  MIDDLE(20, 10),
-  HIGH(60, 35),
-  TOP(100, 40);
+  LEVEL1(20, 10),
+  LEVEL2(60, 35),
+  LEVEL3(100, 40);
 
   private final int height;
   private final int angle;
