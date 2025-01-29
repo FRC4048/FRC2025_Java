@@ -3,9 +3,9 @@ package frc.robot.subsystems.AlgaeByeByeTilt;
 import frc.robot.utils.logging.LoggableIO;
 
 public interface AlgaeByeByeTiltIO extends LoggableIO<AlgaeByeByeTiltInputs> {
-  void setTiltSpeed(double speed);
+  void setSpeed(double speed);
 
-  void stopTiltMotors();
+  void stopMotors();
 
-  void resetTiltEncoder();
+  void resetEncoder();
 }
