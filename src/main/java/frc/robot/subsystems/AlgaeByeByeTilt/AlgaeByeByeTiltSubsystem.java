@@ -19,27 +19,21 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   public void periodic() {
     algaeTiltSystem.updateInputs();
   }
-  @Override
   public void setSpeed(double speed){
     algaeTiltSystem.getIO().setSpeed(speed);
   }
-  @Override
   public void stopMotors() {
     algaeTiltSystem.getIO().stopMotors();
   }
-  @Override
   public void resetEncoder() {
     algaeTiltSystem.getIO().resetEncoder();
   }
-  @Override
   public double getAngle() {
     return algaeTiltSystem.getInputs().tiltMotorEncoderPosition;
   }
-  @Override
   public boolean getForwardSwitchState() {
     return algaeTiltSystem.getInputs().forwardLimitSwitchState;
   }
-  @Override
   public boolean getReverseSwitchState() {
     return algaeTiltSystem.getInputs().backLimitSwitchState;
   }
