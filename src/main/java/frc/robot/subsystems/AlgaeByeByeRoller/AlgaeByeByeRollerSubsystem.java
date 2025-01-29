@@ -19,9 +19,11 @@ public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
   public void periodic() {
     algaeSystem.updateInputs();
   }
+
   public void setSpeed(double speed) {
     algaeSystem.getIO().setSpeed(speed);
   }
+
   public void stopMotors() {
     algaeSystem.getIO().stopMotors();
   }

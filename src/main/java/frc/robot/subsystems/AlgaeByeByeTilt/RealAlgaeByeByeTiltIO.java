@@ -16,7 +16,7 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   public RealAlgaeByeByeTiltIO() {
 
-    this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_TILT_ID);
+    this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_TILT_ID);
     configureMotor();
     resetEncoder();
   }
