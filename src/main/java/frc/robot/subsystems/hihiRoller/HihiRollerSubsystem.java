@@ -2,6 +2,7 @@ package frc.robot.subsystems.hihiRoller;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
+import org.littletonrobotics.junction.Logger;
 
 public class HihiRollerSubsystem extends SubsystemBase {
   private final LoggableSystem<HihiRollerIO, HihiRollerInputs> hihiRollerSystem;
@@ -12,6 +13,7 @@ public class HihiRollerSubsystem extends SubsystemBase {
 
   public void setRollerMotorSpeed(double speed) {
     hihiRollerSystem.getIO().setRollerSpeed(speed);
+    Logger.recordOutput("rollerSubsystem/Speed", speed);
   }
 
   public double getRollerMotorPosition() {

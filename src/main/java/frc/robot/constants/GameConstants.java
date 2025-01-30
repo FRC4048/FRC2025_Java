@@ -7,6 +7,7 @@ public class GameConstants {
   // Controllers
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
+  public static final int XBOX_CONTROLLER_ID = 2;
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
@@ -24,7 +25,7 @@ public class GameConstants {
   public static final long MAX_LOG_TIME_WAIT = 10;
   public static final boolean ENABLE_LOGGING = true;
 
-  //Treshholds
+  // Treshholds
   public static final double VISION_CONSISTANCY_THRESHOLD = 0.25;
   public static final double ENCODER_THRESHHOLD_ELEVATOR = 12; // TODO: change later
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later

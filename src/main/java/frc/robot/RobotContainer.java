@@ -20,6 +20,9 @@ import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
 import frc.robot.subsystems.gyro.ThreadedGyro;
+import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
+import frc.robot.subsystems.hihiRoller.MockHihiRollerIO;
+import frc.robot.subsystems.hihiRoller.RealHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -36,10 +39,17 @@ import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
+  private final HihiRollerSubsystem hihiRoller;
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   public RobotContainer() {
+    if (Robot.isReal()){
+        hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
+    }
+    else {
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+    }
     setupDriveTrain();
     configureBindings();
   }

@@ -1,7 +1,5 @@
 package frc.robot.subsystems.hihiRoller;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
@@ -40,5 +38,6 @@ public class RealHihiRollerIO implements HihiRollerIO {
   @Override
   public void updateInputs(HihiRollerInputs inputs) {
     inputs.hihiRollerEncoder = hihiRollerMotor.getEncoder().getPosition();
+    inputs.hihiRollerVelocity = hihiRollerMotor.getEncoder().getVelocity();
   }
 }
