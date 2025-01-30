@@ -28,5 +28,5 @@ public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
 
     public void stopMotors() {
         algaeSystem.getIO().stopMotors();
-    }
+  }
 }

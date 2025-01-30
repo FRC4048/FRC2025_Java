@@ -6,17 +6,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.algaeroller.AlgaeRollerSubsystem;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class RollAlgae extends Command {
   /** Creates a new AlgaeRoller. */
-  private final AlgaeRollerSubsystem roller;
+  private final HihiRollerSubsystem roller;
+
   private double startTime;
   private final double speed;
 
-  public RollAlgae(AlgaeRollerSubsystem roller, double speed) {
+  public RollAlgae(HihiRollerSubsystem roller, double speed) {
     this.speed = speed;
     this.roller = roller;
     addRequirements(roller);
@@ -36,7 +37,7 @@ public class RollAlgae extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    roller.stopAlgaeRollerMotor();
+    roller.stopHihiRollerMotor();
   }
 
   // Returns true when the command should end.

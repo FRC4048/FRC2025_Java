@@ -22,6 +22,5 @@ public class MockAlgaeByeByeTIltIO implements AlgaeByeByeTiltIO {
     }
 
     @Override
-    public void resetEncoder() {
-    }
+    public void resetEncoder() {}
 }

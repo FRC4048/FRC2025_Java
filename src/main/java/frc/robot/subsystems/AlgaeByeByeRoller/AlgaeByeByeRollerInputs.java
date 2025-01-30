@@ -17,6 +17,5 @@ public class AlgaeByeByeRollerInputs implements LoggableInputs {
     }
 
     @Override
-    public void fromLog(LogTable table) {
-    }
+    public void fromLog(LogTable table) {}
 }

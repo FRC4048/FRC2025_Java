@@ -33,6 +33,5 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
         this.removerMotor.set(0);
     }
 
-    public void updateInputs(AlgaeByeByeRollerInputs inputs) {
-    }
+    public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
 }

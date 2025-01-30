@@ -43,5 +43,5 @@ public class SpinExtender extends LoggableCommand {
     @Override
     public boolean isFinished() {
         return timer.hasElapsed(5);
-    }
+  }
 }

@@ -44,5 +44,5 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
 
     public boolean getReverseSwitchState() {
         return algaeTiltSystem.getInputs().backLimitSwitchState;
-    }
+  }
 }

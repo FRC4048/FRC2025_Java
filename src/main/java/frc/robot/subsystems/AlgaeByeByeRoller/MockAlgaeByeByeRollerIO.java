@@ -17,6 +17,5 @@ public class MockAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
     }
 
     @Override
-    public void updateInputs(AlgaeByeByeRollerInputs inputs) {
-    }
+    public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
 }
