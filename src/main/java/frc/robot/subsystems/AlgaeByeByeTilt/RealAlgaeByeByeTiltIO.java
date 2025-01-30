@@ -16,9 +16,9 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   public RealAlgaeByeByeTiltIO() {
 
-    this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_TILT_ID);
+    this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_TILT_ID);
     configureMotor();
-    resetTiltEncoder();
+    resetEncoder();
   }
 
   public void configureMotor() {
@@ -30,17 +30,17 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   }
 
   @Override
-  public void setTiltSpeed(double speed) {
+  public void setSpeed(double speed) {
     this.removerTiltMotor.set(speed);
   }
 
   @Override
-  public void stopTiltMotors() {
+  public void stopMotors() {
     this.removerTiltMotor.set(0);
   }
 
   @Override
-  public void resetTiltEncoder() {
+  public void resetEncoder() {
     this.removerTiltMotor.setSelectedSensorPosition(0);
   }
 

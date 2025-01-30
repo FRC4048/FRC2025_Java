@@ -13,7 +13,7 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   private final WPI_TalonSRX removerMotor;
 
   public RealAlgaeByeByeRollerIO() {
-    this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_SPINING_ID);
+    this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_SPINING_ID);
     configureMotor();
   }
 
