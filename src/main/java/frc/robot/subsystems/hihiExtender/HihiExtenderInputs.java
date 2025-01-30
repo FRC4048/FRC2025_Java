@@ -27,5 +27,5 @@ public class HihiExtenderInputs implements LoggableInputs {
         hihiExtenderEncoderPos = table.get("hihiExtenderEncoderPos", hihiExtenderEncoderPos);
         revTripped = table.get("lowerTripped", revTripped);
         fwdTripped = table.get("upperTripped", fwdTripped);
-    }
+  }
 }

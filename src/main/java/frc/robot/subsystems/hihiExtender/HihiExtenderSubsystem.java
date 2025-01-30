@@ -41,5 +41,5 @@ public class HihiExtenderSubsystem extends SubsystemBase {
 
     public void resetEncoder() {
         system.getIO().resetExtenderEncoder();
-    }
+  }
 }
