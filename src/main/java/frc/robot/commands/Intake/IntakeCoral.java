@@ -22,7 +22,7 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void execute() {
     intake.setShooterSpeed(Constants.INTAKE_MOTOR_SPEED);
-    intake.setAngle(Constants.INTAKE_TILT_SPEED);
+    intake.setTiltAngularVelocity(Constants.INTAKE_TILT_VELOCITY);
   }
 
   @Override
@@ -33,6 +33,6 @@ public class IntakeCoral extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Constants.INTAKE_CORAL_TIMEOUT);
+    return timer.hasElapsed(Constants.INTAKE_CORAL_TIMEOUT) || intake.getReverseSwitchState();
   }
 }

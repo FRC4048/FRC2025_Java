@@ -16,7 +16,7 @@ public class GameConstants {
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
   public static final double INTAKE_MOTOR_SPEED = 0.5; // TODO: change later
-  public static final double INTAKE_TILT_SPEED = 0.5; // TODO: change later
+  public static final double INTAKE_TILT_VELOCITY = 0.5; // TODO: change later
   public static final double CORAL_SHOOTER_SPEED = 0.5;
 
   // Timeouts
