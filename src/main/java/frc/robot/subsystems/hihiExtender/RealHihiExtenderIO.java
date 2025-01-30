@@ -1,26 +1,29 @@
 package frc.robot.subsystems.hihiExtender;
 
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
-  private final WPI_TalonSRX extenderMotor; // TODO: change later to whatever
+  private final SparkMax extenderMotor;
 
   public RealHihiExtenderIO() {
-    this.extenderMotor = new WPI_TalonSRX(Constants.ALGAE_EXTENDER_MOTOR_ID);
+    this.extenderMotor =
+        new SparkMax(Constants.ALGAE_EXTENDER_MOTOR_ID, SparkLowLevel.MotorType.kBrushed);
     configureMotor();
     resetExtenderEncoder();
   }
 
   private void configureMotor() {
-    this.extenderMotor.setNeutralMode(NeutralMode.Brake);
-    this.extenderMotor.configForwardLimitSwitchSource(
-        LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    this.extenderMotor.configReverseLimitSwitchSource(
-        LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    SparkMaxConfig extenderMotorConfig = new SparkMaxConfig();
+    extenderMotorConfig.idleMode(IdleMode.kBrake);
+    extenderMotor.configure(
+        extenderMotorConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
@@ -34,14 +37,8 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   }
 
   @Override
-  public void resetExtenderEncoder() {
-    this.extenderMotor.setSelectedSensorPosition(0);
-  }
+  public void resetExtenderEncoder() {}
 
   @Override
-  public void updateInputs(HihiExtenderInputs inputs) {
-    inputs.hihiExtenderEncoderPos = extenderMotor.get();
-    inputs.revTripped = extenderMotor.getSensorCollection().isFwdLimitSwitchClosed();
-    inputs.fwdTripped = extenderMotor.getSensorCollection().isRevLimitSwitchClosed();
-  }
+  public void updateInputs(HihiExtenderInputs inputs) {}
 }
