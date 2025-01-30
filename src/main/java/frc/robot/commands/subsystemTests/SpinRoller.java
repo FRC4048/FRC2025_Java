@@ -9,39 +9,36 @@ import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 public class SpinRoller extends LoggableCommand {
-    /**
-     * Creates a new SpinRoller.
-     */
-    private final HihiRollerSubsystem roller;
+  /** Creates a new SpinRoller. */
+  private final HihiRollerSubsystem roller;
 
-    private final double speedMotors;
-    private final Timer timer;
+  private final double speedMotors;
+  private final Timer timer;
 
-    public SpinRoller(HihiRollerSubsystem roller, double speedMotors) {
-        this.speedMotors = speedMotors;
-        this.roller = roller;
-        timer = new Timer();
-        addRequirements(roller);
-    }
+  public SpinRoller(HihiRollerSubsystem roller, double speedMotors) {
+    this.speedMotors = speedMotors;
+    this.roller = roller;
+    timer = new Timer();
+    addRequirements(roller);
+  }
 
-    @Override
-    public void initialize() {
-        roller.setRollerMotorSpeed(speedMotors);
-        timer.reset();
-        timer.start();
-    }
+  @Override
+  public void initialize() {
+    roller.setRollerMotorSpeed(speedMotors);
+    timer.reset();
+    timer.start();
+  }
 
-    @Override
-    public void execute() {
-    }
+  @Override
+  public void execute() {}
 
-    @Override
-    public void end(boolean interrupted) {
-        roller.stopHihiRollerMotor();
-    }
+  @Override
+  public void end(boolean interrupted) {
+    roller.stopHihiRollerMotor();
+  }
 
-    @Override
-    public boolean isFinished() {
-        return timer.hasElapsed(5);
+  @Override
+  public boolean isFinished() {
+    return timer.hasElapsed(5);
   }
 }

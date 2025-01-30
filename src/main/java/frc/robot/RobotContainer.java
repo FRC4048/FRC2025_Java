@@ -40,7 +40,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-
 import java.util.Optional;
 
 public class RobotContainer {
@@ -48,7 +47,7 @@ public class RobotContainer {
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
   private final CommandXboxController controller =
-          new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
+      new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 

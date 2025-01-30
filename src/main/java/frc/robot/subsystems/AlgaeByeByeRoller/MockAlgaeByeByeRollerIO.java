@@ -4,18 +4,14 @@
 
 package frc.robot.subsystems.AlgaeByeByeRoller;
 
-/**
- * Add your docs here.
- */
+/** Add your docs here. */
 public class MockAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
-    @Override
-    public void setSpeed(double speed) {
-    }
+  @Override
+  public void setSpeed(double speed) {}
 
-    @Override
-    public void stopMotors() {
-    }
+  @Override
+  public void stopMotors() {}
 
-    @Override
-    public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
+  @Override
+  public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
 }

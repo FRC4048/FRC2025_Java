@@ -5,27 +5,27 @@ import frc.robot.utils.logging.LoggableSystem;
 import org.littletonrobotics.junction.Logger;
 
 public class HihiRollerSubsystem extends SubsystemBase {
-    private final LoggableSystem<HihiRollerIO, HihiRollerInputs> hihiRollerSystem;
+  private final LoggableSystem<HihiRollerIO, HihiRollerInputs> hihiRollerSystem;
 
-    public HihiRollerSubsystem(HihiRollerIO hihiRollerIO) {
-        this.hihiRollerSystem = new LoggableSystem<>(hihiRollerIO, new HihiRollerInputs());
-    }
+  public HihiRollerSubsystem(HihiRollerIO hihiRollerIO) {
+    this.hihiRollerSystem = new LoggableSystem<>(hihiRollerIO, new HihiRollerInputs());
+  }
 
-    public void setRollerMotorSpeed(double speed) {
-        hihiRollerSystem.getIO().setRollerSpeed(speed);
-        Logger.recordOutput("rollerSubsystem/Speed", speed);
-    }
+  public void setRollerMotorSpeed(double speed) {
+    hihiRollerSystem.getIO().setRollerSpeed(speed);
+    Logger.recordOutput("rollerSubsystem/Speed", speed);
+  }
 
-    public double getRollerMotorPosition() {
-        return hihiRollerSystem.getInputs().hihiRollerEncoder;
-    }
+  public double getRollerMotorPosition() {
+    return hihiRollerSystem.getInputs().hihiRollerEncoder;
+  }
 
-    public void stopHihiRollerMotor() {
-        hihiRollerSystem.getIO().stopRollerMotor();
-    }
+  public void stopHihiRollerMotor() {
+    hihiRollerSystem.getIO().stopRollerMotor();
+  }
 
-    @Override
-    public void periodic() {
-        hihiRollerSystem.updateInputs();
-    }
+  @Override
+  public void periodic() {
+    hihiRollerSystem.updateInputs();
+  }
 }

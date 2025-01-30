@@ -14,14 +14,14 @@ import frc.robot.constants.Constants;
 public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   private final WPI_TalonSRX removerTiltMotor; // SnowblowerMotor
 
-    public RealAlgaeByeByeTiltIO() {
+  public RealAlgaeByeByeTiltIO() {
 
-        this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_TILT_ID);
+    this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_TILT_ID);
     configureMotor();
-        resetEncoder();
+    resetEncoder();
   }
 
-    public void configureMotor() {
+  public void configureMotor() {
     this.removerTiltMotor.setNeutralMode(NeutralMode.Brake);
     this.removerTiltMotor.configForwardLimitSwitchSource(
         LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -31,7 +31,7 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   @Override
   public void setSpeed(double speed) {
-      this.removerTiltMotor.set(speed);
+    this.removerTiltMotor.set(speed);
   }
 
   @Override
@@ -44,8 +44,8 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
     this.removerTiltMotor.setSelectedSensorPosition(0);
   }
 
-    @Override
-    public void updateInputs(AlgaeByeByeTiltInputs inputs) {
+  @Override
+  public void updateInputs(AlgaeByeByeTiltInputs inputs) {
     inputs.forwardLimitSwitchState =
         removerTiltMotor.getSensorCollection().isFwdLimitSwitchClosed();
     inputs.backLimitSwitchState = removerTiltMotor.getSensorCollection().isRevLimitSwitchClosed();

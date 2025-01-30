@@ -7,15 +7,12 @@ package frc.robot.subsystems.AlgaeByeByeRoller;
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-/**
- * Add your docs here.
- */
+/** Add your docs here. */
 public class AlgaeByeByeRollerInputs implements LoggableInputs {
 
-    @Override
-    public void toLog(LogTable table) {
-    }
+  @Override
+  public void toLog(LogTable table) {}
 
-    @Override
-    public void fromLog(LogTable table) {}
+  @Override
+  public void fromLog(LogTable table) {}
 }

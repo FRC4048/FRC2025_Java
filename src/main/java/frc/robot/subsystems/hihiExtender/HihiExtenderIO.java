@@ -7,9 +7,9 @@ package frc.robot.subsystems.hihiExtender;
 import frc.robot.utils.logging.LoggableIO;
 
 public interface HihiExtenderIO extends LoggableIO<HihiExtenderInputs> {
-    void stopHihiExtenderMotor();
+  void stopHihiExtenderMotor();
 
-    void setHihiExtenderSpeed(double speed);
+  void setHihiExtenderSpeed(double speed);
 
-    void resetExtenderEncoder();
+  void resetExtenderEncoder();
 }
