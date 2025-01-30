@@ -11,15 +11,23 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.subsystemTests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
 import frc.robot.subsystems.gyro.ThreadedGyro;
+import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
+import frc.robot.subsystems.hihiExtender.MockHihiExtenderIO;
+import frc.robot.subsystems.hihiExtender.RealHihiExtenderIO;
+import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
+import frc.robot.subsystems.hihiRoller.MockHihiRollerIO;
+import frc.robot.subsystems.hihiRoller.RealHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -32,14 +40,26 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+
 import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
+  private final HihiRollerSubsystem hihiRoller;
+  private final HihiExtenderSubsystem hihiExtender;
+  private final CommandXboxController controller =
+          new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   public RobotContainer() {
+    if (Robot.isReal()) {
+      hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
+      hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+    } else {
+      hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+      hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+    }
     setupDriveTrain();
     configureBindings();
   }
@@ -48,6 +68,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
+    controller.x().onTrue(new SpinExtender(hihiExtender, 1));
   }
 
   public Command getAutonomousCommand() {
