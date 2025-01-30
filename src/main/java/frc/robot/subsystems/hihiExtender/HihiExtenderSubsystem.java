@@ -8,38 +8,36 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
-    private final LoggableSystem<HihiExtenderIO, HihiExtenderInputs> system;
+  private final LoggableSystem<HihiExtenderIO, HihiExtenderInputs> system;
 
-    /**
-     * Creates a new Extender.
-     */
-    public HihiExtenderSubsystem(HihiExtenderIO io) {
-        system = new LoggableSystem<>(io, new HihiExtenderInputs());
-    }
+  /** Creates a new Extender. */
+  public HihiExtenderSubsystem(HihiExtenderIO io) {
+    system = new LoggableSystem<>(io, new HihiExtenderInputs());
+  }
 
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
-        system.updateInputs();
-    }
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    system.updateInputs();
+  }
 
-    public void setExtenderSpeed(double speed) {
-        system.getIO().setHihiExtenderSpeed(speed);
-    }
+  public void setExtenderSpeed(double speed) {
+    system.getIO().setHihiExtenderSpeed(speed);
+  }
 
-    public void stopExtenderMotors() {
-        system.getIO().stopHihiExtenderMotor();
-    }
+  public void stopExtenderMotors() {
+    system.getIO().stopHihiExtenderMotor();
+  }
 
-    public boolean getForwardSwitchState() {
-        return system.getInputs().fwdTripped;
-    }
+  public boolean getForwardSwitchState() {
+    return system.getInputs().fwdTripped;
+  }
 
-    public boolean getReverseSwitchState() {
-        return system.getInputs().revTripped;
-    }
+  public boolean getReverseSwitchState() {
+    return system.getInputs().revTripped;
+  }
 
-    public void resetEncoder() {
-        system.getIO().resetExtenderEncoder();
+  public void resetEncoder() {
+    system.getIO().resetExtenderEncoder();
   }
 }

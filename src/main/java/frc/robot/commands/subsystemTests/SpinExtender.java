@@ -9,39 +9,36 @@ import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 public class SpinExtender extends LoggableCommand {
-    /**
-     * Creates a new SpinExtender.
-     */
-    private final HihiExtenderSubsystem extender;
+  /** Creates a new SpinExtender. */
+  private final HihiExtenderSubsystem extender;
 
-    private final double speedMotors;
-    private final Timer timer;
+  private final double speedMotors;
+  private final Timer timer;
 
-    public SpinExtender(HihiExtenderSubsystem extender, double speedMotors) {
-        this.speedMotors = speedMotors;
-        this.extender = extender;
-        timer = new Timer();
-        addRequirements(extender);
-    }
+  public SpinExtender(HihiExtenderSubsystem extender, double speedMotors) {
+    this.speedMotors = speedMotors;
+    this.extender = extender;
+    timer = new Timer();
+    addRequirements(extender);
+  }
 
-    @Override
-    public void initialize() {
-        extender.setExtenderSpeed(speedMotors);
-        timer.reset();
-        timer.start();
-    }
+  @Override
+  public void initialize() {
+    extender.setExtenderSpeed(speedMotors);
+    timer.reset();
+    timer.start();
+  }
 
-    @Override
-    public void execute() {
-    }
+  @Override
+  public void execute() {}
 
-    @Override
-    public void end(boolean interrupted) {
-        extender.stopExtenderMotors();
-    }
+  @Override
+  public void end(boolean interrupted) {
+    extender.stopExtenderMotors();
+  }
 
-    @Override
-    public boolean isFinished() {
-        return timer.hasElapsed(5);
+  @Override
+  public boolean isFinished() {
+    return timer.hasElapsed(5);
   }
 }
