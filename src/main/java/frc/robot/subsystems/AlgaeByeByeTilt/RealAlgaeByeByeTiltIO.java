@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.AlgaeRemover;
+package frc.robot.subsystems.AlgaeByeByeTilt;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
@@ -11,19 +11,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.constants.Constants;
 
 /** Add your docs here. */
-public class RealAlgaeRemoverIO implements AlgaeRemoverIO {
-  private final WPI_TalonSRX removerMotor;
+public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   private final WPI_TalonSRX removerTiltMotor; // SnowblowerMotor
 
-  public RealAlgaeRemoverIO() {
-    this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_SPINING_ID);
+  public RealAlgaeByeByeTiltIO() {
+
     this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_REMOVER_TILT_ID);
     configureMotor();
     resetTiltEncoder();
   }
 
-  private void configureMotor() {
-    this.removerMotor.setNeutralMode(NeutralMode.Brake);
+  public void configureMotor() {
     this.removerTiltMotor.setNeutralMode(NeutralMode.Brake);
     this.removerTiltMotor.configForwardLimitSwitchSource(
         LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -32,18 +30,8 @@ public class RealAlgaeRemoverIO implements AlgaeRemoverIO {
   }
 
   @Override
-  public void setRemoverSpeed(double speed) {
-    this.removerMotor.set(speed);
-  }
-
-  @Override
-  public void setTiltMotorSpeed(double tiltSpeed) {
-    this.removerTiltMotor.set(tiltSpeed);
-  }
-
-  @Override
-  public void stopRemoverMotors() {
-    this.removerMotor.set(0);
+  public void setTiltSpeed(double speed) {
+    this.removerTiltMotor.set(speed);
   }
 
   @Override
@@ -56,7 +44,8 @@ public class RealAlgaeRemoverIO implements AlgaeRemoverIO {
     this.removerTiltMotor.setSelectedSensorPosition(0);
   }
 
-  public void updateInputs(AlgaeRemoverInputs inputs) {
+  @Override
+  public void updateInputs(AlgaeByeByeTiltInputs inputs) {
     inputs.forwardLimitSwitchState =
         removerTiltMotor.getSensorCollection().isFwdLimitSwitchClosed();
     inputs.backLimitSwitchState = removerTiltMotor.getSensorCollection().isRevLimitSwitchClosed();
