@@ -20,12 +20,16 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
     algaeTiltSystem.updateInputs();
   }
 
-  public void stopTiltMotors() {
-    algaeTiltSystem.getIO().stopTiltMotors();
+  public void setSpeed(double speed) {
+    algaeTiltSystem.getIO().setSpeed(speed);
   }
 
-  public void resetTiltEncoder() {
-    algaeTiltSystem.getIO().resetTiltEncoder();
+  public void stopMotors() {
+    algaeTiltSystem.getIO().stopMotors();
+  }
+
+  public void resetEncoder() {
+    algaeTiltSystem.getIO().resetEncoder();
   }
 
   public double getAngle() {

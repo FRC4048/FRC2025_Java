@@ -11,11 +11,11 @@ public class MockAlgaeByeByeTIltIO implements AlgaeByeByeTiltIO {
   public void updateInputs(AlgaeByeByeTiltInputs inputs) {}
 
   @Override
-  public void setTiltSpeed(double speed) {}
+  public void setSpeed(double speed) {}
 
   @Override
-  public void stopTiltMotors() {}
+  public void stopMotors() {}
 
   @Override
-  public void resetTiltEncoder() {}
+  public void resetEncoder() {}
 }
