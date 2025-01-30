@@ -7,6 +7,7 @@ public class GameConstants {
   // Controllers
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
+  public static final int XBOX_CONTROLLER_ID = 2;
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
@@ -15,6 +16,7 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
+  public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double INTAKE_MOTOR_SPEED = 0.5; // TODO: change later
   public static final double INTAKE_TILT_VELOCITY = 0.5; // TODO: change later
   public static final double CORAL_SHOOTER_SPEED = 0.5;
