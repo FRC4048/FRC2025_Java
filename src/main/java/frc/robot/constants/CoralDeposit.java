@@ -6,19 +6,19 @@ public enum CoralDeposit {
   LEVEL2(60, 35),
   LEVEL3(100, 40);
 
-  private final int height;
-  private final int angle;
+  private final int heightElevator;
+  private final int angleElevator;
 
-  CoralDeposit(int height, int angle) {
-    this.angle = angle;
-    this.height = height;
+  CoralDeposit(int heightElevator, int angleElevator) {
+    this.angleElevator = angleElevator;
+    this.heightElevator = heightElevator;
   }
 
-  public int getAngle() {
-    return angle;
+  public int getElevatorAngle() {
+    return angleElevator;
   }
 
-  public int getHeight() {
-    return height;
+  public int getElevatorHeight() {
+    return heightElevator;
   }
 }
