@@ -33,6 +33,7 @@ public class ExtendAlgaeExtender extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (hihiExtender.getForwardSwitchState() || Timer.getFPGATimestamp() - time >= Constants.HIHI_EXTENDER_TIMEOUT);
+    return (hihiExtender.getForwardSwitchState()
+        || Timer.getFPGATimestamp() - time >= Constants.HIHI_EXTENDER_TIMEOUT);
   }
 }

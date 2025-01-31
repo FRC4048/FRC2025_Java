@@ -38,5 +38,6 @@ public class RealHihiRollerIO implements HihiRollerIO {
   @Override
   public void updateInputs(HihiRollerInputs inputs) {
     inputs.hihiRollerEncoder = hihiRollerMotor.getEncoder().getPosition();
+    inputs.hihiRollerVelocity = hihiRollerMotor.getEncoder().getVelocity();
   }
 }

@@ -7,6 +7,7 @@ public class GameConstants {
   // Controllers
   public static final int LEFT_JOYSTICK_ID = 0;
   public static final int RIGHT_JOYSTICK_ID = 1;
+  public static final int XBOX_CONTROLLER_ID = 2;
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
@@ -14,8 +15,7 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final double EXTENDER_MOTOR_SPEED = 0.5; // TODO: change later
-  public static final double EXTENDER_ROLLER_SPEED = 0.5; // TODO: change later
+  public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -64,6 +64,10 @@ public class GameConstants {
   public static final double STEER_PID_D = 0.005; // TODO: change later
   public static final double STEER_PID_FF_S = 0; // 0.2; //TODO: change later
   public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
+
+  // Algae HiHi
+  public static final double EXTENDER_MOTOR_SPEED = .4;
+  public static final double EXTENDER_ROLLER_SPEED = .4;
 
   // Other
   public static final double GRAVITY = -9.81;
