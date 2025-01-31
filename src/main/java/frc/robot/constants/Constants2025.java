@@ -23,6 +23,9 @@ public class Constants2025 extends GameConstants {
   public static final int ALGAE_BYEBYE_SPINING_ID = 1; // TODO: change later
   public static final int ALGAE_BYEBYE_TILT_ID = 2; // TODO: change later
 
+  // Climber
+  public static final int CLIMBER_MOTOR_ID = 7; // TODO: change later
+
   // DriveTrain
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
   public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later
