@@ -3,15 +3,16 @@
   "robotLength": 0.88,
   "holonomicMode": true,
   "pathFolders": [
-    "Reef to Station ",
-    "Robot to Reef STARTER",
-    "Station to Reef"
+    "Station 2 to Posts (12)",
+    "Posts to Station (4)",
+    "Robot to Post (4)",
+    "Station 1 to Posts (12)"
   ],
   "autoFolders": [
-    "Robot 1 to Reefs",
-    "Robot 2 to Reefs",
-    "Robot 3 to Reefs",
-    "Robot 4 to Reefs"
+    "Robot 1 to Posts (12)",
+    "Robot 2 to Posts (12)",
+    "Robot 3 to Reefs (12)",
+    "Robot 4 to Reefs (12)"
   ],
   "defaultMaxVel": 4.0,
   "defaultMaxAccel": 4.0,
