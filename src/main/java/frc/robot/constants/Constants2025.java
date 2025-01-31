@@ -7,9 +7,6 @@ public class Constants2025 extends GameConstants {
   // Elevator
   public static final int ELEVATOR_MOTOR_1_ID = 0; // TODO: change later
   public static final int ELEVATOR_MOTOR_2_ID = 1; // TODO: change later
-  public static final int ELEVATOR_MIN_WINDOW = 1;
-  public static final int ELEVATOR_MAX_WINDOW = 1;
-
 
   // Shooter
   public static final int SHOOTER_MOTOR_1_ID = 0; // TODO: change later
