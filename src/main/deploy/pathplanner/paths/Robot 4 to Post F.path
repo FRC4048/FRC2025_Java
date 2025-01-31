@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.107560106734155,
-        "y": 1.381782295334507
+        "x": 7.11,
+        "y": 1.041
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.757585208516725,
-        "y": 1.654713633362676
+        "x": 6.7600251017825705,
+        "y": 1.3139313380281687
       },
       "isLocked": false,
       "linkedName": null
@@ -48,7 +48,7 @@
   "folder": "Robot to Post (4)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.72137313674
+    "rotation": 179.721
   },
   "useDefaultConstraints": true
 }

@@ -10,7 +10,12 @@ import java.util.stream.Collectors;
 
 public enum FieldLocation {
   ZERO(0, 0, 0, "Zero", "Zero"),
-  INVALID(-1, -1, -1, "INVALID", "INVALID");
+  INVALID(-1, -1, -1, "INVALID", "INVALID"),
+  ROBOT_POS_1(7.110, 7.057, -179.995, "ROBOT_POS_1", "ROBOT_POS_1"),
+  ROBOT_POS_2(7.110, 5.051, -179.995, "ROBOT_POS_1", "ROBOT_POS_1"),
+  ROBOT_POS_3(7.110, 3.310, -179.995, "ROBOT_POS_1", "ROBOT_POS_1"),
+  ROBOT_POS_4(7.110,1.041,179.721,"ROBOT_POS_4","ROBOT_POS_4");
+
   private static final double RED_X_POS = 16.5; // meters
   private final double yPos;
   private final double xPose;

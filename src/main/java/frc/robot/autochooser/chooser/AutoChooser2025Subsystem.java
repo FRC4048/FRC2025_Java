@@ -1,5 +1,6 @@
 package frc.robot.autochooser.chooser;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,7 +19,9 @@ public class AutoChooser2025Subsystem extends SubsystemBase implements AutoChoos
       AutoEventProviderIO
           providerIO /*, SwerveDrivetrain drivetrain, Intake intake, Shooter shooter, Feeder feeder, Deployer deployer, Ramp ramp, LightStrip lightStrip, Vision vision*/) {
     this.provider = new AutoEventProvider(providerIO, this::isValid);
-    commandMap = Map.ofEntries();
+    AutoBuilder.
+    commandMap = Map.ofEntries()
+      Map.entry(new AutoEvent(AutoAction.DoNothing, Field Location))
   }
 
   @Override
