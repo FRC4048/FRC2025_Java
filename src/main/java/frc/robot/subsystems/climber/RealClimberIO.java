@@ -16,7 +16,6 @@ public class RealClimberIO implements ClimberIO {
 
   public RealClimberIO() {
     this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
-
     configureMotor();
   }
 
