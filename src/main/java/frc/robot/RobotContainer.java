@@ -18,6 +18,7 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Intake.IntakeCoral;
 import frc.robot.commands.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.subsystemTests.SpinHihiExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIO;

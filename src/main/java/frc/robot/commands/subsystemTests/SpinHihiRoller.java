@@ -15,7 +15,7 @@ public class SpinHihiRoller extends LoggableCommand {
   private final double speedMotors;
   private final Timer timer;
 
-  public SpinRoller(HihiRollerSubsystem roller, double speedMotors) {
+  public SpinHihiRoller(HihiRollerSubsystem roller, double speedMotors) {
     this.speedMotors = speedMotors;
     this.roller = roller;
     timer = new Timer();
