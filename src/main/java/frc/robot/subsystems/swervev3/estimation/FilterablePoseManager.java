@@ -10,6 +10,7 @@ import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.vision.FilterResult;
 import frc.robot.subsystems.swervev3.vision.PoseDeviation;
 import frc.robot.subsystems.swervev3.vision.VisionFilter;
+import frc.robot.subsystems.swervev3.vision.VisionTruster;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.littletonrobotics.junction.Logger;
@@ -20,15 +21,18 @@ import org.littletonrobotics.junction.Logger;
  */
 public class FilterablePoseManager extends PoseManager {
   private final VisionFilter filter;
+  private final VisionTruster visionTruster;
 
   public FilterablePoseManager(
       PoseDeviation PoseDeviation,
       SwerveDriveKinematics kinematics,
       OdometryMeasurement initialOdom,
       TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer,
-      VisionFilter filter) {
+      VisionFilter filter,
+      VisionTruster visionTruster) {
     super(PoseDeviation, kinematics, initialOdom, estimatedPoseBuffer);
     this.filter = filter;
+    this.visionTruster = visionTruster;
   }
 
   public FilterablePoseManager(
@@ -37,27 +41,34 @@ public class FilterablePoseManager extends PoseManager {
       SwerveDriveKinematics kinematics,
       OdometryMeasurement initialOdom,
       TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer,
-      VisionFilter filter) {
+      VisionFilter filter,
+      VisionTruster visionTruster) {
     this(
         new PoseDeviation(wheelStd, visionStd),
         kinematics,
         initialOdom,
         estimatedPoseBuffer,
-        filter);
+        filter,
+        visionTruster);
   }
 
   @Override
   protected void processQueue() {
-    LinkedHashMap<VisionMeasurement, FilterResult> filter1 = filter.filter(visionMeasurementQueue);
+    LinkedHashMap<VisionMeasurement, FilterResult> filteredData =
+        filter.filter(visionMeasurementQueue);
     visionMeasurementQueue.clear();
     int numRejected = 0;
-    for (Map.Entry<VisionMeasurement, FilterResult> entry : filter1.entrySet()) {
+    for (Map.Entry<VisionMeasurement, FilterResult> entry : filteredData.entrySet()) {
       VisionMeasurement v = entry.getKey();
       FilterResult r = entry.getValue();
+
       switch (r) {
-        case ACCEPTED -> addVisionMeasurement(v);
+        case ACCEPTED -> {
+          setVisionSTD(visionTruster.calculateTrust(v));
+          addVisionMeasurement(v);
+        }
         case NOT_PROCESSED -> visionMeasurementQueue.add(v);
-        case REJECTED -> numRejected += 1;
+        case REJECTED -> numRejected++;
       }
     }
     Logger.recordOutput("rejectedMeasurementsCount", numRejected);
