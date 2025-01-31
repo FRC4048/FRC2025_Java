@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class SpinRoller extends LoggableCommand {
+public class SpinHihiRoller extends LoggableCommand {
   /** Creates a new SpinRoller. */
   private final HihiRollerSubsystem roller;
 

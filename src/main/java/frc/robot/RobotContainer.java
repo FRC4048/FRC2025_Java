@@ -18,7 +18,6 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Intake.IntakeCoral;
 import frc.robot.commands.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.subsystemTests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIO;
@@ -77,7 +76,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
-    controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+    controller.x().onTrue(new SpinHihiExtender(hihiExtender, 1));
   }
 
   public Command getAutonomousCommand() {
