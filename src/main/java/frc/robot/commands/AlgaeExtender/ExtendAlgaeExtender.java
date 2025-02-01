@@ -19,7 +19,7 @@ public class ExtendAlgaeExtender extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(Constants.EXTENDER_MOTOR_SPEED);
+    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTENDER_MOTOR_EXTEND_SPEED);
     time = Timer.getFPGATimestamp();
   }
 
