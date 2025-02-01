@@ -10,7 +10,7 @@ import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SpinTIlt extends LoggableCommand {
+public class SpinTilt extends LoggableCommand {
   /** Creates a new SpinTIlt. */
   private final Timer timer;
 

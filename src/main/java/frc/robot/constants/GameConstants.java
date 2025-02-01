@@ -16,6 +16,8 @@ public class GameConstants {
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
+  public static final int BYEBYE_ROLLER_SPEED = 0.15;
+  public static final int TILT_SPEED = 0.15;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;

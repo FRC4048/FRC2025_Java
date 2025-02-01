@@ -78,8 +78,8 @@ public class RobotContainer {
     configureBindings();
 
     SmartShuffleboard.putCommand(
-        "Bye Bye", "Spin Roller ", new SpinRollerByeBye(byebyeRoller, 0.15));
-    SmartShuffleboard.putCommand("Bye Bye", "Spin Tilt", new SpinTIlt(byebyeTilt, 0.15));
+        "Bye Bye", "Spin Roller ", new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+    SmartShuffleboard.putCommand("Bye Bye", "Spin Tilt", new SpinTIlt(byebyeTilt, Constants.Tilt_SPEED));
   }
 
   private void configureBindings() {

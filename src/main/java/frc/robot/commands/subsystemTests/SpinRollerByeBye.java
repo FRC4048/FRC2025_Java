@@ -13,7 +13,6 @@ import frc.robot.utils.logging.LoggableCommand;
 public class SpinRollerByeBye extends LoggableCommand {
   /** Creates a new ByeByeSpinExtender. */
   private final Timer timer;
-
   private final double motorSpeed;
   private final AlgaeByeByeRollerSubsystem roller;
 
