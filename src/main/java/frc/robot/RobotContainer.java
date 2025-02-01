@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -60,7 +64,34 @@ public class RobotContainer {
       hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
     }
     setupDriveTrain();
+    setupPathPlanning();
     configureBindings();
+  }
+
+  private void setupPathPlanning() {
+    try {
+      RobotConfig config = RobotConfig.fromGUISettings();
+      AutoBuilder.configure(
+              drivetrain::getPose,
+              drivetrain::resetOdometry,
+              drivetrain::speedsFromStates,
+              drivetrain::drive,
+              new PPHolonomicDriveController(
+                      new PIDConstants(
+                              Constants.PATH_PLANNER_TRANSLATION_PID_P,
+                              Constants.PATH_PLANNER_TRANSLATION_PID_I,
+                              Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
+                      new PIDConstants(
+                              Constants.PATH_PLANNER_ROTATION_PID_P,
+                              Constants.PATH_PLANNER_ROTATION_PID_I,
+                              Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants,0.02)
+              ),
+              config,
+              RobotContainer::isRedAlliance,
+              drivetrain);
+    } catch (Exception e) {
+      DriverStation.reportError("Could Not load Pathplanner Robot Config", true);
+    }
   }
 
   private void configureBindings() {
