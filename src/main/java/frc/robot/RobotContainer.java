@@ -22,12 +22,12 @@ import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
 import frc.robot.subsystems.gyro.ThreadedGyro;
-import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
-import frc.robot.subsystems.hihiExtender.MockHihiExtenderIO;
-import frc.robot.subsystems.hihiExtender.RealHihiExtenderIO;
-import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
-import frc.robot.subsystems.hihiRoller.MockHihiRollerIO;
-import frc.robot.subsystems.hihiRoller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiExtender.HiHiExtenderSubsystem;
+import frc.robot.subsystems.hihiExtender.MockHiHiExtenderIO;
+import frc.robot.subsystems.hihiExtender.RealHiHiExtenderIO;
+import frc.robot.subsystems.hihiRoller.HiHiRollerSubsystem;
+import frc.robot.subsystems.hihiRoller.MockHiHiRollerIO;
+import frc.robot.subsystems.hihiRoller.RealHiHiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -44,8 +44,8 @@ import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
-  private final HihiRollerSubsystem hihiRoller;
-  private final HihiExtenderSubsystem hihiExtender;
+  private final HiHiRollerSubsystem hihiRoller;
+  private final HiHiExtenderSubsystem hihiExtender;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -53,11 +53,11 @@ public class RobotContainer {
 
   public RobotContainer() {
     if (Robot.isReal()) {
-      hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+      hihiRoller = new HiHiRollerSubsystem(new RealHiHiRollerIO());
+      hihiExtender = new HiHiExtenderSubsystem(new RealHiHiExtenderIO());
     } else {
-      hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+      hihiRoller = new HiHiRollerSubsystem(new MockHiHiRollerIO());
+      hihiExtender = new HiHiExtenderSubsystem(new MockHiHiExtenderIO());
     }
     setupDriveTrain();
     configureBindings();

@@ -8,7 +8,7 @@ import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /** Add your docs here. */
-public class HihiExtenderInputs implements LoggableInputs {
+public class HiHiExtenderInputs implements LoggableInputs {
   public double hihiExtenderEncoderPos = 0;
   public boolean revTripped = false;
   public boolean fwdTripped = false;
