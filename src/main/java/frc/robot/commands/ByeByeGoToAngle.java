@@ -13,7 +13,9 @@ import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
 public class ByeByeGoToAngle extends Command {
   /** Creates a new byeByeGoToAngle. */
   private final AlgaeByeByeTiltSubsystem tiltMotor;
+
   private double startTime;
+
   public ByeByeGoToAngle(AlgaeByeByeTiltSubsystem tiltMotor) {
     this.tiltMotor = tiltMotor;
     addRequirements(tiltMotor);
@@ -23,7 +25,7 @@ public class ByeByeGoToAngle extends Command {
   @Override
   public void initialize() {
     tiltMotor.setSpeed(Constants.BYEBYE_TILT_SPEED);
-  startTime = Timer.getFPGATimestamp();
+    startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +41,7 @@ public class ByeByeGoToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (tiltMotor.getForwardSwitchState() == true|| Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
+    return (tiltMotor.getForwardSwitchState() == true
+        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
   }
 }
