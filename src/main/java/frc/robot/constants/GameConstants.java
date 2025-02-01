@@ -20,6 +20,8 @@ public class GameConstants {
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
+  public static final int BYEBYE_ROLLER_TIMEOUT = 5;
+  public static final int BYEBYE_TILT_TIMEOUT = 5;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
