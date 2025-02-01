@@ -18,6 +18,9 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemTests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.climber.MockClimberIO;
+import frc.robot.subsystems.climber.RealClimberIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -46,6 +49,7 @@ public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
+  private final ClimberSubsystem climber;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -53,9 +57,11 @@ public class RobotContainer {
 
   public RobotContainer() {
     if (Robot.isReal()) {
+      climber = new ClimberSubsystem(new RealClimberIO());
       hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
     } else {
+      climber = new ClimberSubsystem(new MockClimberIO());
       hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
     }
@@ -181,5 +187,9 @@ public class RobotContainer {
 
   public SwerveDrivetrain getDrivetrain() {
     return drivetrain;
+  }
+
+  public ClimberSubsystem getClimber() {
+    return climber;
   }
 }
