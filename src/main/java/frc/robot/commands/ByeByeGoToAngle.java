@@ -12,10 +12,12 @@ import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ByeByeGoToAngle extends Command {
   /** Creates a new byeByeGoToAngle. */
-  public final AlgaeByeByeTiltSubsystem tiltMotor;
-  public double startTime;
-  public ByeByeGoToAngle(AlgaeByeByeTiltSubsystem tiltMotor) {
+  private final AlgaeByeByeTiltSubsystem tiltMotor;
+  private double startTime;
+  private final double angleTo;
+  public ByeByeGoToAngle(AlgaeByeByeTiltSubsystem tiltMotor, double angleTo) {
     this.tiltMotor = tiltMotor;
+    this.angleTo = angleTo;
     addRequirements(tiltMotor);
   }
 
@@ -39,6 +41,6 @@ public class ByeByeGoToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (tiltMotor.getAngle() >= Constants.BYEBYE_ANGLE_THRESHOLD || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
+    return (tiltMotor.getAngle() >= angleTo || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
   }
 }
