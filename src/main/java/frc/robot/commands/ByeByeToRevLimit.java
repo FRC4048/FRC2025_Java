@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.utils.logging.LoggableCommand;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ByeByeToRev extends Command {
+public class ByeByeToRevLimit extends LoggableCommand {
   /** Creates a new byeByeGoToAngle. */
   private final AlgaeByeByeTiltSubsystem tiltMotor;
   private double startTime;
 
-  public ByeByeToRev(AlgaeByeByeTiltSubsystem tiltMotor) {
+  public ByeByeToRevLimit(AlgaeByeByeTiltSubsystem tiltMotor) {
     this.tiltMotor = tiltMotor;
     addRequirements(tiltMotor);
   }
@@ -23,7 +23,7 @@ public class ByeByeToRev extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tiltMotor.setSpeed(Constants.BYEBYE_TILT_SPEED*-1);
+    tiltMotor.setSpeed(Constants.BYEBYEREVLIMIT_TILT_SPEED);
     startTime = Timer.getFPGATimestamp();
   }
 
@@ -41,6 +41,6 @@ public class ByeByeToRev extends Command {
   @Override
   public boolean isFinished() {
     return (tiltMotor.getReverseSwitchState()
-        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
+        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYEREVLIMIT_TILT_TIMEOUT);
   }
 }
