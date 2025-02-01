@@ -32,7 +32,9 @@ public class GameConstants {
   // Treshholds
   public static final double VISION_CONSISTANCY_THRESHOLD = 0.25;
   public static final double ENCODER_THRESHHOLD_ELEVATOR = 12; // TODO: change later
-  public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change late
+  public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
+  public static final int ELEVATOR_MIN_WINDOW = 1; // TODO: change later
+  public static final int ELEVATOR_MAX_WINDOW = 1; // TODO: change later
 
   // Mode
   public static final Mode simMode = Mode.REPLAY;
