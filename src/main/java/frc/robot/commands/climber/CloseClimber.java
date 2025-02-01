@@ -32,7 +32,7 @@ public class CloseClimber extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if (climber.isExtendedLimitSwitchPressed()) {
+    if (climber.isRetractedLimitSwitchPressed()) {
       return true;
     } else if ((Timer.getFPGATimestamp() - startTime) >= Constants.CLIMBER_TIMEOUT) {
       return true;

@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems.climber;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.Constants;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -18,11 +18,13 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    SmartDashboard.putBoolean("Foward", isExtendedLimitSwitchPressed());
+    SmartDashboard.putBoolean("Backward", isRetractedLimitSwitchPressed());
+
     climberSystem.updateInputs();
     if (isExtendedLimitSwitchPressed() || isRetractedLimitSwitchPressed()) {
       stopClimber();
-    } else {
-      climberSystem.getIO().setClimberSpeed(Constants.CLIMBER_CLOSE_SPEED);
     }
   }
 

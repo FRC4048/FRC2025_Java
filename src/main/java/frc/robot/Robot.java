@@ -7,6 +7,7 @@ package frc.robot;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.climber.CloseClimber;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
