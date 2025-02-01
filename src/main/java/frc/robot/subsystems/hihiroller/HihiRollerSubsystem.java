@@ -1,4 +1,4 @@
-package frc.robot.subsystems.hihiRoller;
+package frc.robot.subsystems.hihiroller;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;

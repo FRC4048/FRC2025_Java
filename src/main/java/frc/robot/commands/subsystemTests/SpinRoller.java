@@ -5,7 +5,7 @@
 package frc.robot.commands.subsystemTests;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
+import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 public class SpinRoller extends LoggableCommand {
