@@ -1,4 +1,4 @@
-package frc.robot.subsystems.ByeByeTilt;
+package frc.robot.subsystems.byebyetilt;
 
 import frc.robot.utils.logging.LoggableIO;
 
