@@ -6,17 +6,17 @@ package frc.robot.commands.subsystemTests;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
+import frc.robot.subsystems.hihiExtender.HiHiExtenderSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 public class SpinExtender extends LoggableCommand {
   /** Creates a new SpinExtender. */
-  private final HihiExtenderSubsystem extender;
+  private final HiHiExtenderSubsystem extender;
 
   private final double speedMotors;
   private Timer timer;
 
-  public SpinExtender(HihiExtenderSubsystem extender, double speedMotors) {
+  public SpinExtender(HiHiExtenderSubsystem extender, double speedMotors) {
     this.speedMotors = speedMotors;
     this.extender = extender;
     timer = new Timer();

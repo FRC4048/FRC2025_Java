@@ -7,12 +7,12 @@ package frc.robot.subsystems.hihiExtender;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
 
-public class HihiExtenderSubsystem extends SubsystemBase {
-  private final LoggableSystem<HihiExtenderIO, HihiExtenderInputs> system;
+public class HiHiExtenderSubsystem extends SubsystemBase {
+  private final LoggableSystem<HiHiExtenderIO, HiHiExtenderInputs> system;
 
   /** Creates a new Extender. */
-  public HihiExtenderSubsystem(HihiExtenderIO io) {
-    system = new LoggableSystem<>(io, new HihiExtenderInputs());
+  public HiHiExtenderSubsystem(HiHiExtenderIO io) {
+    system = new LoggableSystem<>(io, new HiHiExtenderInputs());
   }
 
   @Override

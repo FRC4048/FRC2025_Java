@@ -1,6 +1,6 @@
 package frc.robot.subsystems.hihiRoller;
 
-public class MockHihiRollerIO implements HihiRollerIO {
+public class MockHiHiRollerIO implements HiHiRollerIO {
   @Override
   public void setRollerSpeed(double speed) {}
 
@@ -8,5 +8,5 @@ public class MockHihiRollerIO implements HihiRollerIO {
   public void stopRollerMotor() {}
 
   @Override
-  public void updateInputs(HihiRollerInputs inputs) {}
+  public void updateInputs(HiHiRollerInputs inputs) {}
 }

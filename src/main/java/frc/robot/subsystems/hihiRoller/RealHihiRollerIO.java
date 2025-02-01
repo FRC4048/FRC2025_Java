@@ -7,10 +7,10 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
-public class RealHihiRollerIO implements HihiRollerIO {
+public class RealHiHiRollerIO implements HiHiRollerIO {
   private final SparkMax hihiRollerMotor;
 
-  public RealHihiRollerIO() {
+  public RealHiHiRollerIO() {
     this.hihiRollerMotor =
         new SparkMax(Constants.ALGAE_ROLLER_CAN_ID, SparkLowLevel.MotorType.kBrushless);
     configureMotor();
@@ -36,7 +36,7 @@ public class RealHihiRollerIO implements HihiRollerIO {
   }
 
   @Override
-  public void updateInputs(HihiRollerInputs inputs) {
+  public void updateInputs(HiHiRollerInputs inputs) {
     inputs.hihiRollerEncoder = hihiRollerMotor.getEncoder().getPosition();
     inputs.hihiRollerVelocity = hihiRollerMotor.getEncoder().getVelocity();
   }

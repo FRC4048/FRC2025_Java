@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.hihiExtender;
 
-public class MockHihiExtenderIO implements HihiExtenderIO {
+public class MockHiHiExtenderIO implements HiHiExtenderIO {
 
   @Override
   public void stopHihiExtenderMotor() {}
@@ -16,5 +16,5 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
   public void resetExtenderEncoder() {}
 
   @Override
-  public void updateInputs(HihiExtenderInputs inputs) {}
+  public void updateInputs(HiHiExtenderInputs inputs) {}
 }

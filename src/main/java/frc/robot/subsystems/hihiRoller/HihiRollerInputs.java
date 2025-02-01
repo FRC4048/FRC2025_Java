@@ -3,7 +3,7 @@ package frc.robot.subsystems.hihiRoller;
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-public class HihiRollerInputs implements LoggableInputs {
+public class HiHiRollerInputs implements LoggableInputs {
   public double hihiRollerEncoder = 0;
   public double hihiRollerVelocity = 0;
 
