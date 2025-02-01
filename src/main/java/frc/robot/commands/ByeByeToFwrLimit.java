@@ -13,6 +13,7 @@ import frc.robot.utils.logging.LoggableCommand;
 public class ByeByeToFwrLimit extends LoggableCommand {
   /** Creates a new byeByeGoToAngle. */
   private final AlgaeByeByeTiltSubsystem tiltMotor;
+
   private double startTime;
 
   public ByeByeToFwrLimit(AlgaeByeByeTiltSubsystem tiltMotor) {
