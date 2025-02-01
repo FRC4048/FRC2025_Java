@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
@@ -37,6 +38,6 @@ public class ShootCoral extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 10);
+    return (Timer.getFPGATimestamp() - startTime >= Constants.CORAL_TIMEOUT);
   }
 }
