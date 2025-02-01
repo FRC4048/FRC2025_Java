@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.AlgaeByeByeTilt;
+package frc.robot.subsystems.ByeByeTilt;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
@@ -11,10 +11,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.constants.Constants;
 
 /** Add your docs here. */
-public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
+public class RealByeByeTiltIO implements ByeByeTiltIO {
   private final WPI_TalonSRX removerTiltMotor; // SnowblowerMotor
 
-  public RealAlgaeByeByeTiltIO() {
+  public RealByeByeTiltIO() {
 
     this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_TILT_ID);
     configureMotor();
@@ -45,7 +45,7 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   }
 
   @Override
-  public void updateInputs(AlgaeByeByeTiltInputs inputs) {
+  public void updateInputs(ByeByeTiltInputs inputs) {
     inputs.forwardLimitSwitchState =
         removerTiltMotor.getSensorCollection().isFwdLimitSwitchClosed();
     inputs.backLimitSwitchState = removerTiltMotor.getSensorCollection().isRevLimitSwitchClosed();

@@ -2,17 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems.AlgaeByeByeRoller;
+package frc.robot.subsystems.ByeByeRoller;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.constants.Constants;
 
 /** Add your docs here. */
-public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
+public class RealByeByeRollerIO implements ByeByeRollerIO {
   private final WPI_TalonSRX removerMotor;
 
-  public RealAlgaeByeByeRollerIO() {
+  public RealByeByeRollerIO() {
     this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_SPINING_ID);
     configureMotor();
   }
@@ -31,5 +31,5 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
     this.removerMotor.set(0);
   }
 
-  public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
+  public void updateInputs(ByeByeRollerInputs inputs) {}
 }
