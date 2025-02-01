@@ -69,10 +69,11 @@ public class RobotContainer {
 
   private void configureBindings() {
     try {
-      Command command = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post A"));
+      Command command = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post F"));
 
       joyStickButton1.onTrue(command);
-    } catch (Exception E) {
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
     drivetrain.setDefaultCommand(
