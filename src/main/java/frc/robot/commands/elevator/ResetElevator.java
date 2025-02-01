@@ -1,6 +1,7 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
@@ -23,7 +24,7 @@ public class ResetElevator extends LoggableCommand {
 
   @Override
   public void execute() {
-    // elevator.setSpeed(-Constants.ELEVATOR_RISE_SPEED); assuming positive is forward
+    elevator.setElevatorMotorSpeed(-Constants.ELEVATOR_RISE_SPEED); //assuming positive is forward
   }
 
   @Override
