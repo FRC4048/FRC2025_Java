@@ -18,6 +18,7 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     climberSystem.updateInputs();
+    climberSystem.getIO().setClimberSpeed(1);
   }
 
   public void setClimberSpeed(double speed) {

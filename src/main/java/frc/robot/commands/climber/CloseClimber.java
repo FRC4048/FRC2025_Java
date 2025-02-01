@@ -5,13 +5,13 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class ResetClimber extends LoggableCommand{
+public class CloseClimber extends LoggableCommand{
 
 // ALL COMMENTED CODE REQUIRES METHODS THAT DON'T EXIST YET
   private final ClimberSubsystem climber;
   private double startTime;
 
-  public ResetClimber(ClimberSubsystem climber) {
+  public CloseClimber(ClimberSubsystem climber) {
     this.climber = climber;
     addRequirements(climber);
   }
@@ -24,7 +24,7 @@ public class ResetClimber extends LoggableCommand{
 
   @Override
   public void execute() {
-    climber.setClimberSpeed(-Constants.CLIMBER_RISE_SPEED);; //assuming positive is forward
+    climber.setClimberSpeed(Constants.CLIMBER_CLOSE_SPEED);
   }
 
   @Override
@@ -36,12 +36,12 @@ public class ResetClimber extends LoggableCommand{
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if (climber.getReversedSwitchState()) {
-    //   return true;
-    // }
-    // else if ((Timer.getFPGATimestamp() - startTime) >= Constants.CLIMBER_TIMEOUT) {
-    //   return true;
-    // }
+    if (true){//climber.)) {
+      return true;
+    }
+    else if ((Timer.getFPGATimestamp() - startTime) >= Constants.CLIMBER_TIMEOUT) {
+      return true;
+    }
     return false;
   }
 

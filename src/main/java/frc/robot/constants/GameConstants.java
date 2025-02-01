@@ -15,7 +15,7 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final double CLIMBER_RISE_SPEED = 0.66; //TODO: change later
+  public static final double CLIMBER_CLOSE_SPEED = 0.66; //TODO: change later
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
 
   // Timeouts
