@@ -41,6 +41,6 @@ public class ByeByeGoToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (tiltMotor.getAngle() >= angleTo || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
+    return (tiltMotor.getForwardSwitchState() == true|| Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
   }
 }
