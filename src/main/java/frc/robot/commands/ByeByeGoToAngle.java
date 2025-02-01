@@ -14,10 +14,8 @@ public class ByeByeGoToAngle extends Command {
   /** Creates a new byeByeGoToAngle. */
   private final AlgaeByeByeTiltSubsystem tiltMotor;
   private double startTime;
-  private final double angleTo;
-  public ByeByeGoToAngle(AlgaeByeByeTiltSubsystem tiltMotor, double angleTo) {
+  public ByeByeGoToAngle(AlgaeByeByeTiltSubsystem tiltMotor) {
     this.tiltMotor = tiltMotor;
-    this.angleTo = angleTo;
     addRequirements(tiltMotor);
   }
 
