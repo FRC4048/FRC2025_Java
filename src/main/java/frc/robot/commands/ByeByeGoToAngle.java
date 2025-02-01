@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
@@ -12,7 +13,7 @@ import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
 public class ByeByeGoToAngle extends Command {
   /** Creates a new byeByeGoToAngle. */
   public final AlgaeByeByeTiltSubsystem tiltMotor;
-
+  public double startTime;
   public ByeByeGoToAngle(AlgaeByeByeTiltSubsystem tiltMotor) {
     this.tiltMotor = tiltMotor;
     addRequirements(tiltMotor);
@@ -22,6 +23,7 @@ public class ByeByeGoToAngle extends Command {
   @Override
   public void initialize() {
     tiltMotor.setSpeed(Constants.BYEBYE_TILT_SPEED);
+  startTime = Timer.getFPGATimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +39,6 @@ public class ByeByeGoToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (tiltMotor.getAngle() >= Constants.BYEBYE_ANGLE_THRESHOLD);
+    return (tiltMotor.getAngle() >= Constants.BYEBYE_ANGLE_THRESHOLD || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_TILT_TIMEOUT);
   }
 }
