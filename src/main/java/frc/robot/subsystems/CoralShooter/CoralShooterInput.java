@@ -1,9 +1,9 @@
-package frc.robot.subsystems.coral;
+package frc.robot.subsystems.CoralShooter;
 
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-public class CoralInputs implements LoggableInputs {
+public class CoralShooterInput implements LoggableInputs {
   public double tiltEncoderPosition = 0;
   public boolean fwdTripped = false;
   public boolean revTripped = false;
