@@ -23,7 +23,7 @@ public class ByeByeToRevLimit extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tiltMotor.setSpeed(Constants.BYEBYEREVLIMIT_TILT_SPEED);
+    tiltMotor.setSpeed(Constants.BYEBYE_REVERSE_SPEED);
     startTime = Timer.getFPGATimestamp();
   }
 
@@ -41,6 +41,6 @@ public class ByeByeToRevLimit extends LoggableCommand {
   @Override
   public boolean isFinished() {
     return (tiltMotor.getReverseSwitchState()
-        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYEREVLIMIT_TILT_TIMEOUT);
+        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_REVERSE_TIMEOUT);
   }
 }

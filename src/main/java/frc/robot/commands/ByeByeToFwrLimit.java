@@ -23,7 +23,7 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tiltMotor.setSpeed(Constants.BYEBYEFWRLIMIT_TILT_SPEED);
+    tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
     startTime = Timer.getFPGATimestamp();
   }
 
@@ -41,6 +41,6 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   @Override
   public boolean isFinished() {
     return (tiltMotor.getForwardSwitchState()
-        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYEFWRLIMIT_TILT_TIMEOUT);
+        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_FORWARD_TIMEOUT);
   }
 }
