@@ -85,6 +85,15 @@ public class SwerveModule {
     double turnSpeed =
         turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
             + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
+
+    // DO NOT COMMIT!!! TEMPORARY TO SLOW DOWN AUTO DRIVE
+    if (Math.abs(driveSpeed) > .5) {
+      if (driveSpeed > 0) {
+        driveSpeed = .5;
+      } else {
+        driveSpeed = -.5;
+      }
+    }
     driveSystem.getIO().setDriveVoltage(driveSpeed);
     steerSystem.getIO().setSteerVoltage(turnSpeed * 12);
   }

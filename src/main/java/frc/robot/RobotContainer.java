@@ -4,8 +4,7 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -53,7 +52,7 @@ public class RobotContainer {
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
-  private final JoystickButton joyStickButton1 = new JoystickButton(joyleft, 1);
+  private final JoystickButton joyStickButton1 = new JoystickButton(joyleft, 16);
 
   public RobotContainer() {
     if (Robot.isReal()) {
@@ -69,9 +68,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     try {
-      Command command = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post F"));
-
-      joyStickButton1.onTrue(command);
+      joyStickButton1.onTrue(new PathPlannerAuto("SimpleAuto2"));
     } catch (Exception e) {
       e.printStackTrace();
     }
