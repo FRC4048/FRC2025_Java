@@ -15,11 +15,11 @@ public class MockClimberIO implements ClimberIO {
   @Override
   public void updateInputs(ClimberInputs inputs) {}
 
-  public boolean isLeftReverseLimitSwitchPressed() {
+  public boolean isExtendedLimitSwitchPressed() {
     return false;
   }
 
-  public boolean isRightReverseLimitSwitchPressed() {
+  public boolean isRetractedLimitSwitchPressed() {
     return false;
   }
 }

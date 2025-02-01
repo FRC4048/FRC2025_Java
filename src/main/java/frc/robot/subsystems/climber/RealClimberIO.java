@@ -17,8 +17,6 @@ public class RealClimberIO implements ClimberIO {
   private final SparkLimitSwitch extendedLimit;
   private final SparkLimitSwitch retractedLimit;
 
-
-
   public RealClimberIO() {
     this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
     extendedLimit = climberMotor.getForwardLimitSwitch();
@@ -50,11 +48,11 @@ public class RealClimberIO implements ClimberIO {
     inputs.climberMotorEncoder = climberMotor.getEncoder().getPosition();
   }
 
-  public boolean isLeftReverseLimitSwitchPressed() {
+  public boolean isRetractedLimitSwitchPressed() {
     return retractedLimit.isPressed();
   }
 
-  public boolean isRightReverseLimitSwitchPressed() {
+  public boolean isExtendedLimitSwitchPressed() {
     return extendedLimit.isPressed();
   }
 }

@@ -5,6 +5,7 @@
 package frc.robot.subsystems.climber;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -18,7 +19,11 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     climberSystem.updateInputs();
-    climberSystem.getIO().setClimberSpeed(1);
+    if (isExtendedLimitSwitchPressed() || isRetractedLimitSwitchPressed()) {
+      stopClimber();
+    } else {
+      climberSystem.getIO().setClimberSpeed(Constants.CLIMBER_CLOSE_SPEED);
+    }
   }
 
   public void setClimberSpeed(double speed) {
@@ -27,5 +32,13 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void stopClimber() {
     climberSystem.getIO().stopClimber();
+  }
+
+  public boolean isExtendedLimitSwitchPressed() {
+    return climberSystem.getIO().isExtendedLimitSwitchPressed();
+  }
+
+  public boolean isRetractedLimitSwitchPressed() {
+    return climberSystem.getIO().isRetractedLimitSwitchPressed();
   }
 }
