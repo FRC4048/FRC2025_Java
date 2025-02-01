@@ -19,7 +19,7 @@ public class GameConstants {
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
-  public static final int ELEVATOR_TIMEOUT = 10;//TODO: change later
+  public static final int ELEVATOR_TIMEOUT = 10; // TODO: change later
   public static final int CORAL_TIMEOUT = 10;
 
   // Logging
