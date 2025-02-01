@@ -38,6 +38,6 @@ public class ShootCoral extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= Constants.CORAL_SHOOTER_TIMEOUT);
+    return (Timer.getFPGATimestamp() - startTime >= Constants.SHOOT_CORAL_TIMEOUT);
   }
 }
