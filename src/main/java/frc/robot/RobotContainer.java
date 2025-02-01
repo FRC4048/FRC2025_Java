@@ -18,7 +18,7 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemTests.SpinExtender;
 import frc.robot.commands.subsystemTests.SpinRollerByeBye;
-import frc.robot.commands.subsystemTests.SpinTIlt;
+import frc.robot.commands.subsystemTests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.AlgaeByeByeRoller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.AlgaeByeByeRoller.MockAlgaeByeByeRollerIO;
@@ -79,7 +79,7 @@ public class RobotContainer {
 
     SmartShuffleboard.putCommand(
         "Bye Bye", "Spin Roller ", new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
-    SmartShuffleboard.putCommand("Bye Bye", "Spin Tilt", new SpinTIlt(byebyeTilt, Constants.Tilt_SPEED));
+    SmartShuffleboard.putCommand("Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
   }
 
   private void configureBindings() {

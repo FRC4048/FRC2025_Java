@@ -10,14 +10,13 @@ import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class SpinTilt extends LoggableCommand {
+public class SpinTiltByeBye extends LoggableCommand {
   /** Creates a new SpinTIlt. */
   private final Timer timer;
-
   private final double motorSpeed;
   private final AlgaeByeByeTiltSubsystem tilt;
 
-  public SpinTIlt(AlgaeByeByeTiltSubsystem tilt, double motorSpeed) {
+  public SpinTiltByeBye(AlgaeByeByeTiltSubsystem tilt, double motorSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.motorSpeed = motorSpeed;
     this.tilt = tilt;
@@ -46,6 +45,6 @@ public class SpinTilt extends LoggableCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Constants.BYEBYE_TILT_TIMEOUT);
+    return timer.hasElapsed(Constants.BYEBYE_SPIN_TILT_TIMEOUT);
   }
 }
