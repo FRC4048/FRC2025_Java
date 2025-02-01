@@ -17,7 +17,15 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemTests.SpinExtender;
+import frc.robot.commands.subsystemTests.SpinRollerByeBye;
+import frc.robot.commands.subsystemTests.SpinTIlt;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.AlgaeByeByeRoller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.AlgaeByeByeRoller.MockAlgaeByeByeRollerIO;
+import frc.robot.subsystems.AlgaeByeByeRoller.RealAlgaeByeByeRollerIO;
+import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.AlgaeByeByeTilt.MockAlgaeByeByeTIltIO;
+import frc.robot.subsystems.AlgaeByeByeTilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -40,10 +48,13 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
+  private final AlgaeByeByeRollerSubsystem byebyeRoller;
+  private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
   private final CommandXboxController controller =
@@ -55,12 +66,20 @@ public class RobotContainer {
     if (Robot.isReal()) {
       hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+      byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
+      byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
     } else {
       hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+      byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
+      byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTIltIO());
     }
     setupDriveTrain();
     configureBindings();
+
+    SmartShuffleboard.putCommand(
+        "Bye Bye", "Spin Roller ", new SpinRollerByeBye(byebyeRoller, 0.15));
+    SmartShuffleboard.putCommand("Bye Bye", "Spin Tilt", new SpinTIlt(byebyeTilt, 0.15));
   }
 
   private void configureBindings() {
