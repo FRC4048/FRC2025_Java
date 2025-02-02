@@ -1,24 +1,24 @@
 package frc.robot.constants;
 
 public enum CoralDeposit {
-    INTAKE(0, 0),
-    LEVEL1(20, 10),
-    LEVEL2(60, 35),
-    LEVEL3(100, 40);
+  INTAKE(0, 0),
+  LEVEL1(20, 10),
+  LEVEL2(60, 35),
+  LEVEL3(100, 40);
 
-    private final int heightElevator;
-    private final int angleElevator;
+  private final int heightElevator;
+  private final int angleElevator;
 
-    CoralDeposit(int heightElevator, int angleElevator) {
-        this.angleElevator = angleElevator;
-        this.heightElevator = heightElevator;
-    }
+  CoralDeposit(int heightElevator, int angleElevator) {
+    this.angleElevator = angleElevator;
+    this.heightElevator = heightElevator;
+  }
 
-    public int getElevatorAngle() {
-        return angleElevator;
-    }
+  public int getElevatorAngle() {
+    return angleElevator;
+  }
 
-    public int getElevatorHeight() {
-        return heightElevator;
-    }
+  public int getElevatorHeight() {
+    return heightElevator;
+  }
 }

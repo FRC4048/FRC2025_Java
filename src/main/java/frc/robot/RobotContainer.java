@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
-import frc.robot.commands.Intake.IntakeCoral;
-import frc.robot.commands.ShootCoral;
+import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.subsystemtests.SpinExtender;
+import frc.robot.commands.intake.IntakeCoral;
+import frc.robot.commands.subsystemtests.SpinHihiExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIO;
@@ -63,14 +63,17 @@ public class RobotContainer {
       case REAL -> {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+        shooter = new CoralSubsystem(new RealCoralIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        shooter = new CoralSubsystem(new MockCoralIO());
       }
       case SIM -> {
         hihiRoller = null; // TODO: add hihHRollerSimIO
         hihiExtender = null; // TODO add byeByeRollerSimIO
+        shooter = null;
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
