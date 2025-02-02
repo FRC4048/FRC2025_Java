@@ -24,7 +24,7 @@ public class ResetElevator extends LoggableCommand {
 
   @Override
   public void execute() {
-      elevator.setElevatorMotorSpeed(-Constants.ELEVATOR_RISE_SPEED); // assuming positive is forward
+    elevator.setElevatorMotorSpeed(-Constants.ELEVATOR_RISE_SPEED); // assuming positive is forward
   }
 
   @Override

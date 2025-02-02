@@ -1,4 +1,4 @@
-package frc.robot.subsystems.hihiRoller;
+package frc.robot.subsystems.hihiroller;
 
 import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.inputs.LoggableInputs;

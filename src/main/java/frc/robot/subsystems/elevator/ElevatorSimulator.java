@@ -137,6 +137,6 @@ public class ElevatorSimulator {
     public void close() {
         // m_encoder.close();
         motor.close();
-        mech2d.close();
-    }
+    mech2d.close();
+  }
 }

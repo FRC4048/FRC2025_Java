@@ -18,7 +18,7 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorSpinMotors;
-import frc.robot.commands.subsystemTests.SpinExtender;
+import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -26,12 +26,12 @@ import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
 import frc.robot.subsystems.gyro.ThreadedGyro;
-import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
-import frc.robot.subsystems.hihiExtender.MockHihiExtenderIO;
-import frc.robot.subsystems.hihiExtender.RealHihiExtenderIO;
-import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
-import frc.robot.subsystems.hihiRoller.MockHihiRollerIO;
-import frc.robot.subsystems.hihiRoller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
+import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
+import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
+import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
+import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
+import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -44,7 +44,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 import java.util.Optional;
 
@@ -60,17 +59,26 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem;
 
   public RobotContainer() {
-    if (Robot.isReal()) {
-      hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
-      elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
-    } else {
-      hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
-      elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+    switch (Constants.currentMode) {
+      case REAL -> {
+        hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+      }
+      case REPLAY -> {
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+      }
+      case SIM -> {
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+      }
+      default -> {
+        throw new RuntimeException("Did not specify Robot Mode");
+      }
     }
-    SmartShuffleboard.putCommand(
-            "Elevator", "Spin motors", new ElevatorSpinMotors(elevatorSubsystem));
     setupDriveTrain();
     configureBindings();
   }
