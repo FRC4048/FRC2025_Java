@@ -22,12 +22,9 @@ public class GameConstants {
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10; // TODO: change later
-<<<<<<< HEAD
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
-=======
   public static final int SHOOT_CORAL_TIMEOUT = 10;
->>>>>>> 2725daf4ae15acf4049799c3c1c87daa6f207e75
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
