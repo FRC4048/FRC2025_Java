@@ -53,12 +53,11 @@ public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
+  private final ElevatorSubsystem elevatorSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
-  private final JoystickButton joystickButton = new JoystickButton(joyleft, 1);
-  private final ElevatorSubsystem elevatorSubsystem;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -73,8 +72,8 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
       }
       case SIM -> {
-        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
-        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        hihiRoller = null; // TODO
+        hihiExtender = null; // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
       }
       default -> {
@@ -90,7 +89,6 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-    joystickButton.whileTrue(new ElevatorSpinMotors(elevatorSubsystem));
   }
 
   public Command getAutonomousCommand() {
