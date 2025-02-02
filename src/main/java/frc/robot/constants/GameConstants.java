@@ -15,11 +15,12 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
+  public static final double HIHI_EXTENDER_TIMEOUT = 10;
+  public static final double HIHI_ROLLER_TIMEOUT = 5;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -64,6 +65,12 @@ public class GameConstants {
   public static final double STEER_PID_D = 0.005; // TODO: change later
   public static final double STEER_PID_FF_S = 0; // 0.2; //TODO: change later
   public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
+
+  // Algae HiHi
+  public static final double HIHI_EXTENDER_MOTOR_EXTEND_SPEED = 0.4;
+  public static final double HIHI_EXTENDER_MOTOR_RETRACT_SPEED = -0.4;
+  public static final double HIHI_EXTENDER_ROLLER_INTAKE_SPEED = 0.4;
+  public static final double HIHI_EXTENDER_ROLLER_SHOOT_SPEED = -0.4;
 
   // Other
   public static final double GRAVITY = -9.81;
