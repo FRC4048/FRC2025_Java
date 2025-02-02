@@ -21,7 +21,9 @@ import frc.robot.commands.elevator.ElevatorSpinMotors;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
+import frc.robot.subsystems.elevator.SimElevatorIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -68,12 +70,12 @@ public class RobotContainer {
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
-        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+        elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
-        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+        elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");

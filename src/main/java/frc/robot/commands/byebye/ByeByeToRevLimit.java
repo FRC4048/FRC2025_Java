@@ -46,5 +46,5 @@ public class ByeByeToRevLimit extends LoggableCommand {
     public boolean isFinished() {
         return (tiltMotor.getReverseSwitchState()
                 || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_REVERSE_TIMEOUT);
-    }
+  }
 }
