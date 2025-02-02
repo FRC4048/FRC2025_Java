@@ -1,4 +1,4 @@
-package frc.robot.subsystems.hihiRoller;
+package frc.robot.subsystems.hihiroller;
 
 import frc.robot.utils.logging.LoggableIO;
 

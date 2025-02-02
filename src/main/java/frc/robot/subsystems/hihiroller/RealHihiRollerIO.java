@@ -1,4 +1,4 @@
-package frc.robot.subsystems.hihiRoller;
+package frc.robot.subsystems.hihiroller;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel;
