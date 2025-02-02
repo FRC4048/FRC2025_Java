@@ -1,4 +1,4 @@
-package frc.robot.subsystems.hihiRoller;
+package frc.robot.subsystems.hihiroller;
 
 public class MockHihiRollerIO implements HihiRollerIO {
   @Override
