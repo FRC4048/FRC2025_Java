@@ -5,7 +5,7 @@ public class ConstantsTestbed2025 extends Constants2025 {
    * To use the TestBed constants, change Constants.java to read: public class Constants extends
    * ConstantsTestbedClean2025
    *
-   * <p>instead of: public class Constants extends Constants2025
+   * <p>instead of: public class Constants extends Constants2025.
    *
    * <p>Then revert changes to Constants.java and ConstantsTestBed.java before committing.
    */
