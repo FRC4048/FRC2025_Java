@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class SpinHihiExtender extends LoggableCommand {
-  /** Creates a new SpinHihiExtender. */
+public class SpinExtender extends LoggableCommand {
+  /** Creates a new SpinExtender. */
   private final HihiExtenderSubsystem extender;
 
   private final double speedMotors;
-  private final Timer timer;
+  private Timer timer;
 
-  public SpinHihiExtender(HihiExtenderSubsystem extender, double speedMotors) {
+  public SpinExtender(HihiExtenderSubsystem extender, double speedMotors) {
     this.speedMotors = speedMotors;
     this.extender = extender;
     timer = new Timer();

@@ -22,10 +22,10 @@ public class ResetElevator extends LoggableCommand {
         startTime = Timer.getFPGATimestamp();
     }
 
-    @Override
-    public void execute() {
-        elevator.setElevatorMotorSpeed(-Constants.ELEVATOR_RISE_SPEED); // assuming positive is forward
-    }
+  @Override
+  public void execute() {
+    elevator.setElevatorMotorSpeed(-Constants.ELEVATOR_RISE_SPEED); // assuming positive is forward
+  }
 
     @Override
     public void end(boolean interrupted) {

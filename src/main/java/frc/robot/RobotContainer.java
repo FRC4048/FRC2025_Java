@@ -18,7 +18,7 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Intake.IntakeCoral;
 import frc.robot.commands.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.subsystemTests.SpinHihiExtender;
+import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIO;
@@ -27,12 +27,12 @@ import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
 import frc.robot.subsystems.gyro.ThreadedGyro;
-import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
-import frc.robot.subsystems.hihiExtender.MockHihiExtenderIO;
-import frc.robot.subsystems.hihiExtender.RealHihiExtenderIO;
-import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
-import frc.robot.subsystems.hihiRoller.MockHihiRollerIO;
-import frc.robot.subsystems.hihiRoller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
+import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
+import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
+import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
+import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
+import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -59,14 +59,22 @@ public class RobotContainer {
   private final CoralSubsystem shooter;
 
   public RobotContainer() {
-    if (Robot.isReal()) {
-      shooter = new CoralSubsystem(new RealCoralIO());
-      hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
-    } else {
-      shooter = new CoralSubsystem(new MockCoralIO());
-      hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+    switch (Constants.currentMode) {
+      case REAL -> {
+        hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+      }
+      case REPLAY -> {
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+      }
+      case SIM -> {
+        hihiRoller = null; // TODO: add hihHRollerSimIO
+        hihiExtender = null; // TODO add byeByeRollerSimIO
+      }
+      default -> {
+        throw new RuntimeException("Did not specify Robot Mode");
+      }
     }
     setupDriveTrain();
     configureBindings();

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.AlgaeByeByeTilt;
+package frc.robot.subsystems.algaebyebyetilt;
 
 import frc.robot.utils.logging.LoggableIO;
 
