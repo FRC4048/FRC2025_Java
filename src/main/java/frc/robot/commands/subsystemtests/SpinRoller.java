@@ -2,29 +2,31 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.subsystemtests;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class ShootCoral extends LoggableCommand {
-  /** Creates a new ShootCoral. */
-  private final CoralSubsystem shooter;
+public class SpinRoller extends LoggableCommand {
+  /** Creates a new SpinRoller. */
+  private final HihiRollerSubsystem roller;
 
   private final double speedMotors;
-  private double startTime;
+  private Timer timer;
 
-  public ShootCoral(CoralSubsystem shooter, double speedMotors) {
+  public SpinRoller(HihiRollerSubsystem roller, double speedMotors) {
     this.speedMotors = speedMotors;
-    this.shooter = shooter;
-    addRequirements(shooter);
+    this.roller = roller;
+    timer = new Timer();
+    addRequirements(roller);
   }
 
   @Override
   public void initialize() {
-    shooter.setShooterSpeed(speedMotors);
-    startTime = Timer.getFPGATimestamp();
+    roller.setRollerMotorSpeed(speedMotors);
+    timer.reset();
+    timer.start();
   }
 
   @Override
@@ -32,11 +34,11 @@ public class ShootCoral extends LoggableCommand {
 
   @Override
   public void end(boolean interrupted) {
-    shooter.stopShooterMotors();
+    roller.stopHihiRollerMotor();
   }
 
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= 10);
+    return timer.hasElapsed(5);
   }
 }
