@@ -44,7 +44,7 @@ public class GameConstants {
   public static final int ELEVATOR_MAX_WINDOW = 1; // TODO: change later
 
   // Mode
-  public static final Mode simMode = Mode.REPLAY;
+  public static final Mode simMode = Mode.SIM;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
   public enum Mode {
