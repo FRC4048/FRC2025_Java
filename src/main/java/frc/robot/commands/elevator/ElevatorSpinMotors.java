@@ -13,12 +13,12 @@ import frc.robot.utils.logging.TimeoutLogger;
 public class ElevatorSpinMotors extends LoggableCommand {
   /** Creates a new ElevatorSpinMotors. */
   private final ElevatorSubsystem elevator;
-  private final TimeoutLogger timeoutCounter;
+  private final TimeoutLogger timeoutCounterElevatorSPin;
   public double startTime;
 
   public ElevatorSpinMotors(ElevatorSubsystem elevator) {
     this.elevator = elevator;
-    timeoutCounter = new TimeoutLogger("Elevator spin Motors");
+    timeoutCounterElevatorSPin = new TimeoutLogger("Elevator spin Motors");
     addRequirements(elevator);
   }
 
@@ -40,7 +40,7 @@ public class ElevatorSpinMotors extends LoggableCommand {
   @Override
   public boolean isFinished() {
     if(Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime){
-      timeoutCounter.increaseTimeoutCount();
+      timeoutCounterElevatorSPin.increaseTimeoutCount();
       return true;
     }
     return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR

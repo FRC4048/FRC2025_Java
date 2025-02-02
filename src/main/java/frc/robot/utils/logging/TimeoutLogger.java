@@ -10,7 +10,7 @@ import org.littletonrobotics.junction.Logger;
 /** Add your docs here. */
 public class TimeoutLogger {
 private int timeoutCounter = 0;//per command
-private static int totalTimeouts = 0;//every timeout3
+private static int totalTimeouts = 0;//every timeout
 private final String commandName;
 
 public TimeoutLogger(String commandName){

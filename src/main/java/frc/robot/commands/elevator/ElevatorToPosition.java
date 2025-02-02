@@ -13,10 +13,10 @@ public class ElevatorToPosition extends LoggableCommand {
   private final ElevatorSubsystem elevator;
   private final CoralDeposit targetPosition;
   private double startTime;
-  private final TimeoutLogger timeoutCounter;
+  private final TimeoutLogger timeoutCounterElevatorToPos;
 
   public ElevatorToPosition(ElevatorSubsystem elevator, CoralDeposit targetPosition) {
-    timeoutCounter = new TimeoutLogger("Elevator spin Motors");
+    timeoutCounterElevatorToPos = new TimeoutLogger("Elevator spin Motors");
     this.elevator = elevator;
     this.targetPosition = targetPosition;
     addRequirements(elevator);
@@ -35,7 +35,7 @@ public class ElevatorToPosition extends LoggableCommand {
   @Override
   public boolean isFinished() {
     if(Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime){
-      timeoutCounter.increaseTimeoutCount();
+      timeoutCounterElevatorToPos.increaseTimeoutCount();
       return true;
     }
     return (((elevator.getEncoderValue1()
