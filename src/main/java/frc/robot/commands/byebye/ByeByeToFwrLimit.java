@@ -6,7 +6,7 @@ package frc.robot.commands.byebye;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
