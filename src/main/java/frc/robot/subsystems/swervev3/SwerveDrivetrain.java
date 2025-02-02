@@ -74,11 +74,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     AutoBuilder.configure(
         this::getPose,
         this::resetOdometry,
-        this::getFieldChassisSpeeds,
+        this::getChassisSpeeds,
         this::drive,
         new PPHolonomicDriveController(
-            new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-            new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+            new PIDConstants(
+                Constants.PATH_PLANNER_TRANSLATION_PID_P,
+                Constants.PATH_PLANNER_TRANSLATION_PID_I,
+                Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
+            new PIDConstants(
+                Constants.PATH_PLANNER_ROTATION_PID_P,
+                Constants.PATH_PLANNER_ROTATION_PID_I,
+                Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
             ),
         config,
         () -> {

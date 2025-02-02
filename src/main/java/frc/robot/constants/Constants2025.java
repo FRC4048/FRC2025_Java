@@ -56,4 +56,12 @@ public class Constants2025 extends GameConstants {
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
   public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
+
+  // pathplanner
+  public static final double PATH_PLANNER_TRANSLATION_PID_P = 5;
+  public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
+  public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
+  public static final double PATH_PLANNER_ROTATION_PID_P = 4.75;
+  public static final double PATH_PLANNER_ROTATION_PID_I = 0;
+  public static final double PATH_PLANNER_ROTATION_PID_D = 0;
 }
