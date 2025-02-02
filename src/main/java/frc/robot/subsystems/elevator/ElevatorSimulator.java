@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.elevator;
 
+import static edu.wpi.first.units.Units.*;
+
 import com.revrobotics.sim.SparkLimitSwitchSim;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
@@ -21,8 +23,6 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
-
-import static edu.wpi.first.units.Units.*;
 
 /**
  * A class to encapsulate the behavior of a simulated elevator. Wraps around the motor and the
@@ -47,24 +47,22 @@ public class ElevatorSimulator {
 
   // Elevator physical model, simulating movement based on physics, motor load and gravity
   private final ElevatorSim m_elevatorSim =
-          new ElevatorSim(
-                  elevatorGearbox,
-                  Constants.ELEVATOR_GEARING,
-                  Constants.CARRIAGE_MASS,
-                  Constants.ELEVATOR_DRUM_RADIUS,
-                  Constants.MIN_ELEVATOR_HEIGHT_METERS,
-                  Constants.MAX_ELEVATOR_HEIGHT_METERS,
-                  true,
-                  0);
+      new ElevatorSim(
+          elevatorGearbox,
+          Constants.ELEVATOR_GEARING,
+          Constants.CARRIAGE_MASS,
+          Constants.ELEVATOR_DRUM_RADIUS,
+          Constants.MIN_ELEVATOR_HEIGHT_METERS,
+          Constants.MAX_ELEVATOR_HEIGHT_METERS,
+          true,
+          0);
   // The mechanism simulation used for visualization
   private final Mechanism2d mech2d = new Mechanism2d(3, 5);
   private final MechanismRoot2d mech2dRoot = mech2d.getRoot("Elevator Root", 1, 0);
   private final MechanismLigament2d elevatorMech2d =
-          mech2dRoot.append(new MechanismLigament2d("Elevator", m_elevatorSim.getPositionMeters(), 90));
+      mech2dRoot.append(new MechanismLigament2d("Elevator", m_elevatorSim.getPositionMeters(), 90));
 
-  /**
-   * Constructor.
-   */
+  /** Constructor. */
   public ElevatorSimulator(SparkMax motor) {
     this.motor = motor;
     motorSim = new SparkMaxSim(motor, elevatorGearbox);
@@ -81,9 +79,7 @@ public class ElevatorSimulator {
     SmartDashboard.putData("Elevator Sim", mech2d);
   }
 
-  /**
-   * Advance the simulation.
-   */
+  /** Advance the simulation. */
   public void simulationPeriodic() {
     // In this method, we update our simulation of what our elevator is doing
     // First, we set our "inputs" (voltages)
@@ -96,26 +92,26 @@ public class ElevatorSimulator {
     double velocityMetersPerSecond = m_elevatorSim.getVelocityMetersPerSecond();
     double rpm = convertDistanceToRotations(Meters.of(velocityMetersPerSecond)).per(Second).in(RPM);
     motorSim.iterate(
-            rpm, 12, // RoboRioSim.getVInVoltage(),
-            0.020);
+        rpm, 12, // RoboRioSim.getVInVoltage(),
+        0.020);
     // SimBattery estimates loaded battery voltages
     RoboRioSim.setVInVoltage(
-            BatterySim.calculateDefaultBatteryLoadedVoltage(m_elevatorSim.getCurrentDrawAmps()));
+        BatterySim.calculateDefaultBatteryLoadedVoltage(m_elevatorSim.getCurrentDrawAmps()));
 
     // Update elevator visualization with position
     double positionMeters = m_elevatorSim.getPositionMeters();
     elevatorMech2d.setLength(positionMeters);
 
     forwardSwitchSim.setPressed(
-            MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+        MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
     reverseSwitchSim.setPressed(
-            MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+        MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
 
     SmartShuffleboard.put("Elevator", "Motor out voltage", motorOut);
     SmartShuffleboard.put("Elevator", "Velocity mps", velocityMetersPerSecond);
     SmartShuffleboard.put("Elevator", "RPM", rpm);
     SmartShuffleboard.put(
-            "Elevator", "Elevator actual position", m_elevatorSim.getPositionMeters());
+        "Elevator", "Elevator actual position", m_elevatorSim.getPositionMeters());
     SmartShuffleboard.put("Elevator", "Mechanism length", elevatorMech2d.getLength());
     SmartShuffleboard.put("Elevator", "Forward switch", forwardSwitchSim.getPressed());
     SmartShuffleboard.put("Elevator", "Reverse switch", reverseSwitchSim.getPressed());
@@ -129,9 +125,9 @@ public class ElevatorSimulator {
    */
   private Angle convertDistanceToRotations(Distance distance) {
     return Rotations.of(
-            distance.in(Meters)
-                    / (Constants.ELEVATOR_DRUM_RADIUS * 2 * Math.PI)
-                    * Constants.ELEVATOR_GEARING);
+        distance.in(Meters)
+            / (Constants.ELEVATOR_DRUM_RADIUS * 2 * Math.PI)
+            * Constants.ELEVATOR_GEARING);
   }
 
   public void close() {

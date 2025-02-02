@@ -3,18 +3,18 @@ package frc.robot.subsystems.elevator;
 import frc.robot.constants.Constants;
 
 public class SimElevatorIO extends RealElevatorIO {
-    private final ElevatorSimulator elevatorSimulator;
+  private final ElevatorSimulator elevatorSimulator;
 
-    public SimElevatorIO() {
-        super();
-        this.elevatorSimulator = new ElevatorSimulator((elevatorMotor1));
-    }
+  public SimElevatorIO() {
+    super();
+    this.elevatorSimulator = new ElevatorSimulator((elevatorMotor1));
+  }
 
-    @Override
-    public void updateInputs(ElevatorInputs inputs) {
-        super.updateInputs(inputs);
-        if (Constants.currentMode == Constants.Mode.SIM) {
-            elevatorSimulator.simulationPeriodic();
-        }
+  @Override
+  public void updateInputs(ElevatorInputs inputs) {
+    super.updateInputs(inputs);
+    if (Constants.currentMode == Constants.Mode.SIM) {
+      elevatorSimulator.simulationPeriodic();
     }
+  }
 }

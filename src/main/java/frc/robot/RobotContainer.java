@@ -12,12 +12,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.elevator.ElevatorSpinMotors;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -46,7 +44,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-
 import java.util.Optional;
 
 public class RobotContainer {
@@ -72,8 +69,8 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
       }
       case SIM -> {
-        hihiRoller = null; // TODO
-        hihiExtender = null; // TODO
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
       }
       default -> {
