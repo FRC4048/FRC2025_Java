@@ -13,7 +13,7 @@ public class SpinExtender extends LoggableCommand {
   private final HihiExtenderSubsystem extender;
 
   private final double speedMotors;
-  private Timer timer;
+  private final Timer timer;
 
   public SpinExtender(HihiExtenderSubsystem extender, double speedMotors) {
     this.speedMotors = speedMotors;

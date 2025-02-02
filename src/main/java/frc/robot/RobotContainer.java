@@ -18,6 +18,10 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.MockElevatorIO;
+import frc.robot.subsystems.elevator.RealElevatorIO;
+import frc.robot.subsystems.elevator.SimElevatorIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -46,6 +50,7 @@ public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
+  private final ElevatorSubsystem elevatorSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -56,14 +61,17 @@ public class RobotContainer {
       case REAL -> {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
       }
       case SIM -> {
-        hihiRoller = null; // TODO: add hihHRollerSimIO
-        hihiExtender = null; // TODO add byeByeRollerSimIO
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
+        elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
