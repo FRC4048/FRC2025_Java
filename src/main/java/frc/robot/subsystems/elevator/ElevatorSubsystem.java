@@ -26,4 +26,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void periodic() {
     elevatorSystem.updateInputs();
   }
+
+  @Override
+  public void simulationPeriodic() {
+    elevatorSystem.updateInputs();
+  }
 }

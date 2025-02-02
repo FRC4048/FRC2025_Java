@@ -12,12 +12,16 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.elevator.ElevatorSpinMotors;
 import frc.robot.commands.subsystemTests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.RealElevatorIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -40,6 +44,8 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
+
 import java.util.Optional;
 
 public class RobotContainer {
@@ -50,15 +56,21 @@ public class RobotContainer {
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
+  private final JoystickButton joystickButton = new JoystickButton(joyleft, 1);
+  private final ElevatorSubsystem elevatorSubsystem;
 
   public RobotContainer() {
     if (Robot.isReal()) {
       hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+      elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
     } else {
       hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+      elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
     }
+    SmartShuffleboard.putCommand(
+            "Elevator", "Spin motors", new ElevatorSpinMotors(elevatorSubsystem));
     setupDriveTrain();
     configureBindings();
   }
@@ -68,6 +80,7 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+    joystickButton.whileTrue(new ElevatorSpinMotors(elevatorSubsystem));
   }
 
   public Command getAutonomousCommand() {
