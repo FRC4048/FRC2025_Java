@@ -47,7 +47,6 @@ public class ByeByeToFwrLimit extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (tiltMotor.getForwardSwitchState()
-        || Timer.getFPGATimestamp() - startTime >= Constants.BYEBYE_FORWARD_TIMEOUT);
+    return (tiltMotor.getForwardSwitchState());
   }
 }
