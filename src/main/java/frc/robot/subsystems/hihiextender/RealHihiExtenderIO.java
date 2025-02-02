@@ -1,4 +1,4 @@
-package frc.robot.subsystems.hihiExtender;
+package frc.robot.subsystems.hihiextender;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel;
