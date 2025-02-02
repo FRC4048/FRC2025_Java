@@ -16,7 +16,7 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.subsystemTests.SpinExtender;
+import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
@@ -52,7 +52,7 @@ public class RobotContainer {
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   public RobotContainer() {
-    switch (Constants.currentMode){
+    switch (Constants.currentMode) {
       case REAL -> {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
@@ -62,8 +62,8 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
       }
       case SIM -> {
-        hihiRoller = null; //TODO: add hihHRollerSimIO
-        hihiExtender = null; //TODO add byeByeRollerSimIO
+        hihiRoller = null; // TODO: add hihHRollerSimIO
+        hihiExtender = null; // TODO add byeByeRollerSimIO
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
