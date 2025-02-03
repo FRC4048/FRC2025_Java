@@ -72,6 +72,10 @@ public class PoseManager {
     poseEstimator.addVisionMeasurement(measurement.measurement(), measurement.timeOfMeasurement());
   }
 
+  protected void setVisionSTD(Vector<N3> visionMeasurementStdDevs) {
+    poseEstimator.setVisionMeasurementStdDevs(visionMeasurementStdDevs);
+  }
+
   public void resetPose(OdometryMeasurement m, Translation2d initialPose) {
     poseEstimator.resetPosition(
         Rotation2d.fromDegrees(m.gyroValueDeg()),
