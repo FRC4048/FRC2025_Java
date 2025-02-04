@@ -7,7 +7,7 @@ public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {
 
   public SimAlgaeByeByeRollerIO() {
     super();
-    algeaByeByeRollerSimulator = new AlgeaByeByeRollerSimulator((removerMotor));
+    algeaByeByeRollerSimulator = new AlgeaByeByeRollerSimulator((getRemoverMotor()));
   }
 
   @Override
