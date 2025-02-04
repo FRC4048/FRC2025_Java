@@ -4,95 +4,26 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.pathfinding.Pathfinding;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.drivetrain.WheelAlign;
-import frc.robot.constants.Constants;
-import frc.robot.utils.RobotMode;
-import frc.robot.utils.logging.CommandLogger;
-import java.util.concurrent.atomic.AtomicReference;
-import org.littletonrobotics.junction.LogFileUtil;
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
-  private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
-  public double counter = 0;
 
   public Robot() {
-    Pathfinding.setPathfinder(new LocalADStarAK());
-    // Record Metadata
-    Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-    Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-    Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-    Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
-    Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-    switch (BuildConstants.DIRTY) {
-      case 0:
-        Logger.recordMetadata("GitDirty", "All changes committed");
-        break;
-      case 1:
-        Logger.recordMetadata("GitDirty", "Uncomitted changes");
-        break;
-      default:
-        Logger.recordMetadata("GitDirty", "Unknown");
-        break;
-    }
-    // Set up data receivers & replay source
-    switch (Constants.currentMode) {
-      case REAL:
-        // Running on a real robot, log to a USB stick ("/U/logs")
-        Logger.addDataReceiver(new WPILOGWriter());
-        Logger.addDataReceiver(new NT4Publisher());
-        break;
-
-      case SIM:
-        // Running a physics simulator, log to NT
-        Logger.addDataReceiver(new NT4Publisher());
-        break;
-
-      case REPLAY:
-        // Replaying a log, set up replay source
-        setUseTiming(false); // Run as fast as possible
-        String logPath = LogFileUtil.findReplayLog();
-        Logger.setReplaySource(new WPILOGReader(logPath));
-        Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
-        break;
-    }
-
-    // Start AdvantageKit logger
-    Logger.start();
-    CommandLogger.get().init();
     m_robotContainer = new RobotContainer();
-  }
-
-  public static RobotMode getMode() {
-    return mode.get();
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    if (Constants.ENABLE_LOGGING) {
-      CommandLogger.get().log();
-    }
-    if (counter == 0) {
-      new WheelAlign(m_robotContainer.getDrivetrain()).schedule();
-    }
-    counter++;
   }
 
   @Override
-  public void disabledInit() {
-    mode.set(RobotMode.DISABLED);
-  }
+  public void disabledInit() {}
 
   @Override
   public void disabledPeriodic() {}
@@ -107,7 +38,6 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    mode.set(RobotMode.AUTONOMOUS);
   }
 
   @Override
@@ -121,7 +51,6 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    mode.set(RobotMode.TELEOP);
   }
 
   @Override
@@ -133,7 +62,6 @@ public class Robot extends LoggedRobot {
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
-    mode.set(RobotMode.TEST);
   }
 
   @Override
@@ -141,8 +69,4 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void testExit() {}
-
-  public void simulationInit() {
-    mode.set(RobotMode.SIMULATION);
-  }
 }

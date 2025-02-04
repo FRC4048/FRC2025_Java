@@ -1,8 +1,6 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2025.2.1"
-    id "com.peterabeles.gversion" version "1.10"
-    id "com.diffplug.spotless" version "7.0.2"
 }
 
 java {
@@ -29,17 +27,14 @@ deploy {
                 // getTargetTypeClass is a shortcut to get the class type using a string
 
                 frcJava(getArtifactTypeClass('FRCJavaArtifact')) {
-                    jvmArgs.add("-XX:+UnlockExperimentalVMOptions")
-                    jvmArgs.add("-XX:GCTimeRatio=5")
-                    jvmArgs.add("-XX:+UseSerialGC")
-                    jvmArgs.add("-XX:MaxGCPauseMillis=50")
                 }
+
                 // Static files artifact
                 frcStaticFileDeploy(getArtifactTypeClass('FileTreeArtifact')) {
                     files = project.fileTree('src/main/deploy')
                     directory = '/home/lvuser/deploy'
                     deleteOldFiles = false // Change to true to delete files on roboRIO that no
-                    // longer exist in deploy directory of this project
+                                           // longer exist in deploy directory of this project
                 }
             }
         }
@@ -52,13 +47,7 @@ def deployArtifact = deploy.targets.roborio.artifacts.frcJava
 wpi.java.debugJni = false
 
 // Set this to true to enable desktop support.
-def includeDesktopSupport = true
-
-// Configuration for AdvantageKit
-task(replayWatch, type: JavaExec) {
-    mainClass = "org.littletonrobotics.junction.ReplayWatch"
-    classpath = sourceSets.main.runtimeClasspath
-}
+def includeDesktopSupport = false
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 5.
@@ -83,9 +72,6 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    def akitJson = new groovy.json.JsonSlurper().parseText(new File(projectDir.getAbsolutePath() + "/vendordeps/AdvantageKit.json").text)
-    annotationProcessor "org.littletonrobotics.akit:akit-autolog:$akitJson.version"
 }
 
 test {
@@ -101,11 +87,7 @@ wpi.sim.addDriverstation()
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
 jar {
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     from sourceSets.main.allSource
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -119,99 +101,4 @@ wpi.java.configureTestTasks(test)
 // Configure string concat to always inline compile
 tasks.withType(JavaCompile) {
     options.compilerArgs.add '-XDstringConcat=inline'
-}
-// Create commit with working changes on event branches
-//if branch begins with "event" make sure all deployed code is committed
-task(eventDeploy) {
-    doLast {
-        if (project.gradle.startParameter.taskNames.any({ it.toLowerCase().contains("deploy") })) {
-            def branchPrefix = "event"
-            def branch = 'git branch --show-current'.execute().text.trim()
-            def commitMessage = "Update at '${new Date().toString()}'"
-
-            if (branch.startsWith(branchPrefix)) {
-                exec {
-                    workingDir(projectDir)
-                    executable 'git'
-                    args 'add', '-A'
-                }
-                exec {
-                    workingDir(projectDir)
-                    executable 'git'
-                    args 'commit', '-m', commitMessage
-                    ignoreExitValue = true
-                }
-
-                println "Committed to branch: '$branch'"
-                println "Commit message: '$commitMessage'"
-            } else {
-                println "Not on an event branch, skipping commit"
-            }
-        } else {
-            println "Not running deploy task, skipping commit"
-        }
-    }
-}
-createVersionFile.dependsOn(eventDeploy)
-
-// Create version file
-project.compileJava.dependsOn(createVersionFile)
-gversion {
-    srcDir       = "src/main/java/"
-    classPackage = "frc.robot"
-    className    = "BuildConstants"
-    dateFormat   = "yyyy-MM-dd HH:mm:ss z"
-    timeZone     = "America/New_York"
-    indent       = "  "
-}
-
-// Spotless formatting
-project.compileJava.dependsOn(spotlessApply)
-spotless {
-    java {
-        target fileTree(".") {
-            include "**/*.java"
-            exclude "**/build/**", "**/build-*/**"
-        }
-        toggleOffOn()
-        googleJavaFormat()
-        removeUnusedImports()
-        leadingTabsToSpaces(4)
-        trimTrailingWhitespace()
-        custom("ClassNameUppercase"){line ->
-            def pattern = "(?<=\\n|\\A)(?:public\\s+|protected\\s+|private\\s+)?(?:abstract\\s+)?(?:static\\s+)?(class|interface|enum|record)\\s+([^\\n\\s]*)"; //https://regex101.com/r/dzmrrd/1
-            def matcher = line =~ pattern
-            if(matcher.find()){
-                def className = matcher.group(2)
-                if (!(className.substring(0, 1).toUpperCase() == className.substring(0, 1))){
-                    throw new IllegalArgumentException('Class names must start with an uppercase letter.');
-                }
-            }
-            return line;
-        }
-    }
-    groovyGradle {
-        target fileTree(".") {
-            include "**/*.gradle"
-            exclude "**/build/**", "**/build-*/**"
-        }
-        greclipse()
-        leadingTabsToSpaces(4)
-        trimTrailingWhitespace()
-    }
-    json {
-        target fileTree(".") {
-            include "**/*.json"
-            exclude "**/build/**", "**/build-*/**", "**/.vscode/**", "**/pathplanner/**"
-        }
-        gson().indentWithSpaces(2)
-    }
-    format "misc", {
-        target fileTree(".") {
-            include "**/*.md", "**/.gitignore"
-            exclude "**/build/**", "**/build-*/**"
-        }
-        trimTrailingWhitespace()
-        leadingTabsToSpaces(2)
-    }
 }
