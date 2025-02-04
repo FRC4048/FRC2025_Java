@@ -9,6 +9,7 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -16,6 +17,7 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.elevator.ElevatorSpinMotors;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -79,6 +81,7 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
+    SmartDashboard.putData(new ElevatorSpinMotors(elevatorSubsystem));
   }
 
   private void configureBindings() {
