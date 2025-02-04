@@ -34,6 +34,7 @@ import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
 import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiroller.SimHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -71,7 +72,7 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
       }
       case SIM -> {
-        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
+        hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
       }
@@ -81,7 +82,6 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
-    SmartDashboard.putData(new ElevatorSpinMotors(elevatorSubsystem));
   }
 
   private void configureBindings() {
