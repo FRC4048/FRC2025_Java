@@ -17,9 +17,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.climber.MockClimberIO;
+import frc.robot.subsystems.climber.RealClimberIO;
+import frc.robot.subsystems.climber.SimClimberIO;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -46,6 +51,7 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
@@ -53,6 +59,7 @@ public class RobotContainer {
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
+  private final ClimberSubsystem climberSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -65,16 +72,19 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new RealClimberIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new MockClimberIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new SimClimberIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
