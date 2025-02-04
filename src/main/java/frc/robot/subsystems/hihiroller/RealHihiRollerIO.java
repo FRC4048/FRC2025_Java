@@ -8,7 +8,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
 public class RealHihiRollerIO implements HihiRollerIO {
-  private final SparkMax hihiRollerMotor;
+  public final SparkMax hihiRollerMotor;
 
   public RealHihiRollerIO() {
     this.hihiRollerMotor =

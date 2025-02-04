@@ -10,7 +10,7 @@ import frc.robot.constants.Constants;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
-  private final WPI_TalonSRX removerMotor;
+  public final WPI_TalonSRX removerMotor;
 
   public RealAlgaeByeByeRollerIO() {
     this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_SPINING_ID);
