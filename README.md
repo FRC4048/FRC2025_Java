@@ -1,10 +1,21 @@
-This is 4048's main 2025 github repository.
-Potenial Causes for Error:
+This is FRC 4048's main 2025 GitHub repository.
 
-If your code does not compile or there is a lot of compile issues
+Contribution rules:
+* This is a private repository that only takes contributions from team members or mentors
+* Ensure your code builds
+* Ensure your code is formatted properly
+* Ensure your code is tested
+* do not make too many changes in 1 pr if possible
+* before making a pr, make sure to pull from the main branch and solve the merge conflicts
 
-Attempt some of these fixes:
+Potential Causes for Error in this Repository:
+* If your code shows errors on IntelliJ.
+    * Attempt some of these fixes:
+        * Build the code
+        * We also do not recommend using IntelliJ for new members as wpilib is better supported for FRC
 
-Build the code
+
+
+
 
 
