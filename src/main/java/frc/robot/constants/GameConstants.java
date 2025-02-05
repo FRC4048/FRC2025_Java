@@ -15,12 +15,16 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
+  public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
+  public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
+  public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
-  public static final int ELEVATOR_TIMEOUT = 10;
-  public static final double HIHI_EXTENDER_TIMEOUT = 10;
-  public static final double HIHI_ROLLER_TIMEOUT = 5;
+  public static final int ELEVATOR_TIMEOUT = 10; // TODO: change later
+  public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
+  public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
+  public static final int SHOOT_CORAL_TIMEOUT = 10;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -30,9 +34,11 @@ public class GameConstants {
   public static final double VISION_CONSISTANCY_THRESHOLD = 0.25;
   public static final double ENCODER_THRESHHOLD_ELEVATOR = 12; // TODO: change later
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
+  public static final int ELEVATOR_MIN_WINDOW = 1; // TODO: change later
+  public static final int ELEVATOR_MAX_WINDOW = 1; // TODO: change later
 
   // Mode
-  public static final Mode simMode = Mode.REPLAY;
+  public static final Mode simMode = Mode.SIM;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
   public enum Mode {

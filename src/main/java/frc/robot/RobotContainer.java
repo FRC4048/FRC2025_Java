@@ -15,19 +15,28 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.subsystemTests.SpinExtender;
+import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.climber.MockClimberIO;
+import frc.robot.subsystems.climber.RealClimberIO;
+import frc.robot.subsystems.climber.SimClimberIO;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.MockElevatorIO;
+import frc.robot.subsystems.elevator.RealElevatorIO;
+import frc.robot.subsystems.elevator.SimElevatorIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
 import frc.robot.subsystems.gyro.ThreadedGyro;
-import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
-import frc.robot.subsystems.hihiExtender.MockHihiExtenderIO;
-import frc.robot.subsystems.hihiExtender.RealHihiExtenderIO;
-import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
-import frc.robot.subsystems.hihiRoller.MockHihiRollerIO;
-import frc.robot.subsystems.hihiRoller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
+import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
+import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
+import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
+import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
+import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -40,24 +49,43 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
+  private final ElevatorSubsystem elevatorSubsystem;
+  private final ClimberSubsystem climberSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   public RobotContainer() {
-    if (Robot.isReal()) {
-      hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
-    } else {
-      hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+    switch (Constants.currentMode) {
+      case REAL -> {
+        hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new RealClimberIO());
+      }
+      case REPLAY -> {
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new MockClimberIO());
+      }
+      case SIM -> {
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
+        elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new SimClimberIO());
+      }
+      default -> {
+        throw new RuntimeException("Did not specify Robot Mode");
+      }
     }
     setupDriveTrain();
     configureBindings();
@@ -68,6 +96,10 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+    SmartShuffleboard.putCommand(
+        "Climber", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
+    SmartShuffleboard.putCommand(
+        "Climber", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
   }
 
   public Command getAutonomousCommand() {

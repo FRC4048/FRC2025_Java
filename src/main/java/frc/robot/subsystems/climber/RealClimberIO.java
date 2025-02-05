@@ -12,7 +12,7 @@ import frc.robot.constants.Constants;
 
 /** Add your docs here. */
 public class RealClimberIO implements ClimberIO {
-  private final SparkMax climberMotor;
+  protected final SparkMax climberMotor;
 
   public RealClimberIO() {
     this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
