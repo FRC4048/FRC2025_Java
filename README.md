@@ -5,8 +5,8 @@ Contribution rules:
 * Ensure your code builds
 * Ensure your code is formatted properly
 * Ensure your code is tested
-* do not make too many changes in 1 pr if possible
-* before making a pr, make sure to pull from the main branch and solve the merge conflicts
+* Do not make too many changes in 1 pr if possible
+* Before making a pr, make sure to pull from the main branch and solve the merge conflicts
 
 Potential Causes for Error in this Repository:
 * If your code shows errors on IntelliJ.
