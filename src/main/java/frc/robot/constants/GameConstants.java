@@ -1,5 +1,6 @@
 package frc.robot.constants;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 
 public class GameConstants {
@@ -78,4 +79,12 @@ public class GameConstants {
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final boolean ENABLE_VISION = true;
   public static final long POSE_BUFFER_STORAGE_TIME = 2;
+
+  // Elevator
+  public static final double ELEVATOR_GEARING = 10; // TODO: change later
+  public static final double CARRIAGE_MASS = 0.5; // In Kg, change later
+  public static final double ELEVATOR_DRUM_RADIUS =
+      Units.inchesToMeters(1); // In M(in), change later
+  public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
+  public static final double MAX_ELEVATOR_HEIGHT_METERS = 1; // in m
 }
