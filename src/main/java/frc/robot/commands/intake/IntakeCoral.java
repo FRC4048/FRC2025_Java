@@ -22,7 +22,6 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void execute() {
     intake.setShooterSpeed(Constants.INTAKE_MOTOR_SPEED);
-    intake.setTiltAngularVelocity(Constants.INTAKE_TILT_VELOCITY);
   }
 
   @Override
