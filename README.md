@@ -1,6 +1,6 @@
 This is FRC 4048's main 2025 GitHub repository.
 
-Contribution rules:
+Basic Contribution rules (look at the other rule files):
 * This is a private repository that only takes contributions from team members or mentors
 * Ensure your code builds
 * Ensure your code is formatted properly
