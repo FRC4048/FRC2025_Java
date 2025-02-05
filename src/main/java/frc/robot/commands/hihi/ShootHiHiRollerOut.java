@@ -1,4 +1,4 @@
-package frc.robot.commands.AlgaeExtender;
+package frc.robot.commands.hihi;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
@@ -6,12 +6,12 @@ import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class ShootAlgaeRollerOut extends LoggableCommand {
+public class ShootHiHiRollerOut extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
   private final HihiRollerSubsystem hihiRoller;
   private double time;
 
-  public ShootAlgaeRollerOut(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
+  public ShootHiHiRollerOut(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
     this.hihiExtender = hihiExtender;
     this.hihiRoller = hihiRoller;
     addRequirements(hihiExtender, hihiRoller);

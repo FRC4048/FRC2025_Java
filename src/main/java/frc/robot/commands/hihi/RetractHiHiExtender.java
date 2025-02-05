@@ -1,4 +1,4 @@
-package frc.robot.commands.AlgaeExtender;
+package frc.robot.commands.hihi;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
@@ -6,12 +6,12 @@ import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class RollAlgaeRollerIn extends LoggableCommand {
+public class RetractHiHiExtender extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
   private final HihiRollerSubsystem hihiRoller;
   private double time;
 
-  public RollAlgaeRollerIn(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
+  public RetractHiHiExtender(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
     this.hihiExtender = hihiExtender;
     this.hihiRoller = hihiRoller;
     addRequirements(hihiExtender, hihiRoller);
@@ -19,7 +19,7 @@ public class RollAlgaeRollerIn extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiRoller.setRollerMotorSpeed(Constants.HIHI_EXTENDER_ROLLER_INTAKE_SPEED);
+    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTENDER_MOTOR_RETRACT_SPEED);
     time = Timer.getFPGATimestamp();
   }
 
@@ -28,11 +28,12 @@ public class RollAlgaeRollerIn extends LoggableCommand {
 
   @Override
   public void end(boolean interrupted) {
-    hihiRoller.stopHihiRollerMotor();
+    hihiExtender.stopExtenderMotors();
   }
 
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - time >= Constants.HIHI_ROLLER_TIMEOUT);
+    return (hihiExtender.getReverseSwitchState()
+        || Timer.getFPGATimestamp() - time >= Constants.HIHI_EXTENDER_TIMEOUT);
   }
 }
