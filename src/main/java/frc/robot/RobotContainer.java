@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.RollAlgae;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemTests.SpinExtender;
 import frc.robot.constants.Constants;
@@ -68,6 +69,9 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+    if(Constants.COMMAND_DEBUG){
+      controller.y().onTrue(new RollAlgae(hihiRoller, 1));
+    }
   }
 
   public Command getAutonomousCommand() {
