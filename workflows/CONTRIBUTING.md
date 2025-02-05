@@ -1,6 +1,6 @@
 # How to contribute
 
-This project is a small project to program the robot for the frc tean "Redshift" who reside in Westborough, MA who will be referred to as "Redshift" throughout this document. This project is limited to current members of Redshift who are the only ones allowed to help improve it by proposing features, finding bugs, or fixing  mistakes.
+This project is a small project to program the robot for the frc tean "Redshift" who reside in Westborough, MA who will be referred to as "Redshift" throughout this document. This project is limited to current members of Redshift who are the only ones allowed to contribute by proposing features, finding bugs, or fixing  mistakes.
 
 To make it as easy as possible for you to contribute and for us to keep an overview, here are a few guidelines which should help us avoid all kinds of unnecessary work or disappointment. And of course, this document is subject to discussion, so please [create an issue](https://github.com/FRC4048/FRC2025_Java/issues/new?template=Blank+issue) or a pull request if you find a way to improve it!
 
@@ -20,8 +20,6 @@ Clearly describe the issue:
 - If you propose a change or addition, try to give an **example** how the improved code could look like or how to use it.
 - If you found a compilation error, please tell us which **compiler** (version and operating system) you used and paste the (relevant part of) the error messages to the ticket.
 
-For questions, feature or support requests, please [open a discussion](https://github.com/Neo-Aditya-s-personal-projects/ScoutRadioz-Data-Calculation/discussions/new).
-
 ## Notes
 
    If you add or change a feature, please also try to add unit tests if you know how to or are able to.
@@ -33,11 +31,3 @@ For questions, feature or support requests, please [open a discussion](https://g
    - Hit the button labeled "Deploy Robot Code" if connected to a robot & "Build Robot Code" if not.
    
    Please do not open pull requests that address **multiple issues**.
-
-## Wanted
-
-The following areas really need contribution:
-
-- Improving the time complexity
-- Documentation
-- Making the program work upon all platforms and IDEs
