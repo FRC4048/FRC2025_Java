@@ -15,11 +15,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.climber.MockClimberIO;
+import frc.robot.subsystems.climber.RealClimberIO;
+import frc.robot.subsystems.climber.SimClimberIO;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIO;
 import frc.robot.subsystems.coral.RealCoralIO;
@@ -58,6 +63,7 @@ public class RobotContainer {
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem shooter;
+  private final ClimberSubsystem climberSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -70,18 +76,21 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         shooter = new CoralSubsystem(new RealCoralIO());
+        climberSubsystem = new ClimberSubsystem(new RealClimberIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
+        climberSubsystem = new ClimberSubsystem(new MockClimberIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
+        climberSubsystem = new ClimberSubsystem(new SimClimberIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
@@ -97,6 +106,10 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+    SmartShuffleboard.putCommand(
+        "Climber", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
+    SmartShuffleboard.putCommand(
+        "Climber", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
   }
 
   public Command getAutonomousCommand() {
