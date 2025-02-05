@@ -14,6 +14,7 @@ Potential Causes for Error in this Repository:
         * Build the code
         * We also do not recommend using IntelliJ for new members as wpilib is better supported for FRC
 
+For further rules and more detailed information take a look at CODE_OF_CONDUCT.md and CONTRIBUTING.md
 
 
 
