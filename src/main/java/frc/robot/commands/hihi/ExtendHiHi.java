@@ -6,12 +6,12 @@ import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class ExtendHiHiExtender extends LoggableCommand {
+public class ExtendHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
   private final HihiRollerSubsystem hihiRoller;
   private double time;
 
-  public ExtendHiHiExtender(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
+  public ExtendHiHi(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
     this.hihiExtender = hihiExtender;
     this.hihiRoller = hihiRoller;
     addRequirements(hihiExtender, hihiRoller);
