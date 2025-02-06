@@ -10,8 +10,8 @@ public class Constants2025 extends GameConstants {
   // Get from hardwareg
 
   // Coral Shooter
-  public static final int SHOOTER_MOTOR_1_ID = 2; // TODO: change later
-  public static final int SHOOTER_MOTOR_2_ID = 3; // TODO: change later
+  public static final int SHOOTER_MOTOR_1_ID = 44; // TODO: change later
+  public static final int SHOOTER_MOTOR_2_ID = 45; // TODO: change later
   public static final int SHOOTER_TILT_MOTOR_ID = 4; // TODO: change later
 
   // Algae Roller

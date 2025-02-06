@@ -5,28 +5,28 @@
 package frc.robot.commands.subsystemtests;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
+import frc.robot.constants.Constants;
+import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-public class SpinRoller extends LoggableCommand {
-  /** Creates a new SpinRoller. */
-  private final HihiRollerSubsystem roller;
+public class SpinHihiExtender extends LoggableCommand {
+  /** Creates a new SpinHihiExtender. */
+  private final HihiExtenderSubsystem extender;
 
   private final double speedMotors;
   private final Timer timer;
 
-  public SpinRoller(HihiRollerSubsystem roller, double speedMotors) {
+  public SpinHihiExtender(HihiExtenderSubsystem extender, double speedMotors) {
     this.speedMotors = speedMotors;
-    this.roller = roller;
+    this.extender = extender;
     timer = new Timer();
-    addRequirements(roller);
+    addRequirements(extender);
   }
 
   @Override
   public void initialize() {
-    roller.setRollerMotorSpeed(speedMotors);
-    timer.reset();
-    timer.start();
+    extender.setExtenderSpeed(speedMotors);
+    timer.restart();
   }
 
   @Override
@@ -34,11 +34,11 @@ public class SpinRoller extends LoggableCommand {
 
   @Override
   public void end(boolean interrupted) {
-    roller.stopHihiRollerMotor();
+    extender.stopExtenderMotors();
   }
 
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(5);
+    return timer.hasElapsed(Constants.HIHI_EXTENDER_TIMEOUT);
   }
 }
