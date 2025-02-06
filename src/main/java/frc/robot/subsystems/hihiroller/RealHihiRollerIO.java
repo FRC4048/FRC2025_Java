@@ -9,7 +9,7 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.commoninputs.EncodedMotorInput;
 
 public class RealHihiRollerIO implements HihiRollerIO {
-  private final SparkMax hihiRollerMotor;
+  protected final SparkMax hihiRollerMotor;
 
   public RealHihiRollerIO() {
     this.hihiRollerMotor =

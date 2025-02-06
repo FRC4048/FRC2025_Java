@@ -5,7 +5,7 @@
 package frc.robot.subsystems.algaebyebyetilt;
 
 /** Add your docs here. */
-public class MockAlgaeByeByeTIltIO implements AlgaeByeByeTiltIO {
+public class MockAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   @Override
   public void updateInputs(AlgaeByeByeTiltInputs inputs) {}
