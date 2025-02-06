@@ -3,18 +3,15 @@ package frc.robot.commands.hihi;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
-import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 public class ExtendHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
-  private final HihiRollerSubsystem hihiRoller;
   private double time;
 
-  public ExtendHiHi(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
+  public ExtendHiHi(HihiExtenderSubsystem hihiExtender) {
     this.hihiExtender = hihiExtender;
-    this.hihiRoller = hihiRoller;
-    addRequirements(hihiExtender, hihiRoller);
+    addRequirements(hihiExtender);
   }
 
   @Override
