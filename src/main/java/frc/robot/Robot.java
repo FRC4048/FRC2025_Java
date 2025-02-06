@@ -7,6 +7,8 @@ package frc.robot;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
@@ -28,7 +30,7 @@ public class Robot extends LoggedRobot {
 
   public Robot() {
     Pathfinding.setPathfinder(new LocalADStarAK());
-    // Record metadata
+    // Record Metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
     Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
@@ -69,6 +71,7 @@ public class Robot extends LoggedRobot {
 
     // Start AdvantageKit logger
     Logger.start();
+    CommandLogger.get().init();
     m_robotContainer = new RobotContainer();
   }
 
@@ -83,9 +86,17 @@ public class Robot extends LoggedRobot {
       CommandLogger.get().log();
     }
     if (counter == 0) {
-      new WheelAlign(m_robotContainer.getDrivetrain()).schedule();
+      actualInit();
     }
     counter++;
+  }
+
+  /** Use this instead of robot init. */
+  private void actualInit() {
+    new SequentialCommandGroup(
+            new WheelAlign(m_robotContainer.getDrivetrain()),
+            new ResetGyro(m_robotContainer.getDrivetrain()))
+        .schedule();
   }
 
   @Override

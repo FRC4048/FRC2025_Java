@@ -20,8 +20,8 @@ public class CoralSubsystem extends SubsystemBase {
     system.updateInputs();
   }
 
-  public void setAngle(double angleSpeed) {
-    system.getIO().setTiltAngularVelocity(angleSpeed);
+  public void setTiltAngularVelocity(double angleVelocity) {
+    system.getIO().setTiltAngularVelocity(angleVelocity);
   }
 
   public void setShooterSpeed(double speed) {
