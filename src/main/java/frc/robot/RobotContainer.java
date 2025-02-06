@@ -42,7 +42,6 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
-
 import java.util.Optional;
 
 public class RobotContainer {
@@ -71,8 +70,8 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-    if(Constants.COMMAND_DEBUG){
-      SmartShuffleboard.put("Algae Roller", "Roll ALgae", controller.y().onTrue(new RollAlgae(hihiRoller, 1)));
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.put("Algae Roller", "Roll ALgae", new RollAlgae(hihiRoller, 0.5));
     }
   }
 
