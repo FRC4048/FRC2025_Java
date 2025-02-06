@@ -14,10 +14,11 @@ public class ShootCoral extends LoggableCommand {
   private final CoralSubsystem shooter;
 
   private final double speedMotors;
-  private double startTime;
+  private final Timer timer;
 
   public ShootCoral(CoralSubsystem shooter, double speedMotors) {
     this.speedMotors = speedMotors;
+    this.timer = new Timer();
     this.shooter = shooter;
     addRequirements(shooter);
   }
@@ -25,7 +26,7 @@ public class ShootCoral extends LoggableCommand {
   @Override
   public void initialize() {
     shooter.setShooterSpeed(speedMotors);
-    startTime = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   @Override
@@ -38,6 +39,6 @@ public class ShootCoral extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= Constants.SHOOT_CORAL_TIMEOUT);
+    return (timer.hasElapsed(Constants.SHOOT_CORAL_TIMEOUT));
   }
 }

@@ -8,21 +8,24 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.TimeoutLogger;
 
 public class ElevatorSpinMotors extends LoggableCommand {
   /** Creates a new ElevatorSpinMotors. */
   private final ElevatorSubsystem elevator;
-
-  public double startTime;
+  private final TimeoutLogger timeoutCounter;
+  public final Timer timer;
 
   public ElevatorSpinMotors(ElevatorSubsystem elevator) {
     this.elevator = elevator;
+    this.timer = new Timer();
+    timeoutCounter = new TimeoutLogger("Elevator Spin Motors");
     addRequirements(elevator);
   }
 
   @Override
   public void initialize() {
-    startTime = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   @Override
@@ -37,8 +40,11 @@ public class ElevatorSpinMotors extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
+    if(timer.hasElapsed(Constants.ELEVATOR_TIMEOUT)){
+      timeoutCounter.increaseTimeoutCount();
+      return true;
+    }
     return (elevator.getEncoderValue1() >= Constants.ENCODER_THRESHHOLD_ELEVATOR
-        || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR
-        || Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime);
-  }
+        || elevator.getEncoderValue2() >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
+      }
 }
