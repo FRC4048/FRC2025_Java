@@ -116,7 +116,6 @@ public class RobotContainer {
     setupDriveTrain();
     configureBindings();
     putShuffleboardCommands();
-
   }
 
   private void configureBindings() {
@@ -253,13 +252,13 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }
-    if (Constants.COMMAND_DEBUG){
-        SmartShuffleboard.putCommand(
-                "Bye Bye",
-                "Spin Roller ",
-                new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
-        SmartShuffleboard.putCommand(
-                "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.putCommand(
+          "Bye Bye",
+          "Spin Roller ",
+          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+      SmartShuffleboard.putCommand(
+          "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
     }
   }
 }
