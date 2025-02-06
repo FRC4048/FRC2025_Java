@@ -36,7 +36,7 @@ public class GameConstants {
   public static final int SHOOT_CORAL_TIMEOUT = 10;
   public static final double HIHI_EXTENDER_TIMEOUT = 10;
   public static final double HIHI_ROLLER_TIMEOUT = 5;
-  public static final int INTAKE_CORAL_TIMEOUT = 10;
+  public static final int INTAKE_CORAL_TIMEOUT = 10;  
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
