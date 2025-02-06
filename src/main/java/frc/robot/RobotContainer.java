@@ -21,11 +21,19 @@ import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
+import frc.robot.commands.subsystemtests.SpinRollerByeBye;
+import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
+import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
 import frc.robot.subsystems.climber.RealClimberIO;
@@ -65,6 +73,8 @@ import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
+  private final AlgaeByeByeRollerSubsystem byebyeRoller;
+  private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
@@ -85,6 +95,7 @@ public class RobotContainer {
         shooter = new CoralSubsystem(new RealCoralIO());
         climberSubsystem = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
@@ -93,6 +104,7 @@ public class RobotContainer {
         shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
@@ -100,6 +112,8 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new SimClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO()); // TODO
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
       }
       default -> {
@@ -109,6 +123,7 @@ public class RobotContainer {
     setupDriveTrain();
     configureBindings();
     putShuffleboardCommands();
+
   }
 
   private void configureBindings() {
@@ -244,6 +259,14 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+    }
+    if (Constants.COMMAND_DEBUG){
+        SmartShuffleboard.putCommand(
+                "Bye Bye",
+                "Spin Roller ",
+                new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+        SmartShuffleboard.putCommand(
+                "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
     }
   }
 }

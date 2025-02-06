@@ -9,6 +9,11 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
 /** Add your docs here. */
@@ -22,10 +27,12 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   }
 
   private void configureMotor() {
-    SparkMaxConfig config = new SparkMaxConfig();
-    config.idleMode(SparkBaseConfig.IdleMode.kBrake);
+    SparkMaxConfig removerMotorConfig = new SparkMaxConfig();
+    removerMotorConfig.idleMode(IdleMode.kBrake);
     removerMotor.configure(
-        config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
+        removerMotorConfig,
+        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
