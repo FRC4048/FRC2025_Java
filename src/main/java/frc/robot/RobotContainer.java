@@ -227,8 +227,8 @@ public class RobotContainer {
 
   public void putShuffleboardCommands() {
     if (Constants.INTAKE_DEBUG) {
-      SmartShuffleboard.put("Commands", "Intake Coral", new IntakeCoral(shooter));
-      SmartShuffleboard.put(
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
+      SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }
   }
