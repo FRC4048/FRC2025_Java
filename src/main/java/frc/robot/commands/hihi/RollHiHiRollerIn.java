@@ -19,7 +19,7 @@ public class RollHiHiRollerIn extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiRoller.setRollerMotorSpeed(Constants.HIHI_EXTENDER_ROLLER_INTAKE_SPEED);
+    hihiRoller.setRollerMotorSpeed(Constants.HIHI_INTAKE_SPEED);
     time = Timer.getFPGATimestamp();
   }
 

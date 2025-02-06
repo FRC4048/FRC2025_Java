@@ -19,7 +19,7 @@ public class RetractHiHi extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTENDER_MOTOR_RETRACT_SPEED);
+    hihiExtender.setExtenderSpeed(Constants.HIHI_RETRACT_SPEED);
     time = Timer.getFPGATimestamp();
   }
 

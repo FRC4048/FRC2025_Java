@@ -19,7 +19,7 @@ public class ExtendHiHi extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTENDER_MOTOR_EXTEND_SPEED);
+    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTEND_SPEED);
     time = Timer.getFPGATimestamp();
   }
 

@@ -18,6 +18,10 @@ public class GameConstants {
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
+  public static final double HIHI_EXTEND_SPEED = 0.4;
+  public static final double HIHI_RETRACT_SPEED = -0.4;
+  public static final double HIHI_INTAKE_SPEED = 0.4;
+  public static final double HIHI_SHOOT_SPEED = -0.4;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -71,12 +75,6 @@ public class GameConstants {
   public static final double STEER_PID_D = 0.005; // TODO: change later
   public static final double STEER_PID_FF_S = 0; // 0.2; //TODO: change later
   public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
-
-  // Algae HiHi
-  public static final double HIHI_EXTENDER_MOTOR_EXTEND_SPEED = 0.4;
-  public static final double HIHI_EXTENDER_MOTOR_RETRACT_SPEED = -0.4;
-  public static final double HIHI_EXTENDER_ROLLER_INTAKE_SPEED = 0.4;
-  public static final double HIHI_EXTENDER_ROLLER_SHOOT_SPEED = -0.4;
 
   // Other
   public static final double GRAVITY = -9.81;
