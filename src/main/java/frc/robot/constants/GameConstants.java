@@ -19,6 +19,10 @@ public class GameConstants {
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
+  public static final double HIHI_EXTEND_SPEED = 0.4;
+  public static final double HIHI_RETRACT_SPEED = -0.4;
+  public static final double HIHI_INTAKE_SPEED = 0.4;
+  public static final double HIHI_SHOOT_SPEED = -0.4;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -26,6 +30,8 @@ public class GameConstants {
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
   public static final int SHOOT_CORAL_TIMEOUT = 10;
+  public static final double HIHI_EXTENDER_TIMEOUT = 10;
+  public static final double HIHI_ROLLER_TIMEOUT = 5;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
