@@ -9,7 +9,6 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SpinTiltByeBye extends LoggableCommand {
   /** Creates a new SpinTIlt. */
   private final Timer timer;
@@ -18,32 +17,26 @@ public class SpinTiltByeBye extends LoggableCommand {
   private final AlgaeByeByeTiltSubsystem tilt;
 
   public SpinTiltByeBye(AlgaeByeByeTiltSubsystem tilt, double motorSpeed) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.motorSpeed = motorSpeed;
     this.tilt = tilt;
     timer = new Timer();
     addRequirements(tilt);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.restart();
     tilt.setSpeed(motorSpeed);
-    timer.reset();
-    timer.start();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     tilt.stopMotors();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return timer.hasElapsed(Constants.BYEBYE_SPIN_TILT_TIMEOUT);

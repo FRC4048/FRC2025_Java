@@ -9,7 +9,6 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class SpinRollerByeBye extends LoggableCommand {
   /** Creates a new ByeByeSpinExtender. */
   private final Timer timer;
@@ -18,26 +17,21 @@ public class SpinRollerByeBye extends LoggableCommand {
   private final AlgaeByeByeRollerSubsystem roller;
 
   public SpinRollerByeBye(AlgaeByeByeRollerSubsystem roller, double motorSpeed) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.motorSpeed = motorSpeed;
     this.roller = roller;
     timer = new Timer();
     addRequirements(roller);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer.restart();
     roller.setSpeed(motorSpeed);
-    timer.reset();
-    timer.start();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     roller.stopMotors();
