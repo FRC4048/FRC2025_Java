@@ -16,7 +16,10 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
+import frc.robot.commands.RollAlgae;
+import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -27,6 +30,9 @@ import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
 import frc.robot.subsystems.climber.RealClimberIO;
 import frc.robot.subsystems.climber.SimClimberIO;
+import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.subsystems.coral.MockCoralIO;
+import frc.robot.subsystems.coral.RealCoralIO;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -63,6 +69,7 @@ public class RobotContainer {
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
   private final AlgaeByeByeRollerSubsystem byebyeRoller;
+  private final CoralSubsystem shooter;
   private final ClimberSubsystem climberSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
@@ -75,6 +82,7 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+        shooter = new CoralSubsystem(new RealCoralIO());
         climberSubsystem = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
       }
@@ -82,6 +90,7 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
+        shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
       }
@@ -89,6 +98,7 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
+        shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new SimClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
       }
@@ -98,6 +108,7 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
+    putShuffleboardCommands();
   }
 
   private void configureBindings() {
@@ -105,10 +116,14 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-    SmartShuffleboard.putCommand(
-        "Climber", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
-    SmartShuffleboard.putCommand(
-        "Climber", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
+      SmartShuffleboard.putCommand(
+          "DEBUG", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
+      SmartShuffleboard.putCommand(
+          "DEBUG", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
+      SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
+    }
   }
 
   public Command getAutonomousCommand() {
@@ -222,5 +237,13 @@ public class RobotContainer {
 
   public SwerveDrivetrain getDrivetrain() {
     return drivetrain;
+  }
+
+  public void putShuffleboardCommands() {
+    if (Constants.INTAKE_DEBUG) {
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
+      SmartShuffleboard.putCommand(
+          "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+    }
   }
 }

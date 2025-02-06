@@ -1,5 +1,6 @@
 package frc.robot.constants;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 
 public class GameConstants {
@@ -11,6 +12,8 @@ public class GameConstants {
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
+  public static final boolean INTAKE_DEBUG = false;
+  public static final boolean COMMAND_DEBUG = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -18,13 +21,25 @@ public class GameConstants {
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
+  public static final double INTAKE_MOTOR_SPEED = 0.5;
+  public static final double INTAKE_TILT_VELOCITY = 0.5;
+  public static final double CORAL_SHOOTER_SPEED = 0.5;
+  public static final double HIHI_EXTEND_SPEED = 0.4;
+  public static final double HIHI_RETRACT_SPEED = -0.4;
+  public static final double HIHI_INTAKE_SPEED = 0.4;
+  public static final double HIHI_SHOOT_SPEED = -0.4;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
-  public static final int ELEVATOR_TIMEOUT = 10; // TODO: change later
+  public static final int ELEVATOR_TIMEOUT = 10;
+  public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
   public static final int SHOOT_CORAL_TIMEOUT = 10;
+  public static final int ROLL_ALGAE_TIMEOUT = 10;
+  public static final double HIHI_EXTENDER_TIMEOUT = 10;
+  public static final double HIHI_ROLLER_TIMEOUT = 5;
+  public static final int INTAKE_CORAL_TIMEOUT = 10;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -78,4 +93,12 @@ public class GameConstants {
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final boolean ENABLE_VISION = true;
   public static final long POSE_BUFFER_STORAGE_TIME = 2;
+
+  // Elevator
+  public static final double ELEVATOR_GEARING = 10; // TODO: change later
+  public static final double CARRIAGE_MASS = 0.5; // In Kg, change later
+  public static final double ELEVATOR_DRUM_RADIUS =
+      Units.inchesToMeters(1); // In M(in), change later
+  public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
+  public static final double MAX_ELEVATOR_HEIGHT_METERS = 1; // in m
 }

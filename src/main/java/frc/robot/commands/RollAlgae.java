@@ -2,32 +2,32 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.byebye;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
-import frc.robot.utils.logging.LoggableCommand;
-import frc.robot.utils.logging.TimeoutLogger;
+import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ByeByeToFwrLimit extends LoggableCommand {
-  /** Creates a new byeByeGoToAngle. */
-  private final AlgaeByeByeTiltSubsystem tiltMotor;
-  private final TimeoutLogger timeoutCounter;
-  private final Timer timer;
+public class RollAlgae extends Command {
+  /** Creates a new AlgaeRoller. */
+  private final HihiRollerSubsystem roller;
 
-  public ByeByeToFwrLimit(AlgaeByeByeTiltSubsystem tiltMotor) {
-    this.tiltMotor = tiltMotor;
+  private final Timer timer;
+  private final double speed;
+
+  public RollAlgae(HihiRollerSubsystem roller, double speed) {
     this.timer = new Timer();
-    timeoutCounter = new TimeoutLogger("ByeBye to fwr limit");
-    addRequirements(tiltMotor);
+    this.speed = speed;
+    this.roller = roller;
+    addRequirements(roller);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
+    roller.setRollerMotorSpeed(speed);
     timer.restart();
   }
 
@@ -38,16 +38,12 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    tiltMotor.stopMotors();
+    roller.stopHihiRollerMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(timer.hasElapsed(Constants.BYEBYE_FORWARD_TIMEOUT)){
-      timeoutCounter.increaseTimeoutCount();
-      return true;
-    }
-    return (tiltMotor.getForwardSwitchState());
+    return timer.hasElapsed(Constants.ROLL_ALGAE_TIMEOUT);
   }
 }
