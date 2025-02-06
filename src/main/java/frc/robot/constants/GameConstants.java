@@ -18,6 +18,7 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
+  public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
@@ -40,6 +41,7 @@ public class GameConstants {
   public static final double HIHI_EXTENDER_TIMEOUT = 10;
   public static final double HIHI_ROLLER_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
+  public static final int CLIMBER_TIMEOUT = 10; // TODO: change later
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;

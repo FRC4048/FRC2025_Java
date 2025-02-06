@@ -35,13 +35,13 @@ public class ElevatorToPosition extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if(timer.hasElapsed(Constants.ELEVATOR_TO_POSITION_TIMEOUT)){
+    if (timer.hasElapsed(Constants.ELEVATOR_TO_POSITION_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
     return (((elevator.getEncoderValue1()
-                >= (targetPosition.getElevatorHeight() - Constants.ELEVATOR_MIN_WINDOW))
-            && (elevator.getEncoderValue1()
-                <= (targetPosition.getElevatorHeight() + Constants.ELEVATOR_MAX_WINDOW))));
+            >= (targetPosition.getElevatorHeight() - Constants.ELEVATOR_MIN_WINDOW))
+        && (elevator.getEncoderValue1()
+            <= (targetPosition.getElevatorHeight() + Constants.ELEVATOR_MAX_WINDOW))));
   }
 }
