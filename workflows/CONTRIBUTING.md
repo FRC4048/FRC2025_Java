@@ -4,7 +4,7 @@ This project is a small project to program the robot for the frc tean "Redshift"
 
 To make it as easy as possible for you to contribute and for us to keep an overview, here are a few guidelines which should help us avoid all kinds of unnecessary work or disappointment. And of course, this document is subject to discussion, so please [create an issue](https://github.com/FRC4048/FRC2025_Java/issues/new?template=Blank+issue) or a pull request if you find a way to improve it!
 
-## Notes
+## How to run
 
    To run this program you'll need to:
 
