@@ -12,7 +12,7 @@ public class CoralSubsystem extends SubsystemBase {
 
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO io) {
-    system = new LoggableSystem<>(io, new CoralInputs());
+    system = new LoggableSystem<>(io, new CoralInputs(), CoralSubsystem.class);
   }
 
   @Override

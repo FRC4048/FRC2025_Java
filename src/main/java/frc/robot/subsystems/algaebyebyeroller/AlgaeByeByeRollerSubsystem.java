@@ -12,7 +12,8 @@ public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeByeByeRollerIO, AlgaeByeByeRollerInputs> algaeSystem;
 
   public AlgaeByeByeRollerSubsystem(AlgaeByeByeRollerIO io) {
-    algaeSystem = new LoggableSystem<>(io, new AlgaeByeByeRollerInputs());
+    algaeSystem =
+        new LoggableSystem<>(io, new AlgaeByeByeRollerInputs(), AlgaeByeByeRollerSubsystem.class);
   }
 
   @Override

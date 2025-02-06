@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
+import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
 import frc.robot.subsystems.swervev3.SwervePidConfig;
 import frc.robot.subsystems.swervev3.io.abs.CANCoderAbsIO;
@@ -44,10 +45,24 @@ public class SwerveModule {
       Gain driveGain,
       Gain turnGain,
       TrapezoidProfile.Constraints goalConstraint,
-      String loggingKey) {
-    this.driveSystem = new LoggableSystem<>(driveMotorIO, new SwerveDriveMotorInput(), loggingKey);
-    this.steerSystem = new LoggableSystem<>(steerMotorIO, new SwerveSteerMotorInput(), loggingKey);
-    this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput(), loggingKey);
+      String moduleName) {
+    this.driveSystem =
+        new LoggableSystem<>(
+            driveMotorIO,
+            new SwerveDriveMotorInput(),
+            moduleName,
+            SwerveDrivetrain.class,
+            SwerveModule.class);
+    this.steerSystem =
+        new LoggableSystem<>(
+            steerMotorIO,
+            new SwerveSteerMotorInput(),
+            moduleName,
+            SwerveDrivetrain.class,
+            SwerveModule.class);
+    this.absSystem =
+        new LoggableSystem<>(
+            absIO, new SwerveAbsInput(), moduleName, SwerveDrivetrain.class, SwerveModule.class);
     drivePIDController = new PIDController(drivePid.getP(), drivePid.getI(), drivePid.getD());
     turningPIDController =
         new ProfiledPIDController(turnPid.getP(), turnPid.getI(), turnPid.getD(), goalConstraint);
@@ -61,7 +76,7 @@ public class SwerveModule {
       SwerveSteerMotorIO steerMotorIO,
       SwerveAbsIO absIO,
       SwervePidConfig pidConfig,
-      String loggingKey) {
+      String moduleName) {
     this(
         driveMotorIO,
         steerMotorIO,
@@ -71,7 +86,7 @@ public class SwerveModule {
         pidConfig.getDriveGain(),
         pidConfig.getSteerGain(),
         pidConfig.getGoalConstraint(),
-        loggingKey);
+        moduleName);
   }
 
   public void setState(SwerveModuleState desiredState) {
