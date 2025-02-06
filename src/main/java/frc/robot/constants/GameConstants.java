@@ -23,6 +23,10 @@ public class GameConstants {
   public static final double INTAKE_MOTOR_SPEED = 0.5;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.5;
+  public static final double HIHI_EXTEND_SPEED = 0.4;
+  public static final double HIHI_RETRACT_SPEED = -0.4;
+  public static final double HIHI_INTAKE_SPEED = 0.4;
+  public static final double HIHI_SHOOT_SPEED = -0.4;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -30,8 +34,9 @@ public class GameConstants {
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
   public static final int SHOOT_CORAL_TIMEOUT = 10;
+  public static final double HIHI_EXTENDER_TIMEOUT = 10;
+  public static final double HIHI_ROLLER_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
-  public static final int HI_HI_EXTENDER_TIMEOUT = 10;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
