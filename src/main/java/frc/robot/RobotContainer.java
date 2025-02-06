@@ -19,6 +19,10 @@ import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
 import frc.robot.subsystems.climber.RealClimberIO;
@@ -58,6 +62,7 @@ public class RobotContainer {
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
+  private final AlgaeByeByeRollerSubsystem byebyeRoller;
   private final ClimberSubsystem climberSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
@@ -71,18 +76,21 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         climberSubsystem = new ClimberSubsystem(new RealClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         climberSubsystem = new ClimberSubsystem(new MockClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         climberSubsystem = new ClimberSubsystem(new SimClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
