@@ -1,13 +1,14 @@
 package frc.robot.subsystems.algaebyebyeroller;
 
 import frc.robot.constants.Constants;
+import frc.robot.utils.motor.MotorSimulator;
 
 public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {
-  private final AlgaeByeByeRollerSimulator algaeByeByeRollerSimulator;
+  private final MotorSimulator algaeByeByeRollerSimulator;
 
   public SimAlgaeByeByeRollerIO() {
     super();
-    algaeByeByeRollerSimulator = new AlgaeByeByeRollerSimulator(removerMotor);
+    algaeByeByeRollerSimulator = new MotorSimulator(removerMotor);
   }
 
   @Override
