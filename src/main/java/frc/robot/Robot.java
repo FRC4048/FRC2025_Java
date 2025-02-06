@@ -92,14 +92,12 @@ public class Robot extends LoggedRobot {
     counter++;
   }
 
-  /**
-   * Use this instead of robot init.
-   */
+  /** Use this instead of robot init. */
   private void actualInit() {
     new SequentialCommandGroup(
             new WheelAlign(m_robotContainer.getDrivetrain()),
-            new ResetGyro(m_robotContainer.getDrivetrain())
-    ).schedule();
+            new ResetGyro(m_robotContainer.getDrivetrain()))
+        .schedule();
   }
 
   @Override
