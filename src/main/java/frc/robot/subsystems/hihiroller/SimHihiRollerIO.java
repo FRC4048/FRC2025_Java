@@ -7,7 +7,7 @@ public class SimHihiRollerIO extends RealHihiRollerIO {
 
   public SimHihiRollerIO() {
     super();
-    hihiRollerSimulator = new HihiRollerSimulator((hihiRollerMotor));
+    hihiRollerSimulator = new HihiRollerSimulator(hihiRollerMotor);
   }
 
   @Override

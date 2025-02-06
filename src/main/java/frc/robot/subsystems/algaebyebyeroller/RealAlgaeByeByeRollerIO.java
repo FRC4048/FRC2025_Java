@@ -4,21 +4,28 @@
 
 package frc.robot.subsystems.algaebyebyeroller;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
-  private final WPI_TalonSRX removerMotor;
+  protected final SparkMax removerMotor;
 
   public RealAlgaeByeByeRollerIO() {
-    this.removerMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_SPINING_ID);
+    this.removerMotor =
+        new SparkMax(Constants.ALGAE_BYEBYE_SPINING_ID, SparkLowLevel.MotorType.kBrushless);
     configureMotor();
   }
 
   private void configureMotor() {
-    this.removerMotor.setNeutralMode(NeutralMode.Brake);
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.idleMode(SparkBaseConfig.IdleMode.kBrake);
+    removerMotor.configure(
+        config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
@@ -32,8 +39,4 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   }
 
   public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
-
-  public WPI_TalonSRX getMotor() {
-    return this.removerMotor;
-  }
 }
