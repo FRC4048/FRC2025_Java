@@ -12,11 +12,12 @@ import frc.robot.utils.logging.TimeoutLogger;
 public class ElevatorToPosition extends LoggableCommand {
   private final ElevatorSubsystem elevator;
   private final CoralDeposit targetPosition;
-  private double startTime;
+  private final Timer timer;
   private final TimeoutLogger timeoutCounter;
 
   public ElevatorToPosition(ElevatorSubsystem elevator, CoralDeposit targetPosition) {
     timeoutCounter = new TimeoutLogger("Elevator To Position");
+    timer = new Timer();
     this.elevator = elevator;
     this.targetPosition = targetPosition;
     addRequirements(elevator);
@@ -24,7 +25,7 @@ public class ElevatorToPosition extends LoggableCommand {
 
   @Override
   public void initialize() {
-    startTime = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   @Override
@@ -34,7 +35,7 @@ public class ElevatorToPosition extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if(Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime){
+    if(timer.hasElapsed(Constants.ELEVATOR_TO_POSITION_TIMEOUT)){
       timeoutCounter.increaseTimeoutCount();
       return true;
     }

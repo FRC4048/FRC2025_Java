@@ -21,7 +21,8 @@ public class GameConstants {
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
-  public static final int ELEVATOR_TIMEOUT = 10; // TODO: change later
+  public static final int ELEVATOR_TIMEOUT = 10;
+  public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
   public static final int SHOOT_CORAL_TIMEOUT = 10;

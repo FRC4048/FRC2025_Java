@@ -14,17 +14,18 @@ public class ElevatorSpinMotors extends LoggableCommand {
   /** Creates a new ElevatorSpinMotors. */
   private final ElevatorSubsystem elevator;
   private final TimeoutLogger timeoutCounter;
-  public double startTime;
+  public final Timer timer;
 
   public ElevatorSpinMotors(ElevatorSubsystem elevator) {
     this.elevator = elevator;
+    this.timer = new Timer();
     timeoutCounter = new TimeoutLogger("Elevator Spin Motors");
     addRequirements(elevator);
   }
 
   @Override
   public void initialize() {
-    startTime = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   @Override
@@ -39,7 +40,7 @@ public class ElevatorSpinMotors extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if(Timer.getFPGATimestamp() - Constants.ELEVATOR_TIMEOUT >= startTime){
+    if(timer.hasElapsed(Constants.ELEVATOR_TIMEOUT)){
       timeoutCounter.increaseTimeoutCount();
       return true;
     }

@@ -15,10 +15,11 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   /** Creates a new byeByeGoToAngle. */
   private final AlgaeByeByeTiltSubsystem tiltMotor;
   private final TimeoutLogger timeoutCounter;
-  private double startTime;
+  private final Timer timer;
 
   public ByeByeToFwrLimit(AlgaeByeByeTiltSubsystem tiltMotor) {
     this.tiltMotor = tiltMotor;
+    this.timer = new Timer();
     timeoutCounter = new TimeoutLogger("ByeBye to fwr limit");
     addRequirements(tiltMotor);
   }
@@ -27,7 +28,7 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   @Override
   public void initialize() {
     tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
-    startTime = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,7 +44,7 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Timer.getFPGATimestamp() - Constants.BYEBYE_FORWARD_TIMEOUT >= startTime){
+    if(timer.hasElapsed(Constants.BYEBYE_FORWARD_TIMEOUT)){
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
