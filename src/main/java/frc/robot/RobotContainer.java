@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.RollAlgae;
 import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemtests.SpinExtender;
@@ -96,10 +97,14 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+    if(Constants.COMMAND_DEBUG){
+      SmartShuffleboard.putCommand(
+        "DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
+      SmartShuffleboard.putCommand(
+        "DEBUG", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
     SmartShuffleboard.putCommand(
-        "Climber", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
-    SmartShuffleboard.putCommand(
-        "Climber", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
+        "DEBUG", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
+    }
   }
 
   public Command getAutonomousCommand() {
