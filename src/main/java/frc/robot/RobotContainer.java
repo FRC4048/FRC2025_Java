@@ -21,9 +21,15 @@ import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
-import frc.robot.commands.subsystemTests.SpinRollerByeBye;
-import frc.robot.commands.subsystemTests.SpinTiltByeBye;
+import frc.robot.commands.subsystemtests.SpinRollerByeBye;
+import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
+import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
 import frc.robot.subsystems.climber.RealClimberIO;
@@ -35,12 +41,6 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
 import frc.robot.subsystems.elevator.SimElevatorIO;
-import frc.robot.subsystems.AlgaeByeByeRoller.AlgaeByeByeRollerSubsystem;
-import frc.robot.subsystems.AlgaeByeByeRoller.MockAlgaeByeByeRollerIO;
-import frc.robot.subsystems.AlgaeByeByeRoller.RealAlgaeByeByeRollerIO;
-import frc.robot.subsystems.AlgaeByeByeTilt.AlgaeByeByeTiltSubsystem;
-import frc.robot.subsystems.AlgaeByeByeTilt.MockAlgaeByeByeTIltIO;
-import frc.robot.subsystems.AlgaeByeByeTilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -88,8 +88,8 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         shooter = new CoralSubsystem(new RealCoralIO());
         climberSubsystem = new ClimberSubsystem(new RealClimberIO());
-          byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
-          byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
@@ -97,8 +97,8 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new MockClimberIO());
-          byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
-          byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTIltIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
@@ -106,8 +106,8 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new SimClimberIO());
-          byebyeRoller = null;
-          byebyeTilt = null;
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO()); // TODO
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
@@ -117,8 +117,11 @@ public class RobotContainer {
     configureBindings();
     putShuffleboardCommands();
     SmartShuffleboard.putCommand(
-        "Bye Bye", "Spin Roller ", new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
-    SmartShuffleboard.putCommand("Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
+        "Bye Bye",
+        "Spin Roller ",
+        new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+    SmartShuffleboard.putCommand(
+        "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
   }
 
   private void configureBindings() {
