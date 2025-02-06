@@ -7,7 +7,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, ElevatorInputs> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, new ElevatorInputs());
+    this.elevatorSystem =
+        new LoggableSystem<>(ElevatorIO, new ElevatorInputs(), ElevatorSubsystem.class);
   }
 
   public void setElevatorMotorSpeed(double speed) {
@@ -15,11 +16,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getEncoderValue1() {
-    return elevatorSystem.getInputs().elevatorMotor1EncoderValue;
+    return elevatorSystem.getInputs().encoder1Position;
   }
 
   public double getEncoderValue2() {
-    return elevatorSystem.getInputs().elevatorMotor2EncoderValue;
+    return elevatorSystem.getInputs().encoder2Position;
   }
 
   @Override

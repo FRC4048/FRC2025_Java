@@ -5,19 +5,19 @@
 package frc.robot.subsystems.hihiextender;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.commoninputs.LimitedEncodedMotorInput;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
-  private final LoggableSystem<HihiExtenderIO, HihiExtenderInputs> system;
+  private final LoggableSystem<HihiExtenderIO, LimitedEncodedMotorInput> system;
 
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
-    system = new LoggableSystem<>(io, new HihiExtenderInputs());
+    system = new LoggableSystem<>(io, new LimitedEncodedMotorInput(), HihiExtenderSubsystem.class);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     system.updateInputs();
   }
 
@@ -30,11 +30,11 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardSwitchState() {
-    return system.getInputs().fwdTripped;
+    return system.getInputs().fwdLimit;
   }
 
   public boolean getReverseSwitchState() {
-    return system.getInputs().revTripped;
+    return system.getInputs().revLimit;
   }
 
   public void resetEncoder() {

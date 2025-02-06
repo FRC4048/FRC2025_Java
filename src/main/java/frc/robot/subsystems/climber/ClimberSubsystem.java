@@ -5,14 +5,16 @@
 package frc.robot.subsystems.climber;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.commoninputs.LimitedEncodedMotorInput;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
-  private final LoggableSystem<ClimberIO, ClimberInputs> climberSystem;
+  private final LoggableSystem<ClimberIO, LimitedEncodedMotorInput> climberSystem;
 
   public ClimberSubsystem(ClimberIO io) {
-    climberSystem = new LoggableSystem<>(io, new ClimberInputs());
+    climberSystem =
+        new LoggableSystem<>(io, new LimitedEncodedMotorInput(), ClimberSubsystem.class);
   }
 
   @Override

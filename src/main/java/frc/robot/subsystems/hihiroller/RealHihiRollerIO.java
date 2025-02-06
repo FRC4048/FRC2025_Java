@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
+import frc.robot.utils.commoninputs.EncodedMotorInput;
 
 public class RealHihiRollerIO implements HihiRollerIO {
   private final SparkMax hihiRollerMotor;
@@ -36,8 +37,7 @@ public class RealHihiRollerIO implements HihiRollerIO {
   }
 
   @Override
-  public void updateInputs(HihiRollerInputs inputs) {
-    inputs.hihiRollerEncoder = hihiRollerMotor.getEncoder().getPosition();
-    inputs.hihiRollerVelocity = hihiRollerMotor.getEncoder().getVelocity();
+  public void updateInputs(EncodedMotorInput inputs) {
+    inputs.process(hihiRollerMotor);
   }
 }

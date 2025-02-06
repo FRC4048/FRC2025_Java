@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
@@ -61,7 +62,8 @@ public class PoseEstimator {
     this.frontRight = frontRightMotor;
     this.backLeft = backLeftMotor;
     this.backRight = backRightMotor;
-    this.apriltagSystem = new LoggableSystem<>(apriltagIO, new ApriltagInputs());
+    this.apriltagSystem =
+        new LoggableSystem<>(apriltagIO, new ApriltagInputs(), "Apriltag", SwerveDrivetrain.class);
     OdometryMeasurement initMeasurement =
         new OdometryMeasurement(
             new SwerveModulePosition[] {

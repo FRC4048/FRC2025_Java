@@ -12,7 +12,8 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeByeByeTiltIO, AlgaeByeByeTiltInputs> algaeTiltSystem;
 
   public AlgaeByeByeTiltSubsystem(AlgaeByeByeTiltIO io) {
-    algaeTiltSystem = new LoggableSystem<>(io, new AlgaeByeByeTiltInputs());
+    algaeTiltSystem =
+        new LoggableSystem<>(io, new AlgaeByeByeTiltInputs(), AlgaeByeByeTiltSubsystem.class);
   }
 
   @Override

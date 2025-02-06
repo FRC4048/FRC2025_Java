@@ -14,6 +14,7 @@ import frc.robot.utils.logging.TimeoutLogger;
 public class ByeByeToRevLimit extends LoggableCommand {
   /** Creates a new byeByeGoToAngle. */
   private final AlgaeByeByeTiltSubsystem tiltMotor;
+
   private final TimeoutLogger timeoutCounter;
   private final Timer timer;
 
@@ -44,7 +45,7 @@ public class ByeByeToRevLimit extends LoggableCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(timer.hasElapsed(Constants.BYEBYE_REVERSE_TIMEOUT)){
+    if (timer.hasElapsed(Constants.BYEBYE_REVERSE_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
