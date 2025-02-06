@@ -27,7 +27,7 @@ public class AlgaeByeByeRollerSimulator {
     // Finally, we set our simulated encoder's readings and simulated battery voltage
     // We use a very simplistic formula to calculate the no-load motor speed
     double rpm = motorOut * RPM_PER_VOLT;
-    // IS THERE NO ITERATION??
+    motorSim.iterate(rpm, 12, 0.020);
   }
 
   public void close() {
