@@ -18,6 +18,7 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
+import frc.robot.commands.RollAlgae;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
