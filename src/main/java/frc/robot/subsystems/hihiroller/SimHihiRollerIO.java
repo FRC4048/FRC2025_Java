@@ -1,6 +1,7 @@
 package frc.robot.subsystems.hihiroller;
 
 import frc.robot.constants.Constants;
+import frc.robot.utils.commoninputs.EncodedMotorInput;
 import frc.robot.utils.motor.MotorSimulator;
 
 public class SimHihiRollerIO extends RealHihiRollerIO {
@@ -12,7 +13,7 @@ public class SimHihiRollerIO extends RealHihiRollerIO {
   }
 
   @Override
-  public void updateInputs(HihiRollerInputs inputs) {
+  public void updateInputs(EncodedMotorInput inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       hihiRollerSimulator.simulationPeriodic();
