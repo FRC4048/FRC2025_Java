@@ -13,7 +13,7 @@ import frc.robot.constants.Constants;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
-  private final SparkMax removerMotor;
+  protected final SparkMax removerMotor;
 
   public RealAlgaeByeByeRollerIO() {
     this.removerMotor =
@@ -40,5 +40,7 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
     this.removerMotor.set(0);
   }
 
-  public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
+  public void updateInputs(AlgaeByeByeRollerInputs inputs) {
+    inputs.rollerMotorVelocity = removerMotor.getEncoder().getVelocity();
+  }
 }

@@ -9,10 +9,15 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /** Add your docs here. */
 public class AlgaeByeByeRollerInputs implements LoggableInputs {
+  public double rollerMotorVelocity = 0;
 
   @Override
-  public void toLog(LogTable table) {}
+  public void toLog(LogTable table) {
+    table.put("rollerMotorVelocity", rollerMotorVelocity);
+  }
 
   @Override
-  public void fromLog(LogTable table) {}
+  public void fromLog(LogTable table) {
+    rollerMotorVelocity = table.get("rollerMotorVelocity").getDouble();
+  }
 }
