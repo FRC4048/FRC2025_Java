@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.ResetGyro;
-import frc.robot.commands.climber.CloseClimber;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;

@@ -6,33 +6,37 @@ package frc.robot.utils.logging;
 
 import org.littletonrobotics.junction.Logger;
 
-
 /** Add your docs here. */
 public class TimeoutLogger {
-private int timeoutCounter = 0;//per command
-private static int totalTimeouts = 0;//every timeout
-private final String commandName;
+  private int timeoutCounter = 0; // per command
+  private static int totalTimeouts = 0; // every timeout
+  private final String commandName;
 
-public TimeoutLogger(String commandName){
-this.commandName = commandName;
-Logger.recordOutput("Timeouts/" + commandName, timeoutCounter);
-}
-public double getTimeoutCount(){
-return timeoutCounter;
-}
+  public TimeoutLogger(String commandName) {
+    this.commandName = commandName;
+    Logger.recordOutput("Timeouts/" + commandName, timeoutCounter);
+  }
+
+  public double getTimeoutCount() {
+    return timeoutCounter;
+  }
+
   public void increaseTimeoutCount() {
-        timeoutCounter++;
-        totalTimeouts++;
-        Logger.recordOutput("Timeouts/" + commandName, timeoutCounter);
-    }
-    public String getCommandName() {
-        return commandName;
-    }
-    public void resetCounter() {
-        timeoutCounter = 0;
-        Logger.recordOutput("Timeouts/" + commandName, timeoutCounter);
-    }
-    public static int getTotalTimeouts(){
-        return totalTimeouts;
-    }
+    timeoutCounter++;
+    totalTimeouts++;
+    Logger.recordOutput("Timeouts/" + commandName, timeoutCounter);
+  }
+
+  public String getCommandName() {
+    return commandName;
+  }
+
+  public void resetCounter() {
+    timeoutCounter = 0;
+    Logger.recordOutput("Timeouts/" + commandName, timeoutCounter);
+  }
+
+  public static int getTotalTimeouts() {
+    return totalTimeouts;
+  }
 }
