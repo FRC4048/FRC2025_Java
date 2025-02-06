@@ -13,7 +13,7 @@ import frc.robot.constants.Constants;
 
 /** Add your docs here. */
 public class RealClimberIO implements ClimberIO {
-  private final SparkMax climberMotor;
+  protected final SparkMax climberMotor;
   private final SparkLimitSwitch extendedLimit;
   private final SparkLimitSwitch retractedLimit;
 
