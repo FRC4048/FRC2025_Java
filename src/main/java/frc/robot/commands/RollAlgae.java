@@ -14,10 +14,11 @@ public class RollAlgae extends Command {
   /** Creates a new AlgaeRoller. */
   private final HihiRollerSubsystem roller;
 
-  private double startTime;
+  private final Timer timer;
   private final double speed;
 
   public RollAlgae(HihiRollerSubsystem roller, double speed) {
+    this.timer = new Timer();
     this.speed = speed;
     this.roller = roller;
     addRequirements(roller);
@@ -27,7 +28,7 @@ public class RollAlgae extends Command {
   @Override
   public void initialize() {
     roller.setRollerMotorSpeed(speed);
-    startTime = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +44,6 @@ public class RollAlgae extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - startTime >= Constants.ROLL_ALGAE_TIMEOUT);
+    return timer.hasElapsed(Constants.ROLL_ALGAE_TIMEOUT);
   }
 }
