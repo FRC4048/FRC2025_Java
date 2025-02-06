@@ -12,6 +12,7 @@ public class GameConstants {
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
+  public static final boolean COMMAND_DEBUG = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -30,6 +31,7 @@ public class GameConstants {
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
   public static final int SHOOT_CORAL_TIMEOUT = 10;
+  public static final int ROLL_ALGAE_TIMEOUT = 10;
   public static final double HIHI_EXTENDER_TIMEOUT = 10;
   public static final double HIHI_ROLLER_TIMEOUT = 5;
 
