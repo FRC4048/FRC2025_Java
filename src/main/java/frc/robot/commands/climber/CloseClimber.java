@@ -1,4 +1,4 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;

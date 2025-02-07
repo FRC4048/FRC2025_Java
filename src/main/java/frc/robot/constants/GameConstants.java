@@ -20,6 +20,8 @@ public class GameConstants {
   public static final double ELEVATOR_RISE_SPEED = 0.66;
   public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
+  public static final double BYEBYE_ROLLER_SPEED = 0.15;
+  public static final double TILT_SPEED = 0.15;
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
   public static final double INTAKE_MOTOR_SPEED = 0.5;
@@ -33,6 +35,8 @@ public class GameConstants {
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
+  public static final int BYEBYE_SPIN_ROLLER_TIMEOUT = 5;
+  public static final int BYEBYE_SPIN_TILT_TIMEOUT = 5;
   public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
