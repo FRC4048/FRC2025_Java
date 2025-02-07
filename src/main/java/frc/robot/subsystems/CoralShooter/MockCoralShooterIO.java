@@ -8,7 +8,5 @@ public class MockCoralShooterIO implements CoralShooterIO {
   public void stopShooterMotors() {}
 
   @Override
-
   public void updateInputs(CoralShooterInput inputs) {}
-
 }

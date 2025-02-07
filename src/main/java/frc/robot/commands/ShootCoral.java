@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.subsystems.CoralShooter.CoralShooterSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
 
 public class ShootCoral extends LoggableCommand {
   /** Creates a new ShootCoral. */
-  private final CoralSubsystem shooter;
+  private final CoralShooterSubsystem shooter;
 
   private final double speedMotors;
   private double startTime;
 
-  public ShootCoral(CoralSubsystem shooter, double speedMotors) {
+  public ShootCoral(CoralShooterSubsystem shooter, double speedMotors) {
     this.speedMotors = speedMotors;
     this.shooter = shooter;
     addRequirements(shooter);

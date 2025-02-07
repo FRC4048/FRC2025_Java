@@ -27,5 +27,4 @@ public class CoralShooterSubsystem extends SubsystemBase {
   public void stopShooterMotors() {
     system.getIO().stopShooterMotors();
   }
-  
 }

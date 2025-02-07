@@ -3,20 +3,16 @@ package frc.robot.subsystems.CoralShooter;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
+import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
-import com.revrobotics.spark.config.SparkMaxConfig;
-
-public class RealCoralExtenderIO implements CoralShooterIO {
+public class RealCoralShooterIO implements CoralShooterIO {
   private final SparkMax shooterMotor1; // TODO: change later to whatever
   private final SparkMax shooterMotor2; // TODO: change later to whatever
 
-  public RealCoralExtenderIO() {
+  public RealCoralShooterIO() {
     shooterMotor1 = new SparkMax(Constants.SHOOTER_MOTOR_1_ID, SparkMax.MotorType.kBrushless);
     shooterMotor2 = new SparkMax(Constants.SHOOTER_MOTOR_2_ID, SparkMax.MotorType.kBrushless);
-
-
   }
 
   private void configureMotor() {
@@ -38,17 +34,12 @@ public class RealCoralExtenderIO implements CoralShooterIO {
     this.shooterMotor2.set(speed);
   }
 
-
   @Override
   public void stopShooterMotors() {
     this.shooterMotor1.set(0);
     this.shooterMotor2.set(0);
   }
 
- @Override
-  public void updateInputs(CoralShooterInput inputs) {
-
-  }
-  
-
+  @Override
+  public void updateInputs(CoralShooterInput inputs) {}
 }

@@ -24,7 +24,6 @@ public class CoralAngleSubsystem extends SubsystemBase {
     system.getIO().setTiltAngularVelocity(angleSpeed);
   }
 
-
   public void stopTiltMotors() {
     system.getIO().stopTiltMotors();
   }

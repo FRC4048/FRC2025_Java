@@ -9,6 +9,7 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -16,8 +17,16 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.subsystemTests.CoralAngleTest;
+import frc.robot.commands.subsystemTests.CoralShooterTest;
 import frc.robot.commands.subsystemTests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.CoralAngle.CoralAngleSubsystem;
+import frc.robot.subsystems.CoralAngle.MockCoralAngleIO;
+import frc.robot.subsystems.CoralAngle.RealCoralAngleIO;
+import frc.robot.subsystems.CoralShooter.CoralShooterSubsystem;
+import frc.robot.subsystems.CoralShooter.MockCoralShooterIO;
+import frc.robot.subsystems.CoralShooter.RealCoralShooterIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
@@ -46,6 +55,8 @@ public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
+  private final CoralAngleSubsystem coralAngle;
+  private final CoralShooterSubsystem coralShooter;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -55,9 +66,13 @@ public class RobotContainer {
     if (Robot.isReal()) {
       hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+      coralAngle = new CoralAngleSubsystem(new RealCoralAngleIO());
+      coralShooter = new CoralShooterSubsystem(new RealCoralShooterIO());
     } else {
       hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
       hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+      coralAngle = new CoralAngleSubsystem(new MockCoralAngleIO());
+      coralShooter = new CoralShooterSubsystem(new MockCoralShooterIO());
     }
     setupDriveTrain();
     configureBindings();
@@ -68,7 +83,12 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-  }
+
+    controller.a().onTrue(new CoralShooterTest(getCoralShooter(), Constants.CORAL_SHOOTER_SPEED));
+    controller.b().onTrue(new CoralAngleTest(getCoralAngle(), Constants.CORAL_ANGLE));
+      
+    }
+  
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
@@ -181,5 +201,13 @@ public class RobotContainer {
 
   public SwerveDrivetrain getDrivetrain() {
     return drivetrain;
+  }
+
+  public CoralAngleSubsystem getCoralAngle() {
+    return coralAngle;
+  }
+
+  public CoralShooterSubsystem getCoralShooter() {
+    return coralShooter;
   }
 }

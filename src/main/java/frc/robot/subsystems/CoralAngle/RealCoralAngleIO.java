@@ -3,10 +3,8 @@ package frc.robot.subsystems.CoralAngle;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
-import frc.robot.constants.Constants;
-
 import com.revrobotics.spark.config.SparkMaxConfig;
+import frc.robot.constants.Constants;
 
 public class RealCoralAngleIO implements CoralAngleIO {
   private final SparkMax shooterTiltMotor; // TODO: change later to whatever
@@ -31,7 +29,6 @@ public class RealCoralAngleIO implements CoralAngleIO {
     this.shooterTiltMotor.set(angleSpeed);
   }
 
-
   @Override
   public void stopTiltMotors() {
     this.shooterTiltMotor.set(0);
@@ -47,5 +44,4 @@ public class RealCoralAngleIO implements CoralAngleIO {
     inputs.fwdTripped = shooterTiltMotor.getForwardLimitSwitch().isPressed();
     inputs.revTripped = shooterTiltMotor.getReverseLimitSwitch().isPressed();
   }
-
 }
