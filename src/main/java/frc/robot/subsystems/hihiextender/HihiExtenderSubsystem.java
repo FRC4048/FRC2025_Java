@@ -30,11 +30,11 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardSwitchState() {
-    return system.getInputs().fwdLimit;
+    return system.getInputs().isFwdLimit();
   }
 
   public boolean getReverseSwitchState() {
-    return system.getInputs().revLimit;
+    return system.getInputs().isRevLimit();
   }
 
   public void resetEncoder() {

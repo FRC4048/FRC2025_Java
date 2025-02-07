@@ -4,8 +4,8 @@ import com.revrobotics.spark.SparkMax;
 import org.littletonrobotics.junction.LogTable;
 
 public class LimitedEncodedMotorInput extends EncodedMotorInput {
-  public boolean fwdLimit;
-  public boolean revLimit;
+  private boolean fwdLimit;
+  private boolean revLimit;
 
   @Override
   public void toLog(LogTable table) {
@@ -26,5 +26,13 @@ public class LimitedEncodedMotorInput extends EncodedMotorInput {
     super.process(sparkMax);
     fwdLimit = sparkMax.getForwardLimitSwitch().isPressed();
     revLimit = sparkMax.getReverseLimitSwitch().isPressed();
+  }
+
+  public boolean isFwdLimit() {
+    return fwdLimit;
+  }
+
+  public boolean isRevLimit() {
+    return revLimit;
   }
 }

@@ -19,7 +19,7 @@ public class HihiRollerSubsystem extends SubsystemBase {
   }
 
   public double getRollerMotorPosition() {
-    return hihiRollerSystem.getInputs().encoderPosition;
+    return hihiRollerSystem.getInputs().getEncoderPosition();
   }
 
   public void stopHihiRollerMotor() {

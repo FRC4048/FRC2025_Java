@@ -4,8 +4,8 @@ import com.revrobotics.spark.SparkMax;
 import org.littletonrobotics.junction.LogTable;
 
 public class EncodedMotorInput extends MotorInput {
-  public double encoderPosition;
-  public double encoderVelocity;
+  private double encoderPosition;
+  private double encoderVelocity;
 
   @Override
   public void toLog(LogTable table) {
@@ -26,5 +26,13 @@ public class EncodedMotorInput extends MotorInput {
     super.process(sparkMax);
     encoderPosition = sparkMax.getEncoder().getPosition();
     encoderVelocity = sparkMax.getEncoder().getVelocity();
+  }
+
+  public double getEncoderPosition() {
+    return encoderPosition;
+  }
+
+  public double getEncoderVelocity() {
+    return encoderVelocity;
   }
 }
