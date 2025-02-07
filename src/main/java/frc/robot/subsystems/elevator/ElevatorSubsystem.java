@@ -15,11 +15,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getEncoderValue1() {
-    return elevatorSystem.getInputs().elevatorMotor1EncoderValue;
-  }
-
-  public double getEncoderValue2() {
-    return elevatorSystem.getInputs().elevatorMotor2EncoderValue;
+    return elevatorSystem.getInputs().elevatorMotorEncoderValue;
   }
 
   @Override
