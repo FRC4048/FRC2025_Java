@@ -1,7 +1,8 @@
 package frc.robot.utils.commoninputs;
 
 public class CommonMotorInputs {
-  public static <R> BuildableKeyedInputs<R> createLimitedEncoded(InputBuilder<R> builder) {
+  public static <R> BuildableKeyedMotorInputs<R> createLimitedEncoded(
+      MotorInputBuilder<R> builder) {
     return builder
         .reset()
         .encoderPosition()
@@ -13,7 +14,7 @@ public class CommonMotorInputs {
         .build();
   }
 
-  public static <R> BuildableKeyedInputs<R> createEncoded(InputBuilder<R> builder) {
+  public static <R> BuildableKeyedMotorInputs<R> createEncoded(MotorInputBuilder<R> builder) {
     return builder
         .reset()
         .encoderPosition()
@@ -23,7 +24,7 @@ public class CommonMotorInputs {
         .build();
   }
 
-  public static <R> BuildableKeyedInputs<R> createBasic(InputBuilder<R> builder) {
+  public static <R> BuildableKeyedMotorInputs<R> createBasic(MotorInputBuilder<R> builder) {
     return builder.reset().motorCurrent().motorTemperature().build();
   }
 }

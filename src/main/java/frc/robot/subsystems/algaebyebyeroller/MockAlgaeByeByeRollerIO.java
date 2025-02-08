@@ -5,7 +5,7 @@
 package frc.robot.subsystems.algaebyebyeroller;
 
 import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
 
 /** Add your docs here. */
 public class MockAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
@@ -16,5 +16,5 @@ public class MockAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   public void stopMotors() {}
 
   @Override
-  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {}
+  public void updateInputs(BuildableKeyedMotorInputs<SparkMax> inputs) {}
 }

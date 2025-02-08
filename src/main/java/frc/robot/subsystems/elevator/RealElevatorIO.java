@@ -3,7 +3,7 @@ package frc.robot.subsystems.elevator;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
 
 public class RealElevatorIO implements ElevatorIO {
   public final SparkMax elevatorMotor;
@@ -19,7 +19,7 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
-  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {
+  public void updateInputs(BuildableKeyedMotorInputs<SparkMax> inputs) {
     inputs.process(elevatorMotor);
   }
 }

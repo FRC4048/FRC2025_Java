@@ -9,7 +9,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
-import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
 
 /** Add your docs here. */
 public class RealClimberIO implements ClimberIO {
@@ -40,7 +40,7 @@ public class RealClimberIO implements ClimberIO {
   }
 
   @Override
-  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {
+  public void updateInputs(BuildableKeyedMotorInputs<SparkMax> inputs) {
     inputs.process(climberMotor);
   }
 }

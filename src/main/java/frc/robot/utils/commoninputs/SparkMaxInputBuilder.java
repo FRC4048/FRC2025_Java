@@ -3,7 +3,7 @@ package frc.robot.utils.commoninputs;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 
-public class SparkMaxInputBuilder extends InputBuilder<SparkMax> {
+public class SparkMaxInputBuilder extends MotorInputBuilder<SparkMax> {
 
   public SparkMaxInputBuilder(String key) {
     super(key);

@@ -6,7 +6,7 @@ package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
@@ -20,7 +20,7 @@ public class SimClimberIO extends RealClimberIO {
   }
 
   @Override
-  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {
+  public void updateInputs(BuildableKeyedMotorInputs<SparkMax> inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       motorSimulator.simulationPeriodic();

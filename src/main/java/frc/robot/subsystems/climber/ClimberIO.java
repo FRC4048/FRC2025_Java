@@ -5,11 +5,11 @@
 package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
 import frc.robot.utils.logging.LoggableIO;
 
 /** Add your docs here. */
-public interface ClimberIO extends LoggableIO<BuildableKeyedInputs<SparkMax>> {
+public interface ClimberIO extends LoggableIO<BuildableKeyedMotorInputs<SparkMax>> {
 
   void setClimberSpeed(double speed);
 

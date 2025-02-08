@@ -1,7 +1,7 @@
 package frc.robot.subsystems.hihiroller;
 
 import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
 
 public class MockHihiRollerIO implements HihiRollerIO {
   @Override
@@ -11,5 +11,5 @@ public class MockHihiRollerIO implements HihiRollerIO {
   public void stopRollerMotor() {}
 
   @Override
-  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {}
+  public void updateInputs(BuildableKeyedMotorInputs<SparkMax> inputs) {}
 }
