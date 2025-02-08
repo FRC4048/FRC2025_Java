@@ -23,7 +23,13 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFold
   @Override
   public BuildableFolderMotorInputs<R> build() {
     return new BuildableFolderMotorInputs<>(
-            folder, encoderPosition, encoderVelocity, motorCurrent, motorTemperature, fwdLimit, revLimit);
+        folder,
+        encoderPosition,
+        encoderVelocity,
+        motorCurrent,
+        motorTemperature,
+        fwdLimit,
+        revLimit);
   }
 
   public MotorInputBuilder<R> motorCurrent() {

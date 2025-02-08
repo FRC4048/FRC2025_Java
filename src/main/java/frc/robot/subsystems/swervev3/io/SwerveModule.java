@@ -86,7 +86,8 @@ public class SwerveModule {
 
   public void setState(SwerveModuleState desiredState) {
     double steerEncoderPosition = getSteerPosition();
-    SwerveModuleState state =SwerveModuleState.optimize(desiredState, new Rotation2d(steerEncoderPosition));
+    SwerveModuleState state =
+        SwerveModuleState.optimize(desiredState, new Rotation2d(steerEncoderPosition));
     double driveSpeed =
         drivePIDController.calculate(
                 driveSystem.getInputs().getEncoderVelocity(), (state.speedMetersPerSecond))
