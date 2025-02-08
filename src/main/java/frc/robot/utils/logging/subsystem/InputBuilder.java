@@ -9,8 +9,8 @@ import frc.robot.utils.logging.subsystem.builders.BuildableFolderInputs;
 public abstract class InputBuilder<R, S extends BuildableFolderInputs<R>> {
   protected final String key;
 
-  public InputBuilder(String key) {
-    this.key = key;
+  public InputBuilder(String folder) {
+    this.key = folder;
   }
 
   public abstract S build();

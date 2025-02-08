@@ -16,8 +16,8 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFold
   private BooleanInput<R> fwdLimit;
   private BooleanInput<R> revLimit;
 
-  public MotorInputBuilder(String key) {
-    super(key);
+  public MotorInputBuilder(String folder) {
+    super(folder);
   }
 
   @Override

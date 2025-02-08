@@ -7,8 +7,8 @@ import frc.robot.utils.logging.subsystem.InputSource;
 /** SparkMax Input Builder implementation */
 public class SparkMaxInputBuilder extends MotorInputBuilder<SparkMax> {
 
-  public SparkMaxInputBuilder(String key) {
-    super(key);
+  public SparkMaxInputBuilder(String folder) {
+    super(folder);
   }
 
   @Override
