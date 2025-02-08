@@ -5,6 +5,7 @@ import org.littletonrobotics.junction.LogTable;
 
 /**
  * Represents a value that can be logged (to and from a log table)
+ *
  * @param <T> Data type that is being logged
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */

@@ -5,6 +5,7 @@ import org.littletonrobotics.junction.LogTable;
 
 /**
  * Double type of {@link Input}
+ *
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */
 public class DoubleInput<R> extends Input<Double, R> {

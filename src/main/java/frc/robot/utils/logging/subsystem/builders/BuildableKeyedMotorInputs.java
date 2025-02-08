@@ -7,6 +7,7 @@ import org.littletonrobotics.junction.LogTable;
 
 /**
  * Contains Inputs that could be logged for a motor
+ *
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */
 public class BuildableKeyedMotorInputs<R> extends BuildableKeyedInputs<R> {

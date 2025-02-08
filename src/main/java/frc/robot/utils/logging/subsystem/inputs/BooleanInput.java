@@ -5,6 +5,7 @@ import org.littletonrobotics.junction.LogTable;
 
 /**
  * Boolean type of {@link Input}
+ *
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */
 public class BooleanInput<R> extends Input<Boolean, R> {
