@@ -23,7 +23,7 @@ import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
 import frc.robot.subsystems.swervev3.vision.LinearVisionTruster;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.math.ArrayUtils;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
@@ -66,7 +66,7 @@ public class PoseEstimator {
     this.frontRight = frontRightMotor;
     this.backLeft = backLeftMotor;
     this.backRight = backRightMotor;
-    this.apriltagSystem = new LoggableSystem<>(apriltagIO, new ApriltagInputs());
+    this.apriltagSystem = new LoggableSystem<>(apriltagIO, new ApriltagInputs("Apriltag"));
     OdometryMeasurement initMeasurement =
         new OdometryMeasurement(
             new SwerveModulePosition[] {

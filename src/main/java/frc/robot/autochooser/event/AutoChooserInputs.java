@@ -2,16 +2,20 @@ package frc.robot.autochooser.event;
 
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-public class AutoChooserInputs implements LoggableInputs {
+public class AutoChooserInputs extends FolderLoggableInputs {
   AutoAction action = AutoAction.INVALID;
   FieldLocation location = FieldLocation.INVALID;
   AutoAction defaultAction = AutoAction.INVALID;
   FieldLocation defaultLocation = FieldLocation.INVALID;
   AutoAction feedbackAction = AutoAction.INVALID;
   FieldLocation feedbackLocation = FieldLocation.INVALID;
+
+  public AutoChooserInputs(String folder) {
+    super(folder);
+  }
 
   @Override
   public void toLog(LogTable table) {

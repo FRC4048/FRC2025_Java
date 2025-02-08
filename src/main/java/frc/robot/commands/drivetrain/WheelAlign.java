@@ -2,7 +2,7 @@ package frc.robot.commands.drivetrain;
 
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class WheelAlign extends LoggableCommand {
   private final SwerveDrivetrain drivetrain;

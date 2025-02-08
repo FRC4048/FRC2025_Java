@@ -1,4 +1,4 @@
-package frc.robot.utils.logging;
+package frc.robot.utils.logging.commands;
 
 import java.util.Objects;
 
