@@ -1,14 +1,15 @@
 package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.commoninputs.LimitedEncodedMotorInput;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private final LoggableSystem<ElevatorIO, ElevatorInputs> elevatorSystem;
+  private final LoggableSystem<ElevatorIO, LimitedEncodedMotorInput> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     this.elevatorSystem =
-        new LoggableSystem<>(ElevatorIO, new ElevatorInputs(), ElevatorSubsystem.class);
+        new LoggableSystem<>(ElevatorIO, new LimitedEncodedMotorInput(), ElevatorSubsystem.class);
   }
 
   public void setElevatorMotorSpeed(double speed) {
@@ -16,11 +17,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getEncoderValue1() {
-    return elevatorSystem.getInputs().encoder1Position;
-  }
-
-  public double getEncoderValue2() {
-    return elevatorSystem.getInputs().encoder2Position;
+    return elevatorSystem.getInputs().getEncoderPosition();
   }
 
   @Override
