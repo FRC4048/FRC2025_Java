@@ -39,6 +39,6 @@ public class SpinHihiExtender extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Constants.HIHI_EXTENDER_TIMEOUT);
+    return timer.hasElapsed(Constants.HIHI_EXTEND_TIMEOUT);
   }
 }
