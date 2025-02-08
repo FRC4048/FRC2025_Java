@@ -34,7 +34,7 @@ public class RetractHiHi extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if(timer.hasElapsed(Constants.HIHI_RETRACT_TIMEOUT)){
+    if (timer.hasElapsed(Constants.HIHI_RETRACT_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }

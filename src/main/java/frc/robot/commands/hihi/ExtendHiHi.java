@@ -34,7 +34,7 @@ public class ExtendHiHi extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if(timer.hasElapsed(Constants.HIHI_EXTENDER_TIMEOUT)){
+    if (timer.hasElapsed(Constants.HIHI_EXTEND_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
