@@ -34,6 +34,10 @@ public class ClimberSubsystem extends SubsystemBase {
     }
   }
 
+  public void resetClimberEncoder() {
+    climberSystem.getIO().resetClimberEncoder();
+  }
+
   public void setClimberSpeed(double speed) {
     climberSystem.getIO().setClimberSpeed(speed);
   }

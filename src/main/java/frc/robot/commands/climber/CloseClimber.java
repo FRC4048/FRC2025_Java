@@ -45,6 +45,6 @@ public class CloseClimber extends LoggableCommand {
 
   @Override
   public boolean runsWhenDisabled() {
-    return true;
+    return false;
   }
 }

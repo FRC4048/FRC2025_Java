@@ -44,6 +44,10 @@ public class RealClimberIO implements ClimberIO {
     climberMotor.set(0);
   }
 
+  public void resetClimberEncoder() {
+    climberMotor.getEncoder().setPosition(0);
+  }
+
   @Override
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
     inputs.process(climberMotor);

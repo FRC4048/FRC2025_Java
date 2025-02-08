@@ -50,6 +50,7 @@ public class GameConstants {
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
+  public static final int RESET_CLIMBER_TIMEOUT = 10;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
