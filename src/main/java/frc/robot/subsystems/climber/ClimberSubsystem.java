@@ -17,7 +17,10 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public ClimberSubsystem(ClimberIO io) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ClimberSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = CommonMotorInputs.createLimitedEncoded(builder);
+    CommonMotorInputs.hasEncoder(builder);
+    CommonMotorInputs.hasLimits(builder);
+    CommonMotorInputs.hasStatus(builder);
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.build();
     climberSystem = new LoggableSystem<>(io, inputs);
   }
 

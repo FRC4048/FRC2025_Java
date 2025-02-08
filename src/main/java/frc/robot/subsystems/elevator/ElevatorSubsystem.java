@@ -12,7 +12,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = CommonMotorInputs.createLimitedEncoded(builder);
+    CommonMotorInputs.hasEncoder(builder);
+    CommonMotorInputs.hasLimits(builder);
+    CommonMotorInputs.hasStatus(builder);
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
   }
 

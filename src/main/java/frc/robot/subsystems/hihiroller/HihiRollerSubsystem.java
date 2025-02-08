@@ -13,7 +13,10 @@ public class HihiRollerSubsystem extends SubsystemBase {
 
   public HihiRollerSubsystem(HihiRollerIO hihiRollerIO) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("HihiRollerSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = CommonMotorInputs.createLimitedEncoded(builder);
+    CommonMotorInputs.hasEncoder(builder);
+    CommonMotorInputs.hasLimits(builder);
+    CommonMotorInputs.hasStatus(builder);
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.build();
     this.hihiRollerSystem = new LoggableSystem<>(hihiRollerIO, inputs);
   }
 

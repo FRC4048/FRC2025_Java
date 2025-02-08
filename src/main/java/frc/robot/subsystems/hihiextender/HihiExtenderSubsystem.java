@@ -17,7 +17,10 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("HihiExtenderSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = CommonMotorInputs.createLimitedEncoded(builder);
+    CommonMotorInputs.hasEncoder(builder);
+    CommonMotorInputs.hasLimits(builder);
+    CommonMotorInputs.hasStatus(builder);
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.build();
     system = new LoggableSystem<>(io, inputs);
   }
 
