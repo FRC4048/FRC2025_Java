@@ -20,6 +20,7 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
+import frc.robot.subsystems.swervev3.vision.LinearVisionTruster;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
@@ -38,12 +39,16 @@ public class PoseEstimator {
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
   private final LoggableSystem<LoggableIO<ApriltagInputs>, ApriltagInputs> apriltagSystem;
+  private int invalidCounter = 0;
 
   /* standard deviation of robot states, the lower the numbers arm, the more we trust odometry */
   private static final Vector<N3> stateStdDevs1 = VecBuilder.fill(0.075, 0.075, 0.001);
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   private static final Vector<N3> visionMeasurementStdDevs1 = VecBuilder.fill(0.5, 0.5, 0.5);
+
+  /* the rate at which variance of vision measurements increases as distance from the tag increases*/
+  private static final double visionStdRateOfChange = 0.1;
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.001);
@@ -85,7 +90,8 @@ public class PoseEstimator {
               public Pose2d getVisionPose(VisionMeasurement measurement) {
                 return measurement.measurement();
               }
-            });
+            },
+            new LinearVisionTruster(visionMeasurementStdDevs1, visionStdRateOfChange));
     SmartDashboard.putData(field);
   }
 
@@ -123,12 +129,17 @@ public class PoseEstimator {
               apriltagSystem.getInputs().poseYaw[i]
             };
         if (validAprilTagPose(pos)) {
-          double diff =
-              apriltagSystem.getInputs().serverTime[i] - apriltagSystem.getInputs().timestamp[i];
-          double latencyInSec = diff / 1000;
+          double serverTime = apriltagSystem.getInputs().serverTime[i];
+          double timestamp = apriltagSystem.getInputs().timestamp[i];
+          double latencyInSec = (serverTime - timestamp) / 1000;
           Pose2d visionPose = new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation());
-          VisionMeasurement measurement = new VisionMeasurement(visionPose, latencyInSec);
+          double distanceFromTag = apriltagSystem.getInputs().distanceToTag[i];
+          VisionMeasurement measurement =
+              new VisionMeasurement(visionPose, distanceFromTag, latencyInSec);
           poseManager.registerVisionMeasurement(measurement);
+        } else {
+          invalidCounter++;
+          Logger.recordOutput("ApriltagValidationFailureCount", invalidCounter);
         }
       }
     }
