@@ -7,8 +7,8 @@ public class SwerveAbsInput extends FolderLoggableInputs {
 
   public double absEncoderPosition;
 
-  public SwerveAbsInput(String key) {
-    super(key);
+  public SwerveAbsInput(String folder) {
+    super(folder);
   }
 
   @Override

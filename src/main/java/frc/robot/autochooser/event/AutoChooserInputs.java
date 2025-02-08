@@ -13,8 +13,8 @@ public class AutoChooserInputs extends FolderLoggableInputs {
   AutoAction feedbackAction = AutoAction.INVALID;
   FieldLocation feedbackLocation = FieldLocation.INVALID;
 
-  public AutoChooserInputs(String key) {
-    super(key);
+  public AutoChooserInputs(String folder) {
+    super(folder);
   }
 
   @Override

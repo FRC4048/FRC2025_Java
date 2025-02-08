@@ -12,8 +12,8 @@ public class ApriltagInputs extends FolderLoggableInputs {
   public double[] distanceToTag = new double[0];
   public int[] apriltagNumber = new int[0];
 
-  public ApriltagInputs(String key) {
-    super(key);
+  public ApriltagInputs(String folder) {
+    super(folder);
   }
 
   @Override

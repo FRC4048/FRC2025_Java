@@ -1,5 +1,6 @@
 package frc.robot.subsystems.swervev3.io;
 
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -15,19 +16,21 @@ import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
 import frc.robot.subsystems.swervev3.io.drive.SparkMaxDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.drive.SwerveDriveMotorIO;
-import frc.robot.subsystems.swervev3.io.drive.SwerveDriveMotorInput;
 import frc.robot.subsystems.swervev3.io.steer.SparkMaxSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SwerveSteerMotorIO;
-import frc.robot.subsystems.swervev3.io.steer.SwerveSteerMotorInput;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
 import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 
 public class SwerveModule {
-  private final LoggableSystem<SwerveDriveMotorIO, SwerveDriveMotorInput> driveSystem;
-  private final LoggableSystem<SwerveSteerMotorIO, SwerveSteerMotorInput> steerSystem;
+  private final LoggableSystem<SwerveDriveMotorIO, BuildableFolderMotorInputs<SparkMax>>
+      driveSystem;
+  private final LoggableSystem<SwerveSteerMotorIO, BuildableFolderMotorInputs<SparkMax>>
+      steerSystem;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
   private final PIDController drivePIDController;
   private final ProfiledPIDController turningPIDController;
@@ -45,10 +48,15 @@ public class SwerveModule {
       Gain turnGain,
       TrapezoidProfile.Constraints goalConstraint,
       String moduleName) {
-    this.driveSystem =
-        new LoggableSystem<>(driveMotorIO, new SwerveDriveMotorInput("Drivetrain/" + moduleName));
-    this.steerSystem =
-        new LoggableSystem<>(steerMotorIO, new SwerveSteerMotorInput("Drivetrain/" + moduleName));
+    SparkMaxInputBuilder driveSystemBuilder = new SparkMaxInputBuilder("Drivetrain/" + moduleName);
+    BuildableFolderMotorInputs<SparkMax> driveInputs =
+        driveSystemBuilder.addEncoder().addStatus().build();
+
+    SparkMaxInputBuilder steerSystemBuilder = new SparkMaxInputBuilder("Drivetrain/" + moduleName);
+    BuildableFolderMotorInputs<SparkMax> steerInputs =
+        steerSystemBuilder.addEncoder().addStatus().build();
+    this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
+    this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));
     drivePIDController = new PIDController(drivePid.getP(), drivePid.getI(), drivePid.getD());
     turningPIDController =
@@ -78,11 +86,10 @@ public class SwerveModule {
 
   public void setState(SwerveModuleState desiredState) {
     double steerEncoderPosition = getSteerPosition();
-    SwerveModuleState state =
-        SwerveModuleState.optimize(desiredState, new Rotation2d(steerEncoderPosition));
+    SwerveModuleState state =SwerveModuleState.optimize(desiredState, new Rotation2d(steerEncoderPosition));
     double driveSpeed =
         drivePIDController.calculate(
-                driveSystem.getInputs().driveEncoderVelocity, (state.speedMetersPerSecond))
+                driveSystem.getInputs().getEncoderVelocity(), (state.speedMetersPerSecond))
             + driveFeedforward.calculate(state.speedMetersPerSecond);
     double turnSpeed =
         turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
@@ -93,7 +100,7 @@ public class SwerveModule {
 
   public SwerveModuleState getLatestState() {
     return new SwerveModuleState(
-        driveSystem.getInputs().driveEncoderVelocity, new Rotation2d(getSteerPosition()));
+        driveSystem.getInputs().getEncoderVelocity(), new Rotation2d(getSteerPosition()));
   }
 
   public void updateInputs() {
@@ -120,7 +127,7 @@ public class SwerveModule {
 
   public SwerveModulePosition getPosition() {
     return new SwerveModulePosition(
-        driveSystem.getInputs().driveEncoderPosition, new Rotation2d(getSteerPosition()));
+        driveSystem.getInputs().getEncoderPosition(), new Rotation2d(getSteerPosition()));
   }
 
   public static SwerveModule createModule(
@@ -151,6 +158,6 @@ public class SwerveModule {
 
   private double getSteerPosition() {
     return AngleUtils.normalizeSwerveAngle(
-        steerSystem.getInputs().steerEncoderPosition - steerOffset);
+        steerSystem.getInputs().getEncoderPosition() - steerOffset);
   }
 }

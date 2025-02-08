@@ -17,8 +17,7 @@ public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
 
   public AlgaeByeByeRollerSubsystem(AlgaeByeByeRollerIO io) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("AlgaeByeByeRollerSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs =
-        builder.encoderVelocity().motorCurrent().motorTemperature().build();
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.encoderVelocity().addStatus().build();
     algaeSystem = new LoggableSystem<>(io, inputs);
   }
 

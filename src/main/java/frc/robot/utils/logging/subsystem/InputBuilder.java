@@ -7,10 +7,10 @@ import frc.robot.utils.logging.subsystem.builders.BuildableFolderInputs;
  * @param <S> subclass of {@link BuildableFolderInputs} which contains the inputs being logged.
  */
 public abstract class InputBuilder<R, S extends BuildableFolderInputs<R>> {
-  protected final String key;
+  protected final String folder;
 
   public InputBuilder(String folder) {
-    this.key = folder;
+    this.folder = folder;
   }
 
   public abstract S build();
