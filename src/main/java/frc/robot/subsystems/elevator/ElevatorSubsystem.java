@@ -25,15 +25,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   public boolean getReverseLimitSwitchState() {
     return elevatorSystem.getInputs().backLimitSwitchState;
   }
-  public void stopMotor(){
+
+  public void stopMotor() {
     elevatorSystem.getIO().stopMotor();
   }
+
   public void resetEncoder() {
     elevatorSystem.getIO().resetEncoder();
   }
+
   @Override
   public void periodic() {
     elevatorSystem.updateInputs();
   }
-
 }

@@ -31,7 +31,6 @@ public class GameConstants {
   public static final double HIHI_RETRACT_SPEED = -0.4;
   public static final double HIHI_INTAKE_SPEED = 0.4;
   public static final double HIHI_SHOOT_SPEED = -0.4;
-  
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;

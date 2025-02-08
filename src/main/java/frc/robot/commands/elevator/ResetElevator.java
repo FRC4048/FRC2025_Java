@@ -40,12 +40,13 @@ public class ResetElevator extends LoggableCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   if(timer.hasElapsed(Constants.ELEVATOR_RESET_TIMEOUT)){
-    timeoutCounter.increaseTimeoutCount();
-    return true;
-   }
+    if (timer.hasElapsed(Constants.ELEVATOR_RESET_TIMEOUT)) {
+      timeoutCounter.increaseTimeoutCount();
+      return true;
+    }
     return elevator.getReverseLimitSwitchState();
   }
+
   @Override
   public boolean runsWhenDisabled() {
     return true;
