@@ -1,6 +1,5 @@
 package frc.robot.commands.elevator;
 
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
@@ -17,8 +16,7 @@ public class ResetElevator extends LoggableCommand {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
@@ -26,8 +24,7 @@ public class ResetElevator extends LoggableCommand {
   }
 
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
