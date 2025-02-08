@@ -16,27 +16,44 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.Climber.ClimberRunMotors;
+import frc.robot.commands.RollAlgae;
+import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.subsystemTests.CoralAngleTest;
-import frc.robot.commands.subsystemTests.CoralShooterTest;
-import frc.robot.commands.subsystemTests.SpinExtender;
+import frc.robot.commands.intake.IntakeCoral;
+import frc.robot.commands.subsystemtests.SpinExtender;
+import frc.robot.commands.subsystemtests.SpinRollerByeBye;
+import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.CoralAngle.CoralAngleSubsystem;
-import frc.robot.subsystems.CoralAngle.MockCoralAngleIO;
-import frc.robot.subsystems.CoralAngle.RealCoralAngleIO;
 import frc.robot.subsystems.CoralShooter.CoralShooterSubsystem;
-import frc.robot.subsystems.CoralShooter.MockCoralShooterIO;
-import frc.robot.subsystems.CoralShooter.RealCoralShooterIO;
+import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
+import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.climber.MockClimberIO;
+import frc.robot.subsystems.climber.RealClimberIO;
+import frc.robot.subsystems.climber.SimClimberIO;
+import frc.robot.subsystems.coral.RealCoralIO;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.elevator.MockElevatorIO;
+import frc.robot.subsystems.elevator.RealElevatorIO;
+import frc.robot.subsystems.elevator.SimElevatorIO;
 import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.MockGyroIO;
 import frc.robot.subsystems.gyro.RealGyroIO;
 import frc.robot.subsystems.gyro.ThreadedGyro;
-import frc.robot.subsystems.hihiExtender.HihiExtenderSubsystem;
-import frc.robot.subsystems.hihiExtender.MockHihiExtenderIO;
-import frc.robot.subsystems.hihiExtender.RealHihiExtenderIO;
-import frc.robot.subsystems.hihiRoller.HihiRollerSubsystem;
-import frc.robot.subsystems.hihiRoller.MockHihiRollerIO;
-import frc.robot.subsystems.hihiRoller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
+import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
+import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
+import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
+import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
+import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiroller.SimHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -49,33 +66,67 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
+  private final AlgaeByeByeRollerSubsystem byebyeRoller;
+  private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
+  
   private final CoralAngleSubsystem coralAngle;
   private final CoralShooterSubsystem coralShooter;
+  private final ElevatorSubsystem elevatorSubsystem;
+  private final ClimberSubsystem climberSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
 
   public RobotContainer() {
-    if (Robot.isReal()) {
-      hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
-      coralAngle = new CoralAngleSubsystem(new RealCoralAngleIO());
-      coralShooter = new CoralShooterSubsystem(new RealCoralShooterIO());
-    } else {
-      hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
-      hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
-      coralAngle = new CoralAngleSubsystem(new MockCoralAngleIO());
-      coralShooter = new CoralShooterSubsystem(new MockCoralShooterIO());
+    switch (Constants.currentMode) {
+      case REAL -> {
+        hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new RealClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
+        coralAngle = new CoralAngleSubsystem(new RealCoralAngleIO());
+        coralShooter = new CoralShooterSubsystem(new RealCoralShooterIO());
+  
+      }
+      case REPLAY -> {
+        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new MockClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
+        coralAngle = new CoralAngleSubsystem(new MockCoralAngleIO());
+        coralShooter = new CoralShooterSubsystem(new MockCoralShooterIO());
+  
+      }
+      case SIM -> {
+        hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
+        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
+        elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
+        climberSubsystem = new ClimberSubsystem(new SimClimberIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
+        coralAngle = new CoralAngleSubsystem(new MockCoralAngleIO());
+        coralShooter = new CoralShooterSubsystem(new MockCoralShooterIO());
+  
+      }
+      default -> {
+        throw new RuntimeException("Did not specify Robot Mode");
+      }
     }
     setupDriveTrain();
     configureBindings();
+    putShuffleboardCommands();
   }
 
   private void configureBindings() {
@@ -83,12 +134,15 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-
-    controller.a().onTrue(new CoralShooterTest(getCoralShooter(), Constants.CORAL_SHOOTER_SPEED));
-    controller.b().onTrue(new CoralAngleTest(getCoralAngle(), Constants.CORAL_ANGLE));
-      
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
+      SmartShuffleboard.putCommand(
+          "DEBUG", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
+      SmartShuffleboard.putCommand(
+          "DEBUG", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
+      SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
-  
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
@@ -203,11 +257,19 @@ public class RobotContainer {
     return drivetrain;
   }
 
-  public CoralAngleSubsystem getCoralAngle() {
-    return coralAngle;
-  }
-
-  public CoralShooterSubsystem getCoralShooter() {
-    return coralShooter;
+  public void putShuffleboardCommands() {
+    if (Constants.INTAKE_DEBUG) {
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
+      SmartShuffleboard.putCommand(
+          "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+    }
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.putCommand(
+          "Bye Bye",
+          "Spin Roller ",
+          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+      SmartShuffleboard.putCommand(
+          "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
+    }
   }
 }

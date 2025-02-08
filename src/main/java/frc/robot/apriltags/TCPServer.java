@@ -2,7 +2,7 @@ package frc.robot.apriltags;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.CommandLogger;
+import frc.robot.utils.logging.commands.CommandLogger;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;

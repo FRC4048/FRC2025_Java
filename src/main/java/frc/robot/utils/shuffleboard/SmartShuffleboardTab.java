@@ -48,7 +48,7 @@ public class SmartShuffleboardTab {
       GenericEntry ntEntry = widget.getEntry();
       ntEntry.setValue(value);
     } else {
-      widget = tab.add(fieldName, value);
+      widget = tab.add(fieldName, value).withWidget(BuiltInWidgets.kNumberSlider);
       widgetMap.put(fieldName, widget);
     }
     return widget;
@@ -126,7 +126,7 @@ public class SmartShuffleboardTab {
       }
 
       // adding the command to the tab
-      layout.add(fieldName, cmd);
+      layout.add(fieldName, cmd).withWidget(BuiltInWidgets.kCommand);
       commandSet.add(fieldName);
     }
   }

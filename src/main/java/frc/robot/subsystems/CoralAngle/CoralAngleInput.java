@@ -1,12 +1,16 @@
 package frc.robot.subsystems.CoralAngle;
 
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-public class CoralAngleInput implements LoggableInputs {
+public class CoralAngleInput extends FolderLoggableInputs {
   public double tiltEncoderPosition = 0;
   public boolean fwdTripped = false;
   public boolean revTripped = false;
+
+  public CoralAngleInput(String key) {
+    super(key);
+  }
 
   @Override
   public void toLog(LogTable table) {

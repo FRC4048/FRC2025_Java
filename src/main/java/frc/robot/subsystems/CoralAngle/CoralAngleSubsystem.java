@@ -5,14 +5,14 @@
 package frc.robot.subsystems.CoralAngle;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
 
 public class CoralAngleSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralAngleIO, CoralAngleInput> system;
 
   /** Creates a new Shooter. */
   public CoralAngleSubsystem(CoralAngleIO io) {
-    system = new LoggableSystem<>(io, new CoralAngleInput());
+    system = new LoggableSystem<>(io, new CoralAngleInput("CoralSubsystem"));
   }
 
   @Override
@@ -20,8 +20,8 @@ public class CoralAngleSubsystem extends SubsystemBase {
     system.updateInputs();
   }
 
-  public void setAngle(double angleSpeed) {
-    system.getIO().setTiltAngularVelocity(angleSpeed);
+  public void setTiltAngularVelocity(double angleVelocity) {
+    system.getIO().setTiltAngularVelocity(angleVelocity);
   }
 
   public void stopTiltMotors() {
