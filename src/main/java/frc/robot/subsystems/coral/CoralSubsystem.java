@@ -8,47 +8,51 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class CoralSubsystem extends SubsystemBase {
-  private final LoggableSystem<CoralIO, CoralInputs> system;
+  private final LoggableSystem<CoralIO, CoralInputs> coralSystem;
 
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO io) {
-    system = new LoggableSystem<>(io, new CoralInputs());
+    coralSystem = new LoggableSystem<>(io, new CoralInputs());
   }
 
   @Override
   public void periodic() {
-    system.updateInputs();
+    coralSystem.updateInputs();
   }
 
   public void setTiltAngularVelocity(double angleVelocity) {
-    system.getIO().setTiltAngularVelocity(angleVelocity);
+    coralSystem.getIO().setTiltAngularVelocity(angleVelocity);
   }
 
   public void setShooterSpeed(double speed) {
-    system.getIO().setShooterSpeed(speed);
+    coralSystem.getIO().setShooterSpeed(speed);
   }
 
   public void stopShooterMotors() {
-    system.getIO().stopShooterMotors();
+    coralSystem.getIO().stopShooterMotors();
   }
 
   public void stopTiltMotors() {
-    system.getIO().stopTiltMotors();
+    coralSystem.getIO().stopTiltMotors();
+  }
+
+  public void toggleLimitSwitch(boolean state) {
+    coralSystem.getIO().toggleLimitSwitch(state);
   }
 
   public double getAngle() {
-    return system.getInputs().tiltEncoderPosition;
+    return coralSystem.getInputs().tiltEncoderPosition;
   }
 
   public boolean getForwardSwitchState() {
-    return system.getInputs().fwdTripped;
+    return coralSystem.getInputs().fwdTripped;
   }
 
   public boolean getReverseSwitchState() {
-    return system.getInputs().revTripped;
+    return coralSystem.getInputs().revTripped;
   }
 
   public void resetEncoder() {
-    system.getIO().resetTiltEncoder();
+    coralSystem.getIO().resetTiltEncoder();
   }
 }

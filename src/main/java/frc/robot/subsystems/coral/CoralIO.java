@@ -12,4 +12,6 @@ public interface CoralIO extends LoggableIO<CoralInputs> {
   void stopTiltMotors();
 
   void resetTiltEncoder();
+
+  void toggleLimitSwitch(boolean state);
 }

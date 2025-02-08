@@ -13,7 +13,6 @@ public class ElevatorInputs implements LoggableInputs {
 
   @Override
   public void fromLog(LogTable table) {
-    elevatorMotorEncoderValue =
-        table.get("elevatorMotorEncoderValue", elevatorMotorEncoderValue);
+    elevatorMotorEncoderValue = table.get("elevatorMotorEncoderValue", elevatorMotorEncoderValue);
   }
 }

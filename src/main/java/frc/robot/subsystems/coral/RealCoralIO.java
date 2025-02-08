@@ -10,8 +10,11 @@ public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotor1; // TODO: change later to whatever
   private final SparkMax shooterMotor2; // TODO: change later to whatever
   private final SparkMax shooterTiltMotor; // TODO: change later to whatever
+  public boolean allowLimitSwitch = true;
+  private final SparkMaxConfig coralConfig;
 
   public RealCoralIO() {
+    coralConfig = new SparkMaxConfig();
     shooterMotor1 = new SparkMax(Constants.SHOOTER_MOTOR_1_ID, SparkMax.MotorType.kBrushless);
     shooterMotor2 = new SparkMax(Constants.SHOOTER_MOTOR_2_ID, SparkMax.MotorType.kBrushless);
     shooterTiltMotor = new SparkMax(Constants.SHOOTER_TILT_MOTOR_ID, SparkMax.MotorType.kBrushless);
@@ -20,7 +23,6 @@ public class RealCoralIO implements CoralIO {
   }
 
   private void configureMotor() {
-    SparkMaxConfig coralConfig = new SparkMaxConfig();
     coralConfig.idleMode(IdleMode.kBrake);
     shooterMotor1.configure(
         coralConfig,
@@ -61,6 +63,12 @@ public class RealCoralIO implements CoralIO {
   @Override
   public void resetTiltEncoder() {
     this.shooterTiltMotor.getEncoder().setPosition(0);
+  }
+
+  @Override
+  public void toggleLimitSwitch(boolean state) {
+    coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(state));
+    coralConfig.apply(coralConfig.limitSwitch.reverseLimitSwitchEnabled(state));
   }
 
   @Override

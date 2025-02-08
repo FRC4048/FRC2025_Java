@@ -18,4 +18,7 @@ public class MockCoralIO implements CoralIO {
 
   @Override
   public void updateInputs(CoralInputs inputs) {}
+
+  @Override
+  public void toggleLimitSwitch(boolean state) {}
 }
