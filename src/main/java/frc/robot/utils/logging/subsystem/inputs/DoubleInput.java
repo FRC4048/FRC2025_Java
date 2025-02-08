@@ -1,5 +1,6 @@
-package frc.robot.utils.commoninputs;
+package frc.robot.utils.logging.subsystem.inputs;
 
+import frc.robot.utils.logging.subsystem.InputSource;
 import org.littletonrobotics.junction.LogTable;
 
 public class DoubleInput<R> extends Input<Double, R> {
@@ -12,12 +13,12 @@ public class DoubleInput<R> extends Input<Double, R> {
   }
 
   @Override
-  void toLog(LogTable table) {
+  public void toLog(LogTable table) {
     table.put(getKey(), getValue());
   }
 
   @Override
-  void fromLog(LogTable table) {
+  public void fromLog(LogTable table) {
     setValue(table.get(getKey(), getValue()));
   }
 }

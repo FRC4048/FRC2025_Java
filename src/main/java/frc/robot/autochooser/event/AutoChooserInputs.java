@@ -2,7 +2,7 @@ package frc.robot.autochooser.event;
 
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
-import frc.robot.utils.commoninputs.KeyedInputs;
+import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
 import org.littletonrobotics.junction.LogTable;
 
 public class AutoChooserInputs extends KeyedInputs {

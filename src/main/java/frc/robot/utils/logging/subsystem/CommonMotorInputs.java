@@ -1,4 +1,7 @@
-package frc.robot.utils.commoninputs;
+package frc.robot.utils.logging.subsystem;
+
+import frc.robot.utils.logging.subsystem.builders.BuildableKeyedMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 
 public class CommonMotorInputs {
   public static <R> BuildableKeyedMotorInputs<R> createLimitedEncoded(

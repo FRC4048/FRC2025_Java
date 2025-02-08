@@ -3,7 +3,7 @@ package frc.robot.subsystems.elevator;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.BuildableKeyedMotorInputs;
 
 public class RealElevatorIO implements ElevatorIO {
   public final SparkMax elevatorMotor;

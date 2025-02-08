@@ -2,7 +2,7 @@ package frc.robot.subsystems.algaebyebyeroller;
 
 import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.BuildableKeyedMotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
 
 public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {

@@ -1,7 +1,7 @@
 package frc.robot.subsystems.elevator;
 
 import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.commoninputs.BuildableKeyedMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.BuildableKeyedMotorInputs;
 
 public class MockElevatorIO implements ElevatorIO {
   @Override

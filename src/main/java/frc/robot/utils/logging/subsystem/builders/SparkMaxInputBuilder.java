@@ -1,7 +1,8 @@
-package frc.robot.utils.commoninputs;
+package frc.robot.utils.logging.subsystem.builders;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
+import frc.robot.utils.logging.subsystem.InputSource;
 
 public class SparkMaxInputBuilder extends MotorInputBuilder<SparkMax> {
 

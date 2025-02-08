@@ -1,4 +1,9 @@
-package frc.robot.utils.commoninputs;
+package frc.robot.utils.logging.subsystem.builders;
+
+import frc.robot.utils.logging.subsystem.InputBuilder;
+import frc.robot.utils.logging.subsystem.InputSource;
+import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
+import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
 
 public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableKeyedMotorInputs<R>> {
   private DoubleInput<R> encoderPosition;

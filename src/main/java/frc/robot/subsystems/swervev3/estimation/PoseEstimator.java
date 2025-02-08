@@ -22,7 +22,7 @@ import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.math.ArrayUtils;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;

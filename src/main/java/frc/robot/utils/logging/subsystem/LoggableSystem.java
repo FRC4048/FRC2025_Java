@@ -1,6 +1,7 @@
-package frc.robot.utils.logging;
+package frc.robot.utils.logging.subsystem;
 
-import frc.robot.utils.commoninputs.KeyedInputs;
+import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
 import org.littletonrobotics.junction.Logger;
 
 /**

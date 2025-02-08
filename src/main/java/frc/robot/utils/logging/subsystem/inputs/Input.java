@@ -1,5 +1,6 @@
-package frc.robot.utils.commoninputs;
+package frc.robot.utils.logging.subsystem.inputs;
 
+import frc.robot.utils.logging.subsystem.InputSource;
 import org.littletonrobotics.junction.LogTable;
 
 public abstract class Input<T, R> {
@@ -29,7 +30,7 @@ public abstract class Input<T, R> {
     value = inputSource.fromSource(source);
   }
 
-  abstract void toLog(LogTable table);
+  public abstract void toLog(LogTable table);
 
-  abstract void fromLog(LogTable table);
+  public abstract void fromLog(LogTable table);
 }

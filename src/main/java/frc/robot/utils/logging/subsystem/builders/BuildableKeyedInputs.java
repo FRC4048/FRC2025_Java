@@ -1,4 +1,6 @@
-package frc.robot.utils.commoninputs;
+package frc.robot.utils.logging.subsystem.builders;
+
+import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
 
 public abstract class BuildableKeyedInputs<R> extends KeyedInputs {
 
