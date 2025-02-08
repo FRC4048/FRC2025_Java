@@ -4,17 +4,20 @@
 
 package frc.robot.subsystems.climber;
 
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.Constants;
-import frc.robot.utils.logging.LoggableSystem;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
-  private final LoggableSystem<ClimberIO, ClimberInputs> climberSystem;
+  private final LoggableSystem<ClimberIO, BuildableFolderMotorInputs<SparkMax>> climberSystem;
 
   public ClimberSubsystem(ClimberIO io) {
-    climberSystem = new LoggableSystem<>(io, new ClimberInputs());
+    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ClimberSubsystem");
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
+    climberSystem = new LoggableSystem<>(io, inputs);
   }
 
   @Override

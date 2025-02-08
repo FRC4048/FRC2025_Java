@@ -2,25 +2,23 @@ package frc.robot.commands.hihi;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ShootHiHiRollerOut extends LoggableCommand {
-  private final HihiExtenderSubsystem hihiExtender;
   private final HihiRollerSubsystem hihiRoller;
-  private double time;
+  private final Timer timer;
 
-  public ShootHiHiRollerOut(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
-    this.hihiExtender = hihiExtender;
+  public ShootHiHiRollerOut(HihiRollerSubsystem hihiRoller) {
     this.hihiRoller = hihiRoller;
-    addRequirements(hihiExtender, hihiRoller);
+    timer = new Timer();
+    addRequirements(hihiRoller);
   }
 
   @Override
   public void initialize() {
     hihiRoller.setRollerMotorSpeed(Constants.HIHI_SHOOT_SPEED);
-    time = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   @Override
@@ -33,6 +31,6 @@ public class ShootHiHiRollerOut extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - time >= Constants.HIHI_ROLLER_TIMEOUT);
+    return (timer.hasElapsed(Constants.HIHI_ROLLER_OUT_TIMEOUT));
   }
 }

@@ -1,7 +1,7 @@
 package frc.robot.commands.drivetrain;
 
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ResetGyro extends LoggableCommand {
   private final SwerveDrivetrain drivetrain;
