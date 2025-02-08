@@ -2,14 +2,14 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.subsystems.CoralShooter.CoralShooterSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class IntakeCoral extends LoggableCommand {
-  private final CoralSubsystem intake;
+  private final CoralShooterSubsystem intake;
   private final Timer timer = new Timer();
 
-  public IntakeCoral(CoralSubsystem intake) {
+  public IntakeCoral(CoralShooterSubsystem intake) {
     addRequirements(intake);
     this.intake = intake;
   }
@@ -27,7 +27,6 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void end(boolean interrupted) {
     intake.stopShooterMotors();
-    intake.stopTiltMotors();
   }
 
   @Override
