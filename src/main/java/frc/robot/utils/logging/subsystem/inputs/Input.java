@@ -3,6 +3,11 @@ package frc.robot.utils.logging.subsystem.inputs;
 import frc.robot.utils.logging.subsystem.InputSource;
 import org.littletonrobotics.junction.LogTable;
 
+/**
+ * Represents a value that can be logged (to and from a log table)
+ * @param <T> Data type that is being logged
+ * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
+ */
 public abstract class Input<T, R> {
   private final String key;
   private T value;

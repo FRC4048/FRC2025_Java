@@ -5,6 +5,9 @@ import frc.robot.utils.logging.subsystem.InputSource;
 import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
 import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
 
+/**
+ * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware
+ */
 public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableKeyedMotorInputs<R>> {
   private DoubleInput<R> encoderPosition;
   private DoubleInput<R> encoderVelocity;

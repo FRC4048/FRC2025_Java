@@ -1,9 +1,14 @@
 package frc.robot.utils.logging.subsystem.builders;
 
+import frc.robot.utils.logging.subsystem.InputSource;
 import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
 import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
 import org.littletonrobotics.junction.LogTable;
 
+/**
+ * Contains Inputs that could be logged for a motor
+ * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
+ */
 public class BuildableKeyedMotorInputs<R> extends BuildableKeyedInputs<R> {
   private final DoubleInput<R> encoderPosition;
   private final DoubleInput<R> encoderVelocity;
