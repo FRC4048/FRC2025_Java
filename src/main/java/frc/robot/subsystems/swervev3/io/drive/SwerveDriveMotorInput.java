@@ -1,9 +1,9 @@
 package frc.robot.subsystems.swervev3.io.drive;
 
-import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class SwerveDriveMotorInput extends KeyedLoggableInputs {
+public class SwerveDriveMotorInput extends FolderLoggableInputs {
 
   public double driveEncoderPosition = 0;
   public double driveEncoderVelocity = 0;

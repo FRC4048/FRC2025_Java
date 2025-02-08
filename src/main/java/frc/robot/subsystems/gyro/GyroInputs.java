@@ -1,9 +1,9 @@
 package frc.robot.subsystems.gyro;
 
-import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class GyroInputs extends KeyedLoggableInputs {
+public class GyroInputs extends FolderLoggableInputs {
   public double anglesInDeg = 0;
   public double angleOffset = 0;
 

@@ -2,10 +2,10 @@ package frc.robot.autochooser.event;
 
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
-import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class AutoChooserInputs extends KeyedLoggableInputs {
+public class AutoChooserInputs extends FolderLoggableInputs {
   AutoAction action = AutoAction.INVALID;
   FieldLocation location = FieldLocation.INVALID;
   AutoAction defaultAction = AutoAction.INVALID;

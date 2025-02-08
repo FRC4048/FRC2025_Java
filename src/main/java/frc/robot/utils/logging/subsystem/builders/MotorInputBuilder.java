@@ -8,7 +8,7 @@ import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
 /**
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware
  */
-public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableKeyedMotorInputs<R>> {
+public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFolderMotorInputs<R>> {
   private DoubleInput<R> encoderPosition;
   private DoubleInput<R> encoderVelocity;
   private DoubleInput<R> motorCurrent;
@@ -21,8 +21,8 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableKeye
   }
 
   @Override
-  public BuildableKeyedMotorInputs<R> build() {
-    return new BuildableKeyedMotorInputs<>(
+  public BuildableFolderMotorInputs<R> build() {
+    return new BuildableFolderMotorInputs<>(
         key, encoderPosition, encoderVelocity, motorCurrent, motorTemperature, fwdLimit, revLimit);
   }
 

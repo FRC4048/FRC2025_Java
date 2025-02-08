@@ -1,9 +1,9 @@
 package frc.robot.subsystems.coral;
 
-import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class CoralInputs extends KeyedLoggableInputs {
+public class CoralInputs extends FolderLoggableInputs {
   public double tiltEncoderPosition = 0;
   public boolean fwdTripped = false;
   public boolean revTripped = false;

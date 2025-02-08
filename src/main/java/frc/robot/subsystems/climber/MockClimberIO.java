@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.climber;
 
-import frc.robot.utils.logging.subsystem.builders.BuildableKeyedMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
 /** Add your docs here. */
 public class MockClimberIO implements ClimberIO {
@@ -15,5 +15,5 @@ public class MockClimberIO implements ClimberIO {
   public void stopClimber() {}
 
   @Override
-  public void updateInputs(BuildableKeyedMotorInputs inputs) {}
+  public void updateInputs(BuildableFolderMotorInputs inputs) {}
 }

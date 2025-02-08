@@ -10,7 +10,7 @@ import org.littletonrobotics.junction.LogTable;
  *
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */
-public class BuildableKeyedMotorInputs<R> extends BuildableKeyedInputs<R> {
+public class BuildableFolderMotorInputs<R> extends BuildableFolderInputs<R> {
   private final DoubleInput<R> encoderPosition;
   private final DoubleInput<R> encoderVelocity;
   private final DoubleInput<R> motorCurrent;
@@ -18,7 +18,7 @@ public class BuildableKeyedMotorInputs<R> extends BuildableKeyedInputs<R> {
   private final BooleanInput<R> fwdLimit;
   private final BooleanInput<R> revLimit;
 
-  public BuildableKeyedMotorInputs(
+  public BuildableFolderMotorInputs(
       String key,
       DoubleInput<R> encoderPosition,
       DoubleInput<R> encoderVelocity,

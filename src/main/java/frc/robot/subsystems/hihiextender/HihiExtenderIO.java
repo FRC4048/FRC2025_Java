@@ -6,9 +6,9 @@ package frc.robot.subsystems.hihiextender;
 
 import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.subsystem.builders.BuildableKeyedMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
-public interface HihiExtenderIO extends LoggableIO<BuildableKeyedMotorInputs<SparkMax>> {
+public interface HihiExtenderIO extends LoggableIO<BuildableFolderMotorInputs<SparkMax>> {
   void stopHihiExtenderMotor();
 
   void setHihiExtenderSpeed(double speed);

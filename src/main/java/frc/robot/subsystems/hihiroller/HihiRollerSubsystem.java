@@ -4,16 +4,16 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.CommonMotorInputs;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.BuildableKeyedMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
 import org.littletonrobotics.junction.Logger;
 
 public class HihiRollerSubsystem extends SubsystemBase {
-  private final LoggableSystem<HihiRollerIO, BuildableKeyedMotorInputs<SparkMax>> hihiRollerSystem;
+  private final LoggableSystem<HihiRollerIO, BuildableFolderMotorInputs<SparkMax>> hihiRollerSystem;
 
   public HihiRollerSubsystem(HihiRollerIO hihiRollerIO) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("HihiRollerSubsystem");
-    BuildableKeyedMotorInputs<SparkMax> inputs = CommonMotorInputs.createLimitedEncoded(builder);
+    BuildableFolderMotorInputs<SparkMax> inputs = CommonMotorInputs.createLimitedEncoded(builder);
     this.hihiRollerSystem = new LoggableSystem<>(hihiRollerIO, inputs);
   }
 

@@ -9,7 +9,7 @@ import org.littletonrobotics.junction.Logger;
  * @param <T> Loggable subsystem type
  * @param <R> Loggable input type that the subsystem accepts
  */
-public class LoggableSystem<T extends LoggableIO<R>, R extends KeyedLoggableInputs> {
+public class LoggableSystem<T extends LoggableIO<R>, R extends FolderLoggableInputs> {
   private final T io;
   private final R inputs;
   private final String key;
@@ -17,7 +17,7 @@ public class LoggableSystem<T extends LoggableIO<R>, R extends KeyedLoggableInpu
   public LoggableSystem(T io, R inputs) {
     this.io = io;
     this.inputs = inputs;
-    this.key = "LoggableInputs/" + inputs.getKey();
+    this.key = "LoggableInputs/" + inputs.getFolder();
   }
 
   /**
