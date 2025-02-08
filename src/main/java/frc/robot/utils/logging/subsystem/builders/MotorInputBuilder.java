@@ -56,6 +56,27 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFold
     return this;
   }
 
+  public MotorInputBuilder<R> addEncoder() {
+    return encoderPosition().encoderVelocity();
+  }
+
+  public MotorInputBuilder<R> addStatus() {
+    return motorCurrent().motorTemperature();
+  }
+
+  public MotorInputBuilder<R> addLimits() {
+    return fwdLimit().revLimit();
+  }
+
+  public MotorInputBuilder<R> addAll() {
+    return motorCurrent()
+        .motorTemperature()
+        .encoderPosition()
+        .encoderVelocity()
+        .revLimit()
+        .fwdLimit();
+  }
+
   public MotorInputBuilder<R> reset() {
     encoderPosition = null;
     encoderVelocity = null;

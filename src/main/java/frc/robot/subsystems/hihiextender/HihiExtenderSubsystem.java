@@ -6,7 +6,6 @@ package frc.robot.subsystems.hihiextender;
 
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.logging.subsystem.CommonMotorInputs;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
@@ -17,10 +16,7 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("HihiExtenderSubsystem");
-    CommonMotorInputs.hasEncoder(builder);
-    CommonMotorInputs.hasLimits(builder);
-    CommonMotorInputs.hasStatus(builder);
-    BuildableFolderMotorInputs<SparkMax> inputs = builder.build();
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
     system = new LoggableSystem<>(io, inputs);
   }
 
