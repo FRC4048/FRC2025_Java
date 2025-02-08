@@ -14,7 +14,7 @@ public class IntakeCoral extends LoggableCommand {
   public IntakeCoral(CoralSubsystem intake) {
     addRequirements(intake);
     this.intake = intake;
-    timoutCounter = new TimeoutLogger("intake coral");
+    timoutCounter = new TimeoutLogger("Intake Coral");
   }
 
   @Override

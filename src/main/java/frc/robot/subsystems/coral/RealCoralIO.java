@@ -10,7 +10,6 @@ public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotor1; // TODO: change later to whatever
   private final SparkMax shooterMotor2; // TODO: change later to whatever
   private final SparkMax shooterTiltMotor; // TODO: change later to whatever
-  public boolean allowLimitSwitch = true;
   private final SparkMaxConfig coralConfig;
 
   public RealCoralIO() {
