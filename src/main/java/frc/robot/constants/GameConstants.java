@@ -14,7 +14,6 @@ public class GameConstants {
   public static final boolean SWERVE_DEBUG = false;
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = true;
-  public static final boolean CLIMBER_DEBUG = false;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -46,7 +45,7 @@ public class GameConstants {
   public static final double HIHI_EXTENDER_TIMEOUT = 10;
   public static final double HIHI_ROLLER_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
-  public static final int CLIMBER_TIMEOUT = 10; // TODO: change later
+  public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;

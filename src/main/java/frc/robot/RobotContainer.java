@@ -246,10 +246,6 @@ public class RobotContainer {
     return drivetrain;
   }
 
-  public ClimberSubsystem getClimber() {
-    return climber;
-  }
-
   public void putShuffleboardCommands() {
     if (Constants.INTAKE_DEBUG) {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));

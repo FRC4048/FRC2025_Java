@@ -19,7 +19,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (Constants.CLIMBER_DEBUG) {
+    if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.put("Climber", "Forward", isExtendedLimitSwitchPressed());
       SmartShuffleboard.put("Climber", "Backward", isRetractedLimitSwitchPressed());
     }
