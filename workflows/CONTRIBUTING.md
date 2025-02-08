@@ -1,8 +1,14 @@
 # How to contribute
 
-This project is a small project to program the robot for the frc tean "Redshift" who reside in Westborough, MA who will be referred to as "Redshift" throughout this document. This project is limited to current members of Redshift who are the only ones allowed to contribute by proposing features, finding bugs, or fixing  mistakes.
+This project is a small project to program the robot for the FRC team "Redshift" residing in Westborough, MA, referred to as "Redshift" throughout this document. This project is limited to current members of Redshift who are the only ones allowed to contribute by proposing features, finding bugs, or fixing  mistakes.
 
-To make it as easy as possible for you to contribute and for us to keep an overview, here are a few guidelines which should help us avoid all kinds of unnecessary work or disappointment. And of course, this document is subject to discussion, so please [create an issue](https://github.com/FRC4048/FRC2025_Java/issues/new?template=Blank+issue) or a pull request if you find a way to improve it!
+To make it as easy as possible for you to contribute and for us to keep an overview, here are a few guidelines that should help us avoid all kinds of unnecessary work or disappointment. And of course, this document is subject to discussion, so please [create an issue](https://github.com/FRC4048/FRC2025_Java/issues/new?template=Blank+issue) or a pull request if you find a way to improve it!
+
+## Prerequisites
+   For your branch to be accepted as a pull request, you must:
+   - Test it on the simulator if it includes the command.
+   - Test it on a robot owned by Redshift if you can.
+   - Test it on the robot created for the competition "Reefscape" if the robot is completely built.
 
 ## How to run
 
