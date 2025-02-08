@@ -7,7 +7,7 @@ public class SimElevatorIO extends RealElevatorIO {
 
   public SimElevatorIO() {
     super();
-    this.elevatorSimulator = new ElevatorSimulator((elevatorMotor));
+    this.elevatorSimulator = new ElevatorSimulator(elevatorMotor);
   }
 
   @Override
