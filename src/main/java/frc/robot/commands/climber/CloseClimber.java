@@ -3,8 +3,8 @@ package frc.robot.commands.Climber;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.climber.ClimberSubsystem;
-import frc.robot.utils.logging.LoggableCommand;
 import frc.robot.utils.logging.TimeoutLogger;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class CloseClimber extends LoggableCommand {
 

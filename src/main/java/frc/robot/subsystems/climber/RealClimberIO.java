@@ -6,6 +6,7 @@ package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
@@ -25,8 +26,8 @@ public class RealClimberIO implements ClimberIO {
     climberConfig
         .idleMode(IdleMode.kBrake)
         .limitSwitch
-        .forwardLimitSwitchType(Type.kNormallyOpen)
-        .reverseLimitSwitchType(Type.kNormallyOpen);
+        .forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen)
+        .reverseLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
     climberMotor.configure(
         climberConfig,
         SparkBase.ResetMode.kResetSafeParameters,

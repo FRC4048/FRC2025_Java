@@ -6,9 +6,11 @@ package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
@@ -41,10 +43,10 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean isRetractedLimitSwitchPressed() {
-    return climberSystem.getInputs().climberReversedLimitSwitchPressed;
+    return climberSystem.getInputs().revLimit();
   }
 
   public boolean isExtendedLimitSwitchPressed() {
-    return climberSystem.getInputs().climberForwardLimitSwitchPressed;
+    return climberSystem.getInputs().fwdLimit();
   }
 }
