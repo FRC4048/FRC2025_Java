@@ -37,7 +37,7 @@ public class BuildableFolderMotorInputs<R> extends BuildableFolderInputs<R> {
 
   @Override
   public void toLog(LogTable table) {
-    // This is my first EVER if else train
+    // This is my first EVER if train
     if (encoderPosition != null) {
       encoderPosition.toLog(table);
     }
@@ -60,7 +60,7 @@ public class BuildableFolderMotorInputs<R> extends BuildableFolderInputs<R> {
 
   @Override
   public void fromLog(LogTable table) {
-    // This is my second EVER if else train
+    // This is my second EVER if train
     if (encoderPosition != null) {
       encoderPosition.fromLog(table);
     }
