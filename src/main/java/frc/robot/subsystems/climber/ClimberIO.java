@@ -12,8 +12,4 @@ public interface ClimberIO extends LoggableIO<ClimberInputs> {
   void setClimberSpeed(double speed);
 
   void stopClimber();
-
-  boolean isExtendedLimitSwitchPressed();
-
-  boolean isRetractedLimitSwitchPressed();
 }

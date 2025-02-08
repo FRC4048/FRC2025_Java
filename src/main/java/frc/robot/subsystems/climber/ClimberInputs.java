@@ -10,14 +10,22 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 /** Add your docs here. */
 public class ClimberInputs implements LoggableInputs {
   public double climberMotorEncoder;
+  public boolean climberReversedLimitSwitchPressed;
+  public boolean climberForwardLimitSwitchPressed;
 
   @Override
   public void toLog(LogTable table) {
     table.put("climberMotorEncoder", climberMotorEncoder);
+    table.put("climberReversedLimitSwitchPressed", climberReversedLimitSwitchPressed);
+    table.put("climberForwardLimitSwitchPressed", climberForwardLimitSwitchPressed);
   }
 
   @Override
   public void fromLog(LogTable table) {
     climberMotorEncoder = table.get("climberMotorEncoder", climberMotorEncoder);
+    climberReversedLimitSwitchPressed =
+        table.get("climberReversedLimitSwitchPressed", climberReversedLimitSwitchPressed);
+    climberForwardLimitSwitchPressed =
+        table.get("climberForwardLimitSwitchPressed", climberForwardLimitSwitchPressed);
   }
 }

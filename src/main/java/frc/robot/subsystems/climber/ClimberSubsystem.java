@@ -4,9 +4,10 @@
 
 package frc.robot.subsystems.climber;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
@@ -18,10 +19,10 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-
-    SmartDashboard.putBoolean("Foward", isExtendedLimitSwitchPressed());
-    SmartDashboard.putBoolean("Backward", isRetractedLimitSwitchPressed());
-
+    if (Constants.CLIMBER_DEBUG) {
+      SmartShuffleboard.put("Climber", "Forward", isExtendedLimitSwitchPressed());
+      SmartShuffleboard.put("Climber", "Backward", isRetractedLimitSwitchPressed());
+    }
     climberSystem.updateInputs();
     if (isExtendedLimitSwitchPressed() || isRetractedLimitSwitchPressed()) {
       stopClimber();
@@ -36,11 +37,11 @@ public class ClimberSubsystem extends SubsystemBase {
     climberSystem.getIO().stopClimber();
   }
 
-  public boolean isExtendedLimitSwitchPressed() {
-    return climberSystem.getIO().isExtendedLimitSwitchPressed();
+  public boolean isRetractedLimitSwitchPressed() {
+    return climberSystem.getInputs().climberReversedLimitSwitchPressed;
   }
 
-  public boolean isRetractedLimitSwitchPressed() {
-    return climberSystem.getIO().isRetractedLimitSwitchPressed();
+  public boolean isExtendedLimitSwitchPressed() {
+    return climberSystem.getInputs().climberForwardLimitSwitchPressed;
   }
 }
