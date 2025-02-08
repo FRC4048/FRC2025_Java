@@ -6,6 +6,7 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
 public class SparkMaxSteerMotorIO implements SwerveSteerMotorIO {
   private final SparkMax steerMotor;
@@ -52,8 +53,7 @@ public class SparkMaxSteerMotorIO implements SwerveSteerMotorIO {
   }
 
   @Override
-  public void updateInputs(SwerveSteerMotorInput input) {
-    input.steerEncoderPosition = steerMotor.getEncoder().getPosition();
-    input.steerEncoderVelocity = steerMotor.getEncoder().getVelocity();
+  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
+    inputs.process(steerMotor);
   }
 }

@@ -1,11 +1,15 @@
 package frc.robot.subsystems.gyro;
 
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-public class GyroInputs implements LoggableInputs {
+public class GyroInputs extends FolderLoggableInputs {
   public double anglesInDeg = 0;
   public double angleOffset = 0;
+
+  public GyroInputs(String key) {
+    super(key);
+  }
 
   @Override
   public void toLog(LogTable table) {

@@ -1,7 +1,7 @@
-package frc.robot.utils.logging;
+package frc.robot.utils.logging.subsystem;
 
+import frc.robot.utils.logging.LoggableIO;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /**
  * abstraction for simple subsystems that have a singular ${@link LoggableIO}
@@ -9,7 +9,7 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
  * @param <T> Loggable subsystem type
  * @param <R> Loggable input type that the subsystem accepts
  */
-public class LoggableSystem<T extends LoggableIO<R>, R extends LoggableInputs> {
+public class LoggableSystem<T extends LoggableIO<R>, R extends FolderLoggableInputs> {
   private final T io;
   private final R inputs;
   private final String key;
@@ -17,13 +17,7 @@ public class LoggableSystem<T extends LoggableIO<R>, R extends LoggableInputs> {
   public LoggableSystem(T io, R inputs) {
     this.io = io;
     this.inputs = inputs;
-    this.key = getClass().getSimpleName() + "Inputs";
-  }
-
-  public LoggableSystem(T io, R inputs, String key) {
-    this.io = io;
-    this.inputs = inputs;
-    this.key = "LoggableSystemInputs/" + key;
+    this.key = "LoggableInputs/" + inputs.getFolder();
   }
 
   /**
