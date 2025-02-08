@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
+import frc.robot.utils.commoninputs.BuildableKeyedInputs;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
@@ -40,7 +41,7 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
     this.removerMotor.set(0);
   }
 
-  public void updateInputs(AlgaeByeByeRollerInputs inputs) {
-    inputs.rollerMotorVelocity = removerMotor.getEncoder().getVelocity();
+  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {
+    inputs.process(removerMotor);
   }
 }

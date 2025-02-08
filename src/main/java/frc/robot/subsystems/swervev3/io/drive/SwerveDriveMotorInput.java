@@ -1,13 +1,17 @@
 package frc.robot.subsystems.swervev3.io.drive;
 
+import frc.robot.utils.commoninputs.KeyedInputs;
 import org.littletonrobotics.junction.LogTable;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
-public class SwerveDriveMotorInput implements LoggableInputs {
+public class SwerveDriveMotorInput extends KeyedInputs {
 
   public double driveEncoderPosition = 0;
   public double driveEncoderVelocity = 0;
   public double driveCurrentDraw = 0;
+
+  public SwerveDriveMotorInput(String key) {
+    super(key);
+  }
 
   @Override
   public void toLog(LogTable table) {

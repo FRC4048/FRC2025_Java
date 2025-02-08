@@ -61,7 +61,7 @@ public class PoseEstimator {
     this.frontRight = frontRightMotor;
     this.backLeft = backLeftMotor;
     this.backRight = backRightMotor;
-    this.apriltagSystem = new LoggableSystem<>(apriltagIO, new ApriltagInputs());
+    this.apriltagSystem = new LoggableSystem<>(apriltagIO, new ApriltagInputs("Apriltag"));
     OdometryMeasurement initMeasurement =
         new OdometryMeasurement(
             new SwerveModulePosition[] {

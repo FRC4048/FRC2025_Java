@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems.hihiextender;
 
+import com.revrobotics.spark.SparkMax;
+import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+
 public class MockHihiExtenderIO implements HihiExtenderIO {
 
   @Override
@@ -16,5 +19,5 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
   public void resetExtenderEncoder() {}
 
   @Override
-  public void updateInputs(HihiExtenderInputs inputs) {}
+  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {}
 }

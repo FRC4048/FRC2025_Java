@@ -1,13 +1,19 @@
 package frc.robot.subsystems.elevator;
 
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.CommonMotorInputs;
+import frc.robot.utils.commoninputs.SparkMaxInputBuilder;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private final LoggableSystem<ElevatorIO, ElevatorInputs> elevatorSystem;
+  private final LoggableSystem<ElevatorIO, BuildableKeyedInputs<SparkMax>> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, new ElevatorInputs());
+    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
+    BuildableKeyedInputs<SparkMax> inputs = CommonMotorInputs.createLimitedEncoded(builder);
+    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
   }
 
   public void setElevatorMotorSpeed(double speed) {
@@ -15,7 +21,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getEncoderValue1() {
-    return elevatorSystem.getInputs().elevatorMotorEncoderValue;
+    return elevatorSystem.getInputs().getEncoderPosition();
   }
 
   @Override

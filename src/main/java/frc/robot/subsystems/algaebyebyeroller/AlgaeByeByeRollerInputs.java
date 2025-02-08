@@ -4,12 +4,16 @@
 
 package frc.robot.subsystems.algaebyebyeroller;
 
+import frc.robot.utils.commoninputs.KeyedInputs;
 import org.littletonrobotics.junction.LogTable;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 /** Add your docs here. */
-public class AlgaeByeByeRollerInputs implements LoggableInputs {
+public class AlgaeByeByeRollerInputs extends KeyedInputs {
   public double rollerMotorVelocity = 0;
+
+  public AlgaeByeByeRollerInputs(String key) {
+    super(key);
+  }
 
   @Override
   public void toLog(LogTable table) {

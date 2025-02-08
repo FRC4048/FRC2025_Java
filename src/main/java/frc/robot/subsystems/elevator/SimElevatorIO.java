@@ -1,6 +1,8 @@
 package frc.robot.subsystems.elevator;
 
+import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
+import frc.robot.utils.commoninputs.BuildableKeyedInputs;
 
 public class SimElevatorIO extends RealElevatorIO {
   private final ElevatorSimulator elevatorSimulator;
@@ -11,7 +13,7 @@ public class SimElevatorIO extends RealElevatorIO {
   }
 
   @Override
-  public void updateInputs(ElevatorInputs inputs) {
+  public void updateInputs(BuildableKeyedInputs<SparkMax> inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       elevatorSimulator.simulationPeriodic();

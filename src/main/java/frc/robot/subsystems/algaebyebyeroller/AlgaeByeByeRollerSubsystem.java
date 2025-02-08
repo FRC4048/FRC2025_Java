@@ -4,15 +4,21 @@
 
 package frc.robot.subsystems.algaebyebyeroller;
 
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.commoninputs.BuildableKeyedInputs;
+import frc.robot.utils.commoninputs.SparkMaxInputBuilder;
 import frc.robot.utils.logging.LoggableSystem;
 
 public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
   /** Creates a new AlgaeRemoverSubsystem. */
-  private final LoggableSystem<AlgaeByeByeRollerIO, AlgaeByeByeRollerInputs> algaeSystem;
+  private final LoggableSystem<AlgaeByeByeRollerIO, BuildableKeyedInputs<SparkMax>> algaeSystem;
 
   public AlgaeByeByeRollerSubsystem(AlgaeByeByeRollerIO io) {
-    algaeSystem = new LoggableSystem<>(io, new AlgaeByeByeRollerInputs());
+    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("AlgaeByeByeRollerSubsystem");
+    BuildableKeyedInputs<SparkMax> inputs =
+        builder.encoderVelocity().motorCurrent().motorTemperature().build();
+    algaeSystem = new LoggableSystem<>(io, inputs);
   }
 
   @Override

@@ -53,7 +53,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
     this.backRight = backRightModule;
-    this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
+    this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs("Gyro"));
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());

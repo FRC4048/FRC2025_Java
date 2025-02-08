@@ -18,7 +18,7 @@ public class AutoEventProvider {
 
   public AutoEventProvider(
       AutoEventProviderIO providerIO, BiFunction<AutoAction, FieldLocation, Boolean> validator) {
-    this.system = new LoggableSystem<>(providerIO, new AutoChooserInputs());
+    this.system = new LoggableSystem<>(providerIO, new AutoChooserInputs("AutoChooser"));
     this.validator = validator;
     setOnActionChangeListener((a) -> changed = true);
     setOnLocationChangeListener((l) -> changed = true);
