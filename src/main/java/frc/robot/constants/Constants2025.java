@@ -5,21 +5,27 @@ import frc.robot.utils.SwerveModuleProfileV2;
 public class Constants2025 extends GameConstants {
 
   // Elevator
-  public static final int ELEVATOR_MOTOR_1_ID = 0; // TODO: change later
+  public static final int ELEVATOR_MOTOR_ID = 0; // TODO: change later
   public static final int ELEVATOR_MOTOR_2_ID = 1; // TODO: change later
+  // Get from hardwareg
 
-  // Shooter
-  public static final int SHOOTER_MOTOR_1_ID = 0; // TODO: change later
-  public static final int SHOOTER_MOTOR_2_ID = 1; // TODO: change later
-  public static final int SHOOTER_TILT_MOTOR_ID = 2; // TODO: change later
+  // Coral Shooter
+  public static final int SHOOTER_MOTOR_1_ID = 44; // TODO: change later
+  public static final int SHOOTER_MOTOR_2_ID = 45; // TODO: change later
+  public static final int SHOOTER_TILT_MOTOR_ID = 4; // TODO: change later
 
   // Algae Roller
-  public static final int ALGAE_ANGLE_MOTOR_ID = 1; // TODO: change later
-  public static final int ALGAE_ROLLER_CAN_ID = 7; // TODO: change later
+  public static final int ALGAE_ROLLER_CAN_ID = 5; // TODO: change later
 
-  // Algae Remover
-  public static final int ALGAE_REMOVER_SPINING_ID = 1; // TODO: change later
-  public static final int ALGAE_REMOVER_TILT_ID = 2; // TODO: change later
+  // Algae Extender
+  public static final int ALGAE_EXTENDER_MOTOR_ID = 6; // TODO: change later
+
+  // Algae Bye-Bye
+  public static final int ALGAE_BYEBYE_SPINING_ID = 10; // TODO: change later
+  public static final int ALGAE_BYEBYE_TILT_ID = 2; // TODO: change later
+
+  // Climber
+  public static final int CLIMBER_MOTOR_ID = 9; // TODO: change later
 
   // DriveTrain
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
