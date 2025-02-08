@@ -4,15 +4,18 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.TimeoutLogger;
 
 // ALL COMMENTED CODE REQUIRES METHODS THAT DON'T EXIST YET
 
 public class ResetElevator extends LoggableCommand {
   private final ElevatorSubsystem elevator;
+  private final TimeoutLogger timeoutCounter;
   private final Timer timer;
 
   public ResetElevator(ElevatorSubsystem elevator) {
     this.elevator = elevator;
+    timeoutCounter = new TimeoutLogger("ResetElevator");
     timer = new Timer();
     addRequirements(elevator);
   }
@@ -37,14 +40,12 @@ public class ResetElevator extends LoggableCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (elevator.getReverseLimitSwitchState()) {
-      return true;
-    } else if (timer.hasElapsed(Constants.ELEVATOR_TIMEOUT)) {
-      return true;
-    }
-    return false;
+   if(timer.hasElapsed(Constants.ELEVATOR_RESET_TIMEOUT)){
+    timeoutCounter.increaseTimeoutCount();
+    return true;
+   }
+    return elevator.getReverseLimitSwitchState();
   }
-
   @Override
   public boolean runsWhenDisabled() {
     return true;

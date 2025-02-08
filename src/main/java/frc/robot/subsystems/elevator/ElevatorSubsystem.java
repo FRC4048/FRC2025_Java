@@ -28,12 +28,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void stopMotor(){
     elevatorSystem.getIO().stopMotor();
   }
+  public void resetEncoder() {
+    elevatorSystem.getIO().resetEncoder();
+  }
   @Override
   public void periodic() {
     elevatorSystem.updateInputs();
   }
 
-  public void resetEncoder() {
-    elevatorSystem.getIO().resetEncoder();
-  }
 }
