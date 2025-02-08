@@ -1,7 +1,6 @@
 package frc.robot.utils.logging.subsystem;
 
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
 import org.littletonrobotics.junction.Logger;
 
 /**
@@ -10,7 +9,7 @@ import org.littletonrobotics.junction.Logger;
  * @param <T> Loggable subsystem type
  * @param <R> Loggable input type that the subsystem accepts
  */
-public class LoggableSystem<T extends LoggableIO<R>, R extends KeyedInputs> {
+public class LoggableSystem<T extends LoggableIO<R>, R extends KeyedLoggableInputs> {
   private final T io;
   private final R inputs;
   private final String key;

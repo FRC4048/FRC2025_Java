@@ -1,9 +1,9 @@
 package frc.robot.subsystems.swervev3.io.steer;
 
-import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
+import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class SwerveSteerMotorInput extends KeyedInputs {
+public class SwerveSteerMotorInput extends KeyedLoggableInputs {
   public double steerEncoderPosition = 0;
   public double steerEncoderVelocity = 0;
   public double steerCurrentDraw = 0;

@@ -1,9 +1,9 @@
 package frc.robot.apriltags;
 
-import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
+import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class ApriltagInputs extends KeyedInputs {
+public class ApriltagInputs extends KeyedLoggableInputs {
   public double[] timestamp = new double[0];
   public double[] serverTime = new double[0];
   public double[] posX = new double[0];

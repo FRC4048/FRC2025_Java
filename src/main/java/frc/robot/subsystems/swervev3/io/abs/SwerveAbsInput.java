@@ -1,9 +1,9 @@
 package frc.robot.subsystems.swervev3.io.abs;
 
-import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
+import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class SwerveAbsInput extends KeyedInputs {
+public class SwerveAbsInput extends KeyedLoggableInputs {
 
   public double absEncoderPosition;
 

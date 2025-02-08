@@ -1,8 +1,8 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.inputs.KeyedInputs;
+import frc.robot.utils.logging.subsystem.KeyedLoggableInputs;
 
-public abstract class BuildableKeyedInputs<R> extends KeyedInputs {
+public abstract class BuildableKeyedInputs<R> extends KeyedLoggableInputs {
 
   public BuildableKeyedInputs(String key) {
     super(key);
