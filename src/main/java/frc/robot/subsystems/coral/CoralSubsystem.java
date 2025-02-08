@@ -5,14 +5,14 @@
 package frc.robot.subsystems.coral;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
 
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIO, CoralInputs> coralSystem;
 
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO io) {
-    coralSystem = new LoggableSystem<>(io, new CoralInputs());
+    system = new LoggableSystem<>(io, new CoralInputs("CoralSubsystem"));
   }
 
   @Override

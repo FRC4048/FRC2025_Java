@@ -1,11 +1,9 @@
 package frc.robot.subsystems.elevator;
 
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
 public class RealElevatorIO implements ElevatorIO {
   public final SparkMax elevatorMotor;
@@ -13,9 +11,6 @@ public class RealElevatorIO implements ElevatorIO {
   public RealElevatorIO() {
     this.elevatorMotor =
         new SparkMax(Constants.ELEVATOR_MOTOR_ID, SparkLowLevel.MotorType.kBrushless);
-    SparkBaseConfig conf = new SparkMaxConfig().follow(Constants.ELEVATOR_MOTOR_ID);
-    elevatorMotor.configure(
-        conf, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
@@ -24,7 +19,7 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
-  public void updateInputs(ElevatorInputs inputs) {
-    inputs.elevatorMotorEncoderValue = elevatorMotor.getEncoder().getPosition();
+  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
+    inputs.process(elevatorMotor);
   }
 }

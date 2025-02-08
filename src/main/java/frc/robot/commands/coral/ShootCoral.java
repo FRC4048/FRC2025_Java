@@ -7,7 +7,7 @@ package frc.robot.commands.coral;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ShootCoral extends LoggableCommand {
   /** Creates a new ShootCoral. */

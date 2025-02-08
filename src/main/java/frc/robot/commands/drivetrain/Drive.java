@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.DriveMode;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
