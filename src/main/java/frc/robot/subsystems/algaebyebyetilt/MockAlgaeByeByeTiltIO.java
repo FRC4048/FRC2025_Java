@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems.algaebyebyetilt;
 
+import com.revrobotics.spark.SparkMax;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+
 /** Add your docs here. */
 public class MockAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   @Override
-  public void updateInputs(AlgaeByeByeTiltInputs inputs) {}
+  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {}
 
   @Override
   public void setSpeed(double speed) {}

@@ -1,13 +1,18 @@
 package frc.robot.subsystems.elevator;
 
+import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private final LoggableSystem<ElevatorIO, ElevatorInputs> elevatorSystem;
+  private final LoggableSystem<ElevatorIO, BuildableFolderMotorInputs<SparkMax>> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, new ElevatorInputs());
+    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
+    BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
+    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
   }
 
   public void setElevatorMotorSpeed(double speed) {
@@ -15,15 +20,15 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getEncoderValue() {
-    return elevatorSystem.getInputs().elevatorMotorEncoderValue;
+    return elevatorSystem.getInputs().getEncoderPosition();
   }
 
   public boolean getForwardLimitSwitchState() {
-    return elevatorSystem.getInputs().forwardLimitSwitchState;
+    return elevatorSystem.getInputs().getFwd();
   }
 
   public boolean getReverseLimitSwitchState() {
-    return elevatorSystem.getInputs().backLimitSwitchState;
+    return elevatorSystem.getInputs().getRev();
   }
 
   public void stopMotor() {
