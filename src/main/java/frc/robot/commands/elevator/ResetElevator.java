@@ -3,6 +3,7 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 // ALL COMMENTED CODE REQUIRES METHODS THAT DON'T EXIST YET
