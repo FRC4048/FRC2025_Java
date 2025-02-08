@@ -7,7 +7,5 @@ public abstract class InputBuilder<R, S extends BuildableKeyedInputs<R>> {
     this.key = key;
   }
 
-  public abstract InputBuilder<R, S> reset();
-
   public abstract S build();
 }

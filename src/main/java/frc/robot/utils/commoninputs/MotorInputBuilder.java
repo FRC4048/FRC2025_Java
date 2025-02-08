@@ -48,7 +48,6 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableKeye
     return this;
   }
 
-  @Override
   public MotorInputBuilder<R> reset() {
     encoderPosition = null;
     encoderVelocity = null;
