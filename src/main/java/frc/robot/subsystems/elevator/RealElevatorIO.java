@@ -24,7 +24,17 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
+  public void stopMotor() {
+    elevatorMotor.set(0);
+  }
+  @Override
+  public void resetEncoder() {
+    this.elevatorMotor.getEncoder().setPosition(0);
+  }
+  @Override
   public void updateInputs(ElevatorInputs inputs) {
     inputs.elevatorMotorEncoderValue = elevatorMotor.getEncoder().getPosition();
+    inputs.forwardLimitSwitchState = elevatorMotor.getForwardLimitSwitch().isPressed();
+    inputs.backLimitSwitchState = elevatorMotor.getReverseLimitSwitch().isPressed();
   }
 }

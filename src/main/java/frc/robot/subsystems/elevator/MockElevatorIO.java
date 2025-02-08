@@ -6,4 +6,10 @@ public class MockElevatorIO implements ElevatorIO {
 
   @Override
   public void updateInputs(ElevatorInputs inputs) {}
+
+  @Override
+  public void stopMotor() {}
+  
+  @Override
+  public void resetEncoder() {}
 }
