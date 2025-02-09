@@ -10,4 +10,8 @@ public interface ElevatorIO extends LoggableIO<BuildableFolderMotorInputs<SparkM
   public void setElevatorPosition(double encoderPos);
 
   public double getElevatorPosition();
+
+  void stopMotor();
+
+  void resetEncoder();
 }

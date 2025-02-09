@@ -27,6 +27,16 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
+  public void stopMotor() {
+    elevatorMotor.getNeoMotor().set(0);
+  }
+
+  @Override
+  public void resetEncoder() {
+    this.elevatorMotor.getEncoder().setPosition(0);
+  }
+
+  @Override
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
     inputs.process(elevatorMotor.getNeoMotor());
   }

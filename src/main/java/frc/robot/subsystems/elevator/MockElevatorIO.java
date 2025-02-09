@@ -16,4 +16,9 @@ public class MockElevatorIO implements ElevatorIO {
   public double getElevatorPosition() {
     return 0;
   }
+
+  public void stopMotor() {}
+
+  @Override
+  public void resetEncoder() {}
 }
