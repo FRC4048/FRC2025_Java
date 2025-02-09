@@ -27,7 +27,6 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-
     tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
   }
 
