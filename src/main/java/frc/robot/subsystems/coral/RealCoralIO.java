@@ -65,7 +65,7 @@ public class RealCoralIO implements CoralIO {
   }
 
   @Override
-  public void toggleLimitSwitch(boolean state) {
+  public void enableOrDisableLimitSwitch(boolean state) {
     coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(state));
     coralConfig.apply(coralConfig.limitSwitch.reverseLimitSwitchEnabled(state));
   }

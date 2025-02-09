@@ -37,7 +37,7 @@ public class CoralSubsystem extends SubsystemBase {
   }
 
   public void toggleLimitSwitch(boolean state) {
-    coralSystem.getIO().toggleLimitSwitch(state);
+    coralSystem.getIO().enableOrDisableLimitSwitch(state);
   }
 
   public double getAngle() {
