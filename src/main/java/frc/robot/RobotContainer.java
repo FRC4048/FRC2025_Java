@@ -16,11 +16,11 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
-import frc.robot.commands.RollAlgae;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
+import frc.robot.commands.subsystemtests.SpinHihiRoller;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
@@ -126,7 +126,7 @@ public class RobotContainer {
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
     if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
+      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new SpinHihiRoller(hihiRoller, 0.5));
       SmartShuffleboard.putCommand(
           "DEBUG", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
       SmartShuffleboard.putCommand(

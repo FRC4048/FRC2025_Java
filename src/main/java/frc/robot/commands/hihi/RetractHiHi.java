@@ -8,7 +8,7 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class RetractHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
-  private Timer timer;
+  private final Timer timer;
   private final TimeoutLogger timeoutCounter;
 
   public RetractHiHi(HihiExtenderSubsystem hihiExtender) {
@@ -20,8 +20,8 @@ public class RetractHiHi extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(Constants.HIHI_RETRACT_SPEED);
     timer.restart();
+    hihiExtender.setExtenderSpeed(Constants.HIHI_RETRACT_SPEED);
   }
 
   @Override
@@ -38,6 +38,6 @@ public class RetractHiHi extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (hihiExtender.getReverseSwitchState());
+    return hihiExtender.getReverseSwitchState();
   }
 }

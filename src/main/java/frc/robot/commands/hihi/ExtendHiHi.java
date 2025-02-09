@@ -8,7 +8,7 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ExtendHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
-  private Timer timer;
+  private final Timer timer;
   private final TimeoutLogger timeoutCounter;
 
   public ExtendHiHi(HihiExtenderSubsystem hihiExtender) {
@@ -20,8 +20,8 @@ public class ExtendHiHi extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTEND_SPEED);
     timer.restart();
+    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTEND_SPEED);
   }
 
   @Override

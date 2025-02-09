@@ -41,12 +41,14 @@ public class GameConstants {
   public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
+  public static final int CLIMBER_RUN_MOTOR_TIMEOUT = 10; // TODO: change later
   public static final int SHOOT_CORAL_TIMEOUT = 10;
   public static final int ROLL_ALGAE_TIMEOUT = 10;
   public static final double HIHI_EXTEND_TIMEOUT = 10;
   public static final double HIHI_RETRACT_TIMEOUT = 10;
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
+  public static final double HIHI_ROLLER_SPIN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
 
   // Logging

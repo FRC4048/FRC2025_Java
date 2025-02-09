@@ -37,7 +37,6 @@ public class SpinRollerByeBye extends LoggableCommand {
     roller.stopMotors();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return timer.hasElapsed(Constants.BYEBYE_SPIN_ROLLER_TIMEOUT);

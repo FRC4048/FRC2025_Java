@@ -9,7 +9,6 @@ import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SpinExtender extends LoggableCommand {
-  /** Creates a new SpinExtender. */
   private final HihiExtenderSubsystem extender;
 
   private final double speedMotors;
@@ -24,9 +23,8 @@ public class SpinExtender extends LoggableCommand {
 
   @Override
   public void initialize() {
+    timer.restart();
     extender.setExtenderSpeed(speedMotors);
-    timer.reset();
-    timer.start();
   }
 
   @Override

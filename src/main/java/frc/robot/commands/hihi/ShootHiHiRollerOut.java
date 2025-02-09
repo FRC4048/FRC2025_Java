@@ -17,8 +17,8 @@ public class ShootHiHiRollerOut extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiRoller.setRollerMotorSpeed(Constants.HIHI_SHOOT_SPEED);
     timer.restart();
+    hihiRoller.setRollerMotorSpeed(Constants.HIHI_SHOOT_SPEED);
   }
 
   @Override
@@ -31,6 +31,6 @@ public class ShootHiHiRollerOut extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (timer.hasElapsed(Constants.HIHI_ROLLER_OUT_TIMEOUT));
+    return timer.hasElapsed(Constants.HIHI_ROLLER_OUT_TIMEOUT);
   }
 }
