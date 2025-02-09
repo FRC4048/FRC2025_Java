@@ -102,9 +102,9 @@ public class GameConstants {
 
   // Elevator
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
-  public static final double CARRIAGE_MASS = 0.5; // In Kg, change later
+  public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final double ELEVATOR_DRUM_RADIUS =
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
-  public static final double MAX_ELEVATOR_HEIGHT_METERS = 1; // in m
+  public static final double MAX_ELEVATOR_HEIGHT_METERS = 100; // in m
 }
