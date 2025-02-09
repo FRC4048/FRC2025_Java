@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.utils.logging.subsystem.InputSource;
 
-/** SparkMax Input Builder implementation */
+/** TalonSRX Input Builder implementation */
 public class TalonSRXInputBuilder extends MotorInputBuilder<WPI_TalonSRX> {
 
   public TalonSRXInputBuilder(String folder) {
