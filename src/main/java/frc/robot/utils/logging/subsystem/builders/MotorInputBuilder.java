@@ -1,6 +1,5 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.InputBuilder;
 import frc.robot.utils.logging.subsystem.InputSource;
 import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
 import frc.robot.utils.logging.subsystem.inputs.DoubleInput;

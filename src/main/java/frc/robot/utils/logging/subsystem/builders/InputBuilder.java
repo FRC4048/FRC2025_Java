@@ -1,6 +1,6 @@
-package frc.robot.utils.logging.subsystem;
+package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderInputs;
+import frc.robot.utils.logging.subsystem.InputSource;
 
 /**
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware
