@@ -9,10 +9,9 @@ import frc.robot.constants.Constants;
 public class SpinByeByeRoller extends LoggableCommand {
   private final AlgaeByeByeRollerSubsystem byebyeRoller;
   private final Timer timer;
-  private final TimeoutLogger timeoutCounter;
 
+  
   public SpinByeByeRoller(AlgaeByeByeRollerSubsystem byebyeRoller) {
-    timeoutCounter = new TimeoutLogger("Spin Bye Bye Roller");
     timer = new Timer();
     this.byebyeRoller = byebyeRoller;
     addRequirements(byebyeRoller);
@@ -35,7 +34,6 @@ public class SpinByeByeRoller extends LoggableCommand {
   @Override
   public boolean isFinished() {
     if (timer.hasElapsed(Constants.BYEBYE_SPIN_ROLLER_TIMEOUT)) {
-      timeoutCounter.increaseTimeoutCount();
       return true;
     }
   return false;
