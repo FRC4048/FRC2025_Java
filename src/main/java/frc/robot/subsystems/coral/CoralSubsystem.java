@@ -6,6 +6,7 @@ package frc.robot.subsystems.coral;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIO, CoralInputs> coralSystem;
@@ -18,6 +19,8 @@ public class CoralSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     coralSystem.updateInputs();
+    SmartShuffleboard.put("DEBUG", "ForwardTripped?", coralSystem.getInputs().fwdTripped);
+    SmartShuffleboard.put("DEBUG", "ReverseTripped?", coralSystem.getInputs().revTripped);
   }
 
   public void setTiltAngularVelocity(double angleVelocity) {
