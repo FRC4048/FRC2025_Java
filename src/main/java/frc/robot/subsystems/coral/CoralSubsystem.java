@@ -36,7 +36,7 @@ public class CoralSubsystem extends SubsystemBase {
     coralSystem.getIO().stopTiltMotors();
   }
 
-  public void toggleLimitSwitch(boolean state) {
+  public void enableOrDisableLimitSwitch(boolean state) {
     coralSystem.getIO().enableOrDisableLimitSwitch(state);
   }
 

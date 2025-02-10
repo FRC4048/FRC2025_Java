@@ -20,7 +20,7 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    intake.toggleLimitSwitch(true);
+    intake.enableOrDisableLimitSwitch(true);
   }
 
   @Override
@@ -32,7 +32,7 @@ public class IntakeCoral extends LoggableCommand {
   public void end(boolean interrupted) {
     intake.stopShooterMotors();
     intake.stopTiltMotors();
-    intake.toggleLimitSwitch(false);
+    intake.enableOrDisableLimitSwitch(false);
   }
 
   @Override

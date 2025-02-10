@@ -68,6 +68,14 @@ public class RealCoralIO implements CoralIO {
   public void enableOrDisableLimitSwitch(boolean state) {
     coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(state));
     coralConfig.apply(coralConfig.limitSwitch.reverseLimitSwitchEnabled(state));
+    shooterMotor1.configure(
+        coralConfig,
+        SparkBase.ResetMode.kNoResetSafeParameters,
+        SparkBase.PersistMode.kNoPersistParameters);
+    shooterMotor2.configure(
+        coralConfig,
+        SparkBase.ResetMode.kNoResetSafeParameters,
+        SparkBase.PersistMode.kNoPersistParameters);
   }
 
   @Override
