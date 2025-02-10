@@ -39,9 +39,9 @@ public class ElevatorToPosition extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (((elevator.getEncoderValue1()
+    return (((elevator.getEncoderValue()
             >= (targetPosition.getElevatorHeight() - Constants.ELEVATOR_MIN_WINDOW))
-        && (elevator.getEncoderValue1()
+        && (elevator.getEncoderValue()
             <= (targetPosition.getElevatorHeight() + Constants.ELEVATOR_MAX_WINDOW))));
   }
 }

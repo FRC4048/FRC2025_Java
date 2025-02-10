@@ -19,8 +19,24 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSystem.getIO().setSpeed(speed);
   }
 
-  public double getEncoderValue1() {
+  public double getEncoderValue() {
     return elevatorSystem.getInputs().getEncoderPosition();
+  }
+
+  public boolean getForwardLimitSwitchState() {
+    return elevatorSystem.getInputs().fwdLimit();
+  }
+
+  public boolean getReverseLimitSwitchState() {
+    return elevatorSystem.getInputs().revLimit();
+  }
+
+  public void stopMotor() {
+    elevatorSystem.getIO().stopMotor();
+  }
+
+  public void resetEncoder() {
+    elevatorSystem.getIO().resetEncoder();
   }
 
   @Override
