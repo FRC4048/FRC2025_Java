@@ -1,32 +1,34 @@
 package frc.robot.subsystems.elevator;
 
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealElevatorIO implements ElevatorIO {
-  public final SparkMax elevatorMotor;
+  public final NeoPidMotor elevatorMotor;
 
   public RealElevatorIO() {
-    this.elevatorMotor =
-        new SparkMax(Constants.ELEVATOR_MOTOR_ID, SparkLowLevel.MotorType.kBrushless);
-    SparkBaseConfig conf = new SparkMaxConfig().follow(Constants.ELEVATOR_MOTOR_ID);
-    elevatorMotor.configure(
-        conf, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
+    this.elevatorMotor = new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID);
   }
 
   @Override
   public void setSpeed(double spd) {
-    elevatorMotor.set(spd);
+    elevatorMotor.getNeoMotor().set(spd);
+  }
+
+  public void setElevatorPosition(double encoderPos) {
+    // Does this need to be converted from heightInMeters to encoder Pos?
+    elevatorMotor.setPidPos(encoderPos);
+  }
+
+  public double getElevatorPosition() {
+    return elevatorMotor.getPidPosition();
   }
 
   @Override
   public void stopMotor() {
-    elevatorMotor.set(0);
+    elevatorMotor.getNeoMotor().set(0);
   }
 
   @Override
@@ -36,6 +38,6 @@ public class RealElevatorIO implements ElevatorIO {
 
   @Override
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
-    inputs.process(elevatorMotor);
+    inputs.process(elevatorMotor.getNeoMotor());
   }
 }
