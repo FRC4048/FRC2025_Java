@@ -31,7 +31,6 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void end(boolean interrupted) {
     intake.stopShooterMotors();
-    intake.stopTiltMotors();
     intake.enableOrDisableLimitSwitch(false);
   }
 
