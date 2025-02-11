@@ -55,10 +55,6 @@ public class RealCoralIO implements CoralIO {
         coralConfigMotor1,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
-    shooterMotor2.configure(
-        coralConfigMotor1,
-        SparkBase.ResetMode.kNoResetSafeParameters,
-        SparkBase.PersistMode.kNoPersistParameters);
   }
 
   @Override
