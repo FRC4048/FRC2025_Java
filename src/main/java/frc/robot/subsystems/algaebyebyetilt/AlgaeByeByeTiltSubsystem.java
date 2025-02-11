@@ -14,7 +14,7 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   /** Creates a new AlgaeByeByeTiltSubsystem. */
   private final LoggableSystem<AlgaeByeByeTiltIO, BuildableFolderMotorInputs<SparkMax>>
       algaeTiltSystem;
-  
+
   public AlgaeByeByeTiltSubsystem(AlgaeByeByeTiltIO io) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("AlgaeByeByeTiltSubsystem");
     BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
