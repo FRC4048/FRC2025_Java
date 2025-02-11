@@ -14,6 +14,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
     BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
+    /* Example for Neo Pid
+        NeoPidMotorInputBuilder builder2 = new NeoPidMotorInputBuilder("ElevatorSubsystem");
+        BuildableFolderMotorInputs<SparkMax> inputs2 = builder2.addAll().build();
+        this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs2);
+    */
   }
 
   public void setElevatorMotorSpeed(double speed) {

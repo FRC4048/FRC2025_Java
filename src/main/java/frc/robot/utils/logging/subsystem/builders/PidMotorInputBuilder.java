@@ -20,15 +20,15 @@ public class PidMotorInputBuilder<R> extends MotorInputBuilder<R> {
 
   @Override
   public BuildableFolderMotorInputs<R> build() {
-    return new BuildableFolderMotorInputs<>(
-            folder,
-            encoderPosition,
-            encoderVelocity,
-            motorCurrent,
-            motorTemperature,
-            fwdLimit,
-            revLimit,
-            pidSetpoint);
+    return new BuildableFolderPidMotorInputs<>(
+        folder,
+        encoderPosition,
+        encoderVelocity,
+        motorCurrent,
+        motorTemperature,
+        fwdLimit,
+        revLimit,
+        pidSetpoint);
   }
 
   @Override

@@ -22,14 +22,15 @@ public class BuildableFolderPidMotorInputs<R> extends BuildableFolderMotorInputs
       BooleanInput<R> fwdLimit,
       BooleanInput<R> revLimit,
       DoubleInput<R> pidSetpoint) {
-    super(key,encoderPosition,encoderVelocity,motorCurrent,motorTemperature,fwdLimit,revLimit);
+    super(
+        key, encoderPosition, encoderVelocity, motorCurrent, motorTemperature, fwdLimit, revLimit);
     this.pidSetpoint = pidSetpoint;
   }
 
   @Override
   public void toLog(LogTable table) {
     super.toLog(table);
-    if (pidSetpoint != null){
+    if (pidSetpoint != null) {
       pidSetpoint.toLog(table);
     }
   }
@@ -37,7 +38,7 @@ public class BuildableFolderPidMotorInputs<R> extends BuildableFolderMotorInputs
   @Override
   public void fromLog(LogTable table) {
     super.fromLog(table);
-    if (pidSetpoint != null){
+    if (pidSetpoint != null) {
       pidSetpoint.fromLog(table);
     }
   }
@@ -45,7 +46,7 @@ public class BuildableFolderPidMotorInputs<R> extends BuildableFolderMotorInputs
   @Override
   public void process(R source) {
     super.process(source);
-    if (pidSetpoint != null){
+    if (pidSetpoint != null) {
       pidSetpoint.process(source);
     }
   }
