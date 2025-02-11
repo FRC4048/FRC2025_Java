@@ -17,6 +17,8 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.byebye.ByeByeToFwrLimit;
+import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.intake.IntakeCoral;
@@ -31,6 +33,7 @@ import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
+import frc.robot.subsystems.algaebyebyetilt.SimAlgaeByeByeTiltIO;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
 import frc.robot.subsystems.climber.RealClimberIO;
@@ -108,7 +111,7 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new SimClimberIO());
-        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new SimAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
       }
       default -> {
@@ -261,6 +264,10 @@ public class RobotContainer {
           new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
       SmartShuffleboard.putCommand(
           "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
+      SmartShuffleboard.putCommand(
+          "Bye Bye", "Spin till fwd Limit", new ByeByeToFwrLimit(byebyeTilt));
+      SmartShuffleboard.putCommand(
+          "Bye Bye", "Spin till bck Limit", new ByeByeToRevLimit(byebyeTilt));
     }
   }
 }

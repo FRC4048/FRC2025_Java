@@ -43,16 +43,7 @@ public class AlgaeByeByeTiltSimulator {
   private final SparkLimitSwitchSim reverseSwitchSim;
 
   // Elevator physical model, simulating movement based on physics, motor load and gravity
-  private final SingleJointedArmSim armSim =
-      new SingleJointedArmSim(
-          gearbox,
-          Constants.BYEBYE_GEARING,
-          Constants.BYEBYE_INERTIA,
-          Constants.BYEBYE_LENGTH,
-          Constants.BYEBYE_MIN_ANGLE,
-          Constants.BYEBYE_MAX_ANGLE,
-          true,
-          0);
+  private final SingleJointedArmSim armSim;
   // The mechanism simulation used for visualization
   private final Mechanism2d mech2d = new Mechanism2d(3, 5);
   private final MechanismRoot2d mech2dRoot = mech2d.getRoot("Arm Root", 1, 1);
@@ -62,6 +53,16 @@ public class AlgaeByeByeTiltSimulator {
   /** Constructor. */
   public AlgaeByeByeTiltSimulator(SparkMax motor) {
     this.motor = motor;
+    armSim =
+        new SingleJointedArmSim(
+            gearbox,
+            Constants.BYEBYE_GEARING,
+            Constants.BYEBYE_INERTIA,
+            Constants.BYEBYE_LENGTH,
+            Constants.BYEBYE_MIN_ANGLE,
+            Constants.BYEBYE_MAX_ANGLE,
+            false,
+            0);
     motorSim = new SparkMaxSim(motor, gearbox);
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
