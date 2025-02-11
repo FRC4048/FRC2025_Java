@@ -21,6 +21,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setElevatorPosition(double encoderPos) {
+    // TODO: This can be moved to input-based logging once that framework switches to composition
+    Logger.recordOutput("ElevatorSubystem/targetPosition", encoderPos);
     elevatorSystem.getIO().setElevatorPosition(encoderPos);
   }
 
@@ -46,8 +48,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    Logger.recordOutput(
-        "ElevatorSubystem/targetPosition", elevatorSystem.getIO().getElevatorPosition());
     elevatorSystem.updateInputs();
   }
 }
