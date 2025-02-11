@@ -1,14 +1,14 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.processors.InputSource;
-import frc.robot.utils.logging.subsystem.processors.MotorInputProcessor;
 import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
 import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
+import frc.robot.utils.logging.subsystem.processors.InputSource;
+import frc.robot.utils.logging.subsystem.processors.MotorInputProcessor;
 
 /**
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware
  */
-public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFolderMotorInputs<R>> {
+public class MotorInputBuilder<R> extends InputBuilder<R, BuildableFolderMotorInputs<R>> {
   private DoubleInput<R> encoderPosition;
   private DoubleInput<R> encoderVelocity;
   private DoubleInput<R> motorCurrent;
@@ -40,17 +40,20 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFold
   }
 
   public MotorInputBuilder<R> motorTemperature() {
-    motorCurrent = new DoubleInput<>("motorTemperature", inputProcessor.motorTemperatureFromSource());
+    motorCurrent =
+        new DoubleInput<>("motorTemperature", inputProcessor.motorTemperatureFromSource());
     return this;
   }
 
   public MotorInputBuilder<R> encoderPosition() {
-    encoderPosition = new DoubleInput<>("encoderPosition", inputProcessor.encoderPositionFromSource());
+    encoderPosition =
+        new DoubleInput<>("encoderPosition", inputProcessor.encoderPositionFromSource());
     return this;
   }
 
   public MotorInputBuilder<R> encoderVelocity() {
-    encoderVelocity = new DoubleInput<>("encoderVelocity", inputProcessor.encoderVelocityFromSource());
+    encoderVelocity =
+        new DoubleInput<>("encoderVelocity", inputProcessor.encoderVelocityFromSource());
     return this;
   }
 
