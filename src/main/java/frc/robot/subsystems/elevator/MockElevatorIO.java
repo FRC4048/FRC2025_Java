@@ -11,6 +11,12 @@ public class MockElevatorIO implements ElevatorIO {
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {}
 
   @Override
+  public void setElevatorPosition(double encoderPos) {}
+
+  public double getElevatorPosition() {
+    return 0;
+  }
+
   public void stopMotor() {}
 
   @Override
