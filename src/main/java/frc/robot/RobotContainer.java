@@ -17,9 +17,12 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.subsystemtests.DisableCoralLimit;
+import frc.robot.commands.subsystemtests.EnableCoralLimit;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
@@ -261,6 +264,9 @@ public class RobotContainer {
           new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
       SmartShuffleboard.putCommand(
           "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
+      SmartShuffleboard.putCommand("coral", "DisableLimit", new DisableCoralLimit(shooter));
+      SmartShuffleboard.putCommand("coral", "EnableLimit", new EnableCoralLimit(shooter));
+      SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
     }
   }
 }

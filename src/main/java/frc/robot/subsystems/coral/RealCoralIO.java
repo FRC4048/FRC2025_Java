@@ -9,7 +9,6 @@ import frc.robot.constants.Constants;
 public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotor1; // TODO: change later to whatever
   private final SparkMax shooterMotor2; // TODO: change later to whatever
-  
 
   public RealCoralIO() {
     shooterMotor1 = new SparkMax(Constants.SHOOTER_MOTOR_1_ID, SparkMax.MotorType.kBrushless);
@@ -19,14 +18,18 @@ public class RealCoralIO implements CoralIO {
 
   private void configureMotor() {
     SparkMaxConfig coralConfigMotor1 = new SparkMaxConfig();
-    SparkMaxConfig coralConfigMotor2 =  new SparkMaxConfig();
+    SparkMaxConfig coralConfigMotor2 = new SparkMaxConfig();
+    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.forwardLimitSwitchEnabled(true));
+    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.reverseLimitSwitchEnabled(true));
+    coralConfigMotor2.apply(coralConfigMotor1.limitSwitch.forwardLimitSwitchEnabled(true));
+    coralConfigMotor2.apply(coralConfigMotor1.limitSwitch.reverseLimitSwitchEnabled(true));
     coralConfigMotor1.idleMode(IdleMode.kBrake);
     shooterMotor1.configure(
-      coralConfigMotor1,
+        coralConfigMotor1,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
     shooterMotor2.configure(
-      coralConfigMotor2,
+        coralConfigMotor2,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
@@ -59,7 +62,5 @@ public class RealCoralIO implements CoralIO {
   }
 
   @Override
-  public void updateInputs(CoralInputs inputs) {
-
-  }
+  public void updateInputs(CoralInputs inputs) {}
 }
