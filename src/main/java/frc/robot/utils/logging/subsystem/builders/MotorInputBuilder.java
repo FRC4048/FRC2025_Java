@@ -97,4 +97,8 @@ public class MotorInputBuilder<R> extends InputBuilder<R, BuildableFolderMotorIn
     revLimit = null;
     return this;
   }
+
+  protected MotorInputProcessor<R> getInputProcessor() {
+    return inputProcessor;
+  }
 }

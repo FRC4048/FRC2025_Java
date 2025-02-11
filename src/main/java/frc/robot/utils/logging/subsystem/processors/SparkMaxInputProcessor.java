@@ -1,9 +1,7 @@
-package frc.robot.utils.logging.subsystem.builders;
+package frc.robot.utils.logging.subsystem.processors;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.logging.subsystem.processors.InputSource;
-import frc.robot.utils.logging.subsystem.processors.MotorInputProcessor;
 
 /** SparkMax Input Builder implementation */
 public class SparkMaxInputProcessor implements MotorInputProcessor<SparkMax> {
