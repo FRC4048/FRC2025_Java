@@ -9,13 +9,13 @@ import frc.robot.utils.logging.subsystem.processors.MotorInputProcessor;
  * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware
  */
 public class MotorInputBuilder<R> extends InputBuilder<R, BuildableFolderMotorInputs<R>> {
-  private DoubleInput<R> encoderPosition;
-  private DoubleInput<R> encoderVelocity;
-  private DoubleInput<R> motorCurrent;
-  private DoubleInput<R> motorTemperature;
-  private BooleanInput<R> fwdLimit;
-  private BooleanInput<R> revLimit;
-  private final MotorInputProcessor<R> inputProcessor;
+  protected DoubleInput<R> encoderPosition;
+  protected DoubleInput<R> encoderVelocity;
+  protected DoubleInput<R> motorCurrent;
+  protected DoubleInput<R> motorTemperature;
+  protected BooleanInput<R> fwdLimit;
+  protected BooleanInput<R> revLimit;
+  protected final MotorInputProcessor<R> inputProcessor;
 
   public MotorInputBuilder(String folder, MotorInputProcessor<R> inputProcessor) {
     super(folder);
@@ -96,9 +96,5 @@ public class MotorInputBuilder<R> extends InputBuilder<R, BuildableFolderMotorIn
     fwdLimit = null;
     revLimit = null;
     return this;
-  }
-
-  protected MotorInputProcessor<R> getInputProcessor() {
-    return inputProcessor;
   }
 }

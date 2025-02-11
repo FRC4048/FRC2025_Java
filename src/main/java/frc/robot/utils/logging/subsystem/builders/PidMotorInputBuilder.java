@@ -14,8 +14,21 @@ public class PidMotorInputBuilder<R> extends MotorInputBuilder<R> {
   public MotorInputBuilder<R> pidSetpoint() {
     pidSetpoint =
         new DoubleInput<>(
-            "pidSetpoint", ((PidMotorInputProcessor<R>) getInputProcessor()).setpointFromSource());
+            "pidSetpoint", ((PidMotorInputProcessor<R>) inputProcessor).setpointFromSource());
     return this;
+  }
+
+  @Override
+  public BuildableFolderMotorInputs<R> build() {
+    return new BuildableFolderMotorInputs<>(
+            folder,
+            encoderPosition,
+            encoderVelocity,
+            motorCurrent,
+            motorTemperature,
+            fwdLimit,
+            revLimit,
+            pidSetpoint);
   }
 
   @Override
