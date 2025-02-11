@@ -8,14 +8,14 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.SparkMaxInputProcessor;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
   private final LoggableSystem<ClimberIO, BuildableFolderMotorInputs<SparkMax>> climberSystem;
 
   public ClimberSubsystem(ClimberIO io) {
-    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ClimberSubsystem");
+    SparkMaxInputProcessor builder = new SparkMaxInputProcessor("ClimberSubsystem");
     BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
     climberSystem = new LoggableSystem<>(io, inputs);
   }

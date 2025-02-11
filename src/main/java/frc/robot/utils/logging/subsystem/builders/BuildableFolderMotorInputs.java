@@ -1,6 +1,6 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.InputSource;
+import frc.robot.utils.logging.subsystem.processors.InputSource;
 import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
 import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
 import org.littletonrobotics.junction.LogTable;

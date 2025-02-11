@@ -1,4 +1,4 @@
-package frc.robot.utils.logging.subsystem;
+package frc.robot.utils.logging.subsystem.processors;
 
 /**
  * @param <T> Type of data to pull from hardware

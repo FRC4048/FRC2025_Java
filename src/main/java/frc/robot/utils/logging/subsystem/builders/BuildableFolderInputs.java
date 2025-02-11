@@ -1,7 +1,7 @@
 package frc.robot.utils.logging.subsystem.builders;
 
 import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
-import frc.robot.utils.logging.subsystem.InputSource;
+import frc.robot.utils.logging.subsystem.processors.InputSource;
 
 /**
  * subclass of {@link FolderLoggableInputs} that allows keys to be build using an {@link

@@ -4,14 +4,14 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.SparkMaxInputProcessor;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, BuildableFolderMotorInputs<SparkMax>> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
+    SparkMaxInputProcessor builder = new SparkMaxInputProcessor("ElevatorSubsystem");
     BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
   }
