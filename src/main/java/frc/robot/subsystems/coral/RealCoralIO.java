@@ -7,56 +7,66 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 
 public class RealCoralIO implements CoralIO {
-  private final SparkMax shooterMotor1; // TODO: change later to whatever
-  private final SparkMax shooterMotor2; // TODO: change later to whatever
+  private final SparkMax shooterMotorLeader; // TODO: change later to whatever
+  private final SparkMax shooterMotorFollower; // TODO: change later to whatever
 
   public RealCoralIO() {
-    shooterMotor1 = new SparkMax(Constants.SHOOTER_MOTOR_1_ID, SparkMax.MotorType.kBrushless);
-    shooterMotor2 = new SparkMax(Constants.SHOOTER_MOTOR_2_ID, SparkMax.MotorType.kBrushless);
+    shooterMotorLeader = new SparkMax(Constants.SHOOTER_MOTOR_1_ID, SparkMax.MotorType.kBrushless);
+    shooterMotorFollower =
+        new SparkMax(Constants.SHOOTER_MOTOR_2_ID, SparkMax.MotorType.kBrushless);
     configureMotor();
   }
 
   private void configureMotor() {
-    SparkMaxConfig coralConfigMotor1 = new SparkMaxConfig();
-    SparkMaxConfig coralConfigMotor2 = new SparkMaxConfig();
-    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.forwardLimitSwitchEnabled(true));
-    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.reverseLimitSwitchEnabled(true));
-    coralConfigMotor2.apply(coralConfigMotor1.limitSwitch.forwardLimitSwitchEnabled(true));
-    coralConfigMotor2.apply(coralConfigMotor1.limitSwitch.reverseLimitSwitchEnabled(true));
-    coralConfigMotor1.idleMode(IdleMode.kBrake);
-    shooterMotor1.configure(
-        coralConfigMotor1,
+    SparkMaxConfig coralConfigMotorLeader = new SparkMaxConfig();
+    SparkMaxConfig coralConfigMotorFollower = new SparkMaxConfig();
+    coralConfigMotorLeader.apply(
+        coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(true));
+    coralConfigMotorLeader.apply(
+        coralConfigMotorLeader.limitSwitch.reverseLimitSwitchEnabled(true));
+    coralConfigMotorFollower.apply(
+        coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(true));
+    coralConfigMotorFollower.apply(
+        coralConfigMotorLeader.limitSwitch.reverseLimitSwitchEnabled(true));
+    coralConfigMotorLeader.idleMode(IdleMode.kBrake);
+    shooterMotorLeader.configure(
+        coralConfigMotorLeader,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
-    shooterMotor2.configure(
-        coralConfigMotor2,
+    shooterMotorFollower.configure(
+        coralConfigMotorFollower,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
   public void setShooterSpeed(double speed) {
-    this.shooterMotor1.set(speed);
-    this.shooterMotor2.set(speed);
+    this.shooterMotorLeader.set(speed);
+    this.shooterMotorFollower.set(speed);
   }
 
   @Override
   public void stopShooterMotors() {
-    this.shooterMotor1.set(0);
-    this.shooterMotor2.set(0);
+    this.shooterMotorLeader.set(0);
+    this.shooterMotorFollower.set(0);
   }
 
   @Override
   public void enableOrDisableLimitSwitch(boolean state) {
-    SparkMaxConfig coralConfigMotor1 = new SparkMaxConfig();
-    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.forwardLimitSwitchEnabled(state));
-    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.reverseLimitSwitchEnabled(state));
-    shooterMotor1.configure(
-        coralConfigMotor1,
+    SparkMaxConfig coralConfigMotorLeader = new SparkMaxConfig();
+    coralConfigMotorLeader.apply(
+        coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(state));
+    coralConfigMotorLeader.apply(
+        coralConfigMotorLeader.limitSwitch.reverseLimitSwitchEnabled(state));
+    shooterMotorLeader.configure(
+        coralConfigMotorLeader,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
   }
 
   @Override
-  public void updateInputs(CoralInputs inputs) {}
+  public void updateInputs(CoralInputs inputs) {
+    inputs.fwdTripped = shooterMotorLeader.getForwardLimitSwitch().isPressed();
+    inputs.revTripped = shooterMotorLeader.getReverseLimitSwitch().isPressed();
+  }
 }
