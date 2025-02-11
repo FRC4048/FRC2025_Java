@@ -19,12 +19,8 @@ public class CoralSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     coralSystem.updateInputs();
-    SmartShuffleboard.put("DEBUG", "ForwardTripped?", coralSystem.getInputs().fwdTripped);
-    SmartShuffleboard.put("DEBUG", "ReverseTripped?", coralSystem.getInputs().revTripped);
-  }
-
-  public void setTiltAngularVelocity(double angleVelocity) {
-    coralSystem.getIO().setTiltAngularVelocity(angleVelocity);
+    SmartShuffleboard.put("coral", "ForwardTripped?", coralSystem.getInputs().fwdTripped);
+    SmartShuffleboard.put("coral", "ReverseTripped?", coralSystem.getInputs().revTripped);
   }
 
   public void setShooterSpeed(double speed) {
@@ -35,16 +31,8 @@ public class CoralSubsystem extends SubsystemBase {
     coralSystem.getIO().stopShooterMotors();
   }
 
-  public void stopTiltMotors() {
-    coralSystem.getIO().stopTiltMotors();
-  }
-
   public void enableOrDisableLimitSwitch(boolean state) {
     coralSystem.getIO().enableOrDisableLimitSwitch(state);
-  }
-
-  public double getAngle() {
-    return coralSystem.getInputs().tiltEncoderPosition;
   }
 
   public boolean getForwardSwitchState() {
@@ -53,9 +41,5 @@ public class CoralSubsystem extends SubsystemBase {
 
   public boolean getReverseSwitchState() {
     return coralSystem.getInputs().revTripped;
-  }
-
-  public void resetEncoder() {
-    coralSystem.getIO().resetTiltEncoder();
   }
 }

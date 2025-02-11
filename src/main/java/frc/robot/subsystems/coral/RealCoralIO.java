@@ -9,30 +9,24 @@ import frc.robot.constants.Constants;
 public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotor1; // TODO: change later to whatever
   private final SparkMax shooterMotor2; // TODO: change later to whatever
-  private final SparkMax shooterTiltMotor; // TODO: change later to whatever
-  private final SparkMaxConfig coralConfig;
+  
 
   public RealCoralIO() {
-    coralConfig = new SparkMaxConfig();
     shooterMotor1 = new SparkMax(Constants.SHOOTER_MOTOR_1_ID, SparkMax.MotorType.kBrushless);
     shooterMotor2 = new SparkMax(Constants.SHOOTER_MOTOR_2_ID, SparkMax.MotorType.kBrushless);
-    shooterTiltMotor = new SparkMax(Constants.SHOOTER_TILT_MOTOR_ID, SparkMax.MotorType.kBrushless);
     configureMotor();
-    resetTiltEncoder();
   }
 
   private void configureMotor() {
-    coralConfig.idleMode(IdleMode.kBrake);
+    SparkMaxConfig coralConfigMotor1 = new SparkMaxConfig();
+    SparkMaxConfig coralConfigMotor2 =  new SparkMaxConfig();
+    coralConfigMotor1.idleMode(IdleMode.kBrake);
     shooterMotor1.configure(
-        coralConfig,
+      coralConfigMotor1,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
     shooterMotor2.configure(
-        coralConfig,
-        SparkBase.ResetMode.kResetSafeParameters,
-        SparkBase.PersistMode.kPersistParameters);
-    shooterTiltMotor.configure(
-        coralConfig,
+      coralConfigMotor2,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
@@ -44,43 +38,28 @@ public class RealCoralIO implements CoralIO {
   }
 
   @Override
-  public void setTiltAngularVelocity(double angleSpeed) {
-    this.shooterTiltMotor.set(angleSpeed);
-  }
-
-  @Override
   public void stopShooterMotors() {
     this.shooterMotor1.set(0);
     this.shooterMotor2.set(0);
   }
 
   @Override
-  public void stopTiltMotors() {
-    this.shooterTiltMotor.set(0);
-  }
-
-  @Override
-  public void resetTiltEncoder() {
-    this.shooterTiltMotor.getEncoder().setPosition(0);
-  }
-
-  @Override
   public void enableOrDisableLimitSwitch(boolean state) {
-    coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(state));
-    coralConfig.apply(coralConfig.limitSwitch.reverseLimitSwitchEnabled(state));
+    SparkMaxConfig coralConfigMotor1 = new SparkMaxConfig();
+    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.forwardLimitSwitchEnabled(state));
+    coralConfigMotor1.apply(coralConfigMotor1.limitSwitch.reverseLimitSwitchEnabled(state));
     shooterMotor1.configure(
-        coralConfig,
+        coralConfigMotor1,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
     shooterMotor2.configure(
-        coralConfig,
+        coralConfigMotor1,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
   }
 
   @Override
   public void updateInputs(CoralInputs inputs) {
-    inputs.fwdTripped = shooterTiltMotor.getForwardLimitSwitch().isPressed();
-    inputs.revTripped = shooterTiltMotor.getReverseLimitSwitch().isPressed();
+
   }
 }
