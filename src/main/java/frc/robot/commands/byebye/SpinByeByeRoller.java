@@ -19,8 +19,8 @@ public class SpinByeByeRoller extends LoggableCommand {
 
   @Override
   public void initialize() {
-    byebyeRoller.setSpeed(Constants.BYEBYE_ROLLER_SPEED);
     timer.restart();
+    byebyeRoller.setSpeed(Constants.BYEBYE_ROLLER_SPEED);
   }
 
   @Override
