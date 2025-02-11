@@ -15,7 +15,7 @@ import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
-  private final SparkMax removerTiltMotor; // SnowblowerMotor
+  protected final SparkMax removerTiltMotor; // SnowblowerMotor
 
   public RealAlgaeByeByeTiltIO() {
 

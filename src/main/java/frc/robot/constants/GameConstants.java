@@ -1,5 +1,8 @@
 package frc.robot.constants;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Radians;
+
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 
@@ -109,4 +112,11 @@ public class GameConstants {
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
   public static final double MAX_ELEVATOR_HEIGHT_METERS = 1; // in m
+
+  // Algae Bye Bye
+  public static final double BYEBYE_GEARING = 45.0; // TODO: change later
+  public static final double BYEBYE_INERTIA = 1.0; // TODO: change later
+  public static final double BYEBYE_LENGTH = 0.5; // TODO: change later
+  public static final double BYEBYE_MIN_ANGLE = Degrees.of(-90).in(Radians); // TODO: change later
+  public static final double BYEBYE_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
 }
