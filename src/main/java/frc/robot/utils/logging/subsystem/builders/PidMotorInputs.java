@@ -6,7 +6,7 @@ import frc.robot.utils.logging.subsystem.processors.NeoPidMotorInputProcessor;
 import frc.robot.utils.logging.subsystem.processors.PidMotorInputProcessor;
 import org.littletonrobotics.junction.LogTable;
 
-/** Contains Inputs that could be logged for a SparkMax with a NeoMotorPid */
+/** Contains Inputs that could be logged for a Motor with a Pid */
 public class PidMotorInputs<R> extends MotorInputs<R> {
   private final DoubleInput<R> pidSetpoint;
 
