@@ -1,8 +1,6 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
-import frc.robot.utils.logging.subsystem.processors.NeoPidMotorInputProcessor;
 import frc.robot.utils.logging.subsystem.processors.PidMotorInputProcessor;
 import org.littletonrobotics.junction.LogTable;
 
@@ -10,7 +8,7 @@ import org.littletonrobotics.junction.LogTable;
 public class PidMotorInputs<R> extends MotorInputs<R> {
   private final DoubleInput<R> pidSetpoint;
 
-  public PidMotorInputs(Builder<R,?> builder) {
+  public PidMotorInputs(Builder<R, ?> builder) {
     super(builder);
     this.pidSetpoint = builder.pidSetpoint;
   }
@@ -43,7 +41,7 @@ public class PidMotorInputs<R> extends MotorInputs<R> {
     return pidSetpoint;
   }
 
-  public static class Builder<R,T extends Builder<R,T>> extends MotorInputs.Builder<R, T> {
+  public static class Builder<R, T extends Builder<R, T>> extends MotorInputs.Builder<R, T> {
     private DoubleInput<R> pidSetpoint;
 
     public Builder(String folder, PidMotorInputProcessor<R> inputProcessor) {

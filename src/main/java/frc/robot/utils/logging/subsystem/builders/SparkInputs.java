@@ -20,6 +20,7 @@ public class SparkInputs extends MotorInputs<SparkMax> {
     public Builder(String folder) {
       super(folder, new SparkMaxInputProcessor());
     }
+
     @Override
     public SparkInputs build() {
       return new SparkInputs(this);
