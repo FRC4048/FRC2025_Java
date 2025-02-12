@@ -11,9 +11,10 @@ public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotorFollower; // TODO: change later to whatever
 
   public RealCoralIO() {
-    shooterMotorLeader = new SparkMax(Constants.SHOOTER_MOTOR_1_ID, SparkMax.MotorType.kBrushless);
+    shooterMotorLeader =
+        new SparkMax(Constants.SHOOTER_MOTOR_LEADER, SparkMax.MotorType.kBrushless);
     shooterMotorFollower =
-        new SparkMax(Constants.SHOOTER_MOTOR_2_ID, SparkMax.MotorType.kBrushless);
+        new SparkMax(Constants.SHOOTER_MOTOR_FOLLOWER, SparkMax.MotorType.kBrushless);
     configureMotor();
   }
 

@@ -18,11 +18,12 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
+import frc.robot.commands.coral.CoralToFWRLimit;
+import frc.robot.commands.coral.CoralToREVLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
-import frc.robot.commands.subsystemtests.CoralToFWRLimit;
 import frc.robot.commands.subsystemtests.DisableCoralLimit;
 import frc.robot.commands.subsystemtests.EnableCoralLimit;
 import frc.robot.commands.subsystemtests.SpinExtender;
@@ -271,7 +272,8 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("coral", "DisableLimit", new DisableCoralLimit(Coral));
       SmartShuffleboard.putCommand("coral", "EnableLimit", new EnableCoralLimit(Coral));
       SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
-      SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new CoralToFWRLimit(Coral));
+      SmartShuffleboard.putCommand("coral", "CoralToFWRLImit", new CoralToFWRLimit(Coral));
+      SmartShuffleboard.putCommand("coral", "CoralToREVLImit", new CoralToREVLimit(Coral));
 
       SmartShuffleboard.putCommand(
           "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
