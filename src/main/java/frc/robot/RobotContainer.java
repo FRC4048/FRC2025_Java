@@ -141,7 +141,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
-
   public static boolean isRedAlliance() {
     Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
     return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
