@@ -7,6 +7,7 @@ import org.littletonrobotics.junction.LogTable;
 
 /**
  * Contains Inputs that could be logged for a motor
+ *
  * @param <R> Hardware class that is used by an {@link
  *     frc.robot.utils.logging.subsystem.processors.InputSource} to pull data from hardware.
  */
@@ -184,14 +185,29 @@ public class MotorInputs<R> extends FolderInputs<R> {
       return self();
     }
 
+    /**
+     * Adds {@link #encoderPosition()} and {@link #encoderVelocity()}
+     *
+     * @return the builder
+     */
     public T addEncoder() {
       return encoderPosition().encoderVelocity();
     }
 
+    /**
+     * Adds {@link #motorCurrent()} and {@link #motorTemperature()}
+     *
+     * @return the builder
+     */
     public T addStatus() {
       return motorCurrent().motorTemperature();
     }
 
+    /**
+     * Adds {@link #fwdLimit()} and {@link #revLimit()}
+     *
+     * @return the builder
+     */
     public T addLimits() {
       return fwdLimit().revLimit();
     }
