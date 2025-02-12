@@ -4,8 +4,8 @@ import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.subsystem.processors.SparkMaxInputProcessor;
 
 /**
- * This does not add any new functionality compared to MotorInputs with a SparkInputProcessor. This
- * is solely to make user API more friendly (generic can be scary)
+ * This does not add any new functionality compared to {@link MotorInputs} with a {@link SparkMaxInputProcessor}. <br>
+ * This is solely to make user API more friendly.
  */
 public class SparkInputs extends MotorInputs<SparkMax> {
 

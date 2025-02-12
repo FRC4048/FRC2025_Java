@@ -7,7 +7,6 @@ import org.littletonrobotics.junction.LogTable;
 
 /**
  * Contains Inputs that could be logged for a motor
- *
  * @param <R> Hardware class that is used by an {@link
  *     frc.robot.utils.logging.subsystem.processors.InputSource} to pull data from hardware.
  */

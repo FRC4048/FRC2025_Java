@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 
-/** SparkMax Input Builder implementation */
+/** Talon Input Builder implementation */
 public class TalonInputProcessor implements MotorInputProcessor<WPI_TalonSRX> {
 
   @Override
