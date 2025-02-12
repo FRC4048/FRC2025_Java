@@ -7,16 +7,16 @@ package frc.robot.subsystems.hihiextender;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.SparkInputs;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
-  private final LoggableSystem<HihiExtenderIO, BuildableFolderMotorInputs<SparkMax>> system;
+  private final LoggableSystem<HihiExtenderIO, MotorInputs<SparkMax>> system;
 
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
-    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("HihiExtenderSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
+    SparkInputs.Builder<?> builder = new SparkInputs.Builder<>("HihiExtenderSubsystem");
+    MotorInputs<SparkMax> inputs = builder.addAll().build();
     system = new LoggableSystem<>(io, inputs);
   }
 

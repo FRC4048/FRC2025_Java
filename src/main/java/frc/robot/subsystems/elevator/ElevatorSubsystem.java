@@ -3,21 +3,21 @@ package frc.robot.subsystems.elevator;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.SparkInputs;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private final LoggableSystem<ElevatorIO, BuildableFolderMotorInputs<SparkMax>> elevatorSystem;
+  private final LoggableSystem<ElevatorIO, MotorInputs<SparkMax>> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
+    SparkInputs.Builder<?> builder = new SparkInputs.Builder<>("ElevatorSubsystem");
+    MotorInputs<SparkMax> inputs = builder.addAll().build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
     /* Example for Neo Pid
-        NeoPidMotorInputBuilder builder2 = new NeoPidMotorInputBuilder("ElevatorSubsystem");
-        BuildableFolderMotorInputs<SparkMax> inputs2 = builder2.addAll().build();
-        this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs2);
+    NeoPidMotorInputs.Builder<?> builder2 = new NeoPidMotorInputs.Builder<>("ElevatorSubsystem");
+    MotorInputs<SparkMax> inputs2 = builder2.addAll().build();
+    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs2);
     */
   }
 

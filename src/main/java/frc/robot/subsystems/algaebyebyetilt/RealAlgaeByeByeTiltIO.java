@@ -11,7 +11,7 @@ import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.MotorInputs;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
@@ -50,7 +50,7 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   }
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
+  public void updateInputs(MotorInputs<SparkMax> inputs) {
     inputs.process(removerTiltMotor);
   }
 }
