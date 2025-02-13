@@ -1,15 +1,17 @@
 package frc.robot.utils.logging.subsystem.processors;
 
+import java.util.function.Function;
+
 public interface MotorInputProcessor<R> extends InputProcessor<R> {
-  InputSource<Double, R> currentFromSource();
+  Function<R, Double> currentFromSource();
 
-  InputSource<Double, R> motorTemperatureFromSource();
+  Function<R, Double> motorTemperatureFromSource();
 
-  InputSource<Double, R> encoderPositionFromSource();
+  Function<R, Double> encoderPositionFromSource();
 
-  InputSource<Double, R> encoderVelocityFromSource();
+  Function<R, Double> encoderVelocityFromSource();
 
-  InputSource<Boolean, R> fwdLimitFromSource();
+  Function<R, Boolean> fwdLimitFromSource();
 
-  InputSource<Boolean, R> revLimitFromSource();
+  Function<R, Boolean> revLimitFromSource();
 }

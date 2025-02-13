@@ -76,22 +76,22 @@ public class MotorInputs<R> extends FolderInputs<R> {
   public boolean process(R source) {
     if (inputProcessor instanceof MotorInputProcessor<R> motorInputProcessor) {
       if (encoderPosition != null) {
-        encoderPosition = motorInputProcessor.encoderPositionFromSource().fromSource(source);
+        encoderPosition = motorInputProcessor.encoderPositionFromSource().apply(source);
       }
       if (encoderVelocity != null) {
-        encoderVelocity = motorInputProcessor.encoderVelocityFromSource().fromSource(source);
+        encoderVelocity = motorInputProcessor.encoderVelocityFromSource().apply(source);
       }
       if (motorCurrent != null) {
-        motorCurrent = motorInputProcessor.currentFromSource().fromSource(source);
+        motorCurrent = motorInputProcessor.currentFromSource().apply(source);
       }
       if (motorTemperature != null) {
-        motorTemperature = motorInputProcessor.motorTemperatureFromSource().fromSource(source);
+        motorTemperature = motorInputProcessor.motorTemperatureFromSource().apply(source);
       }
       if (fwdLimit != null) {
-        fwdLimit = motorInputProcessor.fwdLimitFromSource().fromSource(source);
+        fwdLimit = motorInputProcessor.fwdLimitFromSource().apply(source);
       }
       if (revLimit != null) {
-        revLimit = motorInputProcessor.revLimitFromSource().fromSource(source);
+        revLimit = motorInputProcessor.revLimitFromSource().apply(source);
       }
       return true;
     } else {

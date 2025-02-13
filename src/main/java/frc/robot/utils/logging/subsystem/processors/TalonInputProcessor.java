@@ -3,37 +3,38 @@ package frc.robot.utils.logging.subsystem.processors;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import java.util.function.Function;
 
 /** Talon Input Builder implementation */
 public class TalonInputProcessor implements MotorInputProcessor<WPI_TalonSRX> {
 
   @Override
-  public InputSource<Double, WPI_TalonSRX> currentFromSource() {
+  public Function<WPI_TalonSRX, Double> currentFromSource() {
     return BaseTalon::getStatorCurrent;
   }
 
   @Override
-  public InputSource<Double, WPI_TalonSRX> motorTemperatureFromSource() {
+  public Function<WPI_TalonSRX, Double> motorTemperatureFromSource() {
     return BaseMotorController::getTemperature;
   }
 
   @Override
-  public InputSource<Double, WPI_TalonSRX> encoderPositionFromSource() {
+  public Function<WPI_TalonSRX, Double> encoderPositionFromSource() {
     return BaseMotorController::getSelectedSensorPosition;
   }
 
   @Override
-  public InputSource<Double, WPI_TalonSRX> encoderVelocityFromSource() {
+  public Function<WPI_TalonSRX, Double> encoderVelocityFromSource() {
     return BaseMotorController::getSelectedSensorVelocity;
   }
 
   @Override
-  public InputSource<Boolean, WPI_TalonSRX> fwdLimitFromSource() {
+  public Function<WPI_TalonSRX, Boolean> fwdLimitFromSource() {
     return talon -> talon.isFwdLimitSwitchClosed() == 1;
   }
 
   @Override
-  public InputSource<Boolean, WPI_TalonSRX> revLimitFromSource() {
+  public Function<WPI_TalonSRX, Boolean> revLimitFromSource() {
     return talon -> talon.isRevLimitSwitchClosed() == 1;
   }
 }

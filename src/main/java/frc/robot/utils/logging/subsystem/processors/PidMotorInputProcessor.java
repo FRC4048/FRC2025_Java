@@ -1,5 +1,7 @@
 package frc.robot.utils.logging.subsystem.processors;
 
+import java.util.function.Function;
+
 public interface PidMotorInputProcessor<R> extends MotorInputProcessor<R> {
-  InputSource<Double, R> setpointFromSource();
+  Function<R, Double> setpointFromSource();
 }

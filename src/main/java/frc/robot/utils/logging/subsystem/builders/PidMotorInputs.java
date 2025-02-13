@@ -34,7 +34,7 @@ public class PidMotorInputs<R> extends MotorInputs<R> {
     boolean success = super.process(source);
     if (success && inputProcessor instanceof PidMotorInputProcessor<R> pidInputSource) {
       if (pidSetpoint != null) {
-        pidSetpoint = pidInputSource.setpointFromSource().fromSource(source);
+        pidSetpoint = pidInputSource.setpointFromSource().apply(source);
       }
       return true;
     } else {

@@ -2,37 +2,38 @@ package frc.robot.utils.logging.subsystem.processors;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
+import java.util.function.Function;
 
 /** SparkMax Input Builder implementation */
 public class SparkMaxInputProcessor implements MotorInputProcessor<SparkMax> {
 
   @Override
-  public InputSource<Double, SparkMax> currentFromSource() {
+  public Function<SparkMax, Double> currentFromSource() {
     return SparkBase::getOutputCurrent;
   }
 
   @Override
-  public InputSource<Double, SparkMax> motorTemperatureFromSource() {
+  public Function<SparkMax, Double> motorTemperatureFromSource() {
     return SparkBase::getMotorTemperature;
   }
 
   @Override
-  public InputSource<Double, SparkMax> encoderPositionFromSource() {
+  public Function<SparkMax, Double> encoderPositionFromSource() {
     return spark -> spark.getEncoder().getPosition();
   }
 
   @Override
-  public InputSource<Double, SparkMax> encoderVelocityFromSource() {
+  public Function<SparkMax, Double> encoderVelocityFromSource() {
     return spark -> spark.getEncoder().getVelocity();
   }
 
   @Override
-  public InputSource<Boolean, SparkMax> fwdLimitFromSource() {
+  public Function<SparkMax, Boolean> fwdLimitFromSource() {
     return spark -> spark.getForwardLimitSwitch().isPressed();
   }
 
   @Override
-  public InputSource<Boolean, SparkMax> revLimitFromSource() {
+  public Function<SparkMax, Boolean> revLimitFromSource() {
     return spark -> spark.getReverseLimitSwitch().isPressed();
   }
 }
