@@ -15,8 +15,4 @@ public class ConstantsTestbed2025 extends Constants2025 {
    * be committed to Git.
    */
   public static final int ALGAE_EXTENDER_MOTOR_ID = 6;
-
-  public static final int SHOOTER_MOTOR_LEADER = 45; // TODO: change later
-  public static final int SHOOTER_MOTOR_FOLLOWER = 99;
-  public static final int ALGAE_BYEBYE_TILT_ID = 98;
 }
