@@ -23,7 +23,7 @@ public class SimClimberIO extends RealClimberIO {
   public void updateInputs(MotorInputs<SparkMax> inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      motorSimulator.simulationPeriodic();
+      motorSimulator.stepSimulation();
     }
     SmartShuffleboard.put("Climber", "Location", motorSimulator.getEncoder().getPosition());
     SmartShuffleboard.put("Climber", "speed", motorSimulator.getEncoder().getVelocity());
