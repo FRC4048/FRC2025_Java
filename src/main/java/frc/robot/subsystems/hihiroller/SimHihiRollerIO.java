@@ -16,7 +16,7 @@ public class SimHihiRollerIO extends RealHihiRollerIO {
   public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      hihiRollerSimulator.simulationPeriodic();
+      hihiRollerSimulator.stepSimulation();
     }
   }
 }

@@ -15,7 +15,7 @@ public class SimElevatorIO extends RealElevatorIO {
   public void updateInputs(PidMotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      elevatorSimulator.simulationPeriodic();
+      elevatorSimulator.stepSimulation();
     }
   }
 }

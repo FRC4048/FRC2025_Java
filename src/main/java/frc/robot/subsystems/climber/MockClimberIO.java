@@ -15,5 +15,8 @@ public class MockClimberIO implements ClimberIO {
   public void stopClimber() {}
 
   @Override
-  public void updateInputs(MotorInputs inputs) {}
+  public void resetClimberEncoder() {}
+
+  @Override
+  public void updateInputs(MotorInputs<SparkMax> inputs) {}
 }
