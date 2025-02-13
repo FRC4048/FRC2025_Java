@@ -40,6 +40,6 @@ public class IntakeCoral extends LoggableCommand {
       timoutCounter.increaseTimeoutCount();
       return true;
     }
-    return intake.getReverseSwitchState();
+    return intake.getForwardSwitchState();
   }
 }

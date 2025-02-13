@@ -5,7 +5,6 @@
 package frc.robot.subsystems.coral;
 
 import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
@@ -19,12 +18,14 @@ public class CoralSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO io) {
     SparkMaxInputBuilder followerBuilder = new SparkMaxInputBuilder("CoralSubsystem/Follower");
-    BuildableFolderMotorInputs<SparkMax> followerInputs = followerBuilder.encoderVelocity().fwdLimit().addStatus().build();
+    BuildableFolderMotorInputs<SparkMax> followerInputs =
+        followerBuilder.encoderVelocity().fwdLimit().addStatus().build();
 
     SparkMaxInputBuilder leaderBuilder = new SparkMaxInputBuilder("CoralSubsystem/Leader");
-    BuildableFolderMotorInputs<SparkMax> leaderInputs = leaderBuilder.encoderVelocity().fwdLimit().addStatus().build();
+    BuildableFolderMotorInputs<SparkMax> leaderInputs =
+        leaderBuilder.encoderVelocity().fwdLimit().addStatus().build();
     coralSystemFollower = new LoggableSystem<>(io, followerInputs);
-    coralSystemLeader =  new LoggableSystem<>(io, leaderInputs);
+    coralSystemLeader = new LoggableSystem<>(io, leaderInputs);
   }
 
   @Override
@@ -32,7 +33,6 @@ public class CoralSubsystem extends SubsystemBase {
     coralSystemLeader.updateInputs();
     coralSystemFollower.updateInputs();
     SmartShuffleboard.put("coral", "ForwardTripped?", coralSystemLeader.getInputs().fwdLimit());
-    SmartShuffleboard.put("coral", "ReverseTripped?", coralSystemLeader.getInputs().revLimit());
   }
 
   public void setShooterSpeed(double speed) {
@@ -57,9 +57,5 @@ public class CoralSubsystem extends SubsystemBase {
 
   public boolean getForwardSwitchState() {
     return coralSystemLeader.getInputs().fwdLimit();
-  }
-
-  public boolean getReverseSwitchState() {
-    return coralSystemLeader.getInputs().revLimit();
   }
 }
