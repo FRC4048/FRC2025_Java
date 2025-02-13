@@ -14,4 +14,6 @@ public interface HihiExtenderIO extends LoggableIO<BuildableFolderMotorInputs<Sp
   void setHihiExtenderSpeed(double speed);
 
   void resetExtenderEncoder();
+
+  void setExtenderPosition(double encoderPos);
 }

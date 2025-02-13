@@ -1,5 +1,8 @@
 package frc.robot.constants;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Radians;
+
 import frc.robot.utils.SwerveModuleProfileV2;
 
 public class Constants2025 extends GameConstants {
@@ -57,4 +60,13 @@ public class Constants2025 extends GameConstants {
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
   public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
+
+  // Algae Hihi
+  public static final double HIHI_GEARING = 45.0; // TODO: change later
+  public static final double HIHI_INERTIA = 1.0; // TODO: change later
+  public static final double HIHI_LENGTH = 0.5; // TODO: change later
+  public static final double HIHI_MIN_ANGLE = Degrees.of(-90).in(Radians); // TODO: change later
+  public static final double HIHI_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
+  public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 }
