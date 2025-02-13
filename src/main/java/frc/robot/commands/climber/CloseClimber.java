@@ -36,11 +36,14 @@ public class CloseClimber extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if (timer.hasElapsed(Constants.CLOSE_CLIMBER_TIMEOUT)) {
+    if (climber.isRetractedLimitSwitchPressed()) {
+      return true;
+    } else if (timer.hasElapsed(Constants.CLOSE_CLIMBER_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
   @Override
