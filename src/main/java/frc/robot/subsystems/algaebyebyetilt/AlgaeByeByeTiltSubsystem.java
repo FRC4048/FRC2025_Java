@@ -42,10 +42,10 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardSwitchState() {
-    return algaeTiltSystem.getInputs().fwdLimit();
+    return algaeTiltSystem.getInputs().getFwdLimit();
   }
 
   public boolean getReverseSwitchState() {
-    return algaeTiltSystem.getInputs().revLimit();
+    return algaeTiltSystem.getInputs().getRevLimit();
   }
 }

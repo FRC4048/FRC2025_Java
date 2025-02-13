@@ -36,11 +36,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardLimitSwitchState() {
-    return elevatorSystem.getInputs().fwdLimit();
+    return elevatorSystem.getInputs().getFwdLimit();
   }
 
   public boolean getReverseLimitSwitchState() {
-    return elevatorSystem.getInputs().revLimit();
+    return elevatorSystem.getInputs().getRevLimit();
   }
 
   public void stopMotor() {

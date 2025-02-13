@@ -1,23 +1,23 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utils.logging.subsystem.processors.PidMotorInputProcessor;
 import org.littletonrobotics.junction.LogTable;
 
 /** Contains Inputs that could be logged for a Motor with a Pid */
 public class PidMotorInputs<R> extends MotorInputs<R> {
-  private final DoubleInput<R> pidSetpoint;
+  private Double pidSetpoint;
 
   public PidMotorInputs(Builder<R, ?> builder) {
     super(builder);
-    this.pidSetpoint = builder.pidSetpoint;
+    this.pidSetpoint = builder.logPidSetpoint ? 0.0 : null;
   }
 
   @Override
   public void toLog(LogTable table) {
     super.toLog(table);
     if (pidSetpoint != null) {
-      pidSetpoint.toLog(table);
+      table.put("pidSetpoint", pidSetpoint);
     }
   }
 
@@ -25,24 +25,30 @@ public class PidMotorInputs<R> extends MotorInputs<R> {
   public void fromLog(LogTable table) {
     super.fromLog(table);
     if (pidSetpoint != null) {
-      pidSetpoint.fromLog(table);
+      pidSetpoint = table.get("pidSetpoint", pidSetpoint);
     }
   }
 
   @Override
-  public void process(R source) {
-    super.process(source);
-    if (pidSetpoint != null) {
-      pidSetpoint.process(source);
+  public boolean process(R source) {
+    boolean success = super.process(source);
+    if (success && inputProcessor instanceof PidMotorInputProcessor<R> pidInputSource) {
+      if (pidSetpoint != null) {
+        pidSetpoint = pidInputSource.setpointFromSource().fromSource(source);
+      }
+      return true;
+    } else {
+      DriverStation.reportError("InputSource must be of type PidMotorInputSource", true);
+      return false;
     }
   }
 
-  public DoubleInput<R> getPidSetpoint() {
+  public Double getPidSetpoint() {
     return pidSetpoint;
   }
 
   public static class Builder<R, T extends Builder<R, T>> extends MotorInputs.Builder<R, T> {
-    private DoubleInput<R> pidSetpoint;
+    private boolean logPidSetpoint;
 
     public Builder(String folder, PidMotorInputProcessor<R> inputProcessor) {
       super(folder, inputProcessor);
@@ -61,14 +67,12 @@ public class PidMotorInputs<R> extends MotorInputs<R> {
     @Override
     public T reset() {
       super.reset();
-      pidSetpoint = null;
+      logPidSetpoint = false;
       return self();
     }
 
     public T pidSetpoint() {
-      pidSetpoint =
-          new DoubleInput<>(
-              "pidSetpoint", ((PidMotorInputProcessor<R>) inputProcessor).setpointFromSource());
+      logPidSetpoint = true;
       return self();
     }
   }

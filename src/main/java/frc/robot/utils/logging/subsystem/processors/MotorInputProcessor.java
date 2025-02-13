@@ -1,6 +1,6 @@
 package frc.robot.utils.logging.subsystem.processors;
 
-public interface MotorInputProcessor<R> {
+public interface MotorInputProcessor<R> extends InputProcessor<R> {
   InputSource<Double, R> currentFromSource();
 
   InputSource<Double, R> motorTemperatureFromSource();

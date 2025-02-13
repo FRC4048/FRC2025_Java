@@ -1,6 +1,7 @@
 package frc.robot.utils.logging.subsystem.builders;
 
 import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
+import frc.robot.utils.logging.subsystem.processors.InputProcessor;
 import frc.robot.utils.logging.subsystem.processors.InputSource;
 import org.littletonrobotics.junction.LogTable;
 
@@ -12,18 +13,23 @@ import org.littletonrobotics.junction.LogTable;
  */
 public abstract class FolderInputs<R> extends FolderLoggableInputs {
 
+  protected final InputProcessor<R> inputProcessor;
+
   public FolderInputs(Builder<R, ?> builder) {
     super(builder.folder);
+    this.inputProcessor = builder.inputProcessor;
   }
 
-  abstract void process(R source);
+  abstract boolean process(R source);
 
   public abstract static class Builder<R, T extends Builder<R, T>> {
 
     private final String folder;
+    private final InputProcessor<R> inputProcessor;
 
-    public Builder(String folder) {
+    public Builder(String folder, InputProcessor<R> inputProcessor) {
       this.folder = folder;
+      this.inputProcessor = inputProcessor;
     }
 
     T self() {
@@ -35,7 +41,9 @@ public abstract class FolderInputs<R> extends FolderLoggableInputs {
     public FolderInputs<R> build() {
       return new FolderInputs<>(this) {
         @Override
-        void process(R source) {}
+        boolean process(R source) {
+          return true;
+        }
 
         @Override
         public void toLog(LogTable table) {}

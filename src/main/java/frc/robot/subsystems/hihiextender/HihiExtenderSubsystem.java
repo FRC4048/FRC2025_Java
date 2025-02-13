@@ -34,11 +34,11 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardSwitchState() {
-    return system.getInputs().fwdLimit();
+    return system.getInputs().getFwdLimit();
   }
 
   public boolean getReverseSwitchState() {
-    return system.getInputs().revLimit();
+    return system.getInputs().getRevLimit();
   }
 
   public void resetEncoder() {
