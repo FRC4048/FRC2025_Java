@@ -6,6 +6,7 @@ package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
@@ -22,7 +23,11 @@ public class RealClimberIO implements ClimberIO {
 
   public void configureMotor() {
     SparkMaxConfig climberConfig = new SparkMaxConfig();
-    climberConfig.idleMode(IdleMode.kBrake);
+    climberConfig
+        .idleMode(IdleMode.kBrake)
+        .limitSwitch
+        .forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen)
+        .reverseLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
     climberMotor.configure(
         climberConfig,
         SparkBase.ResetMode.kResetSafeParameters,
@@ -37,6 +42,10 @@ public class RealClimberIO implements ClimberIO {
   @Override
   public void stopClimber() {
     climberMotor.set(0);
+  }
+
+  public void resetClimberEncoder() {
+    climberMotor.getEncoder().setPosition(0);
   }
 
   @Override

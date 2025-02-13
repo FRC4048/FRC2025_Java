@@ -1,16 +1,14 @@
 package frc.robot.commands.byebye;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
-import frc.robot.utils.logging.LoggableCommand;
-import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SpinByeByeRoller extends LoggableCommand {
   private final AlgaeByeByeRollerSubsystem byebyeRoller;
   private final Timer timer;
 
-  
   public SpinByeByeRoller(AlgaeByeByeRollerSubsystem byebyeRoller) {
     timer = new Timer();
     this.byebyeRoller = byebyeRoller;
@@ -36,6 +34,6 @@ public class SpinByeByeRoller extends LoggableCommand {
     if (timer.hasElapsed(Constants.BYEBYE_SPIN_ROLLER_TIMEOUT)) {
       return true;
     }
-  return false;
+    return false;
   }
 }
