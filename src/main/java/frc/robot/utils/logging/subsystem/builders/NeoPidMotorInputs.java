@@ -1,6 +1,5 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.subsystem.processors.NeoPidMotorInputProcessor;
 import frc.robot.utils.motor.NeoPidMotor;
 

@@ -2,7 +2,6 @@ package frc.robot.utils.logging.subsystem.builders;
 
 import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import frc.robot.utils.logging.subsystem.processors.InputProcessor;
-import frc.robot.utils.logging.subsystem.processors.InputSource;
 import org.littletonrobotics.junction.LogTable;
 
 /**
