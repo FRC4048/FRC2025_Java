@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.climber;
 
+import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.subsystem.builders.MotorInputs;
 
 /** Add your docs here. */
@@ -18,5 +19,5 @@ public class MockClimberIO implements ClimberIO {
   public void resetClimberEncoder() {}
 
   @Override
-  public void updateInputs(MotorInputs inputs) {}
+  public void updateInputs(MotorInputs<SparkMax> inputs) {}
 }
