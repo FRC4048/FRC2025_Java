@@ -16,7 +16,7 @@ public class SimElevatorIO extends RealElevatorIO {
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      elevatorSimulator.simulationPeriodic();
+      elevatorSimulator.stepSimulation();
     }
   }
 }
