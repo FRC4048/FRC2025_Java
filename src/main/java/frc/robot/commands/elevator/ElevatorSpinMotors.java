@@ -10,8 +10,8 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
+/** Spins the ElevatorMotor until the encoder value is >= 12 */
 public class ElevatorSpinMotors extends LoggableCommand {
-  /** Creates a new ElevatorSpinMotors. */
   private final ElevatorSubsystem elevator;
 
   private final TimeoutLogger timeoutCounter;

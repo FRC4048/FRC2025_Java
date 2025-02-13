@@ -38,7 +38,7 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
     algaeTiltSystem.getIO().resetEncoder();
   }
 
-  public double getAngle() {
+  public double getEncoderPosition() {
     return algaeTiltSystem.getInputs().getEncoderPosition();
   }
 

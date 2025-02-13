@@ -6,8 +6,6 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
-// ALL COMMENTED CODE REQUIRES METHODS THAT DON'T EXIST YET
-
 public class ResetElevator extends LoggableCommand {
   private final ElevatorSubsystem elevator;
   private final TimeoutLogger timeoutCounter;
@@ -20,7 +18,6 @@ public class ResetElevator extends LoggableCommand {
     addRequirements(elevator);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     timer.restart();
@@ -37,7 +34,6 @@ public class ResetElevator extends LoggableCommand {
     elevator.resetEncoder();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     if (timer.hasElapsed(Constants.ELEVATOR_RESET_TIMEOUT)) {

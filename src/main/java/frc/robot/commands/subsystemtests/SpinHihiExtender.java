@@ -25,8 +25,8 @@ public class SpinHihiExtender extends LoggableCommand {
 
   @Override
   public void initialize() {
-    extender.setExtenderSpeed(speedMotors);
     timer.restart();
+    extender.setExtenderSpeed(speedMotors);
   }
 
   @Override

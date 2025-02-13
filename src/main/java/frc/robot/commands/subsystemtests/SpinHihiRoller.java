@@ -5,6 +5,7 @@
 package frc.robot.commands.subsystemtests;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
@@ -24,9 +25,8 @@ public class SpinHihiRoller extends LoggableCommand {
 
   @Override
   public void initialize() {
+    timer.restart();
     roller.setRollerMotorSpeed(speedMotors);
-    timer.reset();
-    timer.start();
   }
 
   @Override
@@ -39,6 +39,6 @@ public class SpinHihiRoller extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(5);
+    return timer.hasElapsed(Constants.HIHI_ROLLER_SPIN_TIMEOUT);
   }
 }

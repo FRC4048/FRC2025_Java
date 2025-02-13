@@ -10,7 +10,6 @@ import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SpinTiltByeBye extends LoggableCommand {
-  /** Creates a new SpinTIlt. */
   private final Timer timer;
 
   private final double motorSpeed;
