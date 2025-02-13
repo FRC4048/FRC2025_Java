@@ -1,4 +1,4 @@
-package frc.robot.commands.Climber;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
@@ -42,6 +42,7 @@ public class ResetClimber extends LoggableCommand {
     if (climber.isRetractedLimitSwitchPressed()) {
       return true;
     } else if (timer.hasElapsed(Constants.RESET_CLIMBER_TIMEOUT)) {
+      timeoutCounter.increaseTimeoutCount();
       return true;
     }
     return false;
