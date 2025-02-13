@@ -4,42 +4,62 @@
 
 package frc.robot.subsystems.coral;
 
+import com.revrobotics.spark.SparkMax;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class CoralSubsystem extends SubsystemBase {
-  private final LoggableSystem<CoralIO, CoralInputs> coralSystem;
+  private final LoggableSystem<CoralIO, BuildableFolderMotorInputs<SparkMax>> coralSystemLeader;
+  private final LoggableSystem<CoralIO, BuildableFolderMotorInputs<SparkMax>> coralSystemFollower;
 
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO io) {
-    coralSystem = new LoggableSystem<>(io, new CoralInputs("CoralSubsystem"));
+    SparkMaxInputBuilder followerBuilder = new SparkMaxInputBuilder("CoralSubsystem/Follower");
+    BuildableFolderMotorInputs<SparkMax> followerInputs = followerBuilder.encoderVelocity().fwdLimit().addStatus().build();
+
+    SparkMaxInputBuilder leaderBuilder = new SparkMaxInputBuilder("CoralSubsystem/Leader");
+    BuildableFolderMotorInputs<SparkMax> leaderInputs = leaderBuilder.encoderVelocity().fwdLimit().addStatus().build();
+    coralSystemFollower = new LoggableSystem<>(io, followerInputs);
+    coralSystemLeader =  new LoggableSystem<>(io, leaderInputs);
   }
 
   @Override
   public void periodic() {
-    coralSystem.updateInputs();
-    SmartShuffleboard.put("coral", "ForwardTripped?", coralSystem.getInputs().fwdTripped);
-    SmartShuffleboard.put("coral", "ReverseTripped?", coralSystem.getInputs().revTripped);
+    coralSystemLeader.updateInputs();
+    coralSystemFollower.updateInputs();
+    SmartShuffleboard.put("coral", "ForwardTripped?", coralSystemLeader.getInputs().fwdLimit());
+    SmartShuffleboard.put("coral", "ReverseTripped?", coralSystemLeader.getInputs().revLimit());
   }
 
   public void setShooterSpeed(double speed) {
-    coralSystem.getIO().setShooterSpeed(speed);
+    coralSystemLeader.getIO().setShooterSpeed(speed);
+    coralSystemFollower.getIO().setShooterSpeed(speed);
   }
 
   public void stopShooterMotors() {
-    coralSystem.getIO().stopShooterMotors();
+    coralSystemLeader.getIO().stopShooterMotors();
+    coralSystemFollower.getIO().stopShooterMotors();
+  }
+
+  public void breakModeCoast(boolean breakMode) {
+    coralSystemLeader.getIO().breakModeCoast(breakMode);
+    coralSystemFollower.getIO().breakModeCoast(breakMode);
   }
 
   public void enableOrDisableLimitSwitch(boolean state) {
-    coralSystem.getIO().enableOrDisableLimitSwitch(state);
+    coralSystemLeader.getIO().enableOrDisableLimitSwitch(state);
+    coralSystemFollower.getIO().enableOrDisableLimitSwitch(state);
   }
 
   public boolean getForwardSwitchState() {
-    return coralSystem.getInputs().fwdTripped;
+    return coralSystemLeader.getInputs().fwdLimit();
   }
 
   public boolean getReverseSwitchState() {
-    return coralSystem.getInputs().revTripped;
+    return coralSystemLeader.getInputs().revLimit();
   }
 }
