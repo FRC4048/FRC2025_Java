@@ -17,7 +17,7 @@ public class SimHihiRollerIO extends RealHihiRollerIO {
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      hihiRollerSimulator.simulationPeriodic();
+      hihiRollerSimulator.stepSimulation();
     }
   }
 }
