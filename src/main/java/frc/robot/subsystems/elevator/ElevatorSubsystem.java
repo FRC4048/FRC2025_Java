@@ -1,19 +1,22 @@
 package frc.robot.subsystems.elevator;
 
-import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputs;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private final LoggableSystem<ElevatorIO, BuildableFolderMotorInputs<SparkMax>> elevatorSystem;
+  private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
+    PidMotorInputs.Builder<?> builder = new PidMotorInputs.Builder<>("ElevatorSubsystem");
+    PidMotorInputs inputs = builder.addAll().build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
+    /* Example for Neo Pid
+    NeoPidMotorInputs.Builder<?> builder2 = new NeoPidMotorInputs.Builder<>("ElevatorSubsystem");
+    MotorInputs<SparkMax> inputs2 = builder2.addAll().build();
+    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs2);
+    */
   }
 
   public void setElevatorMotorSpeed(double speed) {
@@ -22,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void setElevatorPosition(double encoderPos) {
     // TODO: This can be moved to input-based logging once that framework switches to composition
-    Logger.recordOutput("ElevatorSubystem/targetPosition", encoderPos);
+    Logger.recordOutput("ElevatorSubsystem/targetPosition", encoderPos);
     elevatorSystem.getIO().setElevatorPosition(encoderPos);
   }
 
@@ -31,11 +34,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardLimitSwitchState() {
-    return elevatorSystem.getInputs().fwdLimit();
+    return elevatorSystem.getInputs().getFwdLimit();
   }
 
   public boolean getReverseLimitSwitchState() {
-    return elevatorSystem.getInputs().revLimit();
+    return elevatorSystem.getInputs().getRevLimit();
   }
 
   public void stopMotor() {

@@ -4,20 +4,17 @@
 
 package frc.robot.subsystems.algaebyebyetilt;
 
-import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.MotorInputs;
 
 public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   /** Creates a new AlgaeByeByeTiltSubsystem. */
-  private final LoggableSystem<AlgaeByeByeTiltIO, BuildableFolderMotorInputs<SparkMax>>
-      algaeTiltSystem;
+  private final LoggableSystem<AlgaeByeByeTiltIO, MotorInputs> algaeTiltSystem;
 
   public AlgaeByeByeTiltSubsystem(AlgaeByeByeTiltIO io) {
-    SparkMaxInputBuilder builder = new SparkMaxInputBuilder("AlgaeByeByeTiltSubsystem");
-    BuildableFolderMotorInputs<SparkMax> inputs = builder.addAll().build();
+    MotorInputs.Builder<?> builder = new MotorInputs.Builder<>("AlgaeByeByeTiltSubsystem");
+    MotorInputs inputs = builder.addAll().build();
     algaeTiltSystem = new LoggableSystem<>(io, inputs);
   }
 
@@ -43,10 +40,10 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardSwitchState() {
-    return algaeTiltSystem.getInputs().fwdLimit();
+    return algaeTiltSystem.getInputs().getFwdLimit();
   }
 
   public boolean getReverseSwitchState() {
-    return algaeTiltSystem.getInputs().revLimit();
+    return algaeTiltSystem.getInputs().getRevLimit();
   }
 }
