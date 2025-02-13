@@ -14,7 +14,7 @@ public class SparkInputs extends MotorInputs<SparkMax> {
     super(builder);
   }
 
-  public static class Builder<T extends NeoPidMotorInputs.Builder<T>>
+  public static class Builder<T extends MotorInputs.Builder<SparkMax, T>>
       extends MotorInputs.Builder<SparkMax, T> {
 
     public Builder(String folder) {
