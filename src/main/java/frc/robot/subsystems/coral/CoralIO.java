@@ -1,15 +1,15 @@
 package frc.robot.subsystems.coral;
 
+import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
-public interface CoralIO extends LoggableIO<CoralInputs> {
+public interface CoralIO extends LoggableIO<BuildableFolderMotorInputs<SparkMax>> {
   void setShooterSpeed(double speed);
-
-  void setTiltAngularVelocity(double angleVelocity);
 
   void stopShooterMotors();
 
-  void stopTiltMotors();
+  void enableOrDisableLimitSwitch(boolean state);
 
-  void resetTiltEncoder();
+  void breakModeCoast(boolean breakMode);
 }

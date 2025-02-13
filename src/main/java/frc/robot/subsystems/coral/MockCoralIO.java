@@ -1,21 +1,21 @@
 package frc.robot.subsystems.coral;
 
+import com.revrobotics.spark.SparkMax;
+import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+
 public class MockCoralIO implements CoralIO {
   @Override
   public void setShooterSpeed(double speed) {}
 
   @Override
-  public void setTiltAngularVelocity(double angleSpeed) {}
-
-  @Override
   public void stopShooterMotors() {}
 
   @Override
-  public void stopTiltMotors() {}
+  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {}
 
   @Override
-  public void resetTiltEncoder() {}
+  public void enableOrDisableLimitSwitch(boolean state) {}
 
   @Override
-  public void updateInputs(CoralInputs inputs) {}
+  public void breakModeCoast(boolean breakMode) {}
 }

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.revrobotics.spark.SparkMax;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -17,10 +18,16 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.byebye.ByeByeToFwrLimit;
+import frc.robot.commands.coral.CoralToFWRLimit;
+import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
-import frc.robot.commands.intake.IntakeCoral;
+import frc.robot.commands.subsystemtests.CoralBreak;
+import frc.robot.commands.subsystemtests.CoralCoast;
+import frc.robot.commands.subsystemtests.DisableCoralLimit;
+import frc.robot.commands.subsystemtests.EnableCoralLimit;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
@@ -77,7 +84,7 @@ public class RobotContainer {
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
-  private final CoralSubsystem shooter;
+  private final CoralSubsystem CoralLeader;
   private final ClimberSubsystem climberSubsystem;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
@@ -90,7 +97,11 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
-        shooter = new CoralSubsystem(new RealCoralIO());
+        CoralLeader =
+            new CoralSubsystem(
+                new RealCoralIO(
+                    new SparkMax(
+                        Constants.SHOOTER_MOTOR_LEADER_ID, SparkMax.MotorType.kBrushless)));
         climberSubsystem = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
@@ -99,7 +110,7 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
-        shooter = new CoralSubsystem(new MockCoralIO());
+        CoralLeader = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
@@ -108,7 +119,7 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
-        shooter = new CoralSubsystem(new MockCoralIO());
+        CoralLeader = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
@@ -253,9 +264,9 @@ public class RobotContainer {
   public void putShuffleboardCommands() {
 
     if (Constants.INTAKE_DEBUG) {
-      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(CoralLeader));
       SmartShuffleboard.putCommand(
-          "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+          "Commands", "Shoot Coral", new ShootCoral(CoralLeader, Constants.CORAL_SHOOTER_SPEED));
     }
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand(
@@ -264,7 +275,12 @@ public class RobotContainer {
           new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
       SmartShuffleboard.putCommand(
           "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
-
+      SmartShuffleboard.putCommand("coral", "DisableLimit", new DisableCoralLimit(CoralLeader));
+      SmartShuffleboard.putCommand("coral", "EnableLimit", new EnableCoralLimit(CoralLeader));
+      SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
+      SmartShuffleboard.putCommand("coral", "CoralToFWRLImit", new CoralToFWRLimit(CoralLeader));
+      SmartShuffleboard.putCommand("coral", "CoralBreakModeCoast", new CoralCoast(CoralLeader));
+      SmartShuffleboard.putCommand("coral", "CoralBreakModeCoast", new CoralBreak(CoralLeader));
       SmartShuffleboard.putCommand(
           "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
       SmartShuffleboard.putCommand(

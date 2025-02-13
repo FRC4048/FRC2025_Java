@@ -25,6 +25,7 @@ public class ShootCoral extends LoggableCommand {
 
   @Override
   public void initialize() {
+    shooter.enableOrDisableLimitSwitch(false);
     shooter.setShooterSpeed(speedMotors);
     timer.restart();
   }
