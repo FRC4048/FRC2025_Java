@@ -20,6 +20,7 @@ public class GameConstants {
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
   public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
+  public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_ROLLER_SPEED = 0.15;
   public static final double TILT_SPEED = 0.15;
@@ -37,6 +38,7 @@ public class GameConstants {
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
+  public static final int ELEVATOR_RESET_TIMEOUT = 10;
   public static final int BYEBYE_SPIN_ROLLER_TIMEOUT = 5;
   public static final int BYEBYE_SPIN_TILT_TIMEOUT = 5;
   public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
@@ -107,9 +109,9 @@ public class GameConstants {
 
   // Elevator
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
-  public static final double CARRIAGE_MASS = 0.5; // In Kg, change later
+  public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final double ELEVATOR_DRUM_RADIUS =
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
-  public static final double MAX_ELEVATOR_HEIGHT_METERS = 1; // in m
+  public static final double MAX_ELEVATOR_HEIGHT_METERS = 100; // in m
 }
