@@ -45,10 +45,10 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean isRetractedLimitSwitchPressed() {
-    return climberSystem.getInputs().revLimit();
+    return climberSystem.getInputs().getRevLimit();
   }
 
   public boolean isExtendedLimitSwitchPressed() {
-    return climberSystem.getInputs().fwdLimit();
+    return climberSystem.getInputs().getFwdLimit();
   }
 }
