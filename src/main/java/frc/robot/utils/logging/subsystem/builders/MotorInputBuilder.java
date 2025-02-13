@@ -58,7 +58,7 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFold
   }
 
   public MotorInputBuilder<R> revLimit() {
-    fwdLimit = new BooleanInput<>("revLimit", revLimitFromSource());
+    revLimit = new BooleanInput<>("revLimit", revLimitFromSource());
     return this;
   }
 

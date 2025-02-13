@@ -15,15 +15,19 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
-import frc.robot.commands.Climber.ClimberRunMotors;
+import frc.robot.commands.RollAlgae;
+import frc.robot.commands.climber.ClimberRunMotors;
+import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinHihiRoller;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
+import frc.robot.constants.CoralDeposit;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -249,6 +253,7 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
+
     if (Constants.INTAKE_DEBUG) {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
       SmartShuffleboard.putCommand(
@@ -261,6 +266,11 @@ public class RobotContainer {
           new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
       SmartShuffleboard.putCommand(
           "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
+
+      SmartShuffleboard.putCommand(
+          "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
+      SmartShuffleboard.putCommand(
+          "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
     }
   }
 }

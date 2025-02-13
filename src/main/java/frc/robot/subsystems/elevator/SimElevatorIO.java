@@ -9,14 +9,14 @@ public class SimElevatorIO extends RealElevatorIO {
 
   public SimElevatorIO() {
     super();
-    this.elevatorSimulator = new ElevatorSimulator(elevatorMotor);
+    this.elevatorSimulator = new ElevatorSimulator(elevatorMotor.getNeoMotor());
   }
 
   @Override
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      elevatorSimulator.simulationPeriodic();
+      elevatorSimulator.stepSimulation();
     }
   }
 }
