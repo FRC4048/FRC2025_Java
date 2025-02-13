@@ -14,7 +14,7 @@ public enum FieldLocation {
   ROBOT_POS_1(7.110, 7.057, -179.995, "ROBOT_POS_1", "ROBOT_POS_1"),
   ROBOT_POS_2(7.110, 5.051, -179.995, "ROBOT_POS_2", "ROBOT_POS_2"),
   ROBOT_POS_3(7.110, 3.310, -179.995, "ROBOT_POS_3", "ROBOT_POS_3"),
-  ROBOT_POS_4(7.110, 1.041, 179.721, "ROBOT_POS_4", "ROBOT_POS_4");
+  ROBOT_POS_4(7.110, 1.041, -179.995, "ROBOT_POS_4", "ROBOT_POS_4");
 
   private static final double RED_X_POS = 16.5; // meters
   private final double yPos;
@@ -41,7 +41,8 @@ public enum FieldLocation {
 
   public Pose2d getLocation() {
     double x = RobotContainer.isRedAlliance() ? RED_X_POS - xPose : xPose;
-    double radian = RobotContainer.isRedAlliance() ? Math.PI - angle : angle;
+    double radian =
+        RobotContainer.isRedAlliance() ? Math.toRadians(180 - angle) : Math.toRadians(angle);
     return new Pose2d(x, yPos, Rotation2d.fromRadians(radian));
   }
 

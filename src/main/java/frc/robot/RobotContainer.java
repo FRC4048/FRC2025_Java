@@ -105,7 +105,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     try {
-      joyStickButton1.onTrue(new PathPlannerAuto("Robot 1 to Post K"));
+      joyStickButton1.onTrue(new PathPlannerAuto("Robot 1 to Post L"));
     } catch (Exception e) {
       e.printStackTrace();
     }
