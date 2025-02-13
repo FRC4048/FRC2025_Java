@@ -1,54 +1,49 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
-import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
-import frc.robot.utils.logging.subsystem.processors.MotorInputProcessor;
+import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.utils.logging.subsystem.processors.InputSource;
+import frc.robot.utils.logging.subsystem.processors.MotorInputSource;
 import org.littletonrobotics.junction.LogTable;
 
-/**
- * Contains Inputs that could be logged for a motor
- *
- * @param <R> Hardware class that is used by an {@link
- *     frc.robot.utils.logging.subsystem.processors.InputSource} to pull data from hardware.
- */
-public class MotorInputs<R> extends FolderInputs<R> {
-  private final DoubleInput<R> encoderPosition;
-  private final DoubleInput<R> encoderVelocity;
-  private final DoubleInput<R> motorCurrent;
-  private final DoubleInput<R> motorTemperature;
-  private final BooleanInput<R> fwdLimit;
-  private final BooleanInput<R> revLimit;
+/** Contains Inputs that could be logged for a motor */
+public class MotorInputs extends FolderInputs {
+  private Double encoderPosition;
+  private Double encoderVelocity;
+  private Double motorCurrent;
+  private Double motorTemperature;
+  private Boolean fwdLimit;
+  private Boolean revLimit;
 
-  public MotorInputs(Builder<R, ?> builder) {
+  public MotorInputs(Builder<?> builder) {
     super(builder);
-    this.encoderPosition = builder.encoderPosition;
-    this.encoderVelocity = builder.encoderVelocity;
-    this.motorCurrent = builder.motorCurrent;
-    this.motorTemperature = builder.motorTemperature;
-    this.fwdLimit = builder.fwdLimit;
-    this.revLimit = builder.revLimit;
+    this.encoderPosition = builder.logEncoderPosition ? 0.0 : null;
+    this.encoderVelocity = builder.logEncoderVelocity ? 0.0 : null;
+    this.motorCurrent = builder.logMotorCurrent ? 0.0 : null;
+    this.motorTemperature = builder.logMotorTemperature ? 0.0 : null;
+    this.fwdLimit = builder.logFwdLimit ? false : null;
+    this.revLimit = builder.logRevLimit ? false : null;
   }
 
   @Override
   public void toLog(LogTable table) {
     // This is my first EVER if train
     if (encoderPosition != null) {
-      encoderPosition.toLog(table);
+      table.put("encoderPosition", encoderPosition);
     }
     if (encoderVelocity != null) {
-      encoderVelocity.toLog(table);
+      table.put("encoderVelocity", encoderVelocity);
     }
     if (motorCurrent != null) {
-      motorCurrent.toLog(table);
+      table.put("motorCurrent", motorCurrent);
     }
     if (motorTemperature != null) {
-      motorTemperature.toLog(table);
+      table.put("motorTemperature", motorTemperature);
     }
     if (fwdLimit != null) {
-      fwdLimit.toLog(table);
+      table.put("fwdLimit", fwdLimit);
     }
     if (revLimit != null) {
-      revLimit.toLog(table);
+      table.put("revLimit", revLimit);
     }
   }
 
@@ -56,132 +51,132 @@ public class MotorInputs<R> extends FolderInputs<R> {
   public void fromLog(LogTable table) {
     // This is my second EVER if train
     if (encoderPosition != null) {
-      encoderPosition.fromLog(table);
+      encoderPosition = table.get("encoderPosition", encoderPosition);
     }
     if (encoderVelocity != null) {
-      encoderVelocity.fromLog(table);
+      encoderVelocity = table.get("encoderVelocity", encoderVelocity);
     }
     if (motorCurrent != null) {
-      motorCurrent.fromLog(table);
+      motorCurrent = table.get("motorCurrent", motorCurrent);
     }
     if (motorTemperature != null) {
-      motorTemperature.fromLog(table);
+      motorTemperature = table.get("motorTemperature", motorTemperature);
     }
     if (fwdLimit != null) {
-      fwdLimit.fromLog(table);
+      fwdLimit = table.get("fwdLimit", fwdLimit);
     }
     if (revLimit != null) {
-      revLimit.fromLog(table);
+      revLimit = table.get("revLimit", revLimit);
     }
   }
 
   @Override
-  public void process(R source) {
-    // This is my third EVER if else train
-    if (encoderPosition != null) {
-      encoderPosition.process(source);
+  public boolean process(InputSource inputSource) {
+    if (inputSource instanceof MotorInputSource motorInputSource) {
+      if (encoderPosition != null) {
+        encoderPosition = motorInputSource.getEncoderPosition();
+      }
+      if (encoderVelocity != null) {
+        encoderVelocity = motorInputSource.getEncoderVelocity();
+      }
+      if (motorCurrent != null) {
+        motorCurrent = motorInputSource.getMotorCurrent();
+      }
+      if (motorTemperature != null) {
+        motorTemperature = motorInputSource.getMotorTemperature();
+      }
+      if (fwdLimit != null) {
+        fwdLimit = motorInputSource.getFwdLimit();
+      }
+      if (revLimit != null) {
+        revLimit = motorInputSource.getRevLimit();
+      }
+      return true;
+    } else {
+      DriverStation.reportError("InputSource must be of type MotorInputSource", true);
+      return false;
     }
-    if (encoderVelocity != null) {
-      encoderVelocity.process(source);
-    }
-    if (motorCurrent != null) {
-      motorCurrent.process(source);
-    }
-    if (motorTemperature != null) {
-      motorTemperature.process(source);
-    }
-    if (fwdLimit != null) {
-      fwdLimit.process(source);
-    }
-    if (revLimit != null) {
-      revLimit.process(source);
-    }
   }
 
-  public double getEncoderPosition() {
-    return encoderPosition.getValue();
+  public Double getEncoderPosition() {
+    return encoderPosition;
   }
 
-  public double getEncoderVelocity() {
-    return encoderVelocity.getValue();
+  public Double getEncoderVelocity() {
+    return encoderVelocity;
   }
 
-  public double getMotorCurrent() {
-    return motorCurrent.getValue();
+  public Double getMotorCurrent() {
+    return motorCurrent;
   }
 
-  public double getMotorTemperature() {
-    return motorTemperature.getValue();
+  public Double getMotorTemperature() {
+    return motorTemperature;
   }
 
-  public boolean fwdLimit() {
-    return fwdLimit.getValue();
+  public Boolean getFwdLimit() {
+    return fwdLimit;
   }
 
-  public boolean revLimit() {
-    return revLimit.getValue();
+  public Boolean getRevLimit() {
+    return revLimit;
   }
 
-  public static class Builder<R, T extends Builder<R, T>> extends FolderInputs.Builder<R, T> {
-    protected final MotorInputProcessor<R> inputProcessor;
-    private DoubleInput<R> encoderPosition;
-    private DoubleInput<R> encoderVelocity;
-    private DoubleInput<R> motorCurrent;
-    private DoubleInput<R> motorTemperature;
-    private BooleanInput<R> fwdLimit;
-    private BooleanInput<R> revLimit;
+  public static class Builder<T extends Builder<T>> extends FolderInputs.Builder<T> {
+    private boolean logEncoderPosition;
+    private boolean logEncoderVelocity;
+    private boolean logMotorCurrent;
+    private boolean logMotorTemperature;
+    private boolean logFwdLimit;
+    private boolean logRevLimit;
 
-    public Builder(String folder, MotorInputProcessor<R> inputProcessor) {
+    public Builder(String folder) {
       super(folder);
-      this.inputProcessor = inputProcessor;
     }
 
     @Override
-    public MotorInputs<R> build() {
-      return new MotorInputs<>(this);
+    public MotorInputs build() {
+      return new MotorInputs(this);
     }
 
     @Override
     public T reset() {
-      encoderPosition = null;
-      encoderVelocity = null;
-      motorCurrent = null;
-      motorTemperature = null;
-      fwdLimit = null;
-      revLimit = null;
+      logEncoderPosition = false;
+      logEncoderVelocity = false;
+      logMotorCurrent = false;
+      logMotorTemperature = false;
+      logFwdLimit = false;
+      logRevLimit = false;
       return self();
     }
 
     public T motorCurrent() {
-      motorCurrent = new DoubleInput<>("motorCurrent", inputProcessor.currentFromSource());
+      logMotorCurrent = true;
       return self();
     }
 
     public T motorTemperature() {
-      motorCurrent =
-          new DoubleInput<>("motorTemperature", inputProcessor.motorTemperatureFromSource());
+      logMotorTemperature = true;
       return self();
     }
 
     public T encoderPosition() {
-      encoderPosition =
-          new DoubleInput<>("encoderPosition", inputProcessor.encoderPositionFromSource());
+      logEncoderPosition = true;
       return self();
     }
 
     public T encoderVelocity() {
-      encoderVelocity =
-          new DoubleInput<>("encoderVelocity", inputProcessor.encoderVelocityFromSource());
+      logEncoderVelocity = true;
       return self();
     }
 
     public T fwdLimit() {
-      fwdLimit = new BooleanInput<>("fwdLimit", inputProcessor.fwdLimitFromSource());
+      logFwdLimit = true;
       return self();
     }
 
     public T revLimit() {
-      revLimit = new BooleanInput<>("revLimit", inputProcessor.revLimitFromSource());
+      logRevLimit = true;
       return self();
     }
 

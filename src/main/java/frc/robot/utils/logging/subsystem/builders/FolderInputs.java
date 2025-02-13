@@ -7,18 +7,19 @@ import org.littletonrobotics.junction.LogTable;
 /**
  * subclass of {@link FolderLoggableInputs} that allows keys to be build using an {@link
  * InputSource}
- *
- * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */
-public abstract class FolderInputs<R> extends FolderLoggableInputs {
+public abstract class FolderInputs extends FolderLoggableInputs {
 
-  public FolderInputs(Builder<R, ?> builder) {
+  public FolderInputs(Builder<?> builder) {
     super(builder.folder);
   }
 
-  abstract void process(R source);
+  /**
+   * @return if processing was successful.
+   */
+  abstract boolean process(InputSource inputSource);
 
-  public abstract static class Builder<R, T extends Builder<R, T>> {
+  public abstract static class Builder<T extends Builder<T>> {
 
     private final String folder;
 
@@ -32,10 +33,12 @@ public abstract class FolderInputs<R> extends FolderLoggableInputs {
 
     public abstract T reset();
 
-    public FolderInputs<R> build() {
-      return new FolderInputs<>(this) {
+    public FolderInputs build() {
+      return new FolderInputs(this) {
         @Override
-        void process(R source) {}
+        boolean process(InputSource inputSource) {
+          return true;
+        }
 
         @Override
         public void toLog(LogTable table) {}

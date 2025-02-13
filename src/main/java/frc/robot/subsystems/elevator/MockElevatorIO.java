@@ -1,14 +1,13 @@
 package frc.robot.subsystems.elevator;
 
-import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputs;
 
 public class MockElevatorIO implements ElevatorIO {
   @Override
   public void setSpeed(double spd) {}
 
   @Override
-  public void updateInputs(MotorInputs<SparkMax> inputs) {}
+  public void updateInputs(PidMotorInputs inputs) {}
 
   @Override
   public void setElevatorPosition(double encoderPos) {}

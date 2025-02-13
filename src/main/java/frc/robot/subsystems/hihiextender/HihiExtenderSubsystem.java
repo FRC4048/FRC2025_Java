@@ -4,19 +4,17 @@
 
 package frc.robot.subsystems.hihiextender;
 
-import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkInputs;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
-  private final LoggableSystem<HihiExtenderIO, MotorInputs<SparkMax>> system;
+  private final LoggableSystem<HihiExtenderIO, MotorInputs> system;
 
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
-    SparkInputs.Builder<?> builder = new SparkInputs.Builder<>("HihiExtenderSubsystem");
-    MotorInputs<SparkMax> inputs = builder.addAll().build();
+    MotorInputs.Builder<?> builder = new MotorInputs.Builder<>("HihiExtenderSubsystem");
+    MotorInputs inputs = builder.addAll().build();
     system = new LoggableSystem<>(io, inputs);
   }
 
@@ -34,11 +32,11 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardSwitchState() {
-    return system.getInputs().fwdLimit();
+    return system.getInputs().getFwdLimit();
   }
 
   public boolean getReverseSwitchState() {
-    return system.getInputs().revLimit();
+    return system.getInputs().getRevLimit();
   }
 
   public void resetEncoder() {

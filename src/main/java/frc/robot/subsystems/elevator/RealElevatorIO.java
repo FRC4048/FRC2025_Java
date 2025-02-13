@@ -1,15 +1,17 @@
 package frc.robot.subsystems.elevator;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputs;
+import frc.robot.utils.logging.subsystem.processors.NeoPidMotorInputSource;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealElevatorIO implements ElevatorIO {
-  public final NeoPidMotor elevatorMotor;
+  protected final NeoPidMotor elevatorMotor;
+  private final NeoPidMotorInputSource inputSource;
 
   public RealElevatorIO() {
     this.elevatorMotor = new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID);
+    this.inputSource = new NeoPidMotorInputSource(elevatorMotor);
   }
 
   @Override
@@ -37,7 +39,7 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
-  public void updateInputs(MotorInputs<SparkMax> inputs) {
-    inputs.process(elevatorMotor.getNeoMotor());
+  public void updateInputs(PidMotorInputs inputs) {
+    inputs.process(inputSource);
   }
 }

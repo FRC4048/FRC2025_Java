@@ -7,13 +7,16 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
   private final SparkMax extenderMotor;
+  private final SparkMaxInputSource inputSource;
 
   public RealHihiExtenderIO() {
     this.extenderMotor =
         new SparkMax(Constants.ALGAE_EXTENDER_MOTOR_ID, SparkLowLevel.MotorType.kBrushed);
+    this.inputSource = new SparkMaxInputSource(extenderMotor);
     configureMotor();
     resetExtenderEncoder();
   }
@@ -41,7 +44,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   public void resetExtenderEncoder() {}
 
   @Override
-  public void updateInputs(MotorInputs<SparkMax> inputs) {
-    inputs.process(extenderMotor);
+  public void updateInputs(MotorInputs inputs) {
+    inputs.process(inputSource);
   }
 }

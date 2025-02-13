@@ -1,6 +1,5 @@
 package frc.robot.subsystems.swervev3.io.drive;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.subsystem.builders.MotorInputs;
 
 public class MockDriveMotorIO implements SwerveDriveMotorIO {
@@ -12,5 +11,5 @@ public class MockDriveMotorIO implements SwerveDriveMotorIO {
   public void resetEncoder() {}
 
   @Override
-  public void updateInputs(MotorInputs<SparkMax> inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 }
