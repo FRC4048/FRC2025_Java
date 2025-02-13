@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Robot 1 to Post I "
+            "pathName": "Robot 1 to Post J"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Post I to Station 1"
+            "pathName": "Post J to Station 1"
           }
         },
         {

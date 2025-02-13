@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Robot 1 to Post J"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post J to Station 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 1 to Post L"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post L to Station 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 1 to Post L"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post L to Station 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 1 to Post L"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "THE GLORIOUS 4 PIECE AUTO",
+  "choreoAuto": false
+}
