@@ -14,4 +14,6 @@ public interface ClimberIO extends LoggableIO<BuildableFolderMotorInputs<SparkMa
   void setClimberSpeed(double speed);
 
   void stopClimber();
+
+  void resetClimberEncoder();
 }

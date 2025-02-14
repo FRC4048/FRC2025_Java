@@ -6,9 +6,11 @@ package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
@@ -22,7 +24,18 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (Constants.CLIMBER_DEBUG) {
+      SmartShuffleboard.put("Climber", "Forward", isExtendedLimitSwitchPressed());
+      SmartShuffleboard.put("Climber", "Backward", isRetractedLimitSwitchPressed());
+    }
     climberSystem.updateInputs();
+    if (isExtendedLimitSwitchPressed() || isRetractedLimitSwitchPressed()) {
+      stopClimber();
+    }
+  }
+
+  public void resetClimberEncoder() {
+    climberSystem.getIO().resetClimberEncoder();
   }
 
   public void setClimberSpeed(double speed) {
@@ -31,5 +44,13 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void stopClimber() {
     climberSystem.getIO().stopClimber();
+  }
+
+  public boolean isRetractedLimitSwitchPressed() {
+    return climberSystem.getInputs().revLimit();
+  }
+
+  public boolean isExtendedLimitSwitchPressed() {
+    return climberSystem.getInputs().fwdLimit();
   }
 }
