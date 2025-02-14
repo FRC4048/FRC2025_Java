@@ -8,7 +8,7 @@ import org.littletonrobotics.junction.LogTable;
  * subclass of {@link FolderLoggableInputs} that allows keys to be build using an {@link
  * InputSource}
  *
- * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
+ * @param <R> Hardware class that is used by an {@link InputProcessor} to pull data from hardware.
  */
 public abstract class FolderInputs<R> extends FolderLoggableInputs {
 
