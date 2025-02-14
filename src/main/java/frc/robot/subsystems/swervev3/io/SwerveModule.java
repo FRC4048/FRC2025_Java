@@ -20,17 +20,15 @@ import frc.robot.subsystems.swervev3.io.steer.SparkMaxSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SwerveSteerMotorIO;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.SparkInputs;
 import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 
 public class SwerveModule {
-  private final LoggableSystem<SwerveDriveMotorIO, BuildableFolderMotorInputs<SparkMax>>
-      driveSystem;
-  private final LoggableSystem<SwerveSteerMotorIO, BuildableFolderMotorInputs<SparkMax>>
-      steerSystem;
+  private final LoggableSystem<SwerveDriveMotorIO, MotorInputs<SparkMax>> driveSystem;
+  private final LoggableSystem<SwerveSteerMotorIO, MotorInputs<SparkMax>> steerSystem;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
   private final PIDController drivePIDController;
   private final ProfiledPIDController turningPIDController;
@@ -48,13 +46,13 @@ public class SwerveModule {
       Gain turnGain,
       TrapezoidProfile.Constraints goalConstraint,
       String moduleName) {
-    SparkMaxInputBuilder driveSystemBuilder = new SparkMaxInputBuilder("Drivetrain/" + moduleName);
-    BuildableFolderMotorInputs<SparkMax> driveInputs =
-        driveSystemBuilder.addEncoder().addStatus().build();
+    SparkInputs.Builder<?> driveSystemBuilder =
+        new SparkInputs.Builder<>("Drivetrain/" + moduleName);
+    MotorInputs<SparkMax> driveInputs = driveSystemBuilder.addEncoder().addStatus().build();
 
-    SparkMaxInputBuilder steerSystemBuilder = new SparkMaxInputBuilder("Drivetrain/" + moduleName);
-    BuildableFolderMotorInputs<SparkMax> steerInputs =
-        steerSystemBuilder.addEncoder().addStatus().build();
+    SparkInputs.Builder<?> steerSystemBuilder =
+        new SparkInputs.Builder<>("Drivetrain/" + moduleName);
+    MotorInputs<SparkMax> steerInputs = steerSystemBuilder.addEncoder().addStatus().build();
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));
