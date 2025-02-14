@@ -20,7 +20,7 @@ public class RetractHiHi extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(Constants.HIHI_RETRACT_SPEED);
+    hihiExtender.setExtenderPosition(Constants.HIHI_RETRACT_POSITION);
     timer.restart();
   }
 

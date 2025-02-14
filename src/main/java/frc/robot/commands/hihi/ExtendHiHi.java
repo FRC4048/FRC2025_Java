@@ -20,7 +20,7 @@ public class ExtendHiHi extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderSpeed(Constants.HIHI_EXTEND_SPEED);
+    hihiExtender.setExtenderPosition(Constants.HIHI_EXTEND_POSITION);
     timer.restart();
   }
 
@@ -28,16 +28,7 @@ public class ExtendHiHi extends LoggableCommand {
   public void execute() {}
 
   @Override
-  public void end(boolean interrupted) {
-    hihiExtender.stopExtenderMotors();
-  }
-
-  @Override
   public boolean isFinished() {
-    if (timer.hasElapsed(Constants.HIHI_EXTEND_TIMEOUT)) {
-      timeoutCounter.increaseTimeoutCount();
-      return true;
-    }
-    return (hihiExtender.getForwardSwitchState());
+    return true;
   }
 }

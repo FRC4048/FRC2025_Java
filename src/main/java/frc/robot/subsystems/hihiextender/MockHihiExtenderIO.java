@@ -20,4 +20,7 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
 
   @Override
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {}
+
+  @Override
+  public void setExtenderPosition(double encoderPos) {}
 }
