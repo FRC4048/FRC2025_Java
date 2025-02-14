@@ -50,8 +50,8 @@ public class PidMotorInputs<R> extends MotorInputs<R> {
   public static class Builder<R, T extends Builder<R, T>> extends MotorInputs.Builder<R, T> {
     private boolean logPidSetpoint;
 
-    public Builder(String folder, PidMotorInputSource<R> inputProcessor) {
-      super(folder, inputProcessor);
+    public Builder(String folder, PidMotorInputSource<R> inputSource) {
+      super(folder, inputSource);
     }
 
     @Override

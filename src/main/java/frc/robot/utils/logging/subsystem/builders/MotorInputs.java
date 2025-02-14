@@ -74,28 +74,28 @@ public class MotorInputs<R> extends FolderInputs<R> {
 
   @Override
   public boolean process(R source) {
-    if (inputSource instanceof MotorInputSource<R> motorInputProcessor) {
+    if (inputSource instanceof MotorInputSource<R> motorInputSource) {
       if (encoderPosition != null) {
-        encoderPosition = motorInputProcessor.encoderPositionFromSource().apply(source);
+        encoderPosition = motorInputSource.encoderPositionFromSource().apply(source);
       }
       if (encoderVelocity != null) {
-        encoderVelocity = motorInputProcessor.encoderVelocityFromSource().apply(source);
+        encoderVelocity = motorInputSource.encoderVelocityFromSource().apply(source);
       }
       if (motorCurrent != null) {
-        motorCurrent = motorInputProcessor.currentFromSource().apply(source);
+        motorCurrent = motorInputSource.currentFromSource().apply(source);
       }
       if (motorTemperature != null) {
-        motorTemperature = motorInputProcessor.motorTemperatureFromSource().apply(source);
+        motorTemperature = motorInputSource.motorTemperatureFromSource().apply(source);
       }
       if (fwdLimit != null) {
-        fwdLimit = motorInputProcessor.fwdLimitFromSource().apply(source);
+        fwdLimit = motorInputSource.fwdLimitFromSource().apply(source);
       }
       if (revLimit != null) {
-        revLimit = motorInputProcessor.revLimitFromSource().apply(source);
+        revLimit = motorInputSource.revLimitFromSource().apply(source);
       }
       return true;
     } else {
-      DriverStation.reportError("InputProcessor must be of type MotorInputProcessor", true);
+      DriverStation.reportError("InputSource must be of type MotorInputProcessor", true);
       return false;
     }
   }
@@ -132,8 +132,8 @@ public class MotorInputs<R> extends FolderInputs<R> {
     private boolean logFwdLimit;
     private boolean logRevLimit;
 
-    public Builder(String folder, MotorInputSource<R> inputProcessor) {
-      super(folder, inputProcessor);
+    public Builder(String folder, MotorInputSource<R> inputSource) {
+      super(folder, inputSource);
     }
 
     @Override
