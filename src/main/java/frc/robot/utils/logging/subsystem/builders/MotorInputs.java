@@ -1,14 +1,14 @@
 package frc.robot.utils.logging.subsystem.builders;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.utils.logging.subsystem.processors.MotorInputProcessor;
+import frc.robot.utils.logging.subsystem.processors.InputSource;
+import frc.robot.utils.logging.subsystem.processors.MotorInputSource;
 import org.littletonrobotics.junction.LogTable;
 
 /**
  * Contains Inputs that could be logged for a motor
  *
- * @param <R> Hardware class that is used by an {@link
- *     frc.robot.utils.logging.subsystem.processors.InputProcessor} to pull data from hardware.
+ * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */
 public class MotorInputs<R> extends FolderInputs<R> {
   private Double encoderPosition;
@@ -74,7 +74,7 @@ public class MotorInputs<R> extends FolderInputs<R> {
 
   @Override
   public boolean process(R source) {
-    if (inputProcessor instanceof MotorInputProcessor<R> motorInputProcessor) {
+    if (inputSource instanceof MotorInputSource<R> motorInputProcessor) {
       if (encoderPosition != null) {
         encoderPosition = motorInputProcessor.encoderPositionFromSource().apply(source);
       }
@@ -100,7 +100,6 @@ public class MotorInputs<R> extends FolderInputs<R> {
     }
   }
 
-  
   public Double getEncoderPosition() {
     return encoderPosition;
   }
@@ -133,7 +132,7 @@ public class MotorInputs<R> extends FolderInputs<R> {
     private boolean logFwdLimit;
     private boolean logRevLimit;
 
-    public Builder(String folder, MotorInputProcessor<R> inputProcessor) {
+    public Builder(String folder, MotorInputSource<R> inputProcessor) {
       super(folder, inputProcessor);
     }
 

@@ -1,11 +1,11 @@
 package frc.robot.utils.logging.subsystem.builders;
 
 import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.logging.subsystem.processors.SparkMaxInputProcessor;
+import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
 
 /**
  * This does not add any new functionality compared to {@link MotorInputs} with a {@link
- * SparkMaxInputProcessor}. <br>
+ * SparkMaxInputSource}. <br>
  * This is solely to make user API more friendly.
  */
 public class SparkInputs extends MotorInputs<SparkMax> {
@@ -18,7 +18,7 @@ public class SparkInputs extends MotorInputs<SparkMax> {
       extends MotorInputs.Builder<SparkMax, T> {
 
     public Builder(String folder) {
-      super(folder, new SparkMaxInputProcessor());
+      super(folder, new SparkMaxInputSource());
     }
 
     @Override

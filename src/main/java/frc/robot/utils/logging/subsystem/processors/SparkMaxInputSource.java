@@ -5,7 +5,7 @@ import com.revrobotics.spark.SparkMax;
 import java.util.function.Function;
 
 /** SparkMax Input Builder implementation */
-public class SparkMaxInputProcessor implements MotorInputProcessor<SparkMax> {
+public class SparkMaxInputSource implements MotorInputSource<SparkMax> {
 
   @Override
   public Function<SparkMax, Double> currentFromSource() {

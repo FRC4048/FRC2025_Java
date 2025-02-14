@@ -1,7 +1,7 @@
 package frc.robot.utils.logging.subsystem.builders;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.utils.logging.subsystem.processors.PidMotorInputProcessor;
+import frc.robot.utils.logging.subsystem.processors.PidMotorInputSource;
 import org.littletonrobotics.junction.LogTable;
 
 /** Contains Inputs that could be logged for a Motor with a Pid */
@@ -32,7 +32,7 @@ public class PidMotorInputs<R> extends MotorInputs<R> {
   @Override
   public boolean process(R source) {
     boolean success = super.process(source);
-    if (success && inputProcessor instanceof PidMotorInputProcessor<R> pidInputSource) {
+    if (success && inputSource instanceof PidMotorInputSource<R> pidInputSource) {
       if (pidSetpoint != null) {
         pidSetpoint = pidInputSource.setpointFromSource().apply(source);
       }
@@ -50,7 +50,7 @@ public class PidMotorInputs<R> extends MotorInputs<R> {
   public static class Builder<R, T extends Builder<R, T>> extends MotorInputs.Builder<R, T> {
     private boolean logPidSetpoint;
 
-    public Builder(String folder, PidMotorInputProcessor<R> inputProcessor) {
+    public Builder(String folder, PidMotorInputSource<R> inputProcessor) {
       super(folder, inputProcessor);
     }
 

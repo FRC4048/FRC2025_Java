@@ -7,7 +7,7 @@ import java.util.function.Function;
  *
  * @param <R> Hardware class that is used to query data from hardware.
  */
-public interface MotorInputProcessor<R> extends InputProcessor<R> {
+public interface MotorInputSource<R> extends InputSource<R> {
   Function<R, Double> currentFromSource();
 
   Function<R, Double> motorTemperatureFromSource();

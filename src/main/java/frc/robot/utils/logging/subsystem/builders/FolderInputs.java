@@ -1,22 +1,22 @@
 package frc.robot.utils.logging.subsystem.builders;
 
 import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
-import frc.robot.utils.logging.subsystem.processors.InputProcessor;
+import frc.robot.utils.logging.subsystem.processors.InputSource;
 import org.littletonrobotics.junction.LogTable;
 
 /**
  * subclass of {@link FolderLoggableInputs} that allows keys to be build using an {@link
  * InputSource}
  *
- * @param <R> Hardware class that is used by an {@link InputProcessor} to pull data from hardware.
+ * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware.
  */
 public abstract class FolderInputs<R> extends FolderLoggableInputs {
 
-  protected final InputProcessor<R> inputProcessor;
+  protected final InputSource<R> inputSource;
 
   public FolderInputs(Builder<R, ?> builder) {
     super(builder.folder);
-    this.inputProcessor = builder.inputProcessor;
+    this.inputSource = builder.inputSource;
   }
 
   abstract boolean process(R source);
@@ -24,11 +24,11 @@ public abstract class FolderInputs<R> extends FolderLoggableInputs {
   public abstract static class Builder<R, T extends Builder<R, T>> {
 
     private final String folder;
-    private final InputProcessor<R> inputProcessor;
+    private final InputSource<R> inputSource;
 
-    public Builder(String folder, InputProcessor<R> inputProcessor) {
+    public Builder(String folder, InputSource<R> inputSource) {
       this.folder = folder;
-      this.inputProcessor = inputProcessor;
+      this.inputSource = inputSource;
     }
 
     T self() {

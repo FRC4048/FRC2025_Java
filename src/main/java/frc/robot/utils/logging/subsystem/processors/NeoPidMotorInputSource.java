@@ -3,8 +3,8 @@ package frc.robot.utils.logging.subsystem.processors;
 import frc.robot.utils.motor.NeoPidMotor;
 import java.util.function.Function;
 
-public class NeoPidMotorInputProcessor
-    implements PidMotorInputProcessor<NeoPidMotor>, MotorInputProcessor<NeoPidMotor> {
+public class NeoPidMotorInputSource
+    implements PidMotorInputSource<NeoPidMotor>, MotorInputSource<NeoPidMotor> {
 
   @Override
   public Function<NeoPidMotor, Double> setpointFromSource() {

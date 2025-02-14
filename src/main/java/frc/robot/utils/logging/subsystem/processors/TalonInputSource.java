@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import java.util.function.Function;
 
 /** Talon Input Builder implementation */
-public class TalonInputProcessor implements MotorInputProcessor<WPI_TalonSRX> {
+public class TalonInputSource implements MotorInputSource<WPI_TalonSRX> {
 
   @Override
   public Function<WPI_TalonSRX, Double> currentFromSource() {

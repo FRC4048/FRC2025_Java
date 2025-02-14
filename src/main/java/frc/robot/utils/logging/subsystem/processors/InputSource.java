@@ -5,4 +5,4 @@ package frc.robot.utils.logging.subsystem.processors;
  *
  * @param <R> Hardware class that is used to query data from hardware.
  */
-public interface InputProcessor<R> {}
+public interface InputSource<R> {}
