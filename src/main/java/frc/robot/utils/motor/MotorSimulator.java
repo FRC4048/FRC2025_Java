@@ -26,7 +26,7 @@ public class MotorSimulator {
   }
 
   /** Advance the simulation. */
-  public void simulationPeriodic() {
+  public void stepSimulation() {
     // In this method, we update our simulation of what our elevator is doing
     // First, we set our "inputs" (voltages)
     double motorOut = motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();

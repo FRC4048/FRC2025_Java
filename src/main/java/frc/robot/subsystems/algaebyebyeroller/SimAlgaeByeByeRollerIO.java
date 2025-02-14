@@ -18,7 +18,7 @@ public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      algaeByeByeRollerSimulator.simulationPeriodic();
+      algaeByeByeRollerSimulator.stepSimulation();
       SmartDashboard.putNumber("Algae Roller Encoder", removerMotor.getEncoder().getPosition());
     }
   }
