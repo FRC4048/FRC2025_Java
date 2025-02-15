@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
@@ -45,7 +44,8 @@ import frc.robot.subsystems.climber.RealClimberIO;
 import frc.robot.subsystems.climber.SimClimberIO;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIO;
-import frc.robot.subsystems.coral.RealCoralIO;
+import frc.robot.subsystems.coral.RealCoralIOFollower;
+import frc.robot.subsystems.coral.RealCoralIOLeader;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -96,13 +96,7 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
-        coralSubsystem =
-            new CoralSubsystem(
-                new RealCoralIO(
-                    new SparkMax(Constants.SHOOTER_MOTOR_LEADER_ID, SparkMax.MotorType.kBrushless)),
-                new RealCoralIO(
-                    new SparkMax(
-                        Constants.SHOOTER_MOTOR_FOLLOWER_ID, SparkMax.MotorType.kBrushless)));
+        coralSubsystem = new CoralSubsystem(new RealCoralIOFollower(), new RealCoralIOLeader());
         climberSubsystem = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());

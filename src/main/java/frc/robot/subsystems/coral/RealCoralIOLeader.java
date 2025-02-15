@@ -1,6 +1,7 @@
 package frc.robot.subsystems.coral;
 
 import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -8,21 +9,21 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
-public class RealCoralIO implements CoralIO {
+public class RealCoralIOLeader implements CoralIO {
   private final SparkMax shooterMotor;
 
-  public RealCoralIO(SparkMax motor) {
-    shooterMotor = motor;
+  public RealCoralIOLeader() {
+    shooterMotor =
+        new SparkMax(Constants.SHOOTER_MOTOR_LEADER_ID, SparkLowLevel.MotorType.kBrushless);
     configureMotor();
   }
 
   private void configureMotor() {
-    SparkMaxConfig coralConfigMotorLeader = new SparkMaxConfig();
-    coralConfigMotorLeader.apply(
-        coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(true));
-    coralConfigMotorLeader.idleMode(IdleMode.kBrake);
+    SparkMaxConfig coralConfig = new SparkMaxConfig();
+    coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(true));
+    coralConfig.idleMode(IdleMode.kBrake);
     shooterMotor.configure(
-        coralConfigMotorLeader,
+        coralConfig,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
@@ -63,7 +64,7 @@ public class RealCoralIO implements CoralIO {
     inputs.process(shooterMotor);
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.put(
-          "coral", "ForwardTripped?", shooterMotor.getForwardLimitSwitch().isPressed());
+          "coral", "ForwardTrippedLeader", shooterMotor.getForwardLimitSwitch().isPressed());
     }
   }
 }
