@@ -40,6 +40,7 @@ public class RealCoralIO implements CoralIO {
     SparkMaxConfig coralConfigMotorLeader = new SparkMaxConfig();
     coralConfigMotorLeader.apply(
         coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(state));
+
     shooterMotor.configure(
         coralConfigMotorLeader,
         SparkBase.ResetMode.kNoResetSafeParameters,

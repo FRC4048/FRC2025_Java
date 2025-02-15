@@ -12,7 +12,7 @@ public class GameConstants {
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
-  public static final boolean INTAKE_DEBUG = false;
+  public static final boolean INTAKE_DEBUG = true;
   public static final boolean COMMAND_DEBUG = true;
 
   // Speeds

@@ -277,19 +277,20 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
       SmartShuffleboard.putCommand(
-          "coral", "DisableLimit", new EnableOrDisableCoralLimit(coralSubsystem, false));
+          "DEBUG", "DisableLimitCoral", new EnableOrDisableCoralLimit(coralSubsystem, false));
       SmartShuffleboard.putCommand(
-          "coral", "EnableLimit", new EnableOrDisableCoralLimit(coralSubsystem, true));
+          "DEBUG", "EnableLimitCoral", new EnableOrDisableCoralLimit(coralSubsystem, true));
       SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
-      SmartShuffleboard.putCommand("coral", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
-      SmartShuffleboard.putCommand(
-          "coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
-      SmartShuffleboard.putCommand(
-          "coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
+
       SmartShuffleboard.putCommand(
           "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
       SmartShuffleboard.putCommand(
           "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
+      SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
+      SmartShuffleboard.putCommand(
+          "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
+      SmartShuffleboard.putCommand(
+          "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
     }
   }
 }
