@@ -13,8 +13,7 @@ public class HihiExtenderSubsystem extends SubsystemBase {
 
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
-    MotorInputs.Builder<?> builder = new MotorInputs.Builder<>("HihiExtenderSubsystem");
-    MotorInputs inputs = builder.addAll().build();
+    MotorInputs inputs = new MotorInputs.Builder<>("HihiExtenderSubsystem").addAll().build();
     system = new LoggableSystem<>(io, inputs);
   }
 

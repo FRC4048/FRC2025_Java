@@ -9,8 +9,7 @@ public class HihiRollerSubsystem extends SubsystemBase {
   private final LoggableSystem<HihiRollerIO, MotorInputs> hihiRollerSystem;
 
   public HihiRollerSubsystem(HihiRollerIO hihiRollerIO) {
-    MotorInputs.Builder<?> builder = new MotorInputs.Builder<>("HihiRollerSubsystem");
-    MotorInputs inputs = builder.addAll().build();
+    MotorInputs inputs = new MotorInputs.Builder<>("HihiRollerSubsystem").addAll().build();
     this.hihiRollerSystem = new LoggableSystem<>(hihiRollerIO, inputs);
   }
 

@@ -15,8 +15,7 @@ public class ClimberSubsystem extends SubsystemBase {
   private final LoggableSystem<ClimberIO, MotorInputs> climberSystem;
 
   public ClimberSubsystem(ClimberIO io) {
-    MotorInputs.Builder<?> builder = new MotorInputs.Builder<>("ClimberSubsystem");
-    MotorInputs inputs = builder.addAll().build();
+    MotorInputs inputs = new MotorInputs.Builder<>("ClimberSubsystem").addAll().build();
     climberSystem = new LoggableSystem<>(io, inputs);
   }
 

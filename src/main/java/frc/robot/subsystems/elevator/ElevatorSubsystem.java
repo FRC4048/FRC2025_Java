@@ -9,8 +9,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    PidMotorInputs.Builder<?> builder = new PidMotorInputs.Builder<>("ElevatorSubsystem");
-    PidMotorInputs inputs = builder.addAll().build();
+    PidMotorInputs inputs = new PidMotorInputs.Builder<>("ElevatorSubsystem").addAll().build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
     /* Example for Neo Pid
     NeoPidMotorInputs.Builder<?> builder2 = new NeoPidMotorInputs.Builder<>("ElevatorSubsystem");

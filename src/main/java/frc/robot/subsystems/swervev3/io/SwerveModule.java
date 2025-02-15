@@ -44,13 +44,10 @@ public class SwerveModule {
       Gain turnGain,
       TrapezoidProfile.Constraints goalConstraint,
       String moduleName) {
-    MotorInputs.Builder<?> driveSystemBuilder =
-        new MotorInputs.Builder<>("Drivetrain/" + moduleName);
-    MotorInputs driveInputs = driveSystemBuilder.addEncoder().addStatus().build();
-
-    MotorInputs.Builder<?> steerSystemBuilder =
-        new MotorInputs.Builder<>("Drivetrain/" + moduleName);
-    MotorInputs steerInputs = steerSystemBuilder.addEncoder().addStatus().build();
+    MotorInputs driveInputs =
+        new MotorInputs.Builder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
+    MotorInputs steerInputs =
+        new MotorInputs.Builder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));

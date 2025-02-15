@@ -13,8 +13,11 @@ public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeByeByeRollerIO, MotorInputs> algaeSystem;
 
   public AlgaeByeByeRollerSubsystem(AlgaeByeByeRollerIO io) {
-    MotorInputs.Builder<?> builder = new MotorInputs.Builder<>("AlgaeByeByeRollerSubsystem");
-    MotorInputs inputs = builder.encoderVelocity().addStatus().build();
+    MotorInputs inputs =
+        new MotorInputs.Builder<>("AlgaeByeByeRollerSubsystem")
+            .encoderVelocity()
+            .addStatus()
+            .build();
     algaeSystem = new LoggableSystem<>(io, inputs);
   }
 
