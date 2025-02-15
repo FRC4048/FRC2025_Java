@@ -38,9 +38,7 @@ public class RealCoralIOFollower implements CoralIO {
   }
 
   @Override
-  public void stopShooterMotors() {
-    this.shooterMotor.set(0);
-  }
+  public void stopShooterMotors() {}
 
   @Override
   public void enableOrDisableLimitSwitch(boolean state) {}

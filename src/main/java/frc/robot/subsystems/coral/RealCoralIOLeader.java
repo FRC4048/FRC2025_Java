@@ -32,10 +32,14 @@ public class RealCoralIOLeader implements CoralIO {
   }
 
   @Override
-  public void setShooterSpeed(double speed) {}
+  public void setShooterSpeed(double speed) {
+    this.shooterMotor.set(speed);
+  }
 
   @Override
-  public void stopShooterMotors() {}
+  public void stopShooterMotors() {
+    this.shooterMotor.set(0);
+  }
 
   @Override
   public void enableOrDisableLimitSwitch(boolean state) {
