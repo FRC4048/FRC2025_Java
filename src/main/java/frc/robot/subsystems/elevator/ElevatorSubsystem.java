@@ -2,6 +2,7 @@ package frc.robot.subsystems.elevator;
 
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.CoralDeposit;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
@@ -9,6 +10,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, BuildableFolderMotorInputs<SparkMax>> elevatorSystem;
+  private CoralDeposit storedElevatorHeight;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     SparkMaxInputBuilder builder = new SparkMaxInputBuilder("ElevatorSubsystem");
@@ -28,6 +30,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public double getEncoderValue() {
     return elevatorSystem.getInputs().getEncoderPosition();
+  }
+
+  public void setStoredElevatorHeight(CoralDeposit storedElevatorHeight) {
+    this.storedElevatorHeight = storedElevatorHeight;
+  }
+
+  public CoralDeposit getStoredElevatorHeight() {
+    return storedElevatorHeight;
   }
 
   public boolean getForwardLimitSwitchState() {

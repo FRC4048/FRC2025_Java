@@ -15,11 +15,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
-import frc.robot.commands.RollAlgae;
-import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
+import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -127,14 +126,23 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-    if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "Climber run", new ClimberRunMotors(climberSubsystem, 0.5));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "Climber stop", new ClimberRunMotors(climberSubsystem, 0));
-      SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
-    }
+    controller.leftTrigger().onTrue(new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+    controller
+        .povUp()
+        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL4, elevatorSubsystem));
+    controller
+        .povDown()
+        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL1, elevatorSubsystem));
+    controller
+        .povLeft()
+        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL2, elevatorSubsystem));
+    controller
+        .povRight()
+        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL3, elevatorSubsystem));
+    controller
+        .rightBumper()
+        .onTrue(new SetElevatorStoredPosition(CoralDeposit.INTAKE, elevatorSubsystem));
+    controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
   }
 
   public Command getAutonomousCommand() {
@@ -254,8 +262,6 @@ public class RobotContainer {
 
     if (Constants.INTAKE_DEBUG) {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
-      SmartShuffleboard.putCommand(
-          "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand(
@@ -266,9 +272,9 @@ public class RobotContainer {
           "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
 
       SmartShuffleboard.putCommand(
-          "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
+          "Elevator", "Elevator To position", new ElevatorToPosition(elevatorSubsystem));
       SmartShuffleboard.putCommand(
-          "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
+          "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }
   }
 }
