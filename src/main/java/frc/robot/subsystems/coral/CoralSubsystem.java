@@ -4,26 +4,30 @@
 
 package frc.robot.subsystems.coral;
 
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
-import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class CoralSubsystem extends SubsystemBase {
-  private final LoggableSystem<CoralIO, BuildableFolderMotorInputs<SparkMax>> coralSystemLeader;
-  private final LoggableSystem<CoralIO, BuildableFolderMotorInputs<SparkMax>> coralSystemFollower;
+  private final LoggableSystem<CoralIO, MotorInputs> coralSystemLeader;
+  private final LoggableSystem<CoralIO, MotorInputs> coralSystemFollower;
 
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIO ioFollower, CoralIO ioLeader) {
-    SparkMaxInputBuilder followerBuilder = new SparkMaxInputBuilder("CoralSubsystem/Follower");
-    BuildableFolderMotorInputs<SparkMax> followerInputs =
-        followerBuilder.encoderVelocity().fwdLimit().addStatus().build();
-
-    SparkMaxInputBuilder leaderBuilder = new SparkMaxInputBuilder("CoralSubsystem/Leader");
-    BuildableFolderMotorInputs<SparkMax> leaderInputs =
-        leaderBuilder.encoderVelocity().fwdLimit().addStatus().build();
+    MotorInputs followerInputs =
+        new MotorInputBuilder<>("ClimberSubsystem/Follower")
+            .encoderVelocity()
+            .fwdLimit()
+            .addStatus()
+            .build();
+    MotorInputs leaderInputs =
+        new MotorInputBuilder<>("ClimberSubsystem/Leader")
+            .encoderVelocity()
+            .fwdLimit()
+            .addStatus()
+            .build();
     coralSystemFollower = new LoggableSystem<>(ioFollower, followerInputs);
     coralSystemLeader = new LoggableSystem<>(ioLeader, leaderInputs);
   }
@@ -55,6 +59,6 @@ public class CoralSubsystem extends SubsystemBase {
   }
 
   public boolean getForwardSwitchState() {
-    return coralSystemLeader.getInputs().fwdLimit();
+    return coralSystemLeader.getInputs().getFwdLimit();
   }
 }

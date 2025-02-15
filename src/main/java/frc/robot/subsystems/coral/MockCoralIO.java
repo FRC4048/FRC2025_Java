@@ -1,8 +1,7 @@
 package frc.robot.subsystems.coral;
 
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class MockCoralIO implements CoralIO {
   @Override
@@ -12,7 +11,7 @@ public class MockCoralIO implements CoralIO {
   public void stopShooterMotors() {}
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 
   @Override
   public void enableOrDisableLimitSwitch(boolean state) {}

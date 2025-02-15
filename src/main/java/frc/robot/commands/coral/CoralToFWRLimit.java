@@ -28,8 +28,7 @@ public class CoralToFWRLimit extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    coralSystem.setShooterSpeed(0.1
-    );
+    coralSystem.setShooterSpeed(0.1);
     timer.restart();
   }
 
