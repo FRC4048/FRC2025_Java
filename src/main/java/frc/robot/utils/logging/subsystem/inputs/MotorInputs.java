@@ -1,6 +1,7 @@
-package frc.robot.utils.logging.subsystem.builders;
+package frc.robot.utils.logging.subsystem.inputs;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.processors.InputSource;
 import frc.robot.utils.logging.subsystem.processors.MotorInputSource;
 import org.littletonrobotics.junction.LogTable;
@@ -14,14 +15,14 @@ public class MotorInputs extends FolderInputs {
   private Boolean fwdLimit;
   private Boolean revLimit;
 
-  public MotorInputs(Builder<?> builder) {
+  public MotorInputs(MotorInputBuilder<?> builder) {
     super(builder);
-    this.encoderPosition = builder.logEncoderPosition ? 0.0 : null;
-    this.encoderVelocity = builder.logEncoderVelocity ? 0.0 : null;
-    this.motorCurrent = builder.logMotorCurrent ? 0.0 : null;
-    this.motorTemperature = builder.logMotorTemperature ? 0.0 : null;
-    this.fwdLimit = builder.logFwdLimit ? false : null;
-    this.revLimit = builder.logRevLimit ? false : null;
+    this.encoderPosition = builder.isLogEncoderPosition() ? 0.0 : null;
+    this.encoderVelocity = builder.isLogEncoderVelocity() ? 0.0 : null;
+    this.motorCurrent = builder.isLogMotorCurrent() ? 0.0 : null;
+    this.motorTemperature = builder.isLogMotorTemperature() ? 0.0 : null;
+    this.fwdLimit = builder.isLogFwdLimit() ? false : null;
+    this.revLimit = builder.isLogRevLimit() ? false : null;
   }
 
   @Override
@@ -120,100 +121,5 @@ public class MotorInputs extends FolderInputs {
 
   public Boolean getRevLimit() {
     return revLimit;
-  }
-
-  public static class Builder<T extends Builder<T>> extends FolderInputs.Builder<T> {
-    private boolean logEncoderPosition;
-    private boolean logEncoderVelocity;
-    private boolean logMotorCurrent;
-    private boolean logMotorTemperature;
-    private boolean logFwdLimit;
-    private boolean logRevLimit;
-
-    public Builder(String folder) {
-      super(folder);
-    }
-
-    @Override
-    public MotorInputs build() {
-      return new MotorInputs(this);
-    }
-
-    @Override
-    public T reset() {
-      logEncoderPosition = false;
-      logEncoderVelocity = false;
-      logMotorCurrent = false;
-      logMotorTemperature = false;
-      logFwdLimit = false;
-      logRevLimit = false;
-      return self();
-    }
-
-    public T motorCurrent() {
-      logMotorCurrent = true;
-      return self();
-    }
-
-    public T motorTemperature() {
-      logMotorTemperature = true;
-      return self();
-    }
-
-    public T encoderPosition() {
-      logEncoderPosition = true;
-      return self();
-    }
-
-    public T encoderVelocity() {
-      logEncoderVelocity = true;
-      return self();
-    }
-
-    public T fwdLimit() {
-      logFwdLimit = true;
-      return self();
-    }
-
-    public T revLimit() {
-      logRevLimit = true;
-      return self();
-    }
-
-    /**
-     * Adds {@link #encoderPosition()} and {@link #encoderVelocity()}
-     *
-     * @return the builder
-     */
-    public T addEncoder() {
-      return encoderPosition().encoderVelocity();
-    }
-
-    /**
-     * Adds {@link #motorCurrent()} and {@link #motorTemperature()}
-     *
-     * @return the builder
-     */
-    public T addStatus() {
-      return motorCurrent().motorTemperature();
-    }
-
-    /**
-     * Adds {@link #fwdLimit()} and {@link #revLimit()}
-     *
-     * @return the builder
-     */
-    public T addLimits() {
-      return fwdLimit().revLimit();
-    }
-
-    public T addAll() {
-      return motorCurrent()
-          .motorTemperature()
-          .encoderPosition()
-          .encoderVelocity()
-          .revLimit()
-          .fwdLimit();
-    }
   }
 }

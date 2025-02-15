@@ -1,6 +1,6 @@
 package frc.robot.subsystems.elevator;
 
-import frc.robot.utils.logging.subsystem.builders.PidMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 
 public class MockElevatorIO implements ElevatorIO {
   @Override

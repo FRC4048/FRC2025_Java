@@ -1,6 +1,7 @@
-package frc.robot.utils.logging.subsystem.builders;
+package frc.robot.utils.logging.subsystem.inputs;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.processors.InputSource;
 import frc.robot.utils.logging.subsystem.processors.PidMotorInputSource;
 import org.littletonrobotics.junction.LogTable;
@@ -10,9 +11,9 @@ public class PidMotorInputs extends MotorInputs {
 
   private Double pidSetpoint;
 
-  public PidMotorInputs(Builder<?> builder) {
+  public PidMotorInputs(PidMotorInputBuilder<?> builder) {
     super(builder);
-    this.pidSetpoint = builder.logPidSetpoint ? 0.0 : null;
+    this.pidSetpoint = builder.isLogPidSetpoint() ? 0.0 : null;
   }
 
   @Override
@@ -48,35 +49,5 @@ public class PidMotorInputs extends MotorInputs {
 
   public Double getPidSetpoint() {
     return pidSetpoint;
-  }
-
-  public static class Builder<T extends Builder<T>> extends MotorInputs.Builder<T> {
-    private boolean logPidSetpoint;
-
-    public Builder(String folder) {
-      super(folder);
-    }
-
-    @Override
-    public PidMotorInputs build() {
-      return new PidMotorInputs(this);
-    }
-
-    @Override
-    public T addAll() {
-      return super.addAll().pidSetpoint();
-    }
-
-    @Override
-    public T reset() {
-      super.reset();
-      logPidSetpoint = false;
-      return self();
-    }
-
-    public T pidSetpoint() {
-      logPidSetpoint = true;
-      return self();
-    }
   }
 }

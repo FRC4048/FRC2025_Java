@@ -11,7 +11,7 @@ import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
 
 /** Add your docs here. */

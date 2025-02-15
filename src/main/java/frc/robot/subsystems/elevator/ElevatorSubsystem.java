@@ -2,14 +2,15 @@ package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.PidMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    PidMotorInputs inputs = new PidMotorInputs.Builder<>("ElevatorSubsystem").addAll().build();
+    PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
   }
 

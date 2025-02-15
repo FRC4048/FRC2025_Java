@@ -1,7 +1,7 @@
 package frc.robot.subsystems.elevator;
 
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.PidMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.processors.NeoPidMotorInputSource;
 import frc.robot.utils.motor.NeoPidMotor;
 

@@ -7,7 +7,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
 
 public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {

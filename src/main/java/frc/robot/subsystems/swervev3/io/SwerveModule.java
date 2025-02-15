@@ -19,7 +19,8 @@ import frc.robot.subsystems.swervev3.io.steer.SparkMaxSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SwerveSteerMotorIO;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
@@ -45,9 +46,9 @@ public class SwerveModule {
       TrapezoidProfile.Constraints goalConstraint,
       String moduleName) {
     MotorInputs driveInputs =
-        new MotorInputs.Builder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
+        new MotorInputBuilder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
     MotorInputs steerInputs =
-        new MotorInputs.Builder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
+        new MotorInputBuilder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));

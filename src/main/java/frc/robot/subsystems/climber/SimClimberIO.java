@@ -5,7 +5,7 @@
 package frc.robot.subsystems.climber;
 
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 

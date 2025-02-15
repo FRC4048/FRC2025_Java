@@ -1,7 +1,7 @@
 package frc.robot.subsystems.algaebyebyeroller;
 
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
 
 public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {

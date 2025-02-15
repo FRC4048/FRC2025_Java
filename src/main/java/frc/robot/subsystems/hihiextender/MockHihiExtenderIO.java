@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.hihiextender;
 
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class MockHihiExtenderIO implements HihiExtenderIO {
 

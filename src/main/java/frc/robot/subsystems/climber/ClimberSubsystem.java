@@ -7,7 +7,8 @@ package frc.robot.subsystems.climber;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -15,7 +16,7 @@ public class ClimberSubsystem extends SubsystemBase {
   private final LoggableSystem<ClimberIO, MotorInputs> climberSystem;
 
   public ClimberSubsystem(ClimberIO io) {
-    MotorInputs inputs = new MotorInputs.Builder<>("ClimberSubsystem").addAll().build();
+    MotorInputs inputs = new MotorInputBuilder<>("ClimberSubsystem").addAll().build();
     climberSystem = new LoggableSystem<>(io, inputs);
   }
 

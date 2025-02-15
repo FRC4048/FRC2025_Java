@@ -1,6 +1,6 @@
 package frc.robot.subsystems.swervev3.io.drive;
 
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class MockDriveMotorIO implements SwerveDriveMotorIO {
 

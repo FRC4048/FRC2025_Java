@@ -6,14 +6,15 @@ package frc.robot.subsystems.hihiextender;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
   private final LoggableSystem<HihiExtenderIO, MotorInputs> system;
 
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
-    MotorInputs inputs = new MotorInputs.Builder<>("HihiExtenderSubsystem").addAll().build();
+    MotorInputs inputs = new MotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
     system = new LoggableSystem<>(io, inputs);
   }
 

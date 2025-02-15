@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems.algaebyebyeroller;
 
-import frc.robot.utils.logging.subsystem.builders.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 /** Add your docs here. */
 public class MockAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
