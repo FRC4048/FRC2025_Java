@@ -1,8 +1,7 @@
 package frc.robot.subsystems.hihiextender;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class SimHihiExtenderIO extends RealHihiExtenderIO {
   private final HihiExtenderSimulator hihiExtenderSimulator;
@@ -13,7 +12,7 @@ public class SimHihiExtenderIO extends RealHihiExtenderIO {
   }
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
+  public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       hihiExtenderSimulator.simulationPeriodic();
