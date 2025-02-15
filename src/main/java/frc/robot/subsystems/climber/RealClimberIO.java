@@ -10,14 +10,17 @@ import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 /** Add your docs here. */
 public class RealClimberIO implements ClimberIO {
   protected final SparkMax climberMotor;
+  private final SparkMaxInputProvider inputProvider;
 
   public RealClimberIO() {
     this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
+    inputProvider = new SparkMaxInputProvider(climberMotor);
     configureMotor();
   }
 
@@ -49,7 +52,7 @@ public class RealClimberIO implements ClimberIO {
   }
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
-    inputs.process(climberMotor);
+  public void updateInputs(MotorInputs inputs) {
+    inputs.process(inputProvider);
   }
 }
