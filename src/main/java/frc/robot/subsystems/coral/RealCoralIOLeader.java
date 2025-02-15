@@ -53,7 +53,7 @@ public class RealCoralIOLeader implements CoralIO {
         SparkBase.PersistMode.kNoPersistParameters);
   }
 
-  public void SetIdleMode(IdleMode mode) {
+  public void setIdleMode(IdleMode mode) {
     SparkMaxConfig coralConfigMotor = new SparkMaxConfig();
     coralConfigMotor.idleMode(mode);
     shooterMotor.configure(

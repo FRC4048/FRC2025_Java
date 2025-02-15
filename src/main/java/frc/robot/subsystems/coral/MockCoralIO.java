@@ -17,5 +17,5 @@ public class MockCoralIO implements CoralIO {
   public void enableOrDisableLimitSwitch(boolean state) {}
 
   @Override
-  public void SetIdleMode(IdleMode mode) {}
+  public void setIdleMode(IdleMode mode) {}
 }

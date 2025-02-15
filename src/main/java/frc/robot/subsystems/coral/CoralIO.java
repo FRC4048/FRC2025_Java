@@ -11,5 +11,5 @@ public interface CoralIO extends LoggableIO<MotorInputs> {
 
   void enableOrDisableLimitSwitch(boolean state);
 
-  void SetIdleMode(IdleMode mode);
+  void setIdleMode(IdleMode mode);
 }
