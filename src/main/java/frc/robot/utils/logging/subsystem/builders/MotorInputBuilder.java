@@ -1,80 +1,96 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-import frc.robot.utils.logging.subsystem.InputBuilder;
-import frc.robot.utils.logging.subsystem.InputSource;
-import frc.robot.utils.logging.subsystem.inputs.BooleanInput;
-import frc.robot.utils.logging.subsystem.inputs.DoubleInput;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
-/**
- * @param <R> Hardware class that is used by an {@link InputSource} to pull data from hardware
- */
-public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFolderMotorInputs<R>> {
-  private DoubleInput<R> encoderPosition;
-  private DoubleInput<R> encoderVelocity;
-  private DoubleInput<R> motorCurrent;
-  private DoubleInput<R> motorTemperature;
-  private BooleanInput<R> fwdLimit;
-  private BooleanInput<R> revLimit;
+public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
+  private boolean logEncoderPosition;
+  private boolean logEncoderVelocity;
+  private boolean logMotorCurrent;
+  private boolean logMotorTemperature;
+  private boolean logFwdLimit;
+  private boolean logRevLimit;
+  private final String folder;
 
   public MotorInputBuilder(String folder) {
-    super(folder);
+    this.folder = folder;
   }
 
-  @Override
-  public BuildableFolderMotorInputs<R> build() {
-    return new BuildableFolderMotorInputs<>(
-        folder,
-        encoderPosition,
-        encoderVelocity,
-        motorCurrent,
-        motorTemperature,
-        fwdLimit,
-        revLimit);
+  T self() {
+    return (T) this;
   }
 
-  public MotorInputBuilder<R> motorCurrent() {
-    motorCurrent = new DoubleInput<>("motorCurrent", currentFromSource());
-    return this;
+  public MotorInputs build() {
+    return new MotorInputs(this);
   }
 
-  public MotorInputBuilder<R> motorTemperature() {
-    motorCurrent = new DoubleInput<>("motorTemperature", motorTemperatureFromSource());
-    return this;
+  public T reset() {
+    logEncoderPosition = false;
+    logEncoderVelocity = false;
+    logMotorCurrent = false;
+    logMotorTemperature = false;
+    logFwdLimit = false;
+    logRevLimit = false;
+    return self();
   }
 
-  public MotorInputBuilder<R> encoderPosition() {
-    encoderPosition = new DoubleInput<>("encoderPosition", encoderPositionFromSource());
-    return this;
+  public T motorCurrent() {
+    logMotorCurrent = true;
+    return self();
   }
 
-  public MotorInputBuilder<R> encoderVelocity() {
-    encoderVelocity = new DoubleInput<>("encoderVelocity", encoderVelocityFromSource());
-    return this;
+  public T motorTemperature() {
+    logMotorTemperature = true;
+    return self();
   }
 
-  public MotorInputBuilder<R> fwdLimit() {
-    fwdLimit = new BooleanInput<>("fwdLimit", fwdLimitFromSource());
-    return this;
+  public T encoderPosition() {
+    logEncoderPosition = true;
+    return self();
   }
 
-  public MotorInputBuilder<R> revLimit() {
-    revLimit = new BooleanInput<>("revLimit", revLimitFromSource());
-    return this;
+  public T encoderVelocity() {
+    logEncoderVelocity = true;
+    return self();
   }
 
-  public MotorInputBuilder<R> addEncoder() {
+  public T fwdLimit() {
+    logFwdLimit = true;
+    return self();
+  }
+
+  public T revLimit() {
+    logRevLimit = true;
+    return self();
+  }
+
+  /**
+   * Adds {@link #encoderPosition()} and {@link #encoderVelocity()}
+   *
+   * @return the builder
+   */
+  public T addEncoder() {
     return encoderPosition().encoderVelocity();
   }
 
-  public MotorInputBuilder<R> addStatus() {
+  /**
+   * Adds {@link #motorCurrent()} and {@link #motorTemperature()}
+   *
+   * @return the builder
+   */
+  public T addStatus() {
     return motorCurrent().motorTemperature();
   }
 
-  public MotorInputBuilder<R> addLimits() {
+  /**
+   * Adds {@link #fwdLimit()} and {@link #revLimit()}
+   *
+   * @return the builder
+   */
+  public T addLimits() {
     return fwdLimit().revLimit();
   }
 
-  public MotorInputBuilder<R> addAll() {
+  public T addAll() {
     return motorCurrent()
         .motorTemperature()
         .encoderPosition()
@@ -83,25 +99,31 @@ public abstract class MotorInputBuilder<R> extends InputBuilder<R, BuildableFold
         .fwdLimit();
   }
 
-  public MotorInputBuilder<R> reset() {
-    encoderPosition = null;
-    encoderVelocity = null;
-    motorCurrent = null;
-    motorTemperature = null;
-    fwdLimit = null;
-    revLimit = null;
-    return this;
+  public boolean isLogEncoderPosition() {
+    return logEncoderPosition;
   }
 
-  protected abstract InputSource<Double, R> currentFromSource();
+  public boolean isLogEncoderVelocity() {
+    return logEncoderVelocity;
+  }
 
-  protected abstract InputSource<Double, R> motorTemperatureFromSource();
+  public boolean isLogMotorCurrent() {
+    return logMotorCurrent;
+  }
 
-  protected abstract InputSource<Double, R> encoderPositionFromSource();
+  public boolean isLogMotorTemperature() {
+    return logMotorTemperature;
+  }
 
-  protected abstract InputSource<Double, R> encoderVelocityFromSource();
+  public boolean isLogFwdLimit() {
+    return logFwdLimit;
+  }
 
-  protected abstract InputSource<Boolean, R> fwdLimitFromSource();
+  public boolean isLogRevLimit() {
+    return logRevLimit;
+  }
 
-  protected abstract InputSource<Boolean, R> revLimitFromSource();
+  public String getFolder() {
+    return folder;
+  }
 }

@@ -1,8 +1,7 @@
 package frc.robot.subsystems.algaebyebyeroller;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
 
 public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {
@@ -14,7 +13,7 @@ public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {
   }
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
+  public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       algaeByeByeRollerSimulator.stepSimulation();

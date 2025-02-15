@@ -1,8 +1,7 @@
 package frc.robot.subsystems.elevator;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 
 public class SimElevatorIO extends RealElevatorIO {
   private final ElevatorSimulator elevatorSimulator;
@@ -13,7 +12,7 @@ public class SimElevatorIO extends RealElevatorIO {
   }
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
+  public void updateInputs(PidMotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       elevatorSimulator.stepSimulation();

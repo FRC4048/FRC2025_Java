@@ -1,15 +1,17 @@
 package frc.robot.subsystems.hihiextender;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
   protected final NeoPidMotor extenderMotor;
+  private final NeoPidMotorInputProvider inputProvider;
 
   public RealHihiExtenderIO() {
     this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID);
+    inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
   }
 
@@ -24,15 +26,16 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   }
 
   @Override
-  public void resetExtenderEncoder() {}
-
-  @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
-    inputs.process(extenderMotor.getNeoMotor());
+  public void resetExtenderEncoder() {
+    // TODO: Implement this
   }
 
   @Override
   public void setExtenderPosition(double encoderPos) {
     extenderMotor.setPidPos(encoderPos);
+  }
+
+  public void updateInputs(MotorInputs inputs) {
+    inputs.process(inputProvider);
   }
 }
