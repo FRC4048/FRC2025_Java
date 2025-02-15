@@ -49,6 +49,6 @@ public class CoralToFWRLimit extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return false;
+    return coralSystem.getForwardSwitchState();
   }
 }

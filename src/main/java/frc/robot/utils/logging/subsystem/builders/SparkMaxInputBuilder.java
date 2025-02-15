@@ -33,7 +33,11 @@ public class SparkMaxInputBuilder extends MotorInputBuilder<SparkMax> {
 
   @Override
   protected InputSource<Boolean, SparkMax> fwdLimitFromSource() {
-    return spark -> spark.getForwardLimitSwitch().isPressed();
+    // return spark -> spark.getForwardLimitSwitch().isPressed();
+    return spark -> {
+      System.out.println("Is Pressed: " + spark.getForwardLimitSwitch().isPressed());
+      return spark.getForwardLimitSwitch().isPressed();
+    };
   }
 
   @Override

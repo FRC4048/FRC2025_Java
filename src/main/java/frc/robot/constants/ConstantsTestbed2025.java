@@ -14,8 +14,8 @@ public class ConstantsTestbed2025 extends Constants2025 {
    * This an example of overriding a specific motor ID for testing, no changes to this file should
    * be committed to Git.
    */
-  public static final int ALGAE_EXTENDER_MOTOR_ID = 6;
+  public static final int ALGAE_EXTENDER_MOTOR_ID = 42;
 
-  public static final int SHOOTER_MOTOR_LEADER_ID = 45;
+  public static final int SHOOTER_MOTOR_LEADER_ID = 98;
   public static final int SHOOTER_MOTOR_FOLLOWER_ID = 99;
 }

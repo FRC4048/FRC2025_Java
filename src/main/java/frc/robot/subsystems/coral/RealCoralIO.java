@@ -4,7 +4,9 @@ import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class RealCoralIO implements CoralIO {
   private final SparkMax shooterMotor;
@@ -59,5 +61,9 @@ public class RealCoralIO implements CoralIO {
   @Override
   public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
     inputs.process(shooterMotor);
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.put(
+          "coral", "ForwardTripped?", shooterMotor.getForwardLimitSwitch().isPressed());
+    }
   }
 }

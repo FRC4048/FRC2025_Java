@@ -7,11 +7,9 @@ package frc.robot.subsystems.coral;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIO, BuildableFolderMotorInputs<SparkMax>> coralSystemLeader;
@@ -34,9 +32,6 @@ public class CoralSubsystem extends SubsystemBase {
   public void periodic() {
     coralSystemLeader.updateInputs();
     coralSystemFollower.updateInputs();
-    if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.put("coral", "ForwardTripped?", coralSystemLeader.getInputs().fwdLimit());
-    }
   }
 
   public void setShooterSpeed(double speed) {
