@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
@@ -126,7 +127,7 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-    controller.leftTrigger().onTrue(new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+    controller.leftTrigger().onTrue(new IntakeCoral(shooter));
     controller
         .povUp()
         .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL4, elevatorSubsystem));
@@ -143,6 +144,7 @@ public class RobotContainer {
         .rightBumper()
         .onTrue(new SetElevatorStoredPosition(CoralDeposit.INTAKE, elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
+    controller.rightTrigger().onTrue(new ClimberRunMotors(climberSubsystem, Constants.CLIMBER_SPEED));
   }
 
   public Command getAutonomousCommand() {
