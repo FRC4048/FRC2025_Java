@@ -11,17 +11,17 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
+import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   protected final SparkMax removerMotor;
-  private final SparkMaxInputSource inputSource;
+  private final SparkMaxInputProvider inputSource;
 
   public RealAlgaeByeByeRollerIO() {
     this.removerMotor =
         new SparkMax(Constants.ALGAE_BYEBYE_SPINING_ID, SparkLowLevel.MotorType.kBrushless);
-    inputSource = new SparkMaxInputSource(removerMotor);
+    inputSource = new SparkMaxInputProvider(removerMotor);
     configureMotor();
   }
 

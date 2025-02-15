@@ -2,8 +2,8 @@ package frc.robot.utils.logging.subsystem.inputs;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
-import frc.robot.utils.logging.subsystem.processors.InputSource;
-import frc.robot.utils.logging.subsystem.processors.PidMotorInputSource;
+import frc.robot.utils.logging.subsystem.providers.InputProvider;
+import frc.robot.utils.logging.subsystem.providers.PidMotorInputProvider;
 import org.littletonrobotics.junction.LogTable;
 
 /** Contains Inputs that could be logged for a Motor with a Pid */
@@ -33,10 +33,10 @@ public class PidMotorInputs extends MotorInputs {
   }
 
   @Override
-  public boolean process(InputSource inputSource) {
-    boolean success = super.process(inputSource);
+  public boolean process(InputProvider inputProvider) {
+    boolean success = super.process(inputProvider);
 
-    if (success && inputSource instanceof PidMotorInputSource pidMotorInputSource) {
+    if (success && inputProvider instanceof PidMotorInputProvider pidMotorInputSource) {
       if (pidSetpoint != null) {
         pidSetpoint = pidMotorInputSource.getPidSetpoint();
       }

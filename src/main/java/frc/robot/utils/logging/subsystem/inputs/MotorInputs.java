@@ -2,8 +2,8 @@ package frc.robot.utils.logging.subsystem.inputs;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
-import frc.robot.utils.logging.subsystem.processors.InputSource;
-import frc.robot.utils.logging.subsystem.processors.MotorInputSource;
+import frc.robot.utils.logging.subsystem.providers.InputProvider;
+import frc.robot.utils.logging.subsystem.providers.MotorInputProvider;
 import org.littletonrobotics.junction.LogTable;
 
 /** Contains Inputs that could be logged for a motor */
@@ -72,8 +72,8 @@ public class MotorInputs extends FolderInputs {
   }
 
   @Override
-  public boolean process(InputSource inputSource) {
-    if (inputSource instanceof MotorInputSource motorInputSource) {
+  public boolean process(InputProvider inputProvider) {
+    if (inputProvider instanceof MotorInputProvider motorInputSource) {
       if (encoderPosition != null) {
         encoderPosition = motorInputSource.getEncoderPosition();
       }

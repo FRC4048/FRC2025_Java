@@ -12,18 +12,18 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
+import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   private final SparkMax removerTiltMotor; // SnowblowerMotor
-  private final SparkMaxInputSource inputSource;
+  private final SparkMaxInputProvider inputSource;
 
   public RealAlgaeByeByeTiltIO() {
 
     this.removerTiltMotor =
         new SparkMax(Constants.ALGAE_BYEBYE_TILT_ID, SparkLowLevel.MotorType.kBrushless);
-    inputSource = new SparkMaxInputSource(removerTiltMotor);
+    inputSource = new SparkMaxInputProvider(removerTiltMotor);
     configureMotor();
     resetEncoder();
   }

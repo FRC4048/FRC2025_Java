@@ -8,18 +8,18 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
+import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
   private final SparkMax driveMotor;
   private final SparkBaseConfig driveConfig;
-  private final SparkMaxInputSource inputSource;
+  private final SparkMaxInputProvider inputSource;
 
   public SparkMaxDriveMotorIO(
       int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
-    inputSource = new SparkMaxInputSource(driveMotor);
+    inputSource = new SparkMaxInputProvider(driveMotor);
     driveConfig = new SparkMaxConfig();
     setMotorConfig(driveInverted);
     setConversionFactors(conversionConfig);

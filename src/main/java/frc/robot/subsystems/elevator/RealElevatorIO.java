@@ -2,16 +2,16 @@ package frc.robot.subsystems.elevator;
 
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
-import frc.robot.utils.logging.subsystem.processors.NeoPidMotorInputSource;
+import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealElevatorIO implements ElevatorIO {
   protected final NeoPidMotor elevatorMotor;
-  private final NeoPidMotorInputSource inputSource;
+  private final NeoPidMotorInputProvider inputSource;
 
   public RealElevatorIO() {
     this.elevatorMotor = new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID);
-    this.inputSource = new NeoPidMotorInputSource(elevatorMotor);
+    this.inputSource = new NeoPidMotorInputProvider(elevatorMotor);
   }
 
   @Override

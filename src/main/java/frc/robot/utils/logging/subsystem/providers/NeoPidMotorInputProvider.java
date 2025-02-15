@@ -1,12 +1,12 @@
-package frc.robot.utils.logging.subsystem.processors;
+package frc.robot.utils.logging.subsystem.providers;
 
 import frc.robot.utils.motor.NeoPidMotor;
 
-public class NeoPidMotorInputSource extends SparkMaxInputSource implements PidMotorInputSource {
+public class NeoPidMotorInputProvider extends SparkMaxInputProvider implements PidMotorInputProvider {
 
   private final NeoPidMotor neoPidMotor;
 
-  public NeoPidMotorInputSource(NeoPidMotor neoPidMotor) {
+  public NeoPidMotorInputProvider(NeoPidMotor neoPidMotor) {
     super(neoPidMotor.getNeoMotor());
     this.neoPidMotor = neoPidMotor;
   }

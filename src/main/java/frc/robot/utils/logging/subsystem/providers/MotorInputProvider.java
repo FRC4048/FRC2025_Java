@@ -1,6 +1,6 @@
-package frc.robot.utils.logging.subsystem.processors;
+package frc.robot.utils.logging.subsystem.providers;
 
-public interface MotorInputSource extends InputSource {
+public interface MotorInputProvider extends InputProvider {
 
   double getMotorCurrent();
 

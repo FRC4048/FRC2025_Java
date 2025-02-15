@@ -7,18 +7,18 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.logging.subsystem.processors.SparkMaxInputSource;
+import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 public class SparkMaxSteerMotorIO implements SwerveSteerMotorIO {
   private final SparkMax steerMotor;
   private final SparkBaseConfig steerConfig;
-  private final SparkMaxInputSource inputSource;
+  private final SparkMaxInputProvider inputSource;
 
   public SparkMaxSteerMotorIO(
       int steerMotorId, KinematicsConversionConfig conversionConfig, boolean steerInverted) {
     steerMotor = new SparkMax(steerMotorId, SparkMax.MotorType.kBrushless);
     steerConfig = new SparkMaxConfig();
-    this.inputSource = new SparkMaxInputSource(steerMotor);
+    this.inputSource = new SparkMaxInputProvider(steerMotor);
     setMotorConfig(steerInverted);
     setConversionFactors(conversionConfig);
     resetEncoder();

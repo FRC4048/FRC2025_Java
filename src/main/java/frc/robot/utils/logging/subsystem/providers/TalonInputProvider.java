@@ -1,13 +1,13 @@
-package frc.robot.utils.logging.subsystem.processors;
+package frc.robot.utils.logging.subsystem.providers;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /** Talon Input Builder implementation */
-public class TalonInputSource implements MotorInputSource {
+public class TalonInputProvider implements MotorInputProvider {
 
   private final WPI_TalonSRX talon;
 
-  public TalonInputSource(WPI_TalonSRX talon) {
+  public TalonInputProvider(WPI_TalonSRX talon) {
     this.talon = talon;
   }
 

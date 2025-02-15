@@ -1,13 +1,13 @@
-package frc.robot.utils.logging.subsystem.processors;
+package frc.robot.utils.logging.subsystem.providers;
 
 import com.revrobotics.spark.SparkMax;
 
 /** SparkMax Input Builder implementation */
-public class SparkMaxInputSource implements MotorInputSource {
+public class SparkMaxInputProvider implements MotorInputProvider {
 
   private final SparkMax sparkMax;
 
-  public SparkMaxInputSource(SparkMax sparkMax) {
+  public SparkMaxInputProvider(SparkMax sparkMax) {
     this.sparkMax = sparkMax;
   }
 

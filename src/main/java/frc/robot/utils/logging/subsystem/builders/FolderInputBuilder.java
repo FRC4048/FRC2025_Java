@@ -1,7 +1,7 @@
 package frc.robot.utils.logging.subsystem.builders;
 
 import frc.robot.utils.logging.subsystem.inputs.FolderInputs;
-import frc.robot.utils.logging.subsystem.processors.InputSource;
+import frc.robot.utils.logging.subsystem.providers.InputProvider;
 import org.littletonrobotics.junction.LogTable;
 
 public abstract class FolderInputBuilder<T extends FolderInputBuilder<T>> {
@@ -21,7 +21,7 @@ public abstract class FolderInputBuilder<T extends FolderInputBuilder<T>> {
   public FolderInputs build() {
     return new FolderInputs(this) {
       @Override
-      protected boolean process(InputSource inputSource) {
+      protected boolean process(InputProvider inputProvider) {
         return true;
       }
 
