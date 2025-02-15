@@ -45,7 +45,7 @@ public class CoralToFWRLimit extends LoggableCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer.hasElapsed(Constants.BYEBYE_REVERSE_TIMEOUT)) {
+    if (timer.hasElapsed(Constants.CORAL_FWR_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }

@@ -1,6 +1,7 @@
 package frc.robot.subsystems.coral;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
 public class MockCoralIO implements CoralIO {
@@ -17,5 +18,5 @@ public class MockCoralIO implements CoralIO {
   public void enableOrDisableLimitSwitch(boolean state) {}
 
   @Override
-  public void breakModeCoast(boolean breakMode) {}
+  public void breakMode(IdleMode mode) {}
 }

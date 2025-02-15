@@ -4,22 +4,24 @@
 
 package frc.robot.commands.subsystemtests;
 
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.coral.CoralSubsystem;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class DisableCoralLimit extends Command {
+public class CoralIdleMode extends Command {
   private final CoralSubsystem coralSystem;
+  private final IdleMode mode;
 
-  public DisableCoralLimit(CoralSubsystem coralSystem) {
+  public CoralIdleMode(CoralSubsystem coralSystem, IdleMode mode) {
     this.coralSystem = coralSystem;
+    this.mode = mode;
     addRequirements(coralSystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    coralSystem.enableOrDisableLimitSwitch(false);
+    coralSystem.idleMode(mode);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

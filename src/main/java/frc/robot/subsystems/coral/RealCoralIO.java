@@ -7,11 +7,10 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 
 public class RealCoralIO implements CoralIO {
-  private final SparkMax
-      shooterMotor; // TODO: change later to whatever // TODO: change later to whatever
+  private final SparkMax shooterMotor;
 
-  public RealCoralIO(SparkMax MAX) {
-    shooterMotor = MAX;
+  public RealCoralIO(SparkMax motor) {
+    shooterMotor = motor;
     configureMotor();
   }
 
@@ -19,8 +18,6 @@ public class RealCoralIO implements CoralIO {
     SparkMaxConfig coralConfigMotorLeader = new SparkMaxConfig();
     coralConfigMotorLeader.apply(
         coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(true));
-    coralConfigMotorLeader.apply(
-        coralConfigMotorLeader.limitSwitch.reverseLimitSwitchEnabled(true));
     coralConfigMotorLeader.idleMode(IdleMode.kBrake);
     shooterMotor.configure(
         coralConfigMotorLeader,
@@ -43,22 +40,15 @@ public class RealCoralIO implements CoralIO {
     SparkMaxConfig coralConfigMotorLeader = new SparkMaxConfig();
     coralConfigMotorLeader.apply(
         coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(state));
-    coralConfigMotorLeader.apply(
-        coralConfigMotorLeader.limitSwitch.reverseLimitSwitchEnabled(state));
     shooterMotor.configure(
         coralConfigMotorLeader,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
   }
 
-  @Override
-  public void breakModeCoast(boolean coast) {
+  public void breakMode(IdleMode mode) {
     SparkMaxConfig coralConfigMotor = new SparkMaxConfig();
-    if (coast) {
-      coralConfigMotor.idleMode(IdleMode.kCoast);
-    } else {
-      coralConfigMotor.idleMode(IdleMode.kBrake);
-    }
+    coralConfigMotor.idleMode(mode);
     shooterMotor.configure(
         coralConfigMotor,
         SparkBase.ResetMode.kNoResetSafeParameters,

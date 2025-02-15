@@ -48,7 +48,7 @@ public class SmartShuffleboardTab {
       GenericEntry ntEntry = widget.getEntry();
       ntEntry.setValue(value);
     } else {
-      widget = tab.add(fieldName, value).withWidget(BuiltInWidgets.kBooleanBox);
+      widget = tab.add(fieldName, value).withWidget(BuiltInWidgets.kNumberSlider);
       widgetMap.put(fieldName, widget);
     }
     return widget;
