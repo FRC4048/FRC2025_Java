@@ -11,11 +11,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputs.Builder<>("ElevatorSubsystem").addAll().build();
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
-    /* Example for Neo Pid
-    NeoPidMotorInputs.Builder<?> builder2 = new NeoPidMotorInputs.Builder<>("ElevatorSubsystem");
-    MotorInputs<SparkMax> inputs2 = builder2.addAll().build();
-    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs2);
-    */
   }
 
   public void setElevatorMotorSpeed(double speed) {
