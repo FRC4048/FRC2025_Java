@@ -12,13 +12,13 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 public class SparkMaxSteerMotorIO implements SwerveSteerMotorIO {
   private final SparkMax steerMotor;
   private final SparkBaseConfig steerConfig;
-  private final SparkMaxInputProvider inputSource;
+  private final SparkMaxInputProvider inputProvider;
 
   public SparkMaxSteerMotorIO(
       int steerMotorId, KinematicsConversionConfig conversionConfig, boolean steerInverted) {
     steerMotor = new SparkMax(steerMotorId, SparkMax.MotorType.kBrushless);
     steerConfig = new SparkMaxConfig();
-    this.inputSource = new SparkMaxInputProvider(steerMotor);
+    this.inputProvider = new SparkMaxInputProvider(steerMotor);
     setMotorConfig(steerInverted);
     setConversionFactors(conversionConfig);
     resetEncoder();
@@ -57,6 +57,6 @@ public class SparkMaxSteerMotorIO implements SwerveSteerMotorIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    inputs.process(inputSource);
+    inputs.process(inputProvider);
   }
 }

@@ -14,12 +14,12 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
   private final SparkMax driveMotor;
   private final SparkBaseConfig driveConfig;
-  private final SparkMaxInputProvider inputSource;
+  private final SparkMaxInputProvider inputProvider;
 
   public SparkMaxDriveMotorIO(
       int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
-    inputSource = new SparkMaxInputProvider(driveMotor);
+    inputProvider = new SparkMaxInputProvider(driveMotor);
     driveConfig = new SparkMaxConfig();
     setMotorConfig(driveInverted);
     setConversionFactors(conversionConfig);
@@ -69,6 +69,6 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    inputs.process(inputSource);
+    inputs.process(inputProvider);
   }
 }

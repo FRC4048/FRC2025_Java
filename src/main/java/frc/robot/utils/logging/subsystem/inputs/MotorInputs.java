@@ -73,28 +73,28 @@ public class MotorInputs extends FolderInputs {
 
   @Override
   public boolean process(InputProvider inputProvider) {
-    if (inputProvider instanceof MotorInputProvider motorInputSource) {
+    if (inputProvider instanceof MotorInputProvider motorinputProvider) {
       if (encoderPosition != null) {
-        encoderPosition = motorInputSource.getEncoderPosition();
+        encoderPosition = motorinputProvider.getEncoderPosition();
       }
       if (encoderVelocity != null) {
-        encoderVelocity = motorInputSource.getEncoderVelocity();
+        encoderVelocity = motorinputProvider.getEncoderVelocity();
       }
       if (motorCurrent != null) {
-        motorCurrent = motorInputSource.getMotorCurrent();
+        motorCurrent = motorinputProvider.getMotorCurrent();
       }
       if (motorTemperature != null) {
-        motorTemperature = motorInputSource.getMotorTemperature();
+        motorTemperature = motorinputProvider.getMotorTemperature();
       }
       if (fwdLimit != null) {
-        fwdLimit = motorInputSource.getFwdLimit();
+        fwdLimit = motorinputProvider.getFwdLimit();
       }
       if (revLimit != null) {
-        revLimit = motorInputSource.getRevLimit();
+        revLimit = motorinputProvider.getRevLimit();
       }
       return true;
     } else {
-      DriverStation.reportError("InputSource must be of type MotorInputSource", true);
+      DriverStation.reportError("inputProvider must be of type MotorinputProvider", true);
       return false;
     }
   }

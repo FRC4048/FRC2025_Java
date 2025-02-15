@@ -7,11 +7,11 @@ import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealElevatorIO implements ElevatorIO {
   protected final NeoPidMotor elevatorMotor;
-  private final NeoPidMotorInputProvider inputSource;
+  private final NeoPidMotorInputProvider inputProvider;
 
   public RealElevatorIO() {
     this.elevatorMotor = new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID);
-    this.inputSource = new NeoPidMotorInputProvider(elevatorMotor);
+    this.inputProvider = new NeoPidMotorInputProvider(elevatorMotor);
   }
 
   @Override
@@ -40,6 +40,6 @@ public class RealElevatorIO implements ElevatorIO {
 
   @Override
   public void updateInputs(PidMotorInputs inputs) {
-    inputs.process(inputSource);
+    inputs.process(inputProvider);
   }
 }

@@ -36,13 +36,13 @@ public class PidMotorInputs extends MotorInputs {
   public boolean process(InputProvider inputProvider) {
     boolean success = super.process(inputProvider);
 
-    if (success && inputProvider instanceof PidMotorInputProvider pidMotorInputSource) {
+    if (success && inputProvider instanceof PidMotorInputProvider pidMotorinputProvider) {
       if (pidSetpoint != null) {
-        pidSetpoint = pidMotorInputSource.getPidSetpoint();
+        pidSetpoint = pidMotorinputProvider.getPidSetpoint();
       }
       return true;
     } else {
-      DriverStation.reportError("InputSource must be of type PidMotorInputSource", true);
+      DriverStation.reportError("inputProvider must be of type PidMotorinputProvider", true);
       return false;
     }
   }

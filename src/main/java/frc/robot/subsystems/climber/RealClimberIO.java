@@ -16,11 +16,11 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 /** Add your docs here. */
 public class RealClimberIO implements ClimberIO {
   protected final SparkMax climberMotor;
-  private final SparkMaxInputProvider inputSource;
+  private final SparkMaxInputProvider inputProvider;
 
   public RealClimberIO() {
     this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
-    inputSource = new SparkMaxInputProvider(climberMotor);
+    inputProvider = new SparkMaxInputProvider(climberMotor);
     configureMotor();
   }
 
@@ -53,6 +53,6 @@ public class RealClimberIO implements ClimberIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    inputs.process(inputSource);
+    inputs.process(inputProvider);
   }
 }

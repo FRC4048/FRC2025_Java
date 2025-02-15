@@ -11,12 +11,12 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
   private final SparkMax extenderMotor;
-  private final SparkMaxInputProvider inputSource;
+  private final SparkMaxInputProvider inputProvider;
 
   public RealHihiExtenderIO() {
     this.extenderMotor =
         new SparkMax(Constants.ALGAE_EXTENDER_MOTOR_ID, SparkLowLevel.MotorType.kBrushed);
-    this.inputSource = new SparkMaxInputProvider(extenderMotor);
+    this.inputProvider = new SparkMaxInputProvider(extenderMotor);
     configureMotor();
     resetExtenderEncoder();
   }
@@ -45,6 +45,6 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    inputs.process(inputSource);
+    inputs.process(inputProvider);
   }
 }

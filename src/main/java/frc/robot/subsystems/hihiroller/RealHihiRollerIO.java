@@ -11,12 +11,12 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 public class RealHihiRollerIO implements HihiRollerIO {
   protected final SparkMax hihiRollerMotor;
-  private final SparkMaxInputProvider inputSource;
+  private final SparkMaxInputProvider inputProvider;
 
   public RealHihiRollerIO() {
     this.hihiRollerMotor =
         new SparkMax(Constants.ALGAE_ROLLER_CAN_ID, SparkLowLevel.MotorType.kBrushless);
-    this.inputSource = new SparkMaxInputProvider(hihiRollerMotor);
+    this.inputProvider = new SparkMaxInputProvider(hihiRollerMotor);
     configureMotor();
   }
 
@@ -41,6 +41,6 @@ public class RealHihiRollerIO implements HihiRollerIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    inputs.process(inputSource);
+    inputs.process(inputProvider);
   }
 }

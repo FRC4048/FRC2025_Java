@@ -17,13 +17,13 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 /** Add your docs here. */
 public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   private final SparkMax removerTiltMotor; // SnowblowerMotor
-  private final SparkMaxInputProvider inputSource;
+  private final SparkMaxInputProvider inputProvider;
 
   public RealAlgaeByeByeTiltIO() {
 
     this.removerTiltMotor =
         new SparkMax(Constants.ALGAE_BYEBYE_TILT_ID, SparkLowLevel.MotorType.kBrushless);
-    inputSource = new SparkMaxInputProvider(removerTiltMotor);
+    inputProvider = new SparkMaxInputProvider(removerTiltMotor);
     configureMotor();
     resetEncoder();
   }
@@ -54,6 +54,6 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    inputs.process(inputSource);
+    inputs.process(inputProvider);
   }
 }
