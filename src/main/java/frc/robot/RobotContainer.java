@@ -18,7 +18,7 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
-import frc.robot.commands.climber.ClimberRunMotors;
+import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.coral.CoralToFWRLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
