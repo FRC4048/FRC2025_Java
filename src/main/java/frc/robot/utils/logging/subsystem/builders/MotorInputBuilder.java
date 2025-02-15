@@ -2,24 +2,27 @@ package frc.robot.utils.logging.subsystem.builders;
 
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
-public class MotorInputBuilder<T extends MotorInputBuilder<T>> extends FolderInputBuilder<T> {
+public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
   private boolean logEncoderPosition;
   private boolean logEncoderVelocity;
   private boolean logMotorCurrent;
   private boolean logMotorTemperature;
   private boolean logFwdLimit;
   private boolean logRevLimit;
+  private final String folder;
 
   public MotorInputBuilder(String folder) {
-    super(folder);
+    this.folder = folder;
   }
 
-  @Override
+  T self() {
+    return (T) this;
+  }
+
   public MotorInputs build() {
     return new MotorInputs(this);
   }
 
-  @Override
   public T reset() {
     logEncoderPosition = false;
     logEncoderVelocity = false;
@@ -118,5 +121,9 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> extends FolderInp
 
   public boolean isLogRevLimit() {
     return logRevLimit;
+  }
+
+  public String getFolder() {
+    return folder;
   }
 }

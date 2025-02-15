@@ -14,36 +14,38 @@ public class MotorInputs extends FolderInputs {
   private Double motorTemperature;
   private Boolean fwdLimit;
   private Boolean revLimit;
+  private final MotorInputBuilder<?> builder;
 
-  public MotorInputs(MotorInputBuilder<?> builder) {
-    super(builder);
+    public MotorInputs(MotorInputBuilder<?> builder) {
+    super(builder.getFolder());
     this.encoderPosition = builder.isLogEncoderPosition() ? 0.0 : null;
     this.encoderVelocity = builder.isLogEncoderVelocity() ? 0.0 : null;
     this.motorCurrent = builder.isLogMotorCurrent() ? 0.0 : null;
     this.motorTemperature = builder.isLogMotorTemperature() ? 0.0 : null;
     this.fwdLimit = builder.isLogFwdLimit() ? false : null;
     this.revLimit = builder.isLogRevLimit() ? false : null;
-  }
+    this.builder = builder;
+    }
 
   @Override
   public void toLog(LogTable table) {
     // This is my first EVER if train
-    if (encoderPosition != null) {
+    if (builder.isLogEncoderPosition()) {
       table.put("encoderPosition", encoderPosition);
     }
-    if (encoderVelocity != null) {
+    if (builder.isLogEncoderVelocity()) {
       table.put("encoderVelocity", encoderVelocity);
     }
-    if (motorCurrent != null) {
+    if (builder.isLogMotorCurrent()) {
       table.put("motorCurrent", motorCurrent);
     }
-    if (motorTemperature != null) {
+    if (builder.isLogMotorTemperature()) {
       table.put("motorTemperature", motorTemperature);
     }
-    if (fwdLimit != null) {
+    if (builder.isLogFwdLimit()) {
       table.put("fwdLimit", fwdLimit);
     }
-    if (revLimit != null) {
+    if (builder.isLogRevLimit()) {
       table.put("revLimit", revLimit);
     }
   }
@@ -51,22 +53,22 @@ public class MotorInputs extends FolderInputs {
   @Override
   public void fromLog(LogTable table) {
     // This is my second EVER if train
-    if (encoderPosition != null) {
+    if (builder.isLogEncoderPosition()) {
       encoderPosition = table.get("encoderPosition", encoderPosition);
     }
-    if (encoderVelocity != null) {
+    if (builder.isLogEncoderVelocity()) {
       encoderVelocity = table.get("encoderVelocity", encoderVelocity);
     }
-    if (motorCurrent != null) {
+    if (builder.isLogMotorCurrent()) {
       motorCurrent = table.get("motorCurrent", motorCurrent);
     }
-    if (motorTemperature != null) {
+    if (builder.isLogMotorTemperature()) {
       motorTemperature = table.get("motorTemperature", motorTemperature);
     }
-    if (fwdLimit != null) {
+    if (builder.isLogFwdLimit()) {
       fwdLimit = table.get("fwdLimit", fwdLimit);
     }
-    if (revLimit != null) {
+    if (builder.isLogRevLimit()) {
       revLimit = table.get("revLimit", revLimit);
     }
   }
@@ -74,22 +76,22 @@ public class MotorInputs extends FolderInputs {
   @Override
   public boolean process(InputProvider inputProvider) {
     if (inputProvider instanceof MotorInputProvider motorinputProvider) {
-      if (encoderPosition != null) {
+      if (builder.isLogEncoderPosition()) {
         encoderPosition = motorinputProvider.getEncoderPosition();
       }
-      if (encoderVelocity != null) {
+      if (builder.isLogEncoderVelocity()) {
         encoderVelocity = motorinputProvider.getEncoderVelocity();
       }
-      if (motorCurrent != null) {
+      if (builder.isLogMotorCurrent()) {
         motorCurrent = motorinputProvider.getMotorCurrent();
       }
-      if (motorTemperature != null) {
+      if (builder.isLogMotorTemperature()) {
         motorTemperature = motorinputProvider.getMotorTemperature();
       }
-      if (fwdLimit != null) {
+      if (builder.isLogFwdLimit()) {
         fwdLimit = motorinputProvider.getFwdLimit();
       }
-      if (revLimit != null) {
+      if (builder.isLogRevLimit()) {
         revLimit = motorinputProvider.getRevLimit();
       }
       return true;
