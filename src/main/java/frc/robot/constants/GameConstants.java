@@ -13,11 +13,13 @@ public class GameConstants {
   // Debug
   public static final boolean SWERVE_DEBUG = false;
   public static final boolean INTAKE_DEBUG = true;
+  public static final boolean CLIMBER_DEBUG = false;
   public static final boolean COMMAND_DEBUG = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
+  public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_ROLLER_SPEED = 0.15;
@@ -31,6 +33,7 @@ public class GameConstants {
   public static final double HIHI_RETRACT_SPEED = -0.4;
   public static final double HIHI_INTAKE_SPEED = 0.4;
   public static final double HIHI_SHOOT_SPEED = -0.4;
+  public static final double CLIMBER_RISE_SPEED = 0;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -49,6 +52,8 @@ public class GameConstants {
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
+  public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
+  public static final int RESET_CLIMBER_TIMEOUT = 10;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;

@@ -1,7 +1,6 @@
 package frc.robot.subsystems.swervev3.io.steer;
 
-import com.revrobotics.spark.SparkMax;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class MockSteerMotorIO implements SwerveSteerMotorIO {
 
@@ -12,5 +11,5 @@ public class MockSteerMotorIO implements SwerveSteerMotorIO {
   public void resetEncoder() {}
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 }

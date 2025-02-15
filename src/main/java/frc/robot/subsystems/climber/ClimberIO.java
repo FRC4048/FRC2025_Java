@@ -4,14 +4,15 @@
 
 package frc.robot.subsystems.climber;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 /** Add your docs here. */
-public interface ClimberIO extends LoggableIO<BuildableFolderMotorInputs<SparkMax>> {
+public interface ClimberIO extends LoggableIO<MotorInputs> {
 
   void setClimberSpeed(double speed);
 
   void stopClimber();
+
+  void resetClimberEncoder();
 }
