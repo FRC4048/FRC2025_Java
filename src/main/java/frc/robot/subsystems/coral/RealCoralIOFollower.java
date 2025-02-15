@@ -43,18 +43,9 @@ public class RealCoralIOFollower implements CoralIO {
   }
 
   @Override
-  public void enableOrDisableLimitSwitch(boolean state) {
-    SparkMaxConfig coralConfigMotorLeader = new SparkMaxConfig();
-    coralConfigMotorLeader.apply(
-        coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(state));
+  public void enableOrDisableLimitSwitch(boolean state) {}
 
-    shooterMotor.configure(
-        coralConfigMotorLeader,
-        SparkBase.ResetMode.kNoResetSafeParameters,
-        SparkBase.PersistMode.kNoPersistParameters);
-  }
-
-  public void breakMode(IdleMode mode) {
+  public void SetIdleMode(IdleMode mode) {
     SparkMaxConfig coralConfigMotor = new SparkMaxConfig();
     coralConfigMotor.idleMode(mode);
     shooterMotor.configure(

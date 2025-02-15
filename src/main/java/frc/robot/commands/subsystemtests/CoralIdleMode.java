@@ -21,7 +21,7 @@ public class CoralIdleMode extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    coralSystem.idleMode(mode);
+    coralSystem.SetidleMode(mode);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

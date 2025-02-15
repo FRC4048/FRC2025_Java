@@ -7,11 +7,11 @@ package frc.robot.commands.subsystemtests;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.coral.CoralSubsystem;
 
-public class EnableOrDisableCoralLimit extends Command {
+public class SetCoralLimitState extends Command {
   private final CoralSubsystem coralSystem;
   private final boolean enableOrDisableLimitSwitch;
 
-  public EnableOrDisableCoralLimit(CoralSubsystem coralSystem, boolean enableOrDisableLimitSwitch) {
+  public SetCoralLimitState(CoralSubsystem coralSystem, boolean enableOrDisableLimitSwitch) {
     this.coralSystem = coralSystem;
     this.enableOrDisableLimitSwitch = enableOrDisableLimitSwitch;
     addRequirements(coralSystem);
@@ -20,7 +20,7 @@ public class EnableOrDisableCoralLimit extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    coralSystem.enableOrDisableLimitSwitch(enableOrDisableLimitSwitch);
+    coralSystem.SetLimitSwitchState(enableOrDisableLimitSwitch);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -25,7 +25,7 @@ import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
-import frc.robot.commands.subsystemtests.EnableOrDisableCoralLimit;
+import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
@@ -269,9 +269,9 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
       SmartShuffleboard.putCommand(
-          "DEBUG", "DisableLimitCoral", new EnableOrDisableCoralLimit(coralSubsystem, false));
+          "DEBUG", "DisableLimitCoral", new SetCoralLimitState(coralSubsystem, false));
       SmartShuffleboard.putCommand(
-          "DEBUG", "EnableLimitCoral", new EnableOrDisableCoralLimit(coralSubsystem, true));
+          "DEBUG", "EnableLimitCoral", new SetCoralLimitState(coralSubsystem, true));
       SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
 
       SmartShuffleboard.putCommand(

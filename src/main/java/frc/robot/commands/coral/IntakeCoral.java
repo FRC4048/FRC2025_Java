@@ -20,7 +20,7 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    // intake.enableOrDisableLimitSwitch(true);
+    intake.SetLimitSwitchState(true);
   }
 
   @Override

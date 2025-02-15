@@ -40,22 +40,19 @@ public class CoralSubsystem extends SubsystemBase {
 
   public void setShooterSpeed(double speed) {
     coralSystemLeader.getIO().setShooterSpeed(speed);
-    coralSystemFollower.getIO().setShooterSpeed(speed);
   }
 
   public void stopShooterMotors() {
     coralSystemLeader.getIO().stopShooterMotors();
-    coralSystemFollower.getIO().stopShooterMotors();
   }
 
-  public void idleMode(IdleMode mode) {
-    coralSystemLeader.getIO().breakMode(mode);
-    coralSystemFollower.getIO().breakMode(mode);
+  public void SetidleMode(IdleMode mode) {
+    coralSystemLeader.getIO().SetIdleMode(mode);
+    coralSystemFollower.getIO().SetIdleMode(mode);
   }
 
-  public void enableOrDisableLimitSwitch(boolean state) {
+  public void SetLimitSwitchState(boolean state) {
     coralSystemLeader.getIO().enableOrDisableLimitSwitch(state);
-    coralSystemFollower.getIO().enableOrDisableLimitSwitch(state);
   }
 
   public boolean getForwardSwitchState() {

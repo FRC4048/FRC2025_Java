@@ -32,14 +32,10 @@ public class RealCoralIOLeader implements CoralIO {
   }
 
   @Override
-  public void setShooterSpeed(double speed) {
-    this.shooterMotor.set(speed);
-  }
+  public void setShooterSpeed(double speed) {}
 
   @Override
-  public void stopShooterMotors() {
-    this.shooterMotor.set(0);
-  }
+  public void stopShooterMotors() {}
 
   @Override
   public void enableOrDisableLimitSwitch(boolean state) {
@@ -53,7 +49,7 @@ public class RealCoralIOLeader implements CoralIO {
         SparkBase.PersistMode.kNoPersistParameters);
   }
 
-  public void breakMode(IdleMode mode) {
+  public void SetIdleMode(IdleMode mode) {
     SparkMaxConfig coralConfigMotor = new SparkMaxConfig();
     coralConfigMotor.idleMode(mode);
     shooterMotor.configure(
