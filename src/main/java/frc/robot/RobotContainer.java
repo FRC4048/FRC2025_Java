@@ -144,7 +144,9 @@ public class RobotContainer {
         .rightBumper()
         .onTrue(new SetElevatorStoredPosition(CoralDeposit.INTAKE, elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
-    controller.rightTrigger().onTrue(new ClimberRunMotors(climberSubsystem, Constants.CLIMBER_SPEED));
+    controller
+        .rightTrigger()
+        .onTrue(new ClimberRunMotors(climberSubsystem, Constants.CLIMBER_SPEED));
   }
 
   public Command getAutonomousCommand() {
@@ -275,6 +277,26 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "Elevator", "Elevator To position", new ElevatorToPosition(elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L0",
+          new SetElevatorStoredPosition(CoralDeposit.INTAKE, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L1",
+          new SetElevatorStoredPosition(CoralDeposit.LEVEL1, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L2",
+          new SetElevatorStoredPosition(CoralDeposit.LEVEL2, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L3",
+          new SetElevatorStoredPosition(CoralDeposit.LEVEL3, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L4",
+          new SetElevatorStoredPosition(CoralDeposit.LEVEL4, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }
