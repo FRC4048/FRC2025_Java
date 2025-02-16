@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.RobotVisualizer;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.commands.CommandLogger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -88,6 +89,7 @@ public class Robot extends LoggedRobot {
     if (counter == 0) {
       actualInit();
     }
+    RobotVisualizer.getInstance().logMechanism();
     counter++;
   }
 
