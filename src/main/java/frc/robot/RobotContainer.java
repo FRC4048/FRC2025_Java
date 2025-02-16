@@ -16,10 +16,14 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.Climber.ClimberRunMotors;
+import frc.robot.commands.byebye.ByeByeToFwrLimit;
+import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
+import frc.robot.commands.hihi.ExtendHiHi;
+import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -126,7 +130,6 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
-    controller.x().onTrue(new SpinExtender(hihiExtender, 1));
     controller.leftTrigger().onTrue(new IntakeCoral(shooter));
     controller
         .povUp()
@@ -147,6 +150,18 @@ public class RobotContainer {
     controller
         .rightTrigger()
         .onTrue(new ClimberRunMotors(climberSubsystem, Constants.CLIMBER_SPEED));
+    controller
+        .x()
+        .onTrue(new ExtendHiHi(hihiExtender));
+    controller
+        .y()
+        .onTrue(new RetractHiHi(hihiExtender));
+    controller
+        .a()
+        .onTrue(new ByeByeToFwrLimit(byebyeTilt));
+    controller
+        .b()
+        .onTrue(new ByeByeToRevLimit(byebyeTilt));
   }
 
   public Command getAutonomousCommand() {
