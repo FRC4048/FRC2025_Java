@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 /**
  * A class to encapsulate the behavior of a simulated single jointed arm. Wraps around the motor and
@@ -68,7 +69,7 @@ public class HihiExtenderSimulator {
     encoderSim.setInverted(false);
     // Publish Mechanism2d to SmartDashboard
     // To view the Elevator visualization, select Network Tables -> SmartDashboard -> Elevator Sim
-    SmartDashboard.putData("Arm Sim", mech2d);
+    SmartDashboard.putData("HiHiExtenderSimulator", mech2d);
   }
 
   /** Advance the simulation. */
@@ -93,14 +94,15 @@ public class HihiExtenderSimulator {
     armMech2d.setAngle(Radians.of(positionRadians).in(Degrees));
     forwardSwitchSim.setPressed(armSim.hasHitUpperLimit());
     reverseSwitchSim.setPressed(armSim.hasHitLowerLimit());
-    SmartDashboard.putNumber("Arm Motor out voltage", motorOut);
-    SmartDashboard.putNumber("Arm Velocity rads/s", velocityRadsPerSecond);
-    SmartDashboard.putNumber("Arm RPM", rpm);
-    SmartDashboard.putNumber("Arm actual position", armSim.getAngleRads());
-    SmartDashboard.putNumber("Arm Mechanism angle", armMech2d.getAngle());
-    SmartDashboard.putBoolean("Arm Forward switch", forwardSwitchSim.getPressed());
-    SmartDashboard.putBoolean("Arm Reverse switch", reverseSwitchSim.getPressed());
-    SmartDashboard.putNumber("Arm Encoder", encoderSim.getPosition());
+
+    SmartShuffleboard.put("HiHiExtender", "Arm Motor out voltage", motorOut);
+    SmartShuffleboard.put("HiHiExtender", "Arm Velocity rads/s", velocityRadsPerSecond);
+    SmartShuffleboard.put("HiHiExtender", "Arm RPM", rpm);
+    SmartShuffleboard.put("HiHiExtender", "Arm actual position", armSim.getAngleRads());
+    SmartShuffleboard.put("HiHiExtender", "Arm Mechanism angle", armMech2d.getAngle());
+    SmartShuffleboard.put("HiHiExtender", "Arm Forward switch", forwardSwitchSim.getPressed());
+    SmartShuffleboard.put("HiHiExtender", "Arm Reverse switch", reverseSwitchSim.getPressed());
+    SmartShuffleboard.put("HiHiExtender", "Arm Encoder", encoderSim.getPosition());
   }
 
   /**
