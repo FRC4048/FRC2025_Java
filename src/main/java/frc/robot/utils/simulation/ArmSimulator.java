@@ -83,7 +83,7 @@ public class ArmSimulator {
     armSim.update(0.020);
     // Finally, we set our simulated encoder's readings and simulated battery voltage
     Rotation2d velocityRadsPerSecond = Rotation2d.fromRadians(armSim.getVelocityRadPerSec());
-    double rpm = velocityRadsPerSecond.getRotations() * 60;
+    double rpm = convertAngleToRotations(velocityRadsPerSecond).getRotations() * 60;
     motorSim.iterate(
         rpm, 12, // RoboRioSim.getVInVoltage(),
         0.020);
