@@ -109,6 +109,16 @@ public class GameConstants {
   public static final double MAX_ELEVATOR_HEIGHT_METERS = 100; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
 
+  //Hihi
+  public static final double HIHI_GEARING = 45.0; // TODO: change later
+  public static final double HIHI_INERTIA = 1.0; // TODO: change later
+  public static final double HIHI_LENGTH = 0.5; // TODO: change later
+  public static final double HIHI_MIN_ANGLE = Degrees.of(-90).in(Radians); // TODO: change later
+  public static final double HIHI_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
+  public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
+  public static final boolean HI_HI_SIMULATE_GRAVITY = true;
+
   // Zeros
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
   public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later
@@ -133,13 +143,5 @@ public class GameConstants {
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4; // TODO: change later
-  // Algae Hihi
-  public static final double HIHI_GEARING = 45.0; // TODO: change later
-  public static final double HIHI_INERTIA = 1.0; // TODO: change later
-  public static final double HIHI_LENGTH = 0.5; // TODO: change later
-  public static final double HIHI_MIN_ANGLE = Degrees.of(-90).in(Radians); // TODO: change later
-  public static final double HIHI_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
-  public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
-  public static final boolean HI_HI_SIMULATE_GRAVITY = true;
+  
 }
