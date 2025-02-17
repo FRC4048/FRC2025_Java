@@ -62,7 +62,7 @@ public class ArmSimulator {
             params.armSimulateGravity,
             0);
     this.motor = motor;
-    this.armGearing = params.armGearing;
+    armGearing = params.armGearing;
     this.name = params.name;
     motorSim = new SparkMaxSim(motor, gearbox);
     encoderSim = motorSim.getRelativeEncoderSim();
