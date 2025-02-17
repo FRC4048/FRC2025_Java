@@ -30,7 +30,7 @@ public abstract class DiagDistanceTraveled implements Diagnosable {
             .getLayout(title, BuiltInLayouts.kList)
             .withSize(width, height)
             .add(name, false)
-            .getEntry(); // getLayout(title, BuiltInLayouts.kList)
+            .getEntry();
   }
 
   @Override

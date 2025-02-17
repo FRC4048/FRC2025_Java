@@ -9,7 +9,7 @@ import com.revrobotics.spark.SparkMax;
  */
 public class DiagSparkMaxEncoder extends DiagDistanceTraveled {
 
-  private SparkMax SparkMax;
+  private SparkMax canSparkMax;
 
   /**
    * Constructor
@@ -19,14 +19,15 @@ public class DiagSparkMaxEncoder extends DiagDistanceTraveled {
    *     success
    * @param canSparkMax - the encoder instance to test
    */
-  public DiagSparkMaxEncoder(String title, String name, double requiredTravel, SparkMax SparkMax) {
+  public DiagSparkMaxEncoder(
+      String title, String name, double requiredTravel, SparkMax canSparkMax) {
     super(title, name, requiredTravel);
-    this.SparkMax = SparkMax;
+    this.canSparkMax = canSparkMax;
     reset();
   }
 
   @Override
   protected double getCurrentValue() {
-    return SparkMax.getEncoder().getPosition();
+    return canSparkMax.getEncoder().getPosition();
   }
 }
