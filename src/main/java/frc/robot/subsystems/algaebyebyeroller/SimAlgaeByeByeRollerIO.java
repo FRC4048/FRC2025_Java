@@ -1,6 +1,5 @@
 package frc.robot.subsystems.algaebyebyeroller;
 
-import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
