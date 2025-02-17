@@ -1,12 +1,9 @@
 package frc.robot.subsystems.elevator;
 
-import java.util.function.DoubleSupplier;
-
-import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 
-public interface ElevatorIO extends LoggableIO<BuildableFolderMotorInputs<SparkMax>> {
+public interface ElevatorIO extends LoggableIO<PidMotorInputs> {
   void setSpeed(double spd);
 
   public void setElevatorPosition(double encoderPos);

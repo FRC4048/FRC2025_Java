@@ -4,14 +4,17 @@ import java.util.function.DoubleSupplier;
 
 import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealElevatorIO implements ElevatorIO {
-  public final NeoPidMotor elevatorMotor;
+  protected final NeoPidMotor elevatorMotor;
+  private final NeoPidMotorInputProvider inputProvider;
 
   public RealElevatorIO() {
     this.elevatorMotor = new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID);
+    this.inputProvider = new NeoPidMotorInputProvider(elevatorMotor);
   }
 
   @Override
@@ -39,7 +42,7 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
-    inputs.process(elevatorMotor.getNeoMotor());
+  public void updateInputs(PidMotorInputs inputs) {
+    inputs.process(inputProvider);
   }
 }
