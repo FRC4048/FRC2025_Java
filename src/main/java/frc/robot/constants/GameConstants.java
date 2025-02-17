@@ -1,8 +1,6 @@
 package frc.robot.constants;
 
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.Radians;
-
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.robot.utils.SwerveModuleProfileV2;
@@ -109,6 +107,18 @@ public class GameConstants {
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
   public static final double MAX_ELEVATOR_HEIGHT_METERS = 100; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
+  public static final double HIHI_LENGTH = 0.5; // TODO: change later
+  public static final double BYEBYE_LENGTH = 0.5; // TODO: change later
+
+  // Angles
+  public static final Rotation2d HIHI_MIN_ANGLE =
+      Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
+  public static final Rotation2d HIHI_MAX_ANGLE =
+      Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
+  public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
+  public static final Rotation2d BYEBYE_MIN_ANGLE = Rotation2d.fromRadians(-Math.PI/2); // TODO: change later
+  public static final Rotation2d BYEBYE_MAX_ANGLE = Rotation2d.fromRadians(Math.PI*5/12); // TODO: change later
 
   // Zeros
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
@@ -134,11 +144,10 @@ public class GameConstants {
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4; // TODO: change later
-
-  // Algae Bye Bye
+  public static final boolean HI_HI_SIMULATE_GRAVITY = true;
+  public static final boolean BYE_BYE_SIMULATE_GRAVITY = true;
   public static final double BYEBYE_GEARING = 45.0; // TODO: change later
   public static final double BYEBYE_INERTIA = 1.0; // TODO: change later
-  public static final double BYEBYE_LENGTH = 0.5; // TODO: change later
-  public static final double BYEBYE_MIN_ANGLE = Degrees.of(-90).in(Radians); // TODO: change later
-  public static final double BYEBYE_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
+  public static final double HIHI_GEARING = 45.0; // TODO: change later
+  public static final double HIHI_INERTIA = 1.0; // TODO: change later
 }

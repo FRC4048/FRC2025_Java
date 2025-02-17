@@ -25,6 +25,8 @@ import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
+import frc.robot.commands.hihi.ExtendHiHi;
+import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinExtender;
@@ -60,6 +62,7 @@ import frc.robot.subsystems.gyro.ThreadedGyro;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
 import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
+import frc.robot.subsystems.hihiextender.SimHihiExtenderIO;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
 import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
@@ -115,7 +118,7 @@ public class RobotContainer {
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
-        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
+        hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
         climber = new ClimberSubsystem(new SimClimberIO());
@@ -285,6 +288,8 @@ public class RobotContainer {
           "Bye Bye", "Spin till fwd Limit", new ByeByeToFwrLimit(byebyeTilt));
       SmartShuffleboard.putCommand(
           "Bye Bye", "Spin till bck Limit", new ByeByeToRevLimit(byebyeTilt));
+      SmartShuffleboard.putCommand("Hihi", "Roller Out", new ExtendHiHi(hihiExtender));
+      SmartShuffleboard.putCommand("Hihi", "Retract Hihi", new RetractHiHi(hihiExtender));
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
