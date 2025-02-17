@@ -4,51 +4,58 @@
 
 package frc.robot.subsystems.coral;
 
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class CoralSubsystem extends SubsystemBase {
-  private final LoggableSystem<CoralIO, CoralInputs> system;
+  private final LoggableSystem<CoralIOLeader, MotorInputs> coralSystemLeader;
+  private final LoggableSystem<CoralIOFollower, MotorInputs> coralSystemFollower;
 
   /** Creates a new Shooter. */
-  public CoralSubsystem(CoralIO io) {
-    system = new LoggableSystem<>(io, new CoralInputs("CoralSubsystem"));
+  public CoralSubsystem(CoralIOFollower ioFollower, CoralIOLeader ioLeader) {
+    MotorInputs followerInputs =
+        new MotorInputBuilder<>("ClimberSubsystem/Follower")
+            .encoderVelocity()
+            .fwdLimit()
+            .addStatus()
+            .build();
+    MotorInputs leaderInputs =
+        new MotorInputBuilder<>("ClimberSubsystem/Leader")
+            .encoderVelocity()
+            .fwdLimit()
+            .addStatus()
+            .build();
+    coralSystemFollower = new LoggableSystem<>(ioFollower, followerInputs);
+    coralSystemLeader = new LoggableSystem<>(ioLeader, leaderInputs);
   }
 
   @Override
   public void periodic() {
-    system.updateInputs();
-  }
-
-  public void setTiltAngularVelocity(double angleVelocity) {
-    system.getIO().setTiltAngularVelocity(angleVelocity);
+    coralSystemLeader.updateInputs();
+    coralSystemFollower.updateInputs();
   }
 
   public void setShooterSpeed(double speed) {
-    system.getIO().setShooterSpeed(speed);
+    coralSystemLeader.getIO().setShooterSpeed(speed);
   }
 
   public void stopShooterMotors() {
-    system.getIO().stopShooterMotors();
+    coralSystemLeader.getIO().stopShooterMotors();
   }
 
-  public void stopTiltMotors() {
-    system.getIO().stopTiltMotors();
+  public void setidleMode(IdleMode mode) {
+    coralSystemLeader.getIO().setIdleMode(mode);
+    coralSystemFollower.getIO().setIdleMode(mode);
   }
 
-  public double getAngle() {
-    return system.getInputs().tiltEncoderPosition;
+  public void setLimitSwitchState(boolean state) {
+    coralSystemLeader.getIO().enableOrDisableLimitSwitch(state);
   }
 
   public boolean getForwardSwitchState() {
-    return system.getInputs().fwdTripped;
-  }
-
-  public boolean getReverseSwitchState() {
-    return system.getInputs().revTripped;
-  }
-
-  public void resetEncoder() {
-    system.getIO().resetTiltEncoder();
+    return coralSystemLeader.getInputs().getFwdLimit();
   }
 }
