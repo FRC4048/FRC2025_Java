@@ -5,15 +5,15 @@ public enum ReefPosition {
   LEVEL1(20),
   LEVEL2(60),
   LEVEL3(100),
-  LEVEL4(150);
+  LEVEL4(Constants.MAX_ELEVATOR_HEIGHT_METERS);
 
-  private final int heightElevator;
+  private final double heightElevator;
 
-  ReefPosition(int heightElevator) {
+  ReefPosition(double heightElevator) {
     this.heightElevator = heightElevator;
   }
 
-  public int getElevatorHeight() {
+  public double getElevatorHeight() {
     return heightElevator;
   }
 }

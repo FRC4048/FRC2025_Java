@@ -6,7 +6,6 @@ package frc.robot.commands.elevator;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import java.util.function.DoubleSupplier;
 
@@ -31,15 +30,9 @@ public class SetElevatorTargetPosition extends Command {
   public void execute() {
 
     double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.1);
-    if (-postDeadbandValue + elevatorSubsystem.getElevatorPosition() < 0) {
-      elevatorSubsystem.setElevatorPosition(0);
-    } else if (-postDeadbandValue + elevatorSubsystem.getElevatorPosition()
-        > Constants.MAX_ELEVATOR_HEIGHT_METERS) {
-      elevatorSubsystem.setElevatorPosition(Constants.MAX_ELEVATOR_HEIGHT_METERS);
-    } else {
-      elevatorSubsystem.setElevatorPosition(
-          -postDeadbandValue + elevatorSubsystem.getElevatorPosition());
-    }
+
+    elevatorSubsystem.setElevatorPosition(
+        -postDeadbandValue + elevatorSubsystem.getElevatorPosition());
   }
 
   // Called once the command ends or is interrupted.
