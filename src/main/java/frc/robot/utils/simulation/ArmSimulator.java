@@ -85,13 +85,8 @@ public class ArmSimulator {
     // Next, we update it. The standard loop time is 20ms.
     armSim.update(0.020);
     // Finally, we set our simulated encoder's readings and simulated battery voltage
-    double velocityRadsPerSecond = armSim.getVelocityRadPerSec();
-    double rpm =
-        Radians.of(
-                (convertAngleToRotations(Rotation2d.fromRadians(velocityRadsPerSecond)))
-                    .getRadians())
-            .per(Second)
-            .in(RPM);
+    Rotation2d velocityRadsPerSecond = Rotation2d.fromRadians(armSim.getVelocityRadPerSec());
+    double rpm = velocityRadsPerSecond.getRotations()*60;
     motorSim.iterate(
         rpm, 12, // RoboRioSim.getVInVoltage(),
         0.020);
@@ -99,12 +94,12 @@ public class ArmSimulator {
     RoboRioSim.setVInVoltage(
         BatterySim.calculateDefaultBatteryLoadedVoltage(armSim.getCurrentDrawAmps()));
     // Update elevator visualization with position
-    double positionRadians = armSim.getAngleRads();
-    armMech2d.setAngle(Radians.of(positionRadians).in(Degrees));
+    Rotation2d positionRadians = Rotation2d.fromRadians(armSim.getAngleRads());
+    armMech2d.setAngle(positionRadians);
     forwardSwitchSim.setPressed(armSim.hasHitUpperLimit());
     reverseSwitchSim.setPressed(armSim.hasHitLowerLimit());
     SmartDashboard.putNumber(name + " Arm Motor out voltage", motorOut);
-    SmartDashboard.putNumber(name + " Arm Velocity rads/s", velocityRadsPerSecond);
+    SmartDashboard.putNumber(name + " Arm Velocity rads/s", velocityRadsPerSecond.getRadians());
     SmartDashboard.putNumber(name + " Arm RPM", rpm);
     SmartDashboard.putNumber(name + " Arm actual position", armSim.getAngleRads());
     SmartDashboard.putNumber(name + " Arm Mechanism angle", armMech2d.getAngle());
@@ -120,7 +115,7 @@ public class ArmSimulator {
    * @return {@link Angle} equivalent to rotations of the motor.
    */
   private Rotation2d convertAngleToRotations(Rotation2d angle) {
-    return Rotation2d.fromRadians(angle.getRadians() * armGearing);
+    return angle.times(armGearing);
   }
 
   public void close() {
