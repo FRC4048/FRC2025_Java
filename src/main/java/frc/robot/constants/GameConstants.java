@@ -111,8 +111,8 @@ public class GameConstants {
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
 
   // Angles
-  public static final double HIHI_MIN_ANGLE = Degrees.of(-90).in(Radians); // TODO: change later
-  public static final double HIHI_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
+  public static final double HIHI_MIN_ANGLE = -Math.PI/2; // TODO: change later
+  public static final double HIHI_MAX_ANGLE = Math.PI*5/12; // TODO: change later
   public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
