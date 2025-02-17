@@ -9,6 +9,7 @@ import com.revrobotics.sim.SparkLimitSwitchSim;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
@@ -56,8 +57,8 @@ public class ArmSimulator {
             params.armGearing,
             params.armInertia,
             params.armLength,
-            params.armMinAngle,
-            params.armMaxAngle,
+            params.armMinAngle.getRadians(),
+            params.armMaxAngle.getRadians(),
             params.armSimulateGravity,
             0);
     this.motor = motor;
@@ -85,7 +86,12 @@ public class ArmSimulator {
     armSim.update(0.020);
     // Finally, we set our simulated encoder's readings and simulated battery voltage
     double velocityRadsPerSecond = armSim.getVelocityRadPerSec();
-    double rpm = convertAngleToRotations(Radians.of(velocityRadsPerSecond)).per(Second).in(RPM);
+    double rpm =
+        Radians.of(
+                (convertAngleToRotations(Rotation2d.fromRadians(velocityRadsPerSecond)))
+                    .getRadians())
+            .per(Second)
+            .in(RPM);
     motorSim.iterate(
         rpm, 12, // RoboRioSim.getVInVoltage(),
         0.020);
@@ -113,8 +119,8 @@ public class ArmSimulator {
    * @param angle Rotation angle, in Radians.
    * @return {@link Angle} equivalent to rotations of the motor.
    */
-  private Angle convertAngleToRotations(Angle angle) {
-    return Rotations.of(angle.in(Radians) * armGearing);
+  private Rotation2d convertAngleToRotations(Rotation2d angle) {
+    return Rotation2d.fromRadians(angle.getRadians() * armGearing);
   }
 
   public void close() {
