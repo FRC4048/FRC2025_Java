@@ -18,7 +18,7 @@ public class SimAlgaeByeByeRollerIO extends RealAlgaeByeByeRollerIO {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       algaeByeByeRollerSimulator.stepSimulation();
-      SmartDashboard.putNumber("Algae Roller Encoder", removerMotor.getEncoder().getPosition());
+
     }
   }
 }
