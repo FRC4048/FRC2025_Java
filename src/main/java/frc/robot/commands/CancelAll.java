@@ -27,7 +27,7 @@ private final HihiExtenderSubsystem hihiExtenderSubsystem;
   public void initialize() {
     CommandScheduler.getInstance().cancelAll();
   elevatorSubsystem.setElevatorPosition(0);
-  HihiExtenderSubsystem.
+  hihiExtenderSubsystem.setHiHiPID(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

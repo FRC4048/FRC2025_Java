@@ -12,6 +12,9 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
   public void stopHihiExtenderMotor() {}
 
   @Override
+  public void setHiHiPID(double targetPos) {}
+
+  @Override
   public void setHihiExtenderSpeed(double speed) {}
 
   @Override
