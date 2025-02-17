@@ -95,14 +95,14 @@ public class ArmSimulator {
     armMech2d.setAngle(positionRadians);
     forwardSwitchSim.setPressed(armSim.hasHitUpperLimit());
     reverseSwitchSim.setPressed(armSim.hasHitLowerLimit());
-    SmartDashboard.putNumber(name + " Arm Motor out voltage", motorOut);
-    SmartDashboard.putNumber(name + " Arm Velocity rads/s", velocityRadsPerSecond.getRadians());
-    SmartDashboard.putNumber(name + " Arm RPM", rpm);
-    SmartDashboard.putNumber(name + " Arm actual position", armSim.getAngleRads());
-    SmartDashboard.putNumber(name + " Arm Mechanism angle", armMech2d.getAngle());
-    SmartDashboard.putBoolean(name + " Arm Forward switch", forwardSwitchSim.getPressed());
-    SmartDashboard.putBoolean(name + " Arm Reverse switch", reverseSwitchSim.getPressed());
-    SmartDashboard.putNumber(name + " Arm Encoder", encoderSim.getPosition());
+    SmartDashboard.putNumber(name + "/Arm Motor out voltage", motorOut);
+    SmartDashboard.putNumber(name + "/Arm Velocity rads per s", velocityRadsPerSecond.getRadians());
+    SmartDashboard.putNumber(name + "/Arm RPM", rpm);
+    SmartDashboard.putNumber(name + "/Arm actual position", armSim.getAngleRads());
+    SmartDashboard.putNumber(name + "/Arm Mechanism angle", armMech2d.getAngle());
+    SmartDashboard.putBoolean(name + "/Arm Forward switch", forwardSwitchSim.getPressed());
+    SmartDashboard.putBoolean(name + "/Arm Reverse switch", reverseSwitchSim.getPressed());
+    SmartDashboard.putNumber(name + "/Arm Encoder", encoderSim.getPosition());
   }
 
   /**
