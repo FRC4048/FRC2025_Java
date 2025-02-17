@@ -4,15 +4,17 @@
 
 package frc.robot.commands.elevator;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 
 public class SetElevatorTargetPosition extends Command {
 
-  private final double encoderPos;
+  private final DoubleSupplier encoderPos;
   private final ElevatorSubsystem elevatorSubsystem;
 
-  public SetElevatorTargetPosition(double encoderPos, ElevatorSubsystem elevatorSubsystem) {
+  public SetElevatorTargetPosition(DoubleSupplier encoderPos, ElevatorSubsystem elevatorSubsystem) {
     this.encoderPos = encoderPos;
     this.elevatorSubsystem = elevatorSubsystem;
   }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
@@ -150,14 +151,8 @@ public class RobotContainer {
     controller
         .rightTrigger()
         .onTrue(new ClimberRunMotors(climberSubsystem, Constants.CLIMBER_SPEED));
-    controller
-        .axisGreaterThan(0, 0)
-        .onTrue(new SetElevatorTargetPosition(-1 * controller.getLeftY(), elevatorSubsystem));
-    //  controller
-    //    .axisLessThan(0, 0)
-    //   .onTrue(
-    //     new SetElevatorTargetPosition(
-    //        elevatorSubsystem.get(-1 * controller.getLeftY()), elevatorSubsystem));
+new Trigger(() -> controller.getLeftY() > -0.1).onTrue( new SetElevatorTargetPosition(() -> controller.getLeftY(),elevatorSubsystem));
+new Trigger(() -> controller.getLeftY() < 0.1).onTrue( new SetElevatorTargetPosition(100,elevatorSubsystem));
     controller.x().onTrue(new ExtendHiHi(hihiExtender));
     controller.y().onTrue(new RetractHiHi(hihiExtender));
     controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));

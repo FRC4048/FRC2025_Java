@@ -7,6 +7,9 @@ import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
 import frc.robot.utils.logging.subsystem.builders.SparkMaxInputBuilder;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
+
+import java.util.function.DoubleSupplier;
+
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -24,7 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSystem.getIO().setSpeed(speed);
   }
 
-  public void setElevatorPosition(double encoderPos) {
+  public void setElevatorPosition(Double encoderPos) {
     // TODO: This can be moved to input-based logging once that framework switches to composition
     Logger.recordOutput("ElevatorSubystem/targetPosition", encoderPos);
     elevatorSystem.getIO().setElevatorPosition(encoderPos);

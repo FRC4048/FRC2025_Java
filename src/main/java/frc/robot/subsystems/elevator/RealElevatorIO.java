@@ -1,5 +1,7 @@
 package frc.robot.subsystems.elevator;
 
+import java.util.function.DoubleSupplier;
+
 import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
