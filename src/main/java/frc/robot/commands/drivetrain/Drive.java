@@ -41,10 +41,8 @@ public class Drive extends LoggableCommand {
   public void execute() {
     double fwd = MathUtil.applyDeadband(fwdSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
     double str = MathUtil.applyDeadband(strSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
-    ;
     ChassisSpeeds driveStates;
     double rcw = MathUtil.applyDeadband(rtSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
-    ;
     drivetrain.setFacingTarget(false);
     driveStates =
         drivetrain.createChassisSpeeds(
