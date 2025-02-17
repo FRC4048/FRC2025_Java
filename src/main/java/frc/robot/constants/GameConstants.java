@@ -133,7 +133,7 @@ public class GameConstants {
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4; // TODO: change later
-      
+
   // Algae Bye Bye
   public static final double BYEBYE_GEARING = 45.0; // TODO: change later
   public static final double BYEBYE_INERTIA = 1.0; // TODO: change later
