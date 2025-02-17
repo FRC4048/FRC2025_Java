@@ -10,7 +10,7 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
-public class RealCoralIOFollower implements CoralIO {
+public class RealCoralIOFollower implements CoralIOFollower {
   private final SparkMax shooterMotor;
   private final SparkMaxInputProvider inputProvider;
 
@@ -31,17 +31,6 @@ public class RealCoralIOFollower implements CoralIO {
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
-
-  @Override
-  public void setShooterSpeed(double speed) {
-    this.shooterMotor.set(speed);
-  }
-
-  @Override
-  public void stopShooterMotors() {}
-
-  @Override
-  public void enableOrDisableLimitSwitch(boolean state) {}
 
   public void setIdleMode(IdleMode mode) {
     SparkMaxConfig coralConfigMotor = new SparkMaxConfig();

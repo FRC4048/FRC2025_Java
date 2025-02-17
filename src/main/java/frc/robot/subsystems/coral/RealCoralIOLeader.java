@@ -10,7 +10,7 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
-public class RealCoralIOLeader implements CoralIO {
+public class RealCoralIOLeader implements CoralIOLeader {
   private final SparkMax shooterMotor;
   private final SparkMaxInputProvider initProvider;
 
