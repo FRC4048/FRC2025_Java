@@ -141,4 +141,5 @@ public class GameConstants {
   public static final double HIHI_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
   public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
+  public static final boolean HI_HI_SIMULATE_GRAVITY = true;
 }

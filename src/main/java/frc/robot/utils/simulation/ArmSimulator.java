@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-package frc.robot.subsystems.hihiextender;
+package frc.robot.utils.simulation;
 
 import static edu.wpi.first.units.Units.*;
 
@@ -18,15 +18,13 @@ import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.constants.Constants;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 /**
  * A class to encapsulate the behavior of a simulated single jointed arm. Wraps around the motor and
  * the physical model to simulate the behavior. Send information to ShuffleBoard with physics
  * information. Does not interfere with production behavior.
  */
-public class HihiExtenderSimulator {
+public class ArmSimulator {
   // Gearbox represents a gearbox (1:1 conversion rate) with 1 motor connected
   private final DCMotor gearbox = DCMotor.getNEO(1);
   // The motor (that sits underneath the motor simulator)
@@ -41,25 +39,38 @@ public class HihiExtenderSimulator {
   // The reverse switch simulator
   private final SparkLimitSwitchSim reverseSwitchSim;
   // Elevator physical model, simulating movement based on physics, motor load and gravity
-  private final SingleJointedArmSim armSim =
-      new SingleJointedArmSim(
-          gearbox,
-          Constants.HIHI_GEARING,
-          Constants.HIHI_INERTIA,
-          Constants.HIHI_LENGTH,
-          Constants.HIHI_MIN_ANGLE,
-          Constants.HIHI_MAX_ANGLE,
-          true,
-          0);
+  private final SingleJointedArmSim armSim;
   // The mechanism simulation used for visualization
   private final Mechanism2d mech2d = new Mechanism2d(3, 5);
   private final MechanismRoot2d mech2dRoot = mech2d.getRoot("Arm Root", 1, 1);
   private final MechanismLigament2d armMech2d =
       mech2dRoot.append(new MechanismLigament2d("Arm", 1, -90));
+  private final double armGearing;
+  private final String name;
 
   /** Constructor. */
-  public HihiExtenderSimulator(SparkMax motor) {
+  public ArmSimulator(
+      String name,
+      SparkMax motor,
+      double armGearing,
+      double armInertia,
+      double armLength,
+      double armMinAngle,
+      double armMaxAngle,
+      boolean simulateGravity) {
+    armSim =
+        new SingleJointedArmSim(
+            gearbox,
+            armGearing,
+            armInertia,
+            armLength,
+            armMinAngle,
+            armMaxAngle,
+            simulateGravity,
+            0);
     this.motor = motor;
+    this.armGearing = armGearing;
+    this.name = name;
     motorSim = new SparkMaxSim(motor, gearbox);
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
@@ -69,7 +80,7 @@ public class HihiExtenderSimulator {
     encoderSim.setInverted(false);
     // Publish Mechanism2d to SmartDashboard
     // To view the Elevator visualization, select Network Tables -> SmartDashboard -> Elevator Sim
-    SmartDashboard.putData("HiHiExtenderSimulator", mech2d);
+    SmartDashboard.putData(name + " Arm Sim", mech2d);
   }
 
   /** Advance the simulation. */
@@ -94,15 +105,14 @@ public class HihiExtenderSimulator {
     armMech2d.setAngle(Radians.of(positionRadians).in(Degrees));
     forwardSwitchSim.setPressed(armSim.hasHitUpperLimit());
     reverseSwitchSim.setPressed(armSim.hasHitLowerLimit());
-
-    SmartShuffleboard.put("HiHiExtender", "Arm Motor out voltage", motorOut);
-    SmartShuffleboard.put("HiHiExtender", "Arm Velocity rads/s", velocityRadsPerSecond);
-    SmartShuffleboard.put("HiHiExtender", "Arm RPM", rpm);
-    SmartShuffleboard.put("HiHiExtender", "Arm actual position", armSim.getAngleRads());
-    SmartShuffleboard.put("HiHiExtender", "Arm Mechanism angle", armMech2d.getAngle());
-    SmartShuffleboard.put("HiHiExtender", "Arm Forward switch", forwardSwitchSim.getPressed());
-    SmartShuffleboard.put("HiHiExtender", "Arm Reverse switch", reverseSwitchSim.getPressed());
-    SmartShuffleboard.put("HiHiExtender", "Arm Encoder", encoderSim.getPosition());
+    SmartDashboard.putNumber(name + " Arm Motor out voltage", motorOut);
+    SmartDashboard.putNumber(name + " Arm Velocity rads/s", velocityRadsPerSecond);
+    SmartDashboard.putNumber(name + " Arm RPM", rpm);
+    SmartDashboard.putNumber(name + " Arm actual position", armSim.getAngleRads());
+    SmartDashboard.putNumber(name + " Arm Mechanism angle", armMech2d.getAngle());
+    SmartDashboard.putBoolean(name + " Arm Forward switch", forwardSwitchSim.getPressed());
+    SmartDashboard.putBoolean(name + " Arm Reverse switch", reverseSwitchSim.getPressed());
+    SmartDashboard.putNumber(name + " Arm Encoder", encoderSim.getPosition());
   }
 
   /**
@@ -112,7 +122,7 @@ public class HihiExtenderSimulator {
    * @return {@link Angle} equivalent to rotations of the motor.
    */
   private Angle convertAngleToRotations(Angle angle) {
-    return Rotations.of(angle.in(Radians) * Constants.HIHI_GEARING);
+    return Rotations.of(angle.in(Radians) * armGearing);
   }
 
   public void close() {
