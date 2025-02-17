@@ -5,6 +5,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.pathfinding.Pathfinding;
+import edu.wpi.first.net.WebServer;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -97,6 +99,7 @@ public class Robot extends LoggedRobot {
             new WheelAlign(m_robotContainer.getDrivetrain()),
             new ResetGyro(m_robotContainer.getDrivetrain()))
         .schedule();
+    WebServer.start(5800, Filesystem.getDeployDirectory().getPath());
   }
 
   @Override
