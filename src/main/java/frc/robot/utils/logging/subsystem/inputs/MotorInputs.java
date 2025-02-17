@@ -16,7 +16,7 @@ public class MotorInputs extends FolderInputs {
   private Boolean revLimit;
   private final MotorInputBuilder<?> builder;
 
-    public MotorInputs(MotorInputBuilder<?> builder) {
+  public MotorInputs(MotorInputBuilder<?> builder) {
     super(builder.getFolder());
     this.encoderPosition = builder.isLogEncoderPosition() ? 0.0 : null;
     this.encoderVelocity = builder.isLogEncoderVelocity() ? 0.0 : null;
@@ -25,7 +25,7 @@ public class MotorInputs extends FolderInputs {
     this.fwdLimit = builder.isLogFwdLimit() ? false : null;
     this.revLimit = builder.isLogRevLimit() ? false : null;
     this.builder = builder;
-    }
+  }
 
   @Override
   public void toLog(LogTable table) {
