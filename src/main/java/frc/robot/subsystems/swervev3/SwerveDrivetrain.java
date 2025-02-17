@@ -108,7 +108,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void drive(ChassisSpeeds speeds) {
     SwerveModuleState[] swerveModuleStates = kinematics.toSwerveModuleStates(speeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, NeoPidMotor.MAX_VELOCITY);
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.MAX_VELOCITY);
     setModuleStates(swerveModuleStates);
   }
 
