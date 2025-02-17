@@ -18,5 +18,8 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
   public void resetExtenderEncoder() {}
 
   @Override
+  public void setExtenderPosition(double encoderPos) {}
+
+  @Override
   public void updateInputs(MotorInputs inputs) {}
 }
