@@ -49,28 +49,20 @@ public class ArmSimulator {
   private final String name;
 
   /** Constructor. */
-  public ArmSimulator(
-      String name,
-      SparkMax motor,
-      double armGearing,
-      double armInertia,
-      double armLength,
-      double armMinAngle,
-      double armMaxAngle,
-      boolean simulateGravity) {
+  public ArmSimulator(SparkMax motor, ArmParameters params) {
     armSim =
         new SingleJointedArmSim(
             gearbox,
-            armGearing,
-            armInertia,
-            armLength,
-            armMinAngle,
-            armMaxAngle,
-            simulateGravity,
+            params.armGearing,
+            params.armInertia,
+            params.armLength,
+            params.armMinAngle,
+            params.armMaxAngle,
+            params.armSimulateGravity,
             0);
     this.motor = motor;
-    this.armGearing = armGearing;
-    this.name = name;
+    this.armGearing = params.armGearing;
+    this.name = params.name;
     motorSim = new SparkMaxSim(motor, gearbox);
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
