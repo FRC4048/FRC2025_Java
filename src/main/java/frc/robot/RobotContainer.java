@@ -134,10 +134,14 @@ public class RobotContainer {
 
   private void PathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
-    NamedCommands.registerCommand("ByeByetoFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
-    NamedCommands.registerCommand("ByeByetoRevLimit", new ByeByeToRevLimit(byebyeTilt));
-    NamedCommands.registerCommand("ShootCoral", new ShootCoral(shooter, 0.4));
-    NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
+    NamedCommands.registerCommand(
+      "ByeByetoFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
+    NamedCommands.registerCommand(
+      "ByeByetoRevLimit", new ByeByeToRevLimit(byebyeTilt));
+    NamedCommands.registerCommand(
+      "ShootCoral", new ShootCoral(shooter, 0.4));
+    NamedCommands.registerCommand(
+      "ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
     NamedCommands.registerCommand(
         "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
     NamedCommands.registerCommand(
