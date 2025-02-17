@@ -152,7 +152,7 @@ public class RobotContainer {
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
     controller
         .rightBumper()
-        .onTrue(new SetElevatorStoredPosition(ReefPosition.INTAKE, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ClimberRunMotors(climber, Constants.CLIMBER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
@@ -308,7 +308,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
-          new SetElevatorStoredPosition(ReefPosition.INTAKE, elevatorSubsystem));
+          new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",

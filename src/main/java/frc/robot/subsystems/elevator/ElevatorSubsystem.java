@@ -15,7 +15,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
-    reefPosition = ReefPosition.INTAKE;
+    reefPosition = ReefPosition.LEVEL0;
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
   }
 
@@ -68,9 +68,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-
-    SmartShuffleboard.put(
-        "DEBUG", "ElevatorPosition", elevatorSystem.getIO().getElevatorPosition());
     elevatorSystem.updateInputs();
   }
 }
