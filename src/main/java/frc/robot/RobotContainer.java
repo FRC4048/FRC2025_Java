@@ -156,10 +156,8 @@ public class RobotContainer {
         .onTrue(new SetElevatorStoredPosition(ReefPosition.INTAKE, elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ClimberRunMotors(climber, Constants.CLIMBER_SPEED));
-    new Trigger(() -> controller.getLeftY() > -0.1)
-        .onTrue(new SetElevatorTargetPosition(() -> controller.getLeftY(), elevatorSubsystem));
-    new Trigger(() -> controller.getLeftY() < 0.1)
-        .onTrue(new SetElevatorTargetPosition(() -> controller.getLeftY(), elevatorSubsystem));
+    new Trigger(() -> Math.abs(controller.getLeftY()) > 0.1)
+        .whileTrue(new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem));
     controller.x().onTrue(new ExtendHiHi(hihiExtender));
     controller.y().onTrue(new RetractHiHi(hihiExtender));
     controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
