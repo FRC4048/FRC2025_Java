@@ -18,6 +18,7 @@ import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.motor.NeoPidMotor;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
 
@@ -107,7 +108,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void drive(ChassisSpeeds speeds) {
     SwerveModuleState[] swerveModuleStates = kinematics.toSwerveModuleStates(speeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.MAX_VELOCITY);
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, NeoPidMotor.MAX_VELOCITY);
     setModuleStates(swerveModuleStates);
   }
 

@@ -1,5 +1,8 @@
 package frc.robot.constants;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Radians;
+
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.robot.utils.SwerveModuleProfileV2;
@@ -123,4 +126,10 @@ public class GameConstants {
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4; // TODO: change later
+  // Algae Bye Bye
+  public static final double BYEBYE_GEARING = 45.0; // TODO: change later
+  public static final double BYEBYE_INERTIA = 1.0; // TODO: change later
+  public static final double BYEBYE_LENGTH = 0.5; // TODO: change later
+  public static final double BYEBYE_MIN_ANGLE = Degrees.of(-90).in(Radians); // TODO: change later
+  public static final double BYEBYE_MAX_ANGLE = Degrees.of(75).in(Radians); // TODO: change later
 }

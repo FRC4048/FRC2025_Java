@@ -1,8 +1,7 @@
 package frc.robot.subsystems.algaebyebyetilt;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class SimAlgaeByeByeTiltIO extends RealAlgaeByeByeTiltIO {
   private final AlgaeByeByeTiltSimulator algaeByeByeTiltSimulator;
@@ -13,7 +12,7 @@ public class SimAlgaeByeByeTiltIO extends RealAlgaeByeByeTiltIO {
   }
 
   @Override
-  public void updateInputs(BuildableFolderMotorInputs<SparkMax> inputs) {
+  public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
       algaeByeByeTiltSimulator.simulationPeriodic();
