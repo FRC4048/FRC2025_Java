@@ -34,7 +34,7 @@ public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
     algaeSystem.getIO().stopMotors();
   }
 
-  public double getAngle() {
+  public double getEncoderPosition() {
     return algaeSystem.getInputs().getEncoderPosition();
   }
 }
