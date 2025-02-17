@@ -83,7 +83,7 @@ public class ArmSimulator {
     armSim.update(0.020);
     // Finally, we set our simulated encoder's readings and simulated battery voltage
     Rotation2d velocityRadsPerSecond = Rotation2d.fromRadians(armSim.getVelocityRadPerSec());
-    double rpm = convertAngleToRotations(velocityRadsPerSecond).getRotations() * 60;
+    double rpm = velocityRadsPerSecond.times(armGearing).getRotations() * 60;
     motorSim.iterate(
         rpm, 12, // RoboRioSim.getVInVoltage(),
         0.020);
@@ -111,10 +111,6 @@ public class ArmSimulator {
    * @param angle Rotation angle, in Radians.
    * @return {@link Angle} equivalent to rotations of the motor.
    */
-  private Rotation2d convertAngleToRotations(Rotation2d angle) {
-    return angle.times(armGearing);
-  }
-
   public void close() {
     motor.close();
     mech2d.close();
