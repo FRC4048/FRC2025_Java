@@ -28,6 +28,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   @Override
   public void resetExtenderEncoder() {
     // TODO: Implement this
+    this.extenderMotor.getNeoMotor().getEncoder().setPosition(0);
   }
 
   @Override
