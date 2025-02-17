@@ -22,10 +22,10 @@ import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
+import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.intake.IntakeCoral;
-import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
@@ -151,17 +151,17 @@ public class RobotContainer {
         .rightTrigger()
         .onTrue(new ClimberRunMotors(climberSubsystem, Constants.CLIMBER_SPEED));
     controller
-        .x()
-        .onTrue(new ExtendHiHi(hihiExtender));
-    controller
-        .y()
-        .onTrue(new RetractHiHi(hihiExtender));
-    controller
-        .a()
-        .onTrue(new ByeByeToFwrLimit(byebyeTilt));
-    controller
-        .b()
-        .onTrue(new ByeByeToRevLimit(byebyeTilt));
+        .axisGreaterThan(0, 0)
+        .onTrue(new SetElevatorTargetPosition(-1 * controller.getLeftY(), elevatorSubsystem));
+    //  controller
+    //    .axisLessThan(0, 0)
+    //   .onTrue(
+    //     new SetElevatorTargetPosition(
+    //        elevatorSubsystem.get(-1 * controller.getLeftY()), elevatorSubsystem));
+    controller.x().onTrue(new ExtendHiHi(hihiExtender));
+    controller.y().onTrue(new RetractHiHi(hihiExtender));
+    controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
+    controller.b().onTrue(new ByeByeToRevLimit(byebyeTilt));
   }
 
   public Command getAutonomousCommand() {
