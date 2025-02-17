@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.hihiextender;
 
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+
 public class MockHihiExtenderIO implements HihiExtenderIO {
 
   @Override
@@ -16,5 +18,5 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
   public void resetExtenderEncoder() {}
 
   @Override
-  public void updateInputs(HihiExtenderInputs inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 }

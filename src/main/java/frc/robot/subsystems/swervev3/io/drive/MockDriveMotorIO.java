@@ -1,5 +1,7 @@
 package frc.robot.subsystems.swervev3.io.drive;
 
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+
 public class MockDriveMotorIO implements SwerveDriveMotorIO {
 
   @Override
@@ -9,5 +11,5 @@ public class MockDriveMotorIO implements SwerveDriveMotorIO {
   public void resetEncoder() {}
 
   @Override
-  public void updateInputs(SwerveDriveMotorInput inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 }

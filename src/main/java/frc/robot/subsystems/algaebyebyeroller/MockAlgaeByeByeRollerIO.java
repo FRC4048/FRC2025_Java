@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems.algaebyebyeroller;
 
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+
 /** Add your docs here. */
 public class MockAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   @Override
@@ -13,5 +15,5 @@ public class MockAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   public void stopMotors() {}
 
   @Override
-  public void updateInputs(AlgaeByeByeRollerInputs inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 }

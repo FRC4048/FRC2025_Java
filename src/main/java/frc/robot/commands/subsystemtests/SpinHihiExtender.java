@@ -7,7 +7,7 @@ package frc.robot.commands.subsystemtests;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SpinHihiExtender extends LoggableCommand {
   /** Creates a new SpinHihiExtender. */
@@ -39,6 +39,6 @@ public class SpinHihiExtender extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Constants.HIHI_EXTENDER_TIMEOUT);
+    return timer.hasElapsed(Constants.HIHI_EXTEND_TIMEOUT);
   }
 }

@@ -1,20 +1,21 @@
 package frc.robot.subsystems.elevator;
 
 import frc.robot.constants.Constants;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 
 public class SimElevatorIO extends RealElevatorIO {
   private final ElevatorSimulator elevatorSimulator;
 
   public SimElevatorIO() {
     super();
-    this.elevatorSimulator = new ElevatorSimulator((elevatorMotor1));
+    this.elevatorSimulator = new ElevatorSimulator(elevatorMotor.getNeoMotor());
   }
 
   @Override
-  public void updateInputs(ElevatorInputs inputs) {
+  public void updateInputs(PidMotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      elevatorSimulator.simulationPeriodic();
+      elevatorSimulator.stepSimulation();
     }
   }
 }

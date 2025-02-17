@@ -1,5 +1,7 @@
 package frc.robot.subsystems.swervev3.io.steer;
 
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+
 public class MockSteerMotorIO implements SwerveSteerMotorIO {
 
   @Override
@@ -9,5 +11,5 @@ public class MockSteerMotorIO implements SwerveSteerMotorIO {
   public void resetEncoder() {}
 
   @Override
-  public void updateInputs(SwerveSteerMotorInput inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 }

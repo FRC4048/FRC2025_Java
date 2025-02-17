@@ -3,7 +3,7 @@ package frc.robot.autochooser.event;
 import frc.robot.Robot;
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
@@ -18,7 +18,7 @@ public class AutoEventProvider {
 
   public AutoEventProvider(
       AutoEventProviderIO providerIO, BiFunction<AutoAction, FieldLocation, Boolean> validator) {
-    this.system = new LoggableSystem<>(providerIO, new AutoChooserInputs());
+    this.system = new LoggableSystem<>(providerIO, new AutoChooserInputs("AutoChooser"));
     this.validator = validator;
     setOnActionChangeListener((a) -> changed = true);
     setOnLocationChangeListener((l) -> changed = true);

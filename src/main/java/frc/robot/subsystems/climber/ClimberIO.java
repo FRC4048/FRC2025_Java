@@ -5,11 +5,14 @@
 package frc.robot.subsystems.climber;
 
 import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 /** Add your docs here. */
-public interface ClimberIO extends LoggableIO<ClimberInputs> {
+public interface ClimberIO extends LoggableIO<MotorInputs> {
 
   void setClimberSpeed(double speed);
 
   void stopClimber();
+
+  void resetClimberEncoder();
 }

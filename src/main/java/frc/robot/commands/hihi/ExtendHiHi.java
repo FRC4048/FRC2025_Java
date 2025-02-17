@@ -3,21 +3,25 @@ package frc.robot.commands.hihi;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.TimeoutLogger;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ExtendHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
-  private double time;
+  private Timer timer;
+  private final TimeoutLogger timeoutCounter;
 
   public ExtendHiHi(HihiExtenderSubsystem hihiExtender) {
     this.hihiExtender = hihiExtender;
+    timeoutCounter = new TimeoutLogger("ExtendHiHi");
+    timer = new Timer();
     addRequirements(hihiExtender);
   }
 
   @Override
   public void initialize() {
     hihiExtender.setExtenderSpeed(Constants.HIHI_EXTEND_SPEED);
-    time = Timer.getFPGATimestamp();
+    timer.restart();
   }
 
   @Override
@@ -30,7 +34,10 @@ public class ExtendHiHi extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (hihiExtender.getForwardSwitchState()
-        || Timer.getFPGATimestamp() - time >= Constants.HIHI_EXTENDER_TIMEOUT);
+    if (timer.hasElapsed(Constants.HIHI_EXTEND_TIMEOUT)) {
+      timeoutCounter.increaseTimeoutCount();
+      return true;
+    }
+    return (hihiExtender.getForwardSwitchState());
   }
 }

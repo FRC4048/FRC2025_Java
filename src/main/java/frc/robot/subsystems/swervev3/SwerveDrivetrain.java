@@ -22,7 +22,7 @@ import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
 
@@ -58,7 +58,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
     this.backRight = backRightModule;
-    this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs());
+    this.gyroSystem = new LoggableSystem<>(gyroIO, new GyroInputs("Gyro"));
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());

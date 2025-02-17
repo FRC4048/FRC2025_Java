@@ -4,29 +4,37 @@
 
 package frc.robot.subsystems.algaebyebyetilt;
 
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.LimitSwitchConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
-  private final WPI_TalonSRX removerTiltMotor; // SnowblowerMotor
+  private final SparkMax removerTiltMotor; // SnowblowerMotor
+  private final SparkMaxInputProvider inputProvider;
 
   public RealAlgaeByeByeTiltIO() {
 
-    this.removerTiltMotor = new WPI_TalonSRX(Constants.ALGAE_BYEBYE_TILT_ID);
+    this.removerTiltMotor =
+        new SparkMax(Constants.ALGAE_BYEBYE_TILT_ID, SparkLowLevel.MotorType.kBrushless);
+    inputProvider = new SparkMaxInputProvider(removerTiltMotor);
     configureMotor();
     resetEncoder();
   }
 
   public void configureMotor() {
-    this.removerTiltMotor.setNeutralMode(NeutralMode.Brake);
-    this.removerTiltMotor.configForwardLimitSwitchSource(
-        LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    this.removerTiltMotor.configReverseLimitSwitchSource(
-        LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.limitSwitch.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+    config.limitSwitch.reverseLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+    config.idleMode(SparkBaseConfig.IdleMode.kBrake);
+    removerTiltMotor.configure(
+        config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override
@@ -41,14 +49,11 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   @Override
   public void resetEncoder() {
-    this.removerTiltMotor.setSelectedSensorPosition(0);
+    this.removerTiltMotor.getEncoder().setPosition(0);
   }
 
   @Override
-  public void updateInputs(AlgaeByeByeTiltInputs inputs) {
-    inputs.forwardLimitSwitchState =
-        removerTiltMotor.getSensorCollection().isFwdLimitSwitchClosed();
-    inputs.backLimitSwitchState = removerTiltMotor.getSensorCollection().isRevLimitSwitchClosed();
-    inputs.tiltMotorEncoderPosition = removerTiltMotor.getSelectedSensorPosition();
+  public void updateInputs(MotorInputs inputs) {
+    inputs.process(inputProvider);
   }
 }

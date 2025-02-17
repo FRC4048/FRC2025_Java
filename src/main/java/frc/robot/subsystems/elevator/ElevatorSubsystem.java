@@ -1,25 +1,47 @@
 package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.logging.LoggableSystem;
+import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
-  private final LoggableSystem<ElevatorIO, ElevatorInputs> elevatorSystem;
+  private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
-    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, new ElevatorInputs());
+    PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
+    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
   }
 
   public void setElevatorMotorSpeed(double speed) {
     elevatorSystem.getIO().setSpeed(speed);
   }
 
-  public double getEncoderValue1() {
-    return elevatorSystem.getInputs().elevatorMotor1EncoderValue;
+  public void setElevatorPosition(double encoderPos) {
+    // TODO: This can be moved to input-based logging once that framework switches to composition
+    Logger.recordOutput("ElevatorSubsystem/targetPosition", encoderPos);
+    elevatorSystem.getIO().setElevatorPosition(encoderPos);
   }
 
-  public double getEncoderValue2() {
-    return elevatorSystem.getInputs().elevatorMotor2EncoderValue;
+  public double getEncoderValue() {
+    return elevatorSystem.getInputs().getEncoderPosition();
+  }
+
+  public boolean getForwardLimitSwitchState() {
+    return elevatorSystem.getInputs().getFwdLimit();
+  }
+
+  public boolean getReverseLimitSwitchState() {
+    return elevatorSystem.getInputs().getRevLimit();
+  }
+
+  public void stopMotor() {
+    elevatorSystem.getIO().stopMotor();
+  }
+
+  public void resetEncoder() {
+    elevatorSystem.getIO().resetEncoder();
   }
 
   @Override

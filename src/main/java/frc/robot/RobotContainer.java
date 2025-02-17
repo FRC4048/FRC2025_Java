@@ -23,14 +23,25 @@ import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorSpinMotors;
+import frc.robot.commands.RollAlgae;
+import frc.robot.commands.climber.ClimberRunMotors;
+import frc.robot.commands.coral.ShootCoral;
+import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
+import frc.robot.commands.subsystemtests.SpinRollerByeBye;
+import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.constants.CoralDeposit;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
@@ -53,6 +64,7 @@ import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
 import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
+import frc.robot.subsystems.hihiroller.SimHihiRollerIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -70,12 +82,14 @@ import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
+  private final AlgaeByeByeRollerSubsystem byebyeRoller;
+  private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
   private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem shooter;
-  private final ClimberSubsystem climberSubsystem;
+  private final ClimberSubsystem climber;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -95,7 +109,8 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         shooter = new CoralSubsystem(new RealCoralIO());
-        climberSubsystem = new ClimberSubsystem(new RealClimberIO());
+        climber = new ClimberSubsystem(new RealClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
       }
       case REPLAY -> {
@@ -103,17 +118,18 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
-        climberSubsystem = new ClimberSubsystem(new MockClimberIO());
+        climber = new ClimberSubsystem(new MockClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
-        
       }
       case SIM -> {
-        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
+        hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
-        climberSubsystem = new ClimberSubsystem(new SimClimberIO());
-        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAbsIOAlgaeByeByeTiltIO());
+        climber = new ClimberSubsystem(new SimClimberIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
@@ -149,216 +165,13 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
-
-
-
-
-          
-      }
-  
-
-    //    try {
-    //      SmartDashboard.putData("Robot1toPostA", drivetrain);
-    //      SmartDashboard.putData(
-    //          "Robot 1 to Post A",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post A")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post B")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post C")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post D")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post E")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post F")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post G")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post H")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post I")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post J")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post K")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post L")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post A")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post B")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post C")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post D")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post E")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post F")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post G")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post H")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post I")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post J")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post K")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot2",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post L")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post A")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post B")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post C")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post D")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post E")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post F")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post G")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post H")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post I")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post J")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post K")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot3",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 3 to Post L")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post A")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post B")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post C")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "A to D",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post D")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post E")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot4 to Post F")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post G")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "E to H",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post H")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post I")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post J")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post K")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot4",
-    //          "I to L",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post L")));
-    //      SmartShuffleboard.putCommand(
-    //          "Robot1",
-    //          "Push",
-    //          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Push Robot 1 to Post A")));
-
-    //    } catch (Exception e) {
-    //      e.printStackTrace();
-    //    }
-  
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
+      SmartShuffleboard.putCommand("DEBUG", "Climber run", new ClimberRunMotors(climber, 0.5));
+      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new ClimberRunMotors(climber, 0));
+      SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
+    }
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
@@ -478,6 +291,19 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+    }
+    if (Constants.COMMAND_DEBUG) {
+      SmartShuffleboard.putCommand(
+          "Bye Bye",
+          "Spin Roller ",
+          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+      SmartShuffleboard.putCommand(
+          "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
+
+      SmartShuffleboard.putCommand(
+          "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
+      SmartShuffleboard.putCommand(
+          "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
     }
   }
 }

@@ -4,11 +4,13 @@
 
 package frc.robot.subsystems.algaebyebyetilt;
 
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+
 /** Add your docs here. */
-public class MockAlgaeByeByeTIltIO implements AlgaeByeByeTiltIO {
+public class MockAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   @Override
-  public void updateInputs(AlgaeByeByeTiltInputs inputs) {}
+  public void updateInputs(MotorInputs inputs) {}
 
   @Override
   public void setSpeed(double speed) {}
