@@ -27,7 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSystem.getIO().setSpeed(speed);
   }
 
-  public void setElevatorPosition(Double encoderPos) {
+  public void setElevatorPosition(double encoderPos) {
     // TODO: This can be moved to input-based logging once that framework switches to composition
     Logger.recordOutput("ElevatorSubystem/targetPosition", encoderPos);
     elevatorSystem.getIO().setElevatorPosition(encoderPos);
