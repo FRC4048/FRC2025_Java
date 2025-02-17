@@ -6,7 +6,6 @@ import frc.robot.constants.ReefPosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
@@ -151,9 +152,7 @@ public class RobotContainer {
     controller
         .povRight()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
-    controller
-        .rightBumper()
-        .onTrue(new ResetElevator(elevatorSubsystem));
+    controller.rightBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ClimberRunMotors(climber, Constants.CLIMBER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
@@ -163,6 +162,17 @@ public class RobotContainer {
     controller.y().onTrue(new RetractHiHi(hihiExtender));
     controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
     controller.b().onTrue(new ByeByeToRevLimit(byebyeTilt));
+    controller
+        .back()
+        .onTrue(
+            new CancelAll(
+                byebyeRoller,
+                byebyeTilt,
+                elevatorSubsystem,
+                hihiExtender,
+                hihiRoller,
+                coralSubsystem,
+                climber));
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
       SmartShuffleboard.putCommand("DEBUG", "Climber run", new ClimberRunMotors(climber, 0.5));
