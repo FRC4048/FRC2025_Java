@@ -3,10 +3,10 @@ package frc.robot.commands.drivetrain;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.RobotContainer;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.commands.LoggableCommand;
-import frc.robot.utils.motor.NeoPidMotor;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -39,11 +39,11 @@ public class Drive extends LoggableCommand {
 
   @Override
   public void execute() {
-    double fwd = MathUtil.applyDeadband(fwdSupplier.getAsDouble(), 0.05) * NeoPidMotor.MAX_VELOCITY;
-    double str = MathUtil.applyDeadband(strSupplier.getAsDouble(), 0.05) * NeoPidMotor.MAX_VELOCITY;
+    double fwd = MathUtil.applyDeadband(fwdSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
+    double str = MathUtil.applyDeadband(strSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
     ;
     ChassisSpeeds driveStates;
-    double rcw = MathUtil.applyDeadband(rtSupplier.getAsDouble(), 0.05) * NeoPidMotor.MAX_VELOCITY;
+    double rcw = MathUtil.applyDeadband(rtSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
     ;
     drivetrain.setFacingTarget(false);
     driveStates =
