@@ -14,7 +14,7 @@ public class SetInitOdom extends LoggableCommand {
   @Override
   public void initialize() {
     drivetrain.setGyroOffset(
-        FieldLocation.ROBOT_POS_1.getLocation().getRotation().getDegrees() * -1);
+        FieldLocation.ROBOT_POS_1.getLocation().getRotation().getDegrees()11);
     drivetrain.resetOdometry(FieldLocation.ROBOT_POS_1.getLocation());
   }
 

@@ -21,6 +21,12 @@
           "data": {
             "pathName": "Station 2 to Post L"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
         }
       ]
     }

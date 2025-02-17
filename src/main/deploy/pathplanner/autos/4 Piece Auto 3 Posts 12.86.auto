@@ -45,6 +45,12 @@
           "data": {
             "pathName": "Station 1 to Post A"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
         }
       ]
     }

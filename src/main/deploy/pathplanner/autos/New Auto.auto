@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": []
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "THE GLORIOUS 4 PIECE AUTO",
+  "choreoAuto": false
+}

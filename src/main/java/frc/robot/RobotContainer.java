@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
@@ -17,11 +18,20 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.byebye.ByeByeToFwrLimit;
+import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.elevator.ElevatorSpinMotors;
+import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.constants.Constants;
+import frc.robot.constants.CoralDeposit;
+import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltIO;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
 import frc.robot.subsystems.climber.RealClimberIO;
@@ -62,6 +72,7 @@ public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
+  private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem shooter;
   private final ClimberSubsystem climberSubsystem;
@@ -71,7 +82,13 @@ public class RobotContainer {
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private final JoystickButton joyStickButton1 = new JoystickButton(joyleft, 16);
 
+
+
+  /**
+   * 
+   */
   public RobotContainer() {
+
     switch (Constants.currentMode) {
       case REAL -> {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
@@ -79,6 +96,7 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         shooter = new CoralSubsystem(new RealCoralIO());
         climberSubsystem = new ClimberSubsystem(new RealClimberIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
@@ -86,6 +104,8 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new MockClimberIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
+        
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO()); // TODO
@@ -93,6 +113,7 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         shooter = new CoralSubsystem(new MockCoralIO());
         climberSubsystem = new ClimberSubsystem(new SimClimberIO());
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAbsIOAlgaeByeByeTiltIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
@@ -101,6 +122,20 @@ public class RobotContainer {
     setupDriveTrain();
     configureBindings();
     putShuffleboardCommands();
+    PathPlannerCommands();
+  }
+
+
+  private void PathPlannerCommands(){
+    //COMMANDS REGISTERED FOR PATHPLANNER
+    NamedCommands.registerCommand("ByeByetoFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
+    NamedCommands.registerCommand("ByeByetoRevLimit", new ByeByeToRevLimit(byebyeTilt));
+    NamedCommands.registerCommand("ShootCoral", new ShootCoral(shooter, 0.4));
+    NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
+    NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));  
+    NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL2)); 
+    NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));  
+    //NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));   
   }
 
   private void configureBindings() {
@@ -114,6 +149,14 @@ public class RobotContainer {
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+
+
+
+
+          
+      }
+  
+
     //    try {
     //      SmartDashboard.putData("Robot1toPostA", drivetrain);
     //      SmartDashboard.putData(
@@ -315,7 +358,7 @@ public class RobotContainer {
     //    } catch (Exception e) {
     //      e.printStackTrace();
     //    }
-  }
+  
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
