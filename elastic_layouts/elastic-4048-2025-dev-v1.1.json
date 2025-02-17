@@ -743,8 +743,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": 0.0,
-              "max_value": 50.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -761,8 +759,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -855,8 +851,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": 0.0,
-              "max_value": 50.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -873,8 +867,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -980,8 +972,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -998,8 +988,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -1058,8 +1046,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -1076,8 +1062,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1218,8 +1202,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1278,8 +1260,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1296,8 +1276,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -1364,8 +1342,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -50.0,
-              "max_value": 50.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1424,8 +1400,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -1000.0,
-              "max_value": 1000.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1442,8 +1416,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -1481,8 +1453,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -1000.0,
-              "max_value": 1000.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1499,8 +1469,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -1538,8 +1506,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -1556,8 +1522,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -1000.0,
-              "max_value": 1000.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1595,8 +1559,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -1000.0,
-              "max_value": 1000.0,
               "color": 4278238420,
               "line_width": 2.0
             }
@@ -1613,8 +1575,6 @@
               "period": 0.033,
               "data_type": "double",
               "time_displayed": 5.0,
-              "min_value": -10.0,
-              "max_value": 10.0,
               "color": 4292121856,
               "line_width": 2.0
             }
@@ -1641,6 +1601,91 @@
             }
           }
         ]
+      }
+    },
+    {
+      "name": "DEBUG",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "CID",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Number Slider",
+            "properties": {
+              "topic": "/Shuffleboard/DEBUG/CID",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": -1.0,
+              "max_value": 1.0,
+              "divisions": 5,
+              "update_continuously": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bye Bye",
+      "grid_layout": {
+        "layouts": [
+          {
+            "title": "Commands",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 512.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "LEFT"
+            },
+            "children": [
+              {
+                "title": "Spin Roller ",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Roller ",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Spin Tilt",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Tilt",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "ToFWRLImit",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Bye Bye/Commands/ToFWRLImit",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          }
+        ],
+        "containers": []
       }
     }
   ]
