@@ -1,10 +1,9 @@
 package frc.robot.subsystems.swervev3.io.drive;
 
-import com.revrobotics.spark.SparkMax;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.subsystem.builders.BuildableFolderMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
-public interface SwerveDriveMotorIO extends LoggableIO<BuildableFolderMotorInputs<SparkMax>> {
+public interface SwerveDriveMotorIO extends LoggableIO<MotorInputs> {
   void setDriveVoltage(double volts);
 
   void resetEncoder();
