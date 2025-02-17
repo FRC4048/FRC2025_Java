@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   /** Creates a new AlgaeByeByeTiltSubsystem. */
@@ -22,8 +21,6 @@ public class AlgaeByeByeTiltSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     algaeTiltSystem.updateInputs();
-    SmartShuffleboard.put("Bye Bye", "ForwardTripped?", algaeTiltSystem.getInputs().getFwdLimit());
-    SmartShuffleboard.put("Bye Bye", "ReverseTripped?", algaeTiltSystem.getInputs().getRevLimit());
   }
 
   public void setSpeed(double speed) {
