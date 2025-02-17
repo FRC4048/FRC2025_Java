@@ -3,15 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot.utils.simulation;
 
-import static edu.wpi.first.units.Units.*;
-
 import com.revrobotics.sim.SparkLimitSwitchSim;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
@@ -86,7 +83,7 @@ public class ArmSimulator {
     armSim.update(0.020);
     // Finally, we set our simulated encoder's readings and simulated battery voltage
     Rotation2d velocityRadsPerSecond = Rotation2d.fromRadians(armSim.getVelocityRadPerSec());
-    double rpm = velocityRadsPerSecond.getRotations()*60;
+    double rpm = velocityRadsPerSecond.getRotations() * 60;
     motorSim.iterate(
         rpm, 12, // RoboRioSim.getVInVoltage(),
         0.020);
