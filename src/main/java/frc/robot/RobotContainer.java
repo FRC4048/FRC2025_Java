@@ -17,23 +17,21 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.coral.CoralToFWRLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
-import frc.robot.commands.subsystemtests.CoralIdleMode;
-import frc.robot.commands.subsystemtests.SetCoralLimitState;
-import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
-import frc.robot.commands.intake.IntakeCoral;
+import frc.robot.commands.subsystemtests.CoralIdleMode;
+import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
@@ -140,7 +138,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
-    controller.leftTrigger().onTrue(new IntakeCoral(shooter));
+    controller.leftTrigger().onTrue(new IntakeCoral(coralSubsystem));
     controller
         .povUp()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
@@ -157,11 +155,11 @@ public class RobotContainer {
         .rightBumper()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.INTAKE, elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
-    controller
-        .rightTrigger()
-        .onTrue(new ClimberRunMotors(climberSubsystem, Constants.CLIMBER_SPEED));
-new Trigger(() -> controller.getLeftY() > -0.1).onTrue( new SetElevatorTargetPosition(() -> controller.getLeftY(),elevatorSubsystem));
-new Trigger(() -> controller.getLeftY() < 0.1).onTrue( new SetElevatorTargetPosition(() -> controller.getLeftY(),elevatorSubsystem));
+    controller.rightTrigger().onTrue(new ClimberRunMotors(climber, Constants.CLIMBER_SPEED));
+    new Trigger(() -> controller.getLeftY() > -0.1)
+        .onTrue(new SetElevatorTargetPosition(() -> controller.getLeftY(), elevatorSubsystem));
+    new Trigger(() -> controller.getLeftY() < 0.1)
+        .onTrue(new SetElevatorTargetPosition(() -> controller.getLeftY(), elevatorSubsystem));
     controller.x().onTrue(new ExtendHiHi(hihiExtender));
     controller.y().onTrue(new RetractHiHi(hihiExtender));
     controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
@@ -292,7 +290,7 @@ new Trigger(() -> controller.getLeftY() < 0.1).onTrue( new SetElevatorTargetPosi
     if (Constants.INTAKE_DEBUG) {
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
-      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(shooter));
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
     }
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand(
@@ -330,7 +328,7 @@ new Trigger(() -> controller.getLeftY() < 0.1).onTrue( new SetElevatorTargetPosi
           "Store L4",
           new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
       SmartShuffleboard.putCommand(
-          "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
+          "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));

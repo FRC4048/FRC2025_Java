@@ -4,10 +4,9 @@
 
 package frc.robot.commands.elevator;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import java.util.function.DoubleSupplier;
 
 public class SetElevatorTargetPosition extends Command {
 

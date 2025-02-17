@@ -6,8 +6,6 @@ import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
-
-import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -38,12 +36,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     return elevatorSystem.getIO().getElevatorPosition();
   }
 
-  public void setStoredReefPosition(ReefPosition ReefPosition) {
-    this.ReefPosition = ReefPosition;
+  public void setStoredReefPosition(ReefPosition reefPosition) {
+    this.reefPosition = reefPosition;
   }
 
   public ReefPosition getStoredReefPosition() {
-    return ReefPosition;
+    return reefPosition;
   }
 
   public boolean getForwardLimitSwitchState() {
