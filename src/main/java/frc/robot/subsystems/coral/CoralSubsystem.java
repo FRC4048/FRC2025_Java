@@ -12,10 +12,10 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIOLeader, MotorInputs> coralSystemLeader;
-  private final LoggableSystem<CoralIOLeader, MotorInputs> coralSystemFollower;
+  private final LoggableSystem<CoralIOFollower, MotorInputs> coralSystemFollower;
 
   /** Creates a new Shooter. */
-  public CoralSubsystem(CoralIOLeader ioFollower, CoralIOLeader ioLeader) {
+  public CoralSubsystem(CoralIOFollower ioFollower, CoralIOLeader ioLeader) {
     MotorInputs followerInputs =
         new MotorInputBuilder<>("ClimberSubsystem/Follower")
             .encoderVelocity()

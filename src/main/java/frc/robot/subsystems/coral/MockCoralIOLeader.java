@@ -3,7 +3,7 @@ package frc.robot.subsystems.coral;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
-public class MockCoralIO implements CoralIOLeader {
+public class MockCoralIOLeader implements CoralIOLeader {
   @Override
   public void setShooterSpeed(double speed) {}
 
