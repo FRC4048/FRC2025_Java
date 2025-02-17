@@ -47,7 +47,6 @@ public class RealCoralIOFollower implements CoralIOFollower {
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.put(
           "coral", "ForwardTrippedFollower", shooterMotor.getForwardLimitSwitch().isPressed());
-      SmartShuffleboard.put("coral", "IsFollower", shooterMotor.isFollower());
     }
   }
 }
