@@ -2,7 +2,7 @@ package frc.robot.commands.drivetrain;
 
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
-import frc.robot.utils.logging.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SetInitOdom extends LoggableCommand {
   private final SwerveDrivetrain drivetrain;
@@ -13,8 +13,7 @@ public class SetInitOdom extends LoggableCommand {
 
   @Override
   public void initialize() {
-    drivetrain.setGyroOffset(
-        FieldLocation.ROBOT_POS_1.getLocation().getRotation().getDegrees()11);
+    drivetrain.setGyroOffset(FieldLocation.ROBOT_POS_1.getLocation().getRotation().getDegrees());
     drivetrain.resetOdometry(FieldLocation.ROBOT_POS_1.getLocation());
   }
 

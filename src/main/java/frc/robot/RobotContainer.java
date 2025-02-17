@@ -18,15 +18,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.coral.ShootCoral;
-import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.elevator.ElevatorSpinMotors;
-import frc.robot.commands.RollAlgae;
 import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.elevator.ElevatorSpinMotors;
 import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.intake.IntakeCoral;
 import frc.robot.commands.subsystemtests.SpinExtender;
@@ -35,8 +33,6 @@ import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.constants.CoralDeposit;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
-import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltIO;
-import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
@@ -86,7 +82,6 @@ public class RobotContainer {
   private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
-  private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem shooter;
   private final ClimberSubsystem climber;
@@ -96,11 +91,7 @@ public class RobotContainer {
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private final JoystickButton joyStickButton1 = new JoystickButton(joyleft, 16);
 
-
-
-  /**
-   * 
-   */
+  /** */
   public RobotContainer() {
 
     switch (Constants.currentMode) {
@@ -141,17 +132,20 @@ public class RobotContainer {
     PathPlannerCommands();
   }
 
-
-  private void PathPlannerCommands(){
-    //COMMANDS REGISTERED FOR PATHPLANNER
+  private void PathPlannerCommands() {
+    // COMMANDS REGISTERED FOR PATHPLANNER
     NamedCommands.registerCommand("ByeByetoFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
     NamedCommands.registerCommand("ByeByetoRevLimit", new ByeByeToRevLimit(byebyeTilt));
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(shooter, 0.4));
     NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
-    NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));  
-    NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL2)); 
-    NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));  
-    //NamedCommands.registerCommand("ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));   
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL2));
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
+    // NamedCommands.registerCommand("ElevatorToPositionL1", new
+    // ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));
   }
 
   private void configureBindings() {
