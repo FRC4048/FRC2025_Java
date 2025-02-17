@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
-import frc.robot.commands.Climber.ClimberRunMotors;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
+import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
@@ -29,7 +29,7 @@ import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
-import frc.robot.constants.CoralDeposit;
+import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -133,19 +133,19 @@ public class RobotContainer {
     controller.leftTrigger().onTrue(new IntakeCoral(shooter));
     controller
         .povUp()
-        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL4, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
     controller
         .povDown()
-        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL1, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
     controller
         .povLeft()
-        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL2, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
     controller
         .povRight()
-        .onTrue(new SetElevatorStoredPosition(CoralDeposit.LEVEL3, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
     controller
         .rightBumper()
-        .onTrue(new SetElevatorStoredPosition(CoralDeposit.INTAKE, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.INTAKE, elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
     controller
         .rightTrigger()
@@ -295,23 +295,23 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
-          new SetElevatorStoredPosition(CoralDeposit.INTAKE, elevatorSubsystem));
+          new SetElevatorStoredPosition(ReefPosition.INTAKE, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",
-          new SetElevatorStoredPosition(CoralDeposit.LEVEL1, elevatorSubsystem));
+          new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L2",
-          new SetElevatorStoredPosition(CoralDeposit.LEVEL2, elevatorSubsystem));
+          new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L3",
-          new SetElevatorStoredPosition(CoralDeposit.LEVEL3, elevatorSubsystem));
+          new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L4",
-          new SetElevatorStoredPosition(CoralDeposit.LEVEL4, elevatorSubsystem));
+          new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(shooter, Constants.CORAL_SHOOTER_SPEED));
     }

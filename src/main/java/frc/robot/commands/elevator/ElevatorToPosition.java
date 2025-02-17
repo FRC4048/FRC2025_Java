@@ -19,7 +19,7 @@ public class ElevatorToPosition extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    elevator.setElevatorPosition(elevator.getStoredElevatorHeight().getElevatorHeight());
+    elevator.setElevatorPosition(elevator.getStoredReefPosition().getElevatorHeight());
   }
 
   @Override

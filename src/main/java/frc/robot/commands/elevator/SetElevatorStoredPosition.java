@@ -5,16 +5,16 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.CoralDeposit;
+import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 
 public class SetElevatorStoredPosition extends Command {
-  public final CoralDeposit storedElevatorHeight;
+  public final ReefPosition ReefPosition;
   public final ElevatorSubsystem elevatorSubsystem;
 
   public SetElevatorStoredPosition(
-      CoralDeposit storedElevatorHeight, ElevatorSubsystem elevatorSubsystem) {
-    this.storedElevatorHeight = storedElevatorHeight;
+      ReefPosition storedElevatorHeight, ElevatorSubsystem elevatorSubsystem) {
+    this.ReefPosition = storedElevatorHeight;
     this.elevatorSubsystem = elevatorSubsystem;
     addRequirements(elevatorSubsystem);
   }
@@ -22,7 +22,7 @@ public class SetElevatorStoredPosition extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevatorSubsystem.setStoredElevatorHeight(storedElevatorHeight);
+    elevatorSubsystem.setStoredReefPosition(ReefPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +36,6 @@ public class SetElevatorStoredPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
