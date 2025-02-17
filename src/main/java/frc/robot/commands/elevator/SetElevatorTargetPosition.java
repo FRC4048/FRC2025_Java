@@ -4,7 +4,9 @@
 
 package frc.robot.commands.elevator;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import java.util.function.DoubleSupplier;
 
@@ -17,6 +19,7 @@ public class SetElevatorTargetPosition extends Command {
       DoubleSupplier targetSupplier, ElevatorSubsystem elevatorSubsystem) {
     this.targetSupplier = targetSupplier;
     this.elevatorSubsystem = elevatorSubsystem;
+    addRequirements(elevatorSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -26,8 +29,17 @@ public class SetElevatorTargetPosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevatorSubsystem.setElevatorPosition(
-        -targetSupplier.getAsDouble() + elevatorSubsystem.getElevatorPosition());
+
+    double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.1);
+    if (-postDeadbandValue + elevatorSubsystem.getElevatorPosition() < 0) {
+      elevatorSubsystem.setElevatorPosition(0);
+    } else if (-postDeadbandValue + elevatorSubsystem.getElevatorPosition()
+        > Constants.MAX_ELEVATOR_HEIGHT_METERS) {
+      elevatorSubsystem.setElevatorPosition(Constants.MAX_ELEVATOR_HEIGHT_METERS);
+    } else {
+      elevatorSubsystem.setElevatorPosition(
+          -postDeadbandValue + elevatorSubsystem.getElevatorPosition());
+    }
   }
 
   // Called once the command ends or is interrupted.

@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
@@ -156,8 +155,12 @@ public class RobotContainer {
         .onTrue(new SetElevatorStoredPosition(ReefPosition.INTAKE, elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ClimberRunMotors(climber, Constants.CLIMBER_SPEED));
-    new Trigger(() -> Math.abs(controller.getLeftY()) > 0.1)
-        .whileTrue(new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem));
+    // new Trigger(() -> Math.abs(controller.getLeftY()) > 0.1)
+    //   .whileTrue(new SetElevatorTargetPosition(() -> (controller.getLeftY()),
+    // elevatorSubsystem));
+    SetElevatorTargetPosition setElevatorTargetPosition =
+        new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
+    elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.x().onTrue(new ExtendHiHi(hihiExtender));
     controller.y().onTrue(new RetractHiHi(hihiExtender));
     controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
