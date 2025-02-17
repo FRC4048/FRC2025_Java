@@ -25,6 +25,7 @@ import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
+import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
@@ -152,7 +153,7 @@ public class RobotContainer {
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
     controller
         .rightBumper()
-        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
+        .onTrue(new ResetElevator(elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ClimberRunMotors(climber, Constants.CLIMBER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
