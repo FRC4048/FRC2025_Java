@@ -25,7 +25,8 @@ public class RealCoralIOLeader implements CoralIOLeader {
     SparkMaxConfig coralConfig = new SparkMaxConfig();
     coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(true));
     coralConfig.idleMode(IdleMode.kBrake);
-    shooterMotorLeader.configure(
+    coralConfig.smartCurrentLimit(Constants.NEO_CURRENT_LIMIT);
+    shooterMotor.configure(
         coralConfig,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
