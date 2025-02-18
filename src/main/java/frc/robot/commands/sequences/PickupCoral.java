@@ -8,12 +8,14 @@ import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
-public class PickupCoral extends LoggableSequentialCommandGroup{
-    public PickupCoral(AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem, CoralSubsystem coralSubsystem, ElevatorSubsystem elevatorSubsystem) {
-        super(
-            new ByeByeToRevLimit(algaeByeByeTiltSubsystem),
-            new SetElevatorTargetPosition(null, elevatorSubsystem),
-            new IntakeCoral(coralSubsystem)
-        );
-    }
+public class PickupCoral extends LoggableSequentialCommandGroup {
+  public PickupCoral(
+      AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem,
+      CoralSubsystem coralSubsystem,
+      ElevatorSubsystem elevatorSubsystem) {
+    super(
+        new ByeByeToRevLimit(algaeByeByeTiltSubsystem),
+        new SetElevatorTargetPosition(null, elevatorSubsystem),
+        new IntakeCoral(coralSubsystem));
+  }
 }

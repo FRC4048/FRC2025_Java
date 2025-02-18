@@ -5,8 +5,8 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.math.MathUtil;
-import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.function.DoubleSupplier;
 
 public class SetElevatorTargetPosition extends LoggableCommand {
