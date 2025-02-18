@@ -4,18 +4,12 @@
 
 package frc.robot.utils.helperclasses;
 
-/**
- * This is a helper class that takes in the robot's position and desired angular velocity, and gives
- * the instantaneuous velocity needed to move to continue the circle's momentum
- */
-
 /** Only to be used in "reef mode" */
 public class CoralCalc {
-  private double angularVelocity; // how many degrees per second (can be chosen)
-  private double y; // y position from odometry
-  private double x; // x position from odometry
-  private double theta; // angle in relation to reef center
-  private double r; // distance to reef center
+  private final double angularVelocity; // how many degrees per second (can be chosen)
+  private final double y; // y position from odometry
+  private final double x; // x position from odometry
+  private final double theta; // angle in relation to reef center
   private double yVelocity; // instantaneous x velocity to calculate
   private double xVelocity; // instantaneous y velocity to calculate
 
@@ -24,8 +18,9 @@ public class CoralCalc {
     this.y = y;
     this.x = x;
     this.theta = theta;
-    this.r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); // distance calculation
-    calculateVelocities();
+      // distance to reef center
+      double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); // distance calculation
+      calculateVelocities();
   }
 
   private void calculateVelocities() {

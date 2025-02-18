@@ -22,9 +22,9 @@ import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 public class Robot extends LoggedRobot {
-  private Command m_autonomousCommand;
+  private Command autonomousCommand;
 
-  private final RobotContainer m_robotContainer;
+  private final RobotContainer robotContainer;
   private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
   public double counter = 0;
 
@@ -72,7 +72,7 @@ public class Robot extends LoggedRobot {
     // Start AdvantageKit logger
     Logger.start();
     CommandLogger.get().init();
-    m_robotContainer = new RobotContainer();
+    robotContainer = new RobotContainer();
   }
 
   public static RobotMode getMode() {
@@ -94,8 +94,8 @@ public class Robot extends LoggedRobot {
   /** Use this instead of robot init. */
   private void actualInit() {
     new SequentialCommandGroup(
-            new WheelAlign(m_robotContainer.getDrivetrain()),
-            new ResetGyro(m_robotContainer.getDrivetrain()))
+            new WheelAlign(robotContainer.getDrivetrain()),
+            new ResetGyro(robotContainer.getDrivetrain()))
         .schedule();
   }
 
@@ -112,10 +112,10 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    autonomousCommand = robotContainer.getAutonomousCommand();
 
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (autonomousCommand != null) {
+      autonomousCommand.schedule();
     }
     mode.set(RobotMode.AUTONOMOUS);
   }
@@ -128,8 +128,8 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
     mode.set(RobotMode.TELEOP);
   }

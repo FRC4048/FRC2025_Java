@@ -197,32 +197,8 @@ public class VectorUtils {
    * @return a {@link VelocityVector} with the calculated target angle between 0 and 90 degrees.<br>
    *     <b>Impossible parameters will produce a null result</b>
    */
-  // public static VelocityVector fromDestAndCompoundVel(double speed, double startX, double startY,
-  // double startZ, double driveSpeedX, double destX, double destY, double destZ,double distOffset
-  // ,double degreeThreshold, int maxIterations, double maxFractionalRange) {
-  //     double xDist = destX - startX;
-  //     double yDist = destY - startY;
-  //     double xyDist = Math.hypot(xDist, yDist) + distOffset;
-  //     double deltaZ = Math.abs(destZ - startZ);
-  //     VelocityVector lastVel = null;
-  //     VelocityVector currVel = null;
-  //     int i = 0;
-  //     do {
-  //         i++;
-  //         lastVel = currVel;
-  //         double theta = lastVel == null ? Math.PI / 4 : lastVel.getAngle().getRadians();
-  //         double xySpeed = (Math.cos(theta) * speed) + driveSpeedX;
-  //         double zSpeed = Math.sin(theta) * speed;
-  //         double appliedSpeed = Math.hypot(xySpeed, zSpeed);
-  //         currVel = fromVelAndDist(appliedSpeed, xyDist, deltaZ, maxFractionalRange);
-  //     } while (i < maxIterations && (lastVel == null || currVel == null ||
-  // Math.abs(lastVel.getAngle().getDegrees() - currVel.getAngle().getDegrees()) >
-  // degreeThreshold));
-  //     return currVel == null ? new VelocityVector(Constants.SHOOTER_VELOCITY, new Rotation2d()) :
-  // currVel;
-  // }
 
-  /**
+    /**
    * The projectile motion converts the given coords to 2d and after applying the drivetrain x
    * velocity, to the x component of the projectile's initial velocity. <br>
    * Because shooter component velocities depends on the angle we shoot at, and the angle we shoot

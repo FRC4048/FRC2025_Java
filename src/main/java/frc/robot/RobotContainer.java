@@ -127,9 +127,7 @@ public class RobotContainer {
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
       }
-      default -> {
-        throw new RuntimeException("Did not specify Robot Mode");
-      }
+      default -> throw new RuntimeException("Did not specify Robot Mode");
     }
     setupDriveTrain();
     configureBindings();
@@ -157,7 +155,7 @@ public class RobotContainer {
     controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
-        new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
+        new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.x().onTrue(new ExtendHiHi(hihiExtender));
     controller.y().onTrue(new RetractHiHi(hihiExtender));

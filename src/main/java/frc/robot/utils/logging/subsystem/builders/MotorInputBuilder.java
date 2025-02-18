@@ -23,14 +23,14 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
     return new MotorInputs(this);
   }
 
-  public T reset() {
+  public void reset() {
     logEncoderPosition = false;
     logEncoderVelocity = false;
     logMotorCurrent = false;
     logMotorTemperature = false;
     logFwdLimit = false;
     logRevLimit = false;
-    return self();
+    self();
   }
 
   public T motorCurrent() {

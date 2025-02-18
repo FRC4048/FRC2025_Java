@@ -6,9 +6,9 @@ import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 public interface ElevatorIO extends LoggableIO<PidMotorInputs> {
   void setSpeed(double spd);
 
-  public void setElevatorPosition(double encoderPos);
+  void setElevatorPosition(double encoderPos);
 
-  public double getElevatorPosition();
+  double getElevatorPosition();
 
   void stopMotor();
 

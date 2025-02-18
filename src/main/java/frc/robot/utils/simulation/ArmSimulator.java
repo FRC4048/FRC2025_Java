@@ -23,9 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * information. Does not interfere with production behavior.
  */
 public class ArmSimulator {
-  // Gearbox represents a gearbox (1:1 conversion rate) with 1 motor connected
-  private final DCMotor gearbox = DCMotor.getNEO(1);
-  // The motor (that sits underneath the motor simulator)
+    // The motor (that sits underneath the motor simulator)
   // In case of follower/leader, this should be the leader
   private final SparkMax motor;
   // The simulated motor controller wrapping the actual motor
@@ -48,9 +46,11 @@ public class ArmSimulator {
 
   /** Constructor. */
   public ArmSimulator(SparkMax motor, ArmParameters params) {
-    armSim =
+      // Gearbox represents a gearbox (1:1 conversion rate) with 1 motor connected
+      DCMotor gearbox = DCMotor.getNEO(1);
+      armSim =
         new SingleJointedArmSim(
-            gearbox,
+                gearbox,
             params.armGearing,
             params.armInertia,
             params.armLength,
@@ -109,7 +109,6 @@ public class ArmSimulator {
    * Convert {@link Angle} into RPM
    *
    * @param angle Rotation angle, in Radians.
-   * @return {@link Angle} equivalent to rotations of the motor.
    */
   public void close() {
     motor.close();

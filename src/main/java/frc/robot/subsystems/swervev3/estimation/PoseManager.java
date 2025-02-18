@@ -34,8 +34,8 @@ public class PoseManager {
             Rotation2d.fromDegrees(initialOdom.gyroValueDeg()),
             initialOdom.modulePosition(),
             new Pose2d(),
-            PoseDeviation.getWheelStd(),
-            PoseDeviation.getVisionStd());
+            PoseDeviation.wheelStd(),
+            PoseDeviation.visionStd());
     this.estimatedPoseBuffer = estimatedPoseBuffer;
   }
 
