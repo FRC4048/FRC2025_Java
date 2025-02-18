@@ -5,6 +5,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.pathfinding.Pathfinding;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -27,6 +29,8 @@ public class Robot extends LoggedRobot {
   private final RobotContainer m_robotContainer;
   private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
   public double counter = 0;
+  private static DriverStation.Alliance alliance = null;
+  private static boolean fmsAttached = false;
 
   public Robot() {
     Pathfinding.setPathfinder(new LocalADStarAK());
@@ -105,7 +109,9 @@ public class Robot extends LoggedRobot {
   }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    updateFmsAlliance();
+  }
 
   @Override
   public void disabledExit() {}
@@ -154,5 +160,31 @@ public class Robot extends LoggedRobot {
 
   public void simulationInit() {
     mode.set(RobotMode.SIMULATION);
+  }
+
+  /**
+   * Updates the alliance color if the FMS goes from not attached to attached. This code will only
+   * work in competition and there is no fms when you connect locally. Non competition alliance
+   * information is updated in {@link Robot#driverStationConnected()}
+   */
+  private void updateFmsAlliance() {
+    if (DriverStation.isDSAttached()) {
+      boolean fms = DriverStation.isFMSAttached();
+      if ((fms && !fmsAttached) || alliance == null) {
+        alliance = DriverStation.getAlliance().orElse(null);
+      }
+      fmsAttached = fms;
+    }
+  }
+
+  /**
+   * Grab alliance color when robot connects to driver station. However, if driver station is not
+   * connected to FMS, it will grab the wrong color. This code is here so it will work properly when
+   * not in competition. Competition alliance color selection is handled by {@link
+   * Robot#updateFmsAlliance()}
+   */
+  @Override
+  public void driverStationConnected() {
+    alliance = DriverStation.getAlliance().orElse(null);
   }
 }
