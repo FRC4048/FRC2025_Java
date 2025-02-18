@@ -472,7 +472,7 @@
             "x": 1024.0,
             "y": 0.0,
             "width": 256.0,
-            "height": 640.0,
+            "height": 896.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
@@ -777,7 +777,7 @@
             "x": 640.0,
             "y": 0.0,
             "width": 256.0,
-            "height": 640.0,
+            "height": 768.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
@@ -1338,22 +1338,6 @@
             }
           },
           {
-            "title": "Extender Encoder Velocity",
-            "x": 896.0,
-            "y": 256.0,
-            "width": 256.0,
-            "height": 256.0,
-            "type": "Graph",
-            "properties": {
-              "topic": "/AdvantageKit/LoggableInputs/HihiExtenderSubsystem/encoderVelocity",
-              "period": 0.033,
-              "data_type": "double",
-              "time_displayed": 5.0,
-              "color": 4278238420,
-              "line_width": 2.0
-            }
-          },
-          {
             "title": "Extender Encoder Position",
             "x": 896.0,
             "y": 0.0,
@@ -1483,6 +1467,59 @@
               "wrap_value": false,
               "show_pointer": true,
               "show_ticks": true
+            }
+          },
+          {
+            "title": "Arm Mechanism angle",
+            "x": 512.0,
+            "y": 512.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Radial Gauge",
+            "properties": {
+              "topic": "/SmartDashboard/HiHi Extender/Arm Mechanism angle",
+              "period": 0.033,
+              "data_type": "double",
+              "start_angle": -140.0,
+              "end_angle": 140.0,
+              "min_value": -90.0,
+              "max_value": 0.0,
+              "number_of_labels": 8,
+              "wrap_value": false,
+              "show_pointer": true,
+              "show_ticks": true
+            }
+          },
+          {
+            "title": "Arm actual position",
+            "x": 768.0,
+            "y": 512.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Graph",
+            "properties": {
+              "topic": "/SmartDashboard/HiHi Extender/Arm actual position",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 5.0,
+              "color": 4292083891,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Arm Velocity rads per s",
+            "x": 896.0,
+            "y": 256.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Graph",
+            "properties": {
+              "topic": "/SmartDashboard/HiHi Extender/Arm Velocity rads per s",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 5.0,
+              "color": 4278238420,
+              "line_width": 2.0
             }
           }
         ]
@@ -1935,27 +1972,6 @@
             }
           },
           {
-            "title": "Front Right Motor Current",
-            "x": 512.0,
-            "y": 512.0,
-            "width": 256.0,
-            "height": 256.0,
-            "type": "Radial Gauge",
-            "properties": {
-              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/frontRight/motorCurrent",
-              "period": 0.06,
-              "data_type": "double",
-              "start_angle": -140.0,
-              "end_angle": 140.0,
-              "min_value": 0.0,
-              "max_value": 100.0,
-              "number_of_labels": 8,
-              "wrap_value": false,
-              "show_pointer": true,
-              "show_ticks": true
-            }
-          },
-          {
             "title": "Back Left Encoder Velocity",
             "x": 768.0,
             "y": 256.0,
@@ -1985,27 +2001,6 @@
               "time_displayed": 5.0,
               "color": 4278238420,
               "line_width": 2.0
-            }
-          },
-          {
-            "title": "Back Left Motor Current",
-            "x": 768.0,
-            "y": 512.0,
-            "width": 256.0,
-            "height": 256.0,
-            "type": "Radial Gauge",
-            "properties": {
-              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/backLeft/motorCurrent",
-              "period": 0.06,
-              "data_type": "double",
-              "start_angle": -140.0,
-              "end_angle": 140.0,
-              "min_value": 0.0,
-              "max_value": 100.0,
-              "number_of_labels": 8,
-              "wrap_value": false,
-              "show_pointer": true,
-              "show_ticks": true
             }
           },
           {
@@ -2041,32 +2036,11 @@
             }
           },
           {
-            "title": "Back Right Motor Current",
-            "x": 1024.0,
+            "title": "Back Left Abs Encoder Pos",
+            "x": 768.0,
             "y": 512.0,
             "width": 256.0,
             "height": 256.0,
-            "type": "Radial Gauge",
-            "properties": {
-              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/backRight/motorCurrent",
-              "period": 0.06,
-              "data_type": "double",
-              "start_angle": -140.0,
-              "end_angle": 140.0,
-              "min_value": 0.0,
-              "max_value": 100.0,
-              "number_of_labels": 8,
-              "wrap_value": false,
-              "show_pointer": true,
-              "show_ticks": true
-            }
-          },
-          {
-            "title": "Back Left Abs Encoder Pos",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 128.0,
             "type": "Graph",
             "properties": {
               "topic": "/AdvantageKit/LoggableInputs/Drivetrain/backLeft/absEncoderPosition",
@@ -2079,10 +2053,10 @@
           },
           {
             "title": "Back Right Abs Encoder Pos",
-            "x": 0.0,
-            "y": 128.0,
+            "x": 1024.0,
+            "y": 512.0,
             "width": 256.0,
-            "height": 128.0,
+            "height": 256.0,
             "type": "Graph",
             "properties": {
               "topic": "/AdvantageKit/LoggableInputs/Drivetrain/backRight/absEncoderPosition",
@@ -2095,10 +2069,10 @@
           },
           {
             "title": "Front Left Abs Encoder Pos",
-            "x": 0.0,
-            "y": 256.0,
+            "x": 256.0,
+            "y": 512.0,
             "width": 256.0,
-            "height": 128.0,
+            "height": 256.0,
             "type": "Graph",
             "properties": {
               "topic": "/AdvantageKit/LoggableInputs/Drivetrain/frontLeft/absEncoderPosition",
@@ -2111,8 +2085,8 @@
           },
           {
             "title": "Front Right Abs Encoder Pos",
-            "x": 0.0,
-            "y": 384.0,
+            "x": 512.0,
+            "y": 512.0,
             "width": 256.0,
             "height": 256.0,
             "type": "Graph",
@@ -2126,271 +2100,6 @@
             }
           }
         ]
-      }
-    },
-    {
-      "name": "DEBUG",
-      "grid_layout": {
-        "layouts": [],
-        "containers": [
-          {
-            "title": "CID",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 128.0,
-            "type": "Number Slider",
-            "properties": {
-              "topic": "/Shuffleboard/DEBUG/CID",
-              "period": 0.06,
-              "data_type": "double",
-              "min_value": -1.0,
-              "max_value": 1.0,
-              "divisions": 5,
-              "update_continuously": false
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "Bye Bye",
-      "grid_layout": {
-        "layouts": [
-          {
-            "title": "Commands",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 512.0,
-            "type": "List Layout",
-            "properties": {
-              "label_position": "LEFT"
-            },
-            "children": [
-              {
-                "title": "Spin Roller ",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Roller ",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "Spin Tilt",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Tilt",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "ToFWRLImit",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/Bye Bye/Commands/ToFWRLImit",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              }
-            ]
-          }
-        ],
-        "containers": []
-      }
-    },
-    {
-      "name": "Hihi",
-      "grid_layout": {
-        "layouts": [
-          {
-            "title": "Commands",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 512.0,
-            "type": "List Layout",
-            "properties": {
-              "label_position": "LEFT"
-            },
-            "children": [
-              {
-                "title": "Roller Out",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/Hihi/Commands/Roller Out",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "Retract Hihi",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/Hihi/Commands/Retract Hihi",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              }
-            ]
-          }
-        ],
-        "containers": []
-      }
-    },
-    {
-      "name": "HiHi",
-      "grid_layout": {
-        "layouts": [
-          {
-            "title": "Commands",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 512.0,
-            "type": "List Layout",
-            "properties": {
-              "label_position": "LEFT"
-            },
-            "children": [
-              {
-                "title": "Extend HiHi",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/HiHi/Commands/Extend HiHi",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "Retract HiHi",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/HiHi/Commands/Retract HiHi",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "Roll HiHi Roller In",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller In",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "Roll HiHi Roller Out",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller Out",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              }
-            ]
-          }
-        ],
-        "containers": []
-      }
-    },
-    {
-      "name": "ByeBye",
-      "grid_layout": {
-        "layouts": [
-          {
-            "title": "Commands",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 512.0,
-            "type": "List Layout",
-            "properties": {
-              "label_position": "LEFT"
-            },
-            "children": [
-              {
-                "title": "ByeBye To FWD Limit",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To FWD Limit",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "ByeBye To REV Limit",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To REV Limit",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              },
-              {
-                "title": "ByeBye Spin Roller",
-                "x": 0.0,
-                "y": 0.0,
-                "width": 256.0,
-                "height": 128.0,
-                "type": "Command",
-                "properties": {
-                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye Spin Roller",
-                  "period": 0.06,
-                  "show_type": true
-                }
-              }
-            ]
-          }
-        ],
-        "containers": []
       }
     }
   ]
