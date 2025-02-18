@@ -12,22 +12,23 @@ import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class CancelAll extends Command {
   /** Creates a new CancelAll. */
-private final ElevatorSubsystem elevatorSubsystem;
-private final HihiExtenderSubsystem hihiExtenderSubsystem;
+  private final ElevatorSubsystem elevatorSubsystem;
 
-  public CancelAll( ElevatorSubsystem elevatorSubsystem, HihiExtenderSubsystem hihiExtenderSubsystem) {
+  private final HihiExtenderSubsystem hihiExtenderSubsystem;
+
+  public CancelAll(
+      ElevatorSubsystem elevatorSubsystem, HihiExtenderSubsystem hihiExtenderSubsystem) {
     this.elevatorSubsystem = elevatorSubsystem;
     this.hihiExtenderSubsystem = hihiExtenderSubsystem;
     addRequirements(elevatorSubsystem);
-
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     CommandScheduler.getInstance().cancelAll();
-  elevatorSubsystem.setElevatorPosition(0);
-  hihiExtenderSubsystem.setHiHiPID(0);
+    elevatorSubsystem.setElevatorPosition(0);
+    hihiExtenderSubsystem.setHiHiPID(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -15,7 +15,6 @@ public interface HihiExtenderIO extends LoggableIO<MotorInputs> {
   void resetExtenderEncoder();
 
   void setExtenderPosition(double encoderPos);
-  
-  void setHiHiPID(double targetPos);
 
+  void setHiHiPID(double targetPos);
 }
