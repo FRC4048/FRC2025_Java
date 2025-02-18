@@ -1,7 +1,6 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.constants.CoralDeposit;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
@@ -9,20 +8,18 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ElevatorToPosition extends LoggableCommand {
   private final ElevatorSubsystem elevator;
-  private final CoralDeposit targetPosition;
   private final Timer timer;
 
-  public ElevatorToPosition(ElevatorSubsystem elevator, CoralDeposit targetPosition) {
+  public ElevatorToPosition(ElevatorSubsystem elevator) {
     timer = new Timer();
     this.elevator = elevator;
-    this.targetPosition = targetPosition;
     addRequirements(elevator);
   }
 
   @Override
   public void initialize() {
     timer.restart();
-    elevator.setElevatorPosition(targetPosition.getElevatorHeight());
+    elevator.setElevatorPosition(elevator.getStoredReefPosition().getElevatorHeight());
   }
 
   @Override

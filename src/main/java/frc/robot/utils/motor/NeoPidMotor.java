@@ -50,44 +50,31 @@ public class NeoPidMotor {
    * @param id the CAN ID for the controller
    */
   public NeoPidMotor(int id) {
-    this(id, DEFAULT_P, DEFAULT_I, DEFAULT_D, DEFAULT_IZONE, DEFAULT_FF, 40);
+    this(new NeoPidConfig().setId(id));
   }
 
-  public NeoPidMotor(
-      int id, double pidP, double pidI, double pidD, double iZone, double pidFF, int currentLimit) {
-    this(
-        id,
-        new NeoPidMotorParams(
-            pidP,
-            pidI,
-            pidD,
-            iZone,
-            pidFF,
-            currentLimit,
-            MAX_VELOCITY,
-            MAX_ACCELERATION,
-            ALLOWED_ERROR));
-  }
-
-  public NeoPidMotor(int id, NeoPidMotorParams params) {
-    neoMotor = new SparkMax(id, SparkLowLevel.MotorType.kBrushless);
+  public NeoPidMotor(NeoPidConfig pidConfig) {
+    neoMotor = new SparkMax(pidConfig.getId(), SparkLowLevel.MotorType.kBrushless);
     encoder = neoMotor.getEncoder();
 
     pidController = neoMotor.getClosedLoopController();
     SparkMaxConfig config = new SparkMaxConfig();
-    config.smartCurrentLimit(params.currentLimit).closedLoopRampRate(RAMP_RATE).idleMode(kBrake);
+    config
+        .smartCurrentLimit(pidConfig.getCurrentLimit())
+        .closedLoopRampRate(RAMP_RATE)
+        .idleMode(kBrake);
     config
         .closedLoop
         .feedbackSensor(ClosedLoopConfig.FeedbackSensor.kPrimaryEncoder)
-        .pid(params.pidP, params.pidI, params.pidD)
-        .velocityFF(params.pidFF)
-        .iZone(params.iZone)
+        .pid(pidConfig.getP(), pidConfig.getI(), pidConfig.getD())
+        .velocityFF(pidConfig.getFF())
+        .iZone(pidConfig.getIZone())
         .outputRange(-1, 1)
         .maxMotion
-        .maxVelocity(params.maxVelocity)
-        .maxAcceleration(params.maxAccel)
+        .maxVelocity(pidConfig.getMaxVelocity())
+        .maxAcceleration(pidConfig.getMaxAccel())
         .positionMode(kMAXMotionTrapezoidal)
-        .allowedClosedLoopError(params.allowedError);
+        .allowedClosedLoopError(pidConfig.getAllowedError());
     config
         .limitSwitch
         .forwardLimitSwitchEnabled(true)
