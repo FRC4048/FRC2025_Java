@@ -11,13 +11,13 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class RealCoralIOLeader implements CoralIOLeader {
-  protected final SparkMax shooterMotor;
+  protected final SparkMax shooterMotorLeader;
   private final SparkMaxInputProvider initProvider;
 
   public RealCoralIOLeader() {
-    shooterMotor =
+    shooterMotorLeader =
         new SparkMax(Constants.SHOOTER_MOTOR_LEADER_ID, SparkLowLevel.MotorType.kBrushless);
-    this.initProvider = new SparkMaxInputProvider(shooterMotor);
+    this.initProvider = new SparkMaxInputProvider(shooterMotorLeader);
     configureMotor();
   }
 
@@ -25,7 +25,7 @@ public class RealCoralIOLeader implements CoralIOLeader {
     SparkMaxConfig coralConfig = new SparkMaxConfig();
     coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(true));
     coralConfig.idleMode(IdleMode.kBrake);
-    shooterMotor.configure(
+    shooterMotorLeader.configure(
         coralConfig,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
@@ -33,12 +33,12 @@ public class RealCoralIOLeader implements CoralIOLeader {
 
   @Override
   public void setShooterSpeed(double speed) {
-    this.shooterMotor.set(speed);
+    this.shooterMotorLeader.set(speed);
   }
 
   @Override
   public void stopShooterMotors() {
-    this.shooterMotor.set(0);
+    this.shooterMotorLeader.set(0);
   }
 
   @Override
@@ -47,7 +47,7 @@ public class RealCoralIOLeader implements CoralIOLeader {
     coralConfigMotorLeader.apply(
         coralConfigMotorLeader.limitSwitch.forwardLimitSwitchEnabled(state));
 
-    shooterMotor.configure(
+    shooterMotorLeader.configure(
         coralConfigMotorLeader,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
@@ -56,7 +56,7 @@ public class RealCoralIOLeader implements CoralIOLeader {
   public void setIdleMode(IdleMode mode) {
     SparkMaxConfig coralConfigMotor = new SparkMaxConfig();
     coralConfigMotor.idleMode(mode);
-    shooterMotor.configure(
+    shooterMotorLeader.configure(
         coralConfigMotor,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
@@ -67,7 +67,7 @@ public class RealCoralIOLeader implements CoralIOLeader {
     inputs.process(initProvider);
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.put(
-          "coral", "ForwardTrippedLeader", shooterMotor.getForwardLimitSwitch().isPressed());
+          "coral", "ForwardTrippedLeader", shooterMotorLeader.getForwardLimitSwitch().isPressed());
     }
   }
 }

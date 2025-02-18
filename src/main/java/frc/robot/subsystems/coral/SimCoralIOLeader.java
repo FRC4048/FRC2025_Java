@@ -14,7 +14,7 @@ public class SimCoralIOLeader extends RealCoralIOLeader {
 
   public SimCoralIOLeader() {
     super();
-    SimCoralIOLeaderSim = new MotorSimulator(shooterMotor);
+    SimCoralIOLeaderSim = new MotorSimulator(shooterMotorLeader);
   }
 
   @Override

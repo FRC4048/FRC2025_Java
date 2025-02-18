@@ -13,7 +13,7 @@ public class SimCoralIOFollower extends RealCoralIOFollower {
 
   public SimCoralIOFollower() {
     super();
-    SimCoralIOFollowerSim = new MotorSimulator(shooterMotor);
+    SimCoralIOFollowerSim = new MotorSimulator(shooterMotorFollower);
   }
 
   @Override
