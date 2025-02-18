@@ -17,6 +17,8 @@ public class GameConstants {
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
   public static final boolean COMMAND_DEBUG = true;
+  public static final boolean HIHI_EXTEND_DEBUG = true;
+  public static final boolean HIHI_ROLLER_DEBUG = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -34,7 +36,7 @@ public class GameConstants {
   public static final double HIHI_EXTEND_SPEED = 0.4;
   public static final double HIHI_RETRACT_SPEED = -0.4;
   public static final double HIHI_INTAKE_SPEED = 0.4;
-  public static final double HIHI_SHOOT_SPEED = -0.4;
+  public static final double HIHI_SHOOT_SPEED = -0.9;
   public static final double CLIMBER_RISE_SPEED = 0;
 
   // Timeouts
@@ -51,7 +53,7 @@ public class GameConstants {
   public static final int ROLL_ALGAE_TIMEOUT = 10;
   public static final double HIHI_EXTEND_TIMEOUT = 10;
   public static final double HIHI_RETRACT_TIMEOUT = 10;
-  public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
+  public static final double HIHI_ROLLER_OUT_TIMEOUT = 2.5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
@@ -114,7 +116,7 @@ public class GameConstants {
       Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
   public static final Rotation2d HIHI_MAX_ANGLE =
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 8.9; // Initial tested value
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros
@@ -129,6 +131,12 @@ public class GameConstants {
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
   public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
+
+  // HiHi Extender PID
+  public static final double HIHI_EXTENDER_PID_P = 0.08;
+  public static final double HIHI_EXTENDER_ALLOWED_ERROR = 0.1;
+  public static final double HIHI_EXTENDER_MAX_VELOCITY = 3000;
+  public static final double HIHI_EXTENDER_MAX_ACCEL = 2500;
 
   // Other
   public static final double GRAVITY = -9.81;

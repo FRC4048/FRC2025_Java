@@ -17,7 +17,8 @@ public class RollHiHiRollerIn extends LoggableCommand {
 
   @Override
   public void initialize() {
-    hihiRoller.setRollerMotorSpeed(Constants.HIHI_INTAKE_SPEED);
+    double targetVelocity = hihiRoller.getTargetVelocity();
+    hihiRoller.setRollerMotorSpeed(targetVelocity);
     timer.restart();
   }
 

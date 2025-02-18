@@ -50,28 +50,44 @@ public class NeoPidMotor {
    * @param id the CAN ID for the controller
    */
   public NeoPidMotor(int id) {
-    this(id, DEFAULT_P, DEFAULT_I, DEFAULT_D, DEFAULT_IZONE, DEFAULT_FF);
+    this(id, DEFAULT_P, DEFAULT_I, DEFAULT_D, DEFAULT_IZONE, DEFAULT_FF, 40);
   }
 
-  public NeoPidMotor(int id, double pidP, double pidI, double pidD, double iZone, double pidFF) {
+  public NeoPidMotor(
+      int id, double pidP, double pidI, double pidD, double iZone, double pidFF, int currentLimit) {
+    this(
+        id,
+        new NeoPidMotorParams(
+            pidP,
+            pidI,
+            pidD,
+            iZone,
+            pidFF,
+            currentLimit,
+            MAX_VELOCITY,
+            MAX_ACCELERATION,
+            ALLOWED_ERROR));
+  }
+
+  public NeoPidMotor(int id, NeoPidMotorParams params) {
     neoMotor = new SparkMax(id, SparkLowLevel.MotorType.kBrushless);
     encoder = neoMotor.getEncoder();
 
     pidController = neoMotor.getClosedLoopController();
     SparkMaxConfig config = new SparkMaxConfig();
-    config.smartCurrentLimit(40).closedLoopRampRate(RAMP_RATE).idleMode(kBrake);
+    config.smartCurrentLimit(params.currentLimit).closedLoopRampRate(RAMP_RATE).idleMode(kBrake);
     config
         .closedLoop
         .feedbackSensor(ClosedLoopConfig.FeedbackSensor.kPrimaryEncoder)
-        .pid(pidP, pidI, pidD)
-        .velocityFF(pidFF)
-        .iZone(iZone)
+        .pid(params.pidP, params.pidI, params.pidD)
+        .velocityFF(params.pidFF)
+        .iZone(params.iZone)
         .outputRange(-1, 1)
         .maxMotion
-        .maxVelocity(MAX_VELOCITY)
-        .maxAcceleration(MAX_ACCELERATION)
+        .maxVelocity(params.maxVelocity)
+        .maxAcceleration(params.maxAccel)
         .positionMode(kMAXMotionTrapezoidal)
-        .allowedClosedLoopError(ALLOWED_ERROR);
+        .allowedClosedLoopError(params.allowedError);
     config
         .limitSwitch
         .forwardLimitSwitchEnabled(true)
@@ -80,6 +96,25 @@ public class NeoPidMotor {
         .forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
 
     neoMotor.configure(config, kResetSafeParameters, kPersistParameters);
+  }
+
+  /**
+   * Reconfigure the PID fully using all values from motor params
+   *
+   * @param params
+   */
+  public void configurePID(NeoPidMotorParams params) {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config
+        .closedLoop
+        .pid(params.pidP, params.pidI, params.pidD)
+        .velocityFF(params.pidFF)
+        .iZone(params.iZone)
+        .maxMotion
+        .maxVelocity(params.maxVelocity)
+        .maxAcceleration(params.maxAccel)
+        .allowedClosedLoopError(params.allowedError);
+    neoMotor.configure(config, kNoResetSafeParameters, kNoPersistParameters);
   }
 
   /**

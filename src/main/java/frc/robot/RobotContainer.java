@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
-import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.coral.CoralToFWRLimit;
@@ -26,6 +25,8 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
+import frc.robot.commands.hihi.RollHiHiRollerIn;
+import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinExtender;
@@ -138,7 +139,6 @@ public class RobotContainer {
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
     controller.x().onTrue(new SpinExtender(hihiExtender, 1));
     if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
       SmartShuffleboard.putCommand("DEBUG", "Climber run", new ClimberRunMotors(climber, 0.5));
       SmartShuffleboard.putCommand("DEBUG", "Climber stop", new ClimberRunMotors(climber, 0));
       SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
@@ -260,6 +260,13 @@ public class RobotContainer {
 
   public void putShuffleboardCommands() {
 
+    if (Constants.HIHI_EXTEND_DEBUG) {
+      SmartShuffleboard.putCommand("HiHi", "Run Roller In", new RollHiHiRollerIn(hihiRoller));
+      SmartShuffleboard.putCommand("HiHi", "Shoot Algae", new ShootHiHiRollerOut(hihiRoller));
+      SmartShuffleboard.putCommand("HiHi", "Extend HiHi", new ExtendHiHi(hihiExtender));
+      SmartShuffleboard.putCommand("HiHi", "Retract HiHi", new RetractHiHi(hihiExtender));
+    }
+
     if (Constants.INTAKE_DEBUG) {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
       SmartShuffleboard.putCommand(
@@ -282,8 +289,6 @@ public class RobotContainer {
           "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
       SmartShuffleboard.putCommand(
           "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
-      SmartShuffleboard.putCommand("Hihi", "Roller Out", new ExtendHiHi(hihiExtender));
-      SmartShuffleboard.putCommand("Hihi", "Retract Hihi", new RetractHiHi(hihiExtender));
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
