@@ -10,18 +10,18 @@ import frc.robot.utils.motor.MotorSimulator;
 
 /** Add your docs here. */
 public class SimCoralIOLeader extends RealCoralIOLeader {
-  private final MotorSimulator SimCoralIOLeaderSim;
+  private final MotorSimulator simCoralIOLeader;
 
   public SimCoralIOLeader() {
     super();
-    SimCoralIOLeaderSim = new MotorSimulator(shooterMotorLeader);
+    simCoralIOLeader = new MotorSimulator(shooterMotorLeader);
   }
 
   @Override
   public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      SimCoralIOLeaderSim.stepSimulation();
+      simCoralIOLeader.stepSimulation();
     }
   }
 }

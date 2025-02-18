@@ -9,18 +9,18 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
 
 public class SimCoralIOFollower extends RealCoralIOFollower {
-  private final MotorSimulator SimCoralIOFollowerSim;
+  private final MotorSimulator simCoralIOFollower;
 
   public SimCoralIOFollower() {
     super();
-    SimCoralIOFollowerSim = new MotorSimulator(shooterMotorFollower);
+    simCoralIOFollower = new MotorSimulator(shooterMotorFollower);
   }
 
   @Override
   public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      SimCoralIOFollowerSim.stepSimulation();
+      simCoralIOFollower.stepSimulation();
     }
   }
 }
