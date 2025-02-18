@@ -307,7 +307,6 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "Coral", "Set Coral Limit False", new SetCoralLimitState(coralSubsystem, false));
-
     }
 
     if (Constants.HIHI_DEBUG) {
@@ -321,7 +320,6 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "HiHi", "Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
-    
     }
 
     if (Constants.BYEBYE_DEBUG) {
@@ -337,7 +335,6 @@ public class RobotContainer {
           "ByeBye",
           "ByeBye Spin Roller",
           new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
-
     }
 
     if (Constants.ELEVATOR_DEBUG) {
@@ -371,7 +368,6 @@ public class RobotContainer {
           "Elevator",
           "Store L4",
           new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
-
     }
 
     if (Constants.CLIMBER_DEBUG) {
