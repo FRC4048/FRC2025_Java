@@ -5,21 +5,66 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Robot 1 to Post J"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Robot 1 to Post J"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToPositionL3"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ByeByetoFwrLimit"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShootCoral"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Post J to Station 1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Post J to Station 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToPositionINTAKE"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
           }
         },
         {
