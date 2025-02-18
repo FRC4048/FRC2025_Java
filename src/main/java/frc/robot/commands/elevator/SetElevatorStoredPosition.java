@@ -4,11 +4,11 @@
 
 package frc.robot.commands.elevator;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 
-public class SetElevatorStoredPosition extends Command {
+public class SetElevatorStoredPosition extends LoggableCommand {
   public final ReefPosition reefPosition;
   public final ElevatorSubsystem elevatorSubsystem;
 
