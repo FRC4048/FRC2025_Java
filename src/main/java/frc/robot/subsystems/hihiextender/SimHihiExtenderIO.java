@@ -26,7 +26,7 @@ public class SimHihiExtenderIO extends RealHihiExtenderIO {
   public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      hihiExtenderSimulator.simulationPeriodic();
+      hihiExtenderSimulator.stepSimulation();
     }
   }
 }
