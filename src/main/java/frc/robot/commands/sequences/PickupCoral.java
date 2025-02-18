@@ -2,7 +2,8 @@ package frc.robot.commands.sequences;
 
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
-import frc.robot.commands.elevator.SetElevatorTargetPosition;
+import frc.robot.commands.elevator.SetElevatorStoredPosition;
+import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -15,7 +16,7 @@ public class PickupCoral extends LoggableSequentialCommandGroup {
       ElevatorSubsystem elevatorSubsystem) {
     super(
         new ByeByeToRevLimit(algaeByeByeTiltSubsystem),
-        new SetElevatorTargetPosition(null, elevatorSubsystem),
+        new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem),
         new IntakeCoral(coralSubsystem));
   }
 }
