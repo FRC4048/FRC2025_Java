@@ -7,6 +7,8 @@ public class Constants2025 extends GameConstants {
   public static final int ELEVATOR_MOTOR_ID = 0; // TODO: change later
 
   public static final int ELEVATOR_MOTOR_2_ID = 1; // TODO: change later
+  public static final double ELEVATOR_STARTING_HEIGHT = 0.5;
+  // Get from hardwareg
 
   // Coral Shooter
   public static final int SHOOTER_MOTOR_LEADER_ID = 44; // TODO: change later
