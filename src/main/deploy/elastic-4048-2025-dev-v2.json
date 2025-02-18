@@ -273,10 +273,10 @@
       "grid_layout": {
         "layouts": [
           {
-            "title": "Bye-Bye Test Commands",
-            "x": 0.0,
+            "title": "ByeBye Commands",
+            "x": 256.0,
             "y": 0.0,
-            "width": 384.0,
+            "width": 256.0,
             "height": 384.0,
             "type": "List Layout",
             "properties": {
@@ -284,27 +284,40 @@
             },
             "children": [
               {
-                "title": "Spin Roller ",
+                "title": "ByeBye Spin Roller",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Roller ",
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye Spin Roller",
                   "period": 0.06,
                   "show_type": true
                 }
               },
               {
-                "title": "Spin Tilt",
+                "title": "ByeBye To FWD Limit",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Tilt",
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To FWD Limit",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "ByeBye To REV Limit",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To REV Limit",
                   "period": 0.06,
                   "show_type": true
                 }
@@ -312,10 +325,10 @@
             ]
           },
           {
-            "title": "Climber Test Commands",
-            "x": 384.0,
+            "title": "Climber Commands",
+            "x": 512.0,
             "y": 0.0,
-            "width": 384.0,
+            "width": 256.0,
             "height": 384.0,
             "type": "List Layout",
             "properties": {
@@ -323,27 +336,40 @@
             },
             "children": [
               {
-                "title": "Climber run",
+                "title": "Climber Run",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/DEBUG/Commands/Climber run",
+                  "topic": "/Shuffleboard/Climber/Commands/Climber Run",
                   "period": 0.06,
                   "show_type": true
                 }
               },
               {
-                "title": "Climber stop",
+                "title": "Close Climber",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/DEBUG/Commands/Climber stop",
+                  "topic": "/Shuffleboard/Climber/Commands/Close Climber",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Reset Climber",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Climber/Commands/Reset Climber",
                   "period": 0.06,
                   "show_type": true
                 }
@@ -351,38 +377,272 @@
             ]
           },
           {
-            "title": "Elevator Test Commands",
+            "title": "Coral Commands",
             "x": 768.0,
             "y": 0.0,
-            "width": 384.0,
-            "height": 384.0,
+            "width": 256.0,
+            "height": 640.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
             },
             "children": [
               {
-                "title": "Level1",
+                "title": "CoralBreakModeBrake",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Elevator/Commands/Level1",
+                  "topic": "/Shuffleboard/Coral/Commands/CoralBreakModeBrake",
                   "period": 0.06,
                   "show_type": true
                 }
               },
               {
-                "title": "Level3",
+                "title": "CoralBreakModeCoast",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Elevator/Commands/Level3",
+                  "topic": "/Shuffleboard/Coral/Commands/CoralBreakModeCoast",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Intake Coral",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Intake Coral",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Set Coral Limit False",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Set Coral Limit False",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Set Coral Limit True",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Set Coral Limit True",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Shoot Coral",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Shoot Coral",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          },
+          {
+            "title": "Elevator Commands",
+            "x": 1024.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 640.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "TOP"
+            },
+            "children": [
+              {
+                "title": "Elevator To Position",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Elevator To Position",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Reset Elevator",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Reset Elevator",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Spin Elevator Motors",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Spin Elevator Motors",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L0",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L0",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L1",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L1",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L2",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L2",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L3",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L3",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L4",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L4",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          },
+          {
+            "title": "HiHi Commands",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 512.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "TOP"
+            },
+            "children": [
+              {
+                "title": "Extend HiHi",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Extend HiHi",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Retract HiHi",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Retract HiHi",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Roll HiHi Roller In",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller In",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Roll HiHi Roller Out",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller Out",
                   "period": 0.06,
                   "show_type": true
                 }
@@ -390,21 +650,7 @@
             ]
           }
         ],
-        "containers": [
-          {
-            "title": "Hi-Hi Test Commands",
-            "x": 0.0,
-            "y": 384.0,
-            "width": 384.0,
-            "height": 384.0,
-            "type": "Command",
-            "properties": {
-              "topic": "/Shuffleboard/DEBUG/Commands/Roll Algae",
-              "period": 0.06,
-              "show_type": true
-            }
-          }
-        ]
+        "containers": []
       }
     },
     {
@@ -527,38 +773,103 @@
             ]
           },
           {
-            "title": "Elevator Commands",
+            "title": "Commands",
             "x": 640.0,
             "y": 0.0,
             "width": 256.0,
-            "height": 512.0,
+            "height": 640.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
             },
             "children": [
               {
-                "title": "Level1",
+                "title": "Elevator To Position",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Elevator/Commands/Level1",
+                  "topic": "/Shuffleboard/Elevator/Commands/Elevator To Position",
                   "period": 0.06,
                   "show_type": true
                 }
               },
               {
-                "title": "Level3",
+                "title": "Reset Elevator",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Elevator/Commands/Level3",
+                  "topic": "/Shuffleboard/Elevator/Commands/Reset Elevator",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L0",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L0",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L1",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L1",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L2",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L2",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L3",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L3",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Store L4",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Elevator/Commands/Store L4",
                   "period": 0.06,
                   "show_type": true
                 }
@@ -691,11 +1002,11 @@
       "grid_layout": {
         "layouts": [
           {
-            "title": "Climber Commands",
+            "title": "Commands",
             "x": 0.0,
             "y": 0.0,
             "width": 384.0,
-            "height": 256.0,
+            "height": 384.0,
             "type": "List Layout",
             "properties": {
               "label_position": "TOP"
@@ -709,20 +1020,33 @@
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/DEBUG/Commands/Climber run",
+                  "topic": "/Shuffleboard/Climber/Commands/Climber Run",
                   "period": 0.06,
                   "show_type": true
                 }
               },
               {
-                "title": "Climber stop",
+                "title": "Close Climber",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/DEBUG/Commands/Climber stop",
+                  "topic": "/Shuffleboard/Climber/Commands/Close Climber",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Reset Climber",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Climber/Commands/Reset Climber",
                   "period": 0.06,
                   "show_type": true
                 }
@@ -766,7 +1090,7 @@
           {
             "title": "fwdLimit",
             "x": 0.0,
-            "y": 256.0,
+            "y": 384.0,
             "width": 384.0,
             "height": 128.0,
             "type": "Boolean Box",
@@ -825,7 +1149,7 @@
           {
             "title": "revLimit",
             "x": 0.0,
-            "y": 384.0,
+            "y": 512.0,
             "width": 384.0,
             "height": 128.0,
             "type": "Boolean Box",
@@ -877,21 +1201,74 @@
     {
       "name": "Algae HiHi",
       "grid_layout": {
-        "layouts": [],
-        "containers": [
+        "layouts": [
           {
-            "title": "HiHi Commands",
+            "title": "Commands",
             "x": 0.0,
             "y": 0.0,
             "width": 384.0,
             "height": 512.0,
-            "type": "Command",
+            "type": "List Layout",
             "properties": {
-              "topic": "/Shuffleboard/DEBUG/Commands/Roll Algae",
-              "period": 0.06,
-              "show_type": true
-            }
-          },
+              "label_position": "TOP"
+            },
+            "children": [
+              {
+                "title": "Extend HiHi",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Extend HiHi",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Retract HiHi",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Retract HiHi",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Roll HiHi Roller In",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller In",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Roll HiHi Roller Out",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller Out",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          }
+        ],
+        "containers": [
           {
             "title": "Roller fwdLimit",
             "x": 0.0,
@@ -1116,7 +1493,7 @@
       "grid_layout": {
         "layouts": [
           {
-            "title": "ByeBye Commands",
+            "title": "Commands",
             "x": 0.0,
             "y": 0.0,
             "width": 256.0,
@@ -1127,27 +1504,40 @@
             },
             "children": [
               {
-                "title": "Spin Roller ",
+                "title": "ByeBye Spin Roller",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Roller ",
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye Spin Roller",
                   "period": 0.06,
                   "show_type": true
                 }
               },
               {
-                "title": "Spin Tilt",
+                "title": "ByeBye To FWD Limit",
                 "x": 0.0,
                 "y": 0.0,
                 "width": 256.0,
                 "height": 128.0,
                 "type": "Command",
                 "properties": {
-                  "topic": "/Shuffleboard/Bye Bye/Commands/Spin Tilt",
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To FWD Limit",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "ByeBye To REV Limit",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To REV Limit",
                   "period": 0.06,
                   "show_type": true
                 }
@@ -1328,11 +1718,103 @@
     {
       "name": "Coral",
       "grid_layout": {
-        "layouts": [],
+        "layouts": [
+          {
+            "title": "Commands",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 640.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "TOP"
+            },
+            "children": [
+              {
+                "title": "CoralBreakModeBrake",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/CoralBreakModeBrake",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "CoralBreakModeCoast",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/CoralBreakModeCoast",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Intake Coral",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Intake Coral",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Set Coral Limit False",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Set Coral Limit False",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Set Coral Limit True",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Set Coral Limit True",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Shoot Coral",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Coral/Commands/Shoot Coral",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          }
+        ],
         "containers": [
           {
             "title": "Coral Encoder Position",
-            "x": 0.0,
+            "x": 256.0,
             "y": 0.0,
             "width": 256.0,
             "height": 256.0,
@@ -1348,7 +1830,7 @@
           },
           {
             "title": "fwdTripped",
-            "x": 0.0,
+            "x": 256.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -1365,7 +1847,7 @@
           },
           {
             "title": "revTripped",
-            "x": 128.0,
+            "x": 384.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -1418,27 +1900,6 @@
               "time_displayed": 5.0,
               "color": 4292121856,
               "line_width": 2.0
-            }
-          },
-          {
-            "title": "Front Left Motor Current",
-            "x": 256.0,
-            "y": 512.0,
-            "width": 256.0,
-            "height": 256.0,
-            "type": "Radial Gauge",
-            "properties": {
-              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/frontLeft/motorCurrent",
-              "period": 0.06,
-              "data_type": "double",
-              "start_angle": -140.0,
-              "end_angle": 140.0,
-              "min_value": 0.0,
-              "max_value": 100.0,
-              "number_of_labels": 8,
-              "wrap_value": false,
-              "show_pointer": true,
-              "show_ticks": true
             }
           },
           {
@@ -1599,6 +2060,70 @@
               "show_pointer": true,
               "show_ticks": true
             }
+          },
+          {
+            "title": "Back Left Abs Encoder Pos",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/backLeft/absEncoderPosition",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 5.0,
+              "color": 4291428564,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Back Right Abs Encoder Pos",
+            "x": 0.0,
+            "y": 128.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/backRight/absEncoderPosition",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 5.0,
+              "color": 4291428564,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Front Left Abs Encoder Pos",
+            "x": 0.0,
+            "y": 256.0,
+            "width": 256.0,
+            "height": 128.0,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/frontLeft/absEncoderPosition",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 5.0,
+              "color": 4291428564,
+              "line_width": 2.0
+            }
+          },
+          {
+            "title": "Front Right Abs Encoder Pos",
+            "x": 0.0,
+            "y": 384.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Graph",
+            "properties": {
+              "topic": "/AdvantageKit/LoggableInputs/Drivetrain/frontRight/absEncoderPosition",
+              "period": 0.033,
+              "data_type": "double",
+              "time_displayed": 5.0,
+              "color": 4291428564,
+              "line_width": 2.0
+            }
           }
         ]
       }
@@ -1678,6 +2203,186 @@
                 "type": "Command",
                 "properties": {
                   "topic": "/Shuffleboard/Bye Bye/Commands/ToFWRLImit",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          }
+        ],
+        "containers": []
+      }
+    },
+    {
+      "name": "Hihi",
+      "grid_layout": {
+        "layouts": [
+          {
+            "title": "Commands",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 512.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "LEFT"
+            },
+            "children": [
+              {
+                "title": "Roller Out",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Hihi/Commands/Roller Out",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Retract Hihi",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/Hihi/Commands/Retract Hihi",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          }
+        ],
+        "containers": []
+      }
+    },
+    {
+      "name": "HiHi",
+      "grid_layout": {
+        "layouts": [
+          {
+            "title": "Commands",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 512.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "LEFT"
+            },
+            "children": [
+              {
+                "title": "Extend HiHi",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Extend HiHi",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Retract HiHi",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Retract HiHi",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Roll HiHi Roller In",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller In",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "Roll HiHi Roller Out",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/HiHi/Commands/Roll HiHi Roller Out",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              }
+            ]
+          }
+        ],
+        "containers": []
+      }
+    },
+    {
+      "name": "ByeBye",
+      "grid_layout": {
+        "layouts": [
+          {
+            "title": "Commands",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 512.0,
+            "type": "List Layout",
+            "properties": {
+              "label_position": "LEFT"
+            },
+            "children": [
+              {
+                "title": "ByeBye To FWD Limit",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To FWD Limit",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "ByeBye To REV Limit",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye To REV Limit",
+                  "period": 0.06,
+                  "show_type": true
+                }
+              },
+              {
+                "title": "ByeBye Spin Roller",
+                "x": 0.0,
+                "y": 0.0,
+                "width": 256.0,
+                "height": 128.0,
+                "type": "Command",
+                "properties": {
+                  "topic": "/Shuffleboard/ByeBye/Commands/ByeBye Spin Roller",
                   "period": 0.06,
                   "show_type": true
                 }
