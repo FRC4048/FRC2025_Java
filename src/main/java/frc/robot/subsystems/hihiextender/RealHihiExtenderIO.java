@@ -21,12 +21,6 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   }
 
   @Override
-  public void setHiHiPID(double targetpos) {
-    // Does this need to be converted from heightInMeters to encoder Pos?
-    extenderMotor.setPidPos(targetpos);
-  }
-
-  @Override
   public void setHihiExtenderSpeed(double speed) {
     this.extenderMotor.getNeoMotor().set(speed);
   }

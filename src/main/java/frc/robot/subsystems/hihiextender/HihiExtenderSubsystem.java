@@ -23,9 +23,6 @@ public class HihiExtenderSubsystem extends SubsystemBase {
     system.updateInputs();
   }
 
-  public void setHiHiPID(double targetPos) {
-    system.getIO().setHiHiPID(targetPos);
-  }
 
   public void setExtenderSpeed(double speed) {
     system.getIO().setHihiExtenderSpeed(speed);

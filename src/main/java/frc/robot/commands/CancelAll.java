@@ -28,7 +28,7 @@ public class CancelAll extends Command {
   public void initialize() {
     CommandScheduler.getInstance().cancelAll();
     elevatorSubsystem.setElevatorPosition(0);
-    hihiExtenderSubsystem.setHiHiPID(0);
+    hihiExtenderSubsystem.setExtenderPosition(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
