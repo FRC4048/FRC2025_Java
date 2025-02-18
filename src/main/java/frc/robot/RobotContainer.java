@@ -17,6 +17,7 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.CancelAll;
+import frc.robot.commands.LightStrip.SetLedPattern;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
@@ -37,6 +38,9 @@ import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ReefPosition;
+import frc.robot.subsystems.LightStrip.LightStrip;
+import frc.robot.subsystems.LightStrip.MockLightStripIO;
+import frc.robot.subsystems.LightStrip.RealLightStripIO;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -77,6 +81,7 @@ import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
+import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
@@ -93,6 +98,7 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
   private final ClimberSubsystem climber;
+  private final LightStrip lightStrip;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -108,6 +114,7 @@ public class RobotContainer {
         climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
+        lightStrip = new LightStrip(new RealLightStripIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
@@ -117,6 +124,7 @@ public class RobotContainer {
         climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
+        lightStrip = new LightStrip(new MockLightStripIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
@@ -126,6 +134,7 @@ public class RobotContainer {
         climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
+        lightStrip = new LightStrip(new MockLightStripIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
@@ -334,6 +343,14 @@ public class RobotContainer {
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
+      SmartShuffleboard.putCommand(
+          "DEBUG",
+          "LightStripPatternGreen",
+          new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
+      SmartShuffleboard.putCommand(
+          "DEBUG",
+          "LightStripPatternViolet",
+          new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
     }
   }
 }

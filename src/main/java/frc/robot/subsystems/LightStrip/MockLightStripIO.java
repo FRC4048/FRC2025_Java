@@ -1,8 +1,6 @@
 package frc.robot.subsystems.LightStrip;
 
 import frc.robot.utils.BlinkinPattern;
-import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
-import frc.robot.constants.Constants;
 
 public class MockLightStripIO implements LightStripIO {
   @Override
