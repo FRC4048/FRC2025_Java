@@ -282,8 +282,9 @@ public class RobotContainer {
           "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
       SmartShuffleboard.putCommand(
           "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
-      SmartShuffleboard.putCommand("Hihi", "Roller Out", new ExtendHiHi(hihiExtender));
       SmartShuffleboard.putCommand("Hihi", "Retract Hihi", new RetractHiHi(hihiExtender));
+      SmartShuffleboard.putCommand("Hihi", "Extend HiHi", new ExtendHiHi(hihiExtender));
+
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));

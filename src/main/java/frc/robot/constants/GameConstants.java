@@ -110,11 +110,10 @@ public class GameConstants {
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
 
   // Angles
-  public static final Rotation2d HIHI_MIN_ANGLE =
-      Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
+  public static final Rotation2d HIHI_MIN_ANGLE = Rotation2d.fromRadians(0); // TODO: change later
   public static final Rotation2d HIHI_MAX_ANGLE =
-      Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
+      Rotation2d.fromRadians(Math.PI / 2); // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 4; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros

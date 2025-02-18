@@ -10,8 +10,7 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 
 public class RobotVisualizer {
-  private final LoggedMechanism2d mech2d =
-      new LoggedMechanism2d(Constants.ROBOT_WIDTH, Units.feetToMeters(7));
+  private final LoggedMechanism2d mech2d = new LoggedMechanism2d(2, Units.feetToMeters(7));
   private final LoggedMechanismLigament2d elevatorLigament;
   private final LoggedMechanismLigament2d algaeByeByeTiltLigament;
   private final LoggedMechanismLigament2d algaeByeByeRollerLigament;
@@ -49,7 +48,7 @@ public class RobotVisualizer {
     this.algaeHiHiTiltLigament =
         algaeHiHiRoot.append(
             new LoggedMechanismLigament2d(
-                "AlgaeHiHiTilt", 0.5, 60, 4, new Color8Bit(Color.kOrange)));
+                "AlgaeHiHiTilt", 0.5, 0, 4, new Color8Bit(Color.kOrange)));
     this.algaeHiHiRollerLigament =
         algaeHiHiTiltLigament.append(
             new LoggedMechanismLigament2d(
