@@ -7,7 +7,7 @@ import java.util.function.BooleanSupplier;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.subsystems.LightStrip.LightStripInputs;
+import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
 import frc.robot.subsystems.LightStrip.LightStripIO;
 
 
