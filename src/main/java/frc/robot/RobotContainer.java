@@ -291,7 +291,13 @@ public class RobotContainer {
 
   public void putShuffleboardCommands() {
 
-    if (Constants.INTAKE_DEBUG) {}
+    if (Constants.INTAKE_DEBUG) {
+      // Coral Commands
+
+      SmartShuffleboard.putCommand(
+          "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
+    }
 
     if (Constants.COMMAND_DEBUG) {
       // HiHi Commads
@@ -359,12 +365,6 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
 
       // Coral Commands
-
-      SmartShuffleboard.putCommand("Coral", "Intake Coral", new IntakeCoral(coralSubsystem));
-
-      SmartShuffleboard.putCommand(
-          "Coral", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
-
       SmartShuffleboard.putCommand(
           "Coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
 

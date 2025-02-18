@@ -99,7 +99,6 @@ public class Robot extends LoggedRobot {
             new WheelAlign(m_robotContainer.getDrivetrain()),
             new ResetGyro(m_robotContainer.getDrivetrain()))
         .schedule();
-    WebServer.start(5800, Filesystem.getDeployDirectory().getPath());
   }
 
   @Override
