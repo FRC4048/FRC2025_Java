@@ -26,7 +26,7 @@ public class SimAlgaeByeByeTiltIO extends RealAlgaeByeByeTiltIO {
   public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      algaeByeByeTiltSimulator.simulationPeriodic();
+      algaeByeByeTiltSimulator.stepSimulation();
     }
   }
 }
