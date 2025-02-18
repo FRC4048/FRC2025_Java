@@ -5,11 +5,11 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import java.util.function.DoubleSupplier;
 
-public class SetElevatorTargetPosition extends Command {
+public class SetElevatorTargetPosition extends LoggableCommand {
 
   private final DoubleSupplier targetSupplier;
   private final ElevatorSubsystem elevatorSubsystem;
