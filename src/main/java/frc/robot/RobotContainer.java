@@ -291,15 +291,26 @@ public class RobotContainer {
 
   public void putShuffleboardCommands() {
 
-    if (Constants.INTAKE_DEBUG) {
-      // Coral Commands
-
+    if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "CoralBreakModeBrake", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "Set Coral Limit True", new SetCoralLimitState(coralSubsystem, true));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "Set Coral Limit False", new SetCoralLimitState(coralSubsystem, false));
+
     }
 
-    if (Constants.COMMAND_DEBUG) {
+    if (Constants.HIHI_DEBUG) {
       // HiHi Commads
 
       SmartShuffleboard.putCommand("HiHi", "Extend HiHi", new ExtendHiHi(hihiExtender));
@@ -310,7 +321,10 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "HiHi", "Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
+    
+    }
 
+    if (Constants.BYEBYE_DEBUG) {
       // ByeBye Commands
 
       SmartShuffleboard.putCommand(
@@ -324,6 +338,9 @@ public class RobotContainer {
           "ByeBye Spin Roller",
           new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
 
+    }
+
+    if (Constants.ELEVATOR_DEBUG) {
       // Elevator Commands
       SmartShuffleboard.putCommand(
           "Elevator", "Spin Elevator Motors", new ElevatorSpinMotors(elevatorSubsystem));
@@ -355,6 +372,9 @@ public class RobotContainer {
           "Store L4",
           new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
 
+    }
+
+    if (Constants.CLIMBER_DEBUG) {
       // Climber Commands
 
       SmartShuffleboard.putCommand(
@@ -363,19 +383,6 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
 
       SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
-
-      // Coral Commands
-      SmartShuffleboard.putCommand(
-          "Coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
-
-      SmartShuffleboard.putCommand(
-          "Coral", "CoralBreakModeBrake", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
-
-      SmartShuffleboard.putCommand(
-          "Coral", "Set Coral Limit True", new SetCoralLimitState(coralSubsystem, true));
-
-      SmartShuffleboard.putCommand(
-          "Coral", "Set Coral Limit False", new SetCoralLimitState(coralSubsystem, false));
     }
   }
 }
