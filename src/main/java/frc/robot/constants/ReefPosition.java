@@ -5,7 +5,7 @@ public enum ReefPosition {
   LEVEL1(20),
   LEVEL2(60),
   LEVEL3(100),
-  LEVEL4(Constants.MAX_ELEVATOR_HEIGHT_METERS);
+  LEVEL4(200);
 
   private final double heightElevator;
 

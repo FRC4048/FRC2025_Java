@@ -9,12 +9,12 @@ import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 
 public class SetElevatorStoredPosition extends Command {
-  public final ReefPosition ReefPosition;
+  public final ReefPosition reefPosition;
   public final ElevatorSubsystem elevatorSubsystem;
 
   public SetElevatorStoredPosition(
       ReefPosition storedElevatorHeight, ElevatorSubsystem elevatorSubsystem) {
-    this.ReefPosition = storedElevatorHeight;
+    this.reefPosition = storedElevatorHeight;
     this.elevatorSubsystem = elevatorSubsystem;
     addRequirements(elevatorSubsystem);
   }
@@ -22,7 +22,7 @@ public class SetElevatorStoredPosition extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevatorSubsystem.setStoredReefPosition(ReefPosition);
+    elevatorSubsystem.setStoredReefPosition(reefPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
