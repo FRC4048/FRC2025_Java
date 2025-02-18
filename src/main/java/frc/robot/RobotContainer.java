@@ -38,7 +38,6 @@ import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ReefPosition;
 import frc.robot.sequences.RemoveAlgaeFromReef;
-import frc.robot.sequences.ScoreCoral;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -334,8 +333,6 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "ScoreCoral", new ScoreCoral(elevatorSubsystem, coralSubsystem));
       SmartShuffleboard.putCommand(
           "Bye Bye", "RemoveAlgae", new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
     }

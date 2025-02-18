@@ -43,7 +43,6 @@ public class ResetElevator extends LoggableCommand {
   public boolean isFinished() {
     if (timer.hasElapsed(Constants.ELEVATOR_RESET_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
-      elevator.setElevatorPosition(0);
       return true;
     }
     return elevator.getReverseLimitSwitchState();
