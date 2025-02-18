@@ -17,13 +17,13 @@ public class CoralSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIOFollower ioFollower, CoralIOLeader ioLeader) {
     MotorInputs followerInputs =
-        new MotorInputBuilder<>("ClimberSubsystem/Follower")
+        new MotorInputBuilder<>("CoralSubsystem/Follower")
             .encoderVelocity()
             .fwdLimit()
             .addStatus()
             .build();
     MotorInputs leaderInputs =
-        new MotorInputBuilder<>("ClimberSubsystem/Leader")
+        new MotorInputBuilder<>("CoralSubsystem/Leader")
             .encoderVelocity()
             .fwdLimit()
             .addStatus()
