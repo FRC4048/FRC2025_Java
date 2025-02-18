@@ -27,6 +27,6 @@ public class ResetElevator extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return elevator.getElevatorPosition() == 0;
+    return true;
   }
 }
