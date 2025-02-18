@@ -38,7 +38,7 @@ public class ElevatorSimulator {
 
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
-    // The forward switch simulator
+  // The forward switch simulator
   private final SparkLimitSwitchSim forwardSwitchSim;
   // The reverse switch simulator
   private final SparkLimitSwitchSim reverseSwitchSim;
@@ -64,8 +64,8 @@ public class ElevatorSimulator {
   public ElevatorSimulator(SparkMax motor) {
     this.motor = motor;
     motorSim = new SparkMaxSim(motor, elevatorGearbox);
-      // The encoder simulator from the simulated motor
-      SparkRelativeEncoderSim encoderSim = motorSim.getRelativeEncoderSim();
+    // The encoder simulator from the simulated motor
+    SparkRelativeEncoderSim encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
 
@@ -83,12 +83,12 @@ public class ElevatorSimulator {
     // In this method, we update our simulation of what our elevator is doing
     // First, we set our "inputs" (voltages)
     double motorOut = motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
-    m_elevatorSim.setInput(motorOut);
+    elevatorSim.setInput(motorOut);
     // Next, we update it. The standard loop time is 20ms.
-    m_elevatorSim.update(0.020);
+    elevatorSim.update(0.020);
 
     // Finally, we set our simulated encoder's readings and simulated battery voltage
-    double velocityMetersPerSecond = m_elevatorSim.getVelocityMetersPerSecond();
+    double velocityMetersPerSecond = elevatorSim.getVelocityMetersPerSecond();
     double rpm = convertDistanceToRotations(Meters.of(velocityMetersPerSecond)).per(Second).in(RPM);
     motorSim.iterate(
         rpm, 12, // RoboRioSim.getVInVoltage(),
@@ -109,8 +109,7 @@ public class ElevatorSimulator {
     SmartShuffleboard.put("Elevator", "Motor out voltage", motorOut);
     SmartShuffleboard.put("Elevator", "Velocity mps", velocityMetersPerSecond);
     SmartShuffleboard.put("Elevator", "RPM", rpm);
-    SmartShuffleboard.put(
-        "Elevator", "Elevator actual position", elevatorSim.getPositionMeters());
+    SmartShuffleboard.put("Elevator", "Elevator actual position", elevatorSim.getPositionMeters());
     SmartShuffleboard.put("Elevator", "Mechanism length", elevatorMech2d.getLength());
     SmartShuffleboard.put("Elevator", "Forward switch", forwardSwitchSim.getPressed());
     SmartShuffleboard.put("Elevator", "Reverse switch", reverseSwitchSim.getPressed());

@@ -198,7 +198,7 @@ public class VectorUtils {
    *     <b>Impossible parameters will produce a null result</b>
    */
 
-    /**
+  /**
    * The projectile motion converts the given coords to 2d and after applying the drivetrain x
    * velocity, to the x component of the projectile's initial velocity. <br>
    * Because shooter component velocities depends on the angle we shoot at, and the angle we shoot

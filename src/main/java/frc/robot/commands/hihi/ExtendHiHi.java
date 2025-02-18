@@ -10,9 +10,9 @@ public class ExtendHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
   private final Timer timer;
 
-    public ExtendHiHi(HihiExtenderSubsystem hihiExtender) {
+  public ExtendHiHi(HihiExtenderSubsystem hihiExtender) {
     this.hihiExtender = hihiExtender;
-        TimeoutLogger timeoutCounter = new TimeoutLogger("ExtendHiHi");
+    TimeoutLogger timeoutCounter = new TimeoutLogger("ExtendHiHi");
     timer = new Timer();
     addRequirements(hihiExtender);
   }

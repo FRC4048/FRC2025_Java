@@ -18,9 +18,9 @@ public class CoralCalc {
     this.y = y;
     this.x = x;
     this.theta = theta;
-      // distance to reef center
-      double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); // distance calculation
-      calculateVelocities();
+    // distance to reef center
+    double r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); // distance calculation
+    calculateVelocities();
   }
 
   private void calculateVelocities() {

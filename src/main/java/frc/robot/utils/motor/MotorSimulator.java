@@ -7,7 +7,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 
 public class MotorSimulator {
   private static final double RPM_PER_VOLT = 100;
-    private final SparkMax motor;
+  private final SparkMax motor;
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
   // The encoder simulator from the simulated motor
@@ -15,9 +15,9 @@ public class MotorSimulator {
 
   public MotorSimulator(SparkMax motor) {
     this.motor = motor;
-      // Gearbox represents a gearbox (1:1 conversion rate) with 1 or motors connected
-      DCMotor gearbox = DCMotor.getNEO(1);
-      motorSim = new SparkMaxSim(motor, gearbox);
+    // Gearbox represents a gearbox (1:1 conversion rate) with 1 or motors connected
+    DCMotor gearbox = DCMotor.getNEO(1);
+    motorSim = new SparkMaxSim(motor, gearbox);
     encoderSim = motorSim.getRelativeEncoderSim();
 
     encoderSim.setPositionConversionFactor(1.0);

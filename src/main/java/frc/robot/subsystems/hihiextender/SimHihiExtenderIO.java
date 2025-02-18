@@ -8,10 +8,10 @@ import frc.robot.utils.simulation.ArmSimulator;
 public class SimHihiExtenderIO extends RealHihiExtenderIO {
   private final ArmSimulator hihiExtenderSimulator;
 
-    public SimHihiExtenderIO() {
+  public SimHihiExtenderIO() {
     super();
-        ArmParameters params = new ArmParameters();
-        params.name = "HiHi Extender";
+    ArmParameters params = new ArmParameters();
+    params.name = "HiHi Extender";
     params.armGearing = Constants.HIHI_GEARING;
     params.armInertia = Constants.HIHI_INERTIA;
     params.armLength = Constants.HIHI_LENGTH;

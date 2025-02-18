@@ -31,6 +31,6 @@ public class SpinByeByeRoller extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-      return timer.hasElapsed(Constants.BYEBYE_SPIN_ROLLER_TIMEOUT);
+    return timer.hasElapsed(Constants.BYEBYE_SPIN_ROLLER_TIMEOUT);
   }
 }

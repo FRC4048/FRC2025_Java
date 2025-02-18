@@ -134,9 +134,7 @@ public class SwerveModule {
         new SparkMaxDriveMotorIO(idConf.driveMotorId(), kinematicsConfig, driveInverted);
     SparkMaxSteerMotorIO frontLeftSteerMotorIO =
         new SparkMaxSteerMotorIO(
-            idConf.turnMotorId(),
-            kinematicsConfig,
-            kinematicsConfig.profile().isSteerInverted());
+            idConf.turnMotorId(), kinematicsConfig, kinematicsConfig.profile().isSteerInverted());
     CANCoderAbsIO frontLeftAbsIO = new CANCoderAbsIO(idConf.canCoderId());
     return new SwerveModule(
         frontLeftDriveMotorIO,

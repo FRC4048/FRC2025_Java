@@ -32,19 +32,22 @@ public class CommandLogger {
     }
     CommandScheduler.getInstance()
         .onCommandInitialize(
-            command -> toLogCommandStatus
-                .computeIfAbsent(new CommandKey(command.toString()), k -> new LinkedList<>())
-                .add(true));
+            command ->
+                toLogCommandStatus
+                    .computeIfAbsent(new CommandKey(command.toString()), k -> new LinkedList<>())
+                    .add(true));
     CommandScheduler.getInstance()
         .onCommandFinish(
-            command -> toLogCommandStatus
-                .computeIfAbsent(new CommandKey(command.toString()), k -> new LinkedList<>())
-                .add(false));
+            command ->
+                toLogCommandStatus
+                    .computeIfAbsent(new CommandKey(command.toString()), k -> new LinkedList<>())
+                    .add(false));
     CommandScheduler.getInstance()
         .onCommandInterrupt(
-            command -> toLogCommandStatus
-                .computeIfAbsent(new CommandKey(command.toString()), k -> new LinkedList<>())
-                .add(false));
+            command ->
+                toLogCommandStatus
+                    .computeIfAbsent(new CommandKey(command.toString()), k -> new LinkedList<>())
+                    .add(false));
     hasInit = true;
   }
 
