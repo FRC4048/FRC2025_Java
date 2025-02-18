@@ -1,6 +1,6 @@
 package frc.robot.commands.lightStrip;
 
-import frc.robot.subsystems.LightStrip.LightStrip;
+import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
