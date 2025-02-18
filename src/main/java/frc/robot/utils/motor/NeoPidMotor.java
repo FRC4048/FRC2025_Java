@@ -24,15 +24,8 @@ import com.revrobotics.spark.config.SparkMaxConfig;
  * does not yet support velocity PID or other advanced features
  */
 public class NeoPidMotor {
-  public static final double DEFAULT_P = 1e-2;
-  public static final double DEFAULT_I = 0;
-  public static final double DEFAULT_D = 0.0;
-  public static final double DEFAULT_IZONE = 0.0;
-  public static final double DEFAULT_FF = 0.0;
+
   public static final double RAMP_RATE = 0;
-  public static final int MAX_VELOCITY = 5000;
-  public static final int MAX_ACCELERATION = 10000;
-  public static final double ALLOWED_ERROR = 1.0;
 
   // The neo motor controller
   private final SparkMax neoMotor;
@@ -50,11 +43,11 @@ public class NeoPidMotor {
    * @param id the CAN ID for the controller
    */
   public NeoPidMotor(int id) {
-    this(new NeoPidConfig().setId(id));
+    this(id, new NeoPidConfig());
   }
 
-  public NeoPidMotor(NeoPidConfig pidConfig) {
-    neoMotor = new SparkMax(pidConfig.getId(), SparkLowLevel.MotorType.kBrushless);
+  public NeoPidMotor(int id, NeoPidConfig pidConfig) {
+    neoMotor = new SparkMax(id, SparkLowLevel.MotorType.kBrushless);
     encoder = neoMotor.getEncoder();
 
     pidController = neoMotor.getClosedLoopController();
@@ -71,10 +64,10 @@ public class NeoPidMotor {
         .iZone(pidConfig.getIZone())
         .outputRange(-1, 1)
         .maxMotion
-        .maxVelocity(MAX_VELOCITY)
-        .maxAcceleration(MAX_ACCELERATION)
+        .maxVelocity(pidConfig.getMaxVelocity())
+        .maxAcceleration(pidConfig.getMaxAccel())
         .positionMode(kMAXMotionTrapezoidal)
-        .allowedClosedLoopError(ALLOWED_ERROR);
+        .allowedClosedLoopError(pidConfig.getAllowedError());
     config
         .limitSwitch
         .forwardLimitSwitchEnabled(true)
@@ -83,6 +76,25 @@ public class NeoPidMotor {
         .forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
 
     neoMotor.configure(config, kResetSafeParameters, kPersistParameters);
+  }
+
+  /**
+   * Reconfigure the PID fully using all values from motor params
+   *
+   * @param params
+   */
+  public void configurePID(NeoPidConfig params) {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config
+        .closedLoop
+        .pid(params.getP(), params.getI(), params.getD())
+        .velocityFF(params.getFF())
+        .iZone(params.getIZone())
+        .maxMotion
+        .maxVelocity(params.getMaxVelocity())
+        .maxAcceleration(params.getMaxAccel())
+        .allowedClosedLoopError(params.getAllowedError());
+    neoMotor.configure(config, kNoResetSafeParameters, kNoPersistParameters);
   }
 
   /**

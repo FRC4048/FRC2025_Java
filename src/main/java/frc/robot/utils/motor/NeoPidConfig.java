@@ -1,18 +1,24 @@
 package frc.robot.utils.motor;
 
 public class NeoPidConfig {
-  private int id = 0;
-  private double p = 1e-2;
-  private double i = 0.0;
-  private double d = 0.0;
-  private double iZone = 0.0;
-  private double ff = 0.0;
-  private int currentLimit = 40;
+  public static final double DEFAULT_P = 0.01;
+  public static final double DEFAULT_I = 0;
+  public static final double DEFAULT_D = 0.0;
+  public static final double DEFAULT_IZONE = 0.0;
+  public static final double DEFAULT_FF = 0.0;
+  public static final int MAX_VELOCITY = 5000;
+  public static final int MAX_ACCELERATION = 10000;
+  public static final double ALLOWED_ERROR = 1.0;
 
-  public NeoPidConfig setId(int id) {
-    this.id = id;
-    return this;
-  }
+  private double p = DEFAULT_P;
+  private double i = DEFAULT_I;
+  private double d = DEFAULT_D;
+  private double iZone = DEFAULT_IZONE;
+  private double ff = DEFAULT_FF;
+  private int currentLimit = 40;
+  private double maxVelocity = MAX_VELOCITY;
+  private double maxAccel = MAX_ACCELERATION;
+  private double allowedError = ALLOWED_ERROR;
 
   public NeoPidConfig setP(double p) {
     this.p = p;
@@ -44,8 +50,19 @@ public class NeoPidConfig {
     return this;
   }
 
-  public int getId() {
-    return id;
+  public NeoPidConfig setMaxVelocity(double maxVelocity) {
+    this.maxVelocity = maxVelocity;
+    return this;
+  }
+
+  public NeoPidConfig setMaxAccel(double maxAccel) {
+    this.maxAccel = maxAccel;
+    return this;
+  }
+
+  public NeoPidConfig setAllowedError(double allowedError) {
+    this.allowedError = allowedError;
+    return this;
   }
 
   public double getP() {
@@ -70,5 +87,17 @@ public class NeoPidConfig {
 
   public int getCurrentLimit() {
     return currentLimit;
+  }
+
+  public double getMaxVelocity() {
+    return maxVelocity;
+  }
+
+  public double getMaxAccel() {
+    return maxAccel;
+  }
+
+  public double getAllowedError() {
+    return allowedError;
   }
 }

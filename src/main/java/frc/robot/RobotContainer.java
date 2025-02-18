@@ -17,7 +17,6 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.CancelAll;
-import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.climber.ClimberRunMotors;
@@ -31,6 +30,8 @@ import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
+import frc.robot.commands.hihi.RollHiHiRollerIn;
+import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -166,7 +167,6 @@ public class RobotContainer {
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
       SmartShuffleboard.putCommand("DEBUG", "Climber run", new ClimberRunMotors(climber, 0.5));
       SmartShuffleboard.putCommand("DEBUG", "Climber stop", new ClimberRunMotors(climber, 0));
       SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
@@ -287,6 +287,13 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
+
+    if (Constants.HIHI_EXTEND_DEBUG) {
+      SmartShuffleboard.putCommand("HiHi", "Run Roller In", new RollHiHiRollerIn(hihiRoller));
+      SmartShuffleboard.putCommand("HiHi", "Shoot Algae", new ShootHiHiRollerOut(hihiRoller));
+      SmartShuffleboard.putCommand("HiHi", "Extend HiHi", new ExtendHiHi(hihiExtender));
+      SmartShuffleboard.putCommand("HiHi", "Retract HiHi", new RetractHiHi(hihiExtender));
+    }
 
     if (Constants.INTAKE_DEBUG) {
       SmartShuffleboard.putCommand(
