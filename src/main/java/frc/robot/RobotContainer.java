@@ -149,13 +149,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(shooter, 0.4));
     NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
     NamedCommands.registerCommand(
-      "ElevatorToPositionIntake", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.INTAKE));
+      "ElevatorToPositionL0", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL0));
     NamedCommands.registerCommand(
         "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
     NamedCommands.registerCommand(
-        "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL2));
+        "ElevatorToPositionL2", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL2));
     NamedCommands.registerCommand(
-        "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
+        "ElevatorToPositionL3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
+        NamedCommands.registerCommand(
+        "ElevatorToPositionL4", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));
     // NamedCommands.registerCommand("ElevatorToPositionL1", new
     // ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));
   }
