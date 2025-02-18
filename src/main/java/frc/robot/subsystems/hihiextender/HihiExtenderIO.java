@@ -6,7 +6,7 @@ package frc.robot.subsystems.hihiextender;
 
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.motor.NeoPidMotorParams;
+import frc.robot.utils.motor.NeoPidConfig;
 
 public interface HihiExtenderIO extends LoggableIO<MotorInputs> {
   void stopHihiExtenderMotor();
@@ -19,5 +19,5 @@ public interface HihiExtenderIO extends LoggableIO<MotorInputs> {
 
   void configurePID(double p, double i, double d);
 
-  void configurePID(NeoPidMotorParams params);
+  void configurePID(NeoPidConfig params);
 }

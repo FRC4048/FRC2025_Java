@@ -6,7 +6,6 @@ import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
-
 import org.littletonrobotics.junction.Logger;
 
 public class HihiRollerSubsystem extends SubsystemBase {
@@ -42,7 +41,9 @@ public class HihiRollerSubsystem extends SubsystemBase {
     hihiRollerSystem.updateInputs();
 
     if (Constants.HIHI_ROLLER_DEBUG) {
-      targetRollerVelocity = SmartShuffleboard.getDouble("HiHiRollerSubystem/config", "TargetVelocity", targetRollerVelocity);
+      targetRollerVelocity =
+          SmartShuffleboard.getDouble(
+              "HiHiRollerSubystem/config", "TargetVelocity", targetRollerVelocity);
     }
   }
 

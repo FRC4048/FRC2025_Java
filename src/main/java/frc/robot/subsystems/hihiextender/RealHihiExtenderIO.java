@@ -5,30 +5,20 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.motor.NeoPidMotor;
-import frc.robot.utils.motor.NeoPidMotorParams;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
   protected final NeoPidMotor extenderMotor;
   private final NeoPidMotorInputProvider inputProvider;
 
   public RealHihiExtenderIO() {
-    NeoPidConfig config = new NeoPidConfig();
-    config.setI(Constants.ALGAE_EXTENDER_MOTOR_ID)
-    .setCurrentLimit(Constants.NEO_CURRENT_LIMIT)
-    .setP(Constants.HIHI_EXTENDER_PID_P);
-    NeoPidMotorParams params = NeoPidMotorParams.defaultParams();
-    params.pidP = Constants.HIHI_EXTENDER_PID_P;
-    params.currentLimit = 20;
-    params.allowedError = Constants.HIHI_EXTENDER_ALLOWED_ERROR;
-    params.maxVelocity = Constants.HIHI_EXTENDER_MAX_VELOCITY;
-    params.maxAccel = Constants.HIHI_EXTENDER_MAX_ACCEL;
-    // this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, params);
-    this.extenderMotor = new NeoPidMotor(config);
-    // this.extenderMotor =
-    //     new NeoPidMotor(
-    //         new NeoPidConfig()
-    //             .setId(Constants.ALGAE_EXTENDER_MOTOR_ID)
-    //             .setCurrentLimit(Constants.NEO_CURRENT_LIMIT));
+    NeoPidConfig params =
+        new NeoPidConfig()
+            .setP(Constants.HIHI_EXTENDER_PID_P)
+            .setCurrentLimit(20)
+            .setAllowedError(Constants.HIHI_EXTENDER_ALLOWED_ERROR)
+            .setMaxAccel(Constants.HIHI_EXTENDER_MAX_ACCEL)
+            .setMaxVelocity(Constants.HIHI_EXTENDER_MAX_VELOCITY);
+    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, params);
     inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
   }
@@ -64,7 +54,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   }
 
   @Override
-  public void configurePID(NeoPidMotorParams params) {
+  public void configurePID(NeoPidConfig params) {
     this.extenderMotor.configurePID(params);
   }
 }

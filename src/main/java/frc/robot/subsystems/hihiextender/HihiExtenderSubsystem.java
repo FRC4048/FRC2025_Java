@@ -9,7 +9,7 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.motor.NeoPidMotorParams;
+import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
@@ -71,15 +71,15 @@ public class HihiExtenderSubsystem extends SubsystemBase {
         lastMaxAccel = newMaxAccel;
         lastAllowedError = newAllowedError;
 
-        NeoPidMotorParams params = new NeoPidMotorParams();
-        params.pidP = newPidP;
-        params.pidI = newPidI;
-        params.pidD = newPidD;
-        params.pidFF = newPidFF;
-        params.maxAccel = newMaxAccel;
-        params.maxVelocity = newMaxVelocity;
-        params.allowedError = newAllowedError;
-
+        NeoPidConfig params = new NeoPidConfig();
+        params
+            .setP(newPidP)
+            .setI(newPidI)
+            .setD(newPidD)
+            .setFF(newPidFF)
+            .setMaxAccel(newMaxAccel)
+            .setMaxVelocity(newMaxVelocity)
+            .setAllowedError(newAllowedError);
         system.getIO().configurePID(params);
       }
     }
