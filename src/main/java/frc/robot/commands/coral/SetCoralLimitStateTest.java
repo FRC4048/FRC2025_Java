@@ -2,16 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.subsystemtests;
+package frc.robot.commands.coral;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.coral.CoralSubsystem;
 
-public class SetCoralLimitState extends Command {
+public class SetCoralLimitStateTest extends Command {
   private final CoralSubsystem coralSystem;
   private final boolean enableOrDisableLimitSwitch;
 
-  public SetCoralLimitState(CoralSubsystem coralSystem, boolean enableOrDisableLimitSwitch) {
+  public SetCoralLimitStateTest(CoralSubsystem coralSystem, boolean enableOrDisableLimitSwitch) {
     this.coralSystem = coralSystem;
     this.enableOrDisableLimitSwitch = enableOrDisableLimitSwitch;
     addRequirements(coralSystem);

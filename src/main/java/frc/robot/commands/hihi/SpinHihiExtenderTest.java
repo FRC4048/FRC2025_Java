@@ -2,21 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.subsystemtests;
+package frc.robot.commands.hihi;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
-public class SpinHihiExtender extends LoggableCommand {
+public class SpinHihiExtenderTest extends LoggableCommand {
   /** Creates a new SpinHihiExtender. */
   private final HihiExtenderSubsystem extender;
 
   private final double speedMotors;
   private final Timer timer;
 
-  public SpinHihiExtender(HihiExtenderSubsystem extender, double speedMotors) {
+  public SpinHihiExtenderTest(HihiExtenderSubsystem extender, double speedMotors) {
     this.speedMotors = speedMotors;
     this.extender = extender;
     timer = new Timer();

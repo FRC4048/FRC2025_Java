@@ -2,17 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.subsystemtests;
+package frc.robot.commands.coral;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.coral.CoralSubsystem;
 
-public class CoralIdleMode extends Command {
+public class CoralIdleModeTest extends Command {
   private final CoralSubsystem coralSystem;
   private final IdleMode mode;
 
-  public CoralIdleMode(CoralSubsystem coralSystem, IdleMode mode) {
+  public CoralIdleModeTest(CoralSubsystem coralSystem, IdleMode mode) {
     this.coralSystem = coralSystem;
     this.mode = mode;
     addRequirements(coralSystem);

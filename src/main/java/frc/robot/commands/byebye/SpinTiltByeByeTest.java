@@ -2,31 +2,31 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.subsystemtests;
+package frc.robot.commands.byebye;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
-public class SpinRollerByeBye extends LoggableCommand {
-  /** Creates a new ByeByeSpinExtender. */
+public class SpinTiltByeByeTest extends LoggableCommand {
+  /** Creates a new SpinTIlt. */
   private final Timer timer;
 
   private final double motorSpeed;
-  private final AlgaeByeByeRollerSubsystem roller;
+  private final AlgaeByeByeTiltSubsystem tilt;
 
-  public SpinRollerByeBye(AlgaeByeByeRollerSubsystem roller, double motorSpeed) {
+  public SpinTiltByeByeTest(AlgaeByeByeTiltSubsystem tilt, double motorSpeed) {
     this.motorSpeed = motorSpeed;
-    this.roller = roller;
+    this.tilt = tilt;
     timer = new Timer();
-    addRequirements(roller);
+    addRequirements(tilt);
   }
 
   @Override
   public void initialize() {
     timer.restart();
-    roller.setSpeed(motorSpeed);
+    tilt.setSpeed(motorSpeed);
   }
 
   @Override
@@ -34,12 +34,11 @@ public class SpinRollerByeBye extends LoggableCommand {
 
   @Override
   public void end(boolean interrupted) {
-    roller.stopMotors();
+    tilt.stopMotors();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(Constants.BYEBYE_SPIN_ROLLER_TIMEOUT);
+    return timer.hasElapsed(Constants.BYEBYE_SPIN_TILT_TIMEOUT);
   }
 }
