@@ -23,6 +23,7 @@ public class RealHihiRollerIO implements HihiRollerIO {
   public void configureMotor() {
     SparkMaxConfig hihiRollerConfig = new SparkMaxConfig();
     hihiRollerConfig.idleMode(IdleMode.kBrake);
+    hihiRollerConfig.smartCurrentLimit(Constants.NEO_CURRENT_LIMIT);
     hihiRollerMotor.configure(
         hihiRollerConfig,
         SparkBase.ResetMode.kResetSafeParameters,

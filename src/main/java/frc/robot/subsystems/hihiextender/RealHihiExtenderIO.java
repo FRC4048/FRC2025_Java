@@ -3,6 +3,7 @@ package frc.robot.subsystems.hihiextender;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
+import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
@@ -10,7 +11,11 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   private final NeoPidMotorInputProvider inputProvider;
 
   public RealHihiExtenderIO() {
-    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID);
+    this.extenderMotor =
+        new NeoPidMotor(
+            new NeoPidConfig()
+                .setId(Constants.ALGAE_EXTENDER_MOTOR_ID)
+                .setCurrentLimit(Constants.NEO_CURRENT_LIMIT));
     inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
   }

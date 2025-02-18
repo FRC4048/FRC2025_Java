@@ -17,6 +17,7 @@ public class GameConstants {
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
   public static final boolean COMMAND_DEBUG = true;
+  public static final boolean INPUTS_DEBUG = false;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -35,6 +36,7 @@ public class GameConstants {
   public static final double HIHI_RETRACT_SPEED = -0.4;
   public static final double HIHI_INTAKE_SPEED = 0.4;
   public static final double HIHI_SHOOT_SPEED = -0.4;
+  public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0;
 
   // Timeouts
@@ -86,6 +88,7 @@ public class GameConstants {
   public static final int DRIVE_SMART_LIMIT = 38; // TODO: change later
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
+  public static final int NEO_CURRENT_LIMIT = 20;
 
   // Drive PID
   public static final double DRIVE_PID_P = 1; // TODO: change later
@@ -105,7 +108,7 @@ public class GameConstants {
   public static final double ELEVATOR_DRUM_RADIUS =
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
-  public static final double MAX_ELEVATOR_HEIGHT_METERS = 100; // in m
+  public static final double MAX_ELEVATOR_HEIGHT_METERS = 200; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
 

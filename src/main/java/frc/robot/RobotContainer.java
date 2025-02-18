@@ -16,23 +16,27 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
+import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.coral.CoralToFWRLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.ElevatorToPosition;
+import frc.robot.commands.elevator.ResetElevator;
+import frc.robot.commands.elevator.SetElevatorStoredPosition;
+import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
-import frc.robot.commands.subsystemtests.SpinExtender;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
-import frc.robot.constants.CoralDeposit;
+import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -136,7 +140,31 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
-    controller.x().onTrue(new SpinExtender(hihiExtender, 1));
+    controller.leftTrigger().onTrue(new IntakeCoral(coralSubsystem));
+    controller
+        .povUp()
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
+    controller
+        .povDown()
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
+    controller
+        .povLeft()
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
+    controller
+        .povRight()
+        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
+    controller.rightBumper().onTrue(new ResetElevator(elevatorSubsystem));
+    controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
+    controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    SetElevatorTargetPosition setElevatorTargetPosition =
+        new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
+    elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
+    controller.x().onTrue(new ExtendHiHi(hihiExtender));
+    controller.y().onTrue(new RetractHiHi(hihiExtender));
+    controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
+    controller.b().onTrue(new ByeByeToRevLimit(byebyeTilt));
+    controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
+    // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
       SmartShuffleboard.putCommand("DEBUG", "Climber run", new ClimberRunMotors(climber, 0.5));
@@ -261,9 +289,9 @@ public class RobotContainer {
   public void putShuffleboardCommands() {
 
     if (Constants.INTAKE_DEBUG) {
-      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
     }
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand(
@@ -279,11 +307,28 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
 
       SmartShuffleboard.putCommand(
-          "Elevator", "Level1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
+          "Elevator", "Elevator To position", new ElevatorToPosition(elevatorSubsystem));
       SmartShuffleboard.putCommand(
-          "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
-      SmartShuffleboard.putCommand("Hihi", "Roller Out", new ExtendHiHi(hihiExtender));
-      SmartShuffleboard.putCommand("Hihi", "Retract Hihi", new RetractHiHi(hihiExtender));
+          "Elevator",
+          "Store L0",
+          new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L1",
+          new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L2",
+          new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L3",
+          new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "Store L4",
+          new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
+      SmartShuffleboard.putCommand("Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem));
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
