@@ -6,11 +6,11 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 
 // ALL COMMENTED CODE REQUIRES METHODS THAT DON'T EXIST YET
 
-public class ElevatorToPosition extends LoggableCommand {
+public class ElevatorToStoredPosition extends LoggableCommand {
   private final ElevatorSubsystem elevator;
   private final Timer timer;
 
-  public ElevatorToPosition(ElevatorSubsystem elevator) {
+  public ElevatorToStoredPosition(ElevatorSubsystem elevator) {
     timer = new Timer();
     this.elevator = elevator;
     addRequirements(elevator);
