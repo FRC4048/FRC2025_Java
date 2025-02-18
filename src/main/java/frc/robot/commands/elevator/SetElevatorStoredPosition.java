@@ -4,9 +4,9 @@
 
 package frc.robot.commands.elevator;
 
-import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SetElevatorStoredPosition extends LoggableCommand {
   public final ReefPosition reefPosition;
