@@ -11,7 +11,7 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class RealCoralIOFollower implements CoralIOFollower {
-  private final SparkMax shooterMotor;
+  protected final SparkMax shooterMotor;
   private final SparkMaxInputProvider inputProvider;
 
   public RealCoralIOFollower() {
