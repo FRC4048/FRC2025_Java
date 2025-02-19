@@ -10,6 +10,10 @@ public interface ElevatorIO extends LoggableIO<PidMotorInputs> {
 
   public double getElevatorPosition();
 
+  public double getEncoderValue();
+
+  public double getElevatorHeight();
+
   void stopMotor();
 
   void resetEncoder();

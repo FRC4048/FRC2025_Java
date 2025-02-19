@@ -47,4 +47,11 @@ public class RealElevatorIO implements ElevatorIO {
   public double getEncoderValue() {
     return this.elevatorMotor.getEncoder().getPosition();
   }
+
+  @Override
+  public double getElevatorHeight() {
+    double encValue = getEncoderValue();
+    return Constants.ELEVATOR_ENCODER_HEIGHT_OFFSET
+        + Constants.ELEVATOR_ENCODER_HEIGHT_RATIO * encValue;
+  }
 }
