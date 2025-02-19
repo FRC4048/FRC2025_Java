@@ -1,6 +1,7 @@
 package frc.robot.subsystems.elevator;
 
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.motor.NeoPidConfig;
 
 public class MockElevatorIO implements ElevatorIO {
   @Override
@@ -22,5 +23,5 @@ public class MockElevatorIO implements ElevatorIO {
   public void resetEncoder() {}
 
   @Override
-  public void setPid(double kP, double kI, double kD) {}
+  public void updatePidConfig(NeoPidConfig neoPidConfig) {}
 }

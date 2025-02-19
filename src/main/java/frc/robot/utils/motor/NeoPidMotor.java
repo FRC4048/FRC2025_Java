@@ -122,4 +122,17 @@ public class NeoPidMotor {
   public SparkClosedLoopController getPidController() {
     return pidController;
   }
+
+  public void configure(NeoPidConfig config) {
+    SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
+    sparkMaxConfig
+        .closedLoop
+        .pidf(config.getP(), config.getI(), config.getD(), config.getFF())
+        .iZone(config.getIZone())
+        .maxMotion
+        .maxVelocity(config.getMaxVelocity())
+        .maxAcceleration(config.getMaxAccel())
+        .allowedClosedLoopError(config.getAllowedError());
+    getNeoMotor().configure(sparkMaxConfig, kResetSafeParameters, kNoPersistParameters);
+  }
 }

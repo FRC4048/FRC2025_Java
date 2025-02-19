@@ -3,6 +3,7 @@ package frc.robot.subsystems.elevator;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
+import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealElevatorIO implements ElevatorIO {
@@ -39,8 +40,8 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
-  public void setPid(double kP, double kI, double kD) {
-    elevatorMotor.setPid(kP, kI, kD);
+  public void updatePidConfig(NeoPidConfig neoPidConfig) {
+    elevatorMotor.configure(neoPidConfig);
   }
 
   @Override
