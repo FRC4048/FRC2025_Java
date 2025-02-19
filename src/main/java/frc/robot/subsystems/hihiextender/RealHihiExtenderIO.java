@@ -55,7 +55,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    extenderMotor.setPid(PID_P.get(), PID_I.get(), PID_D.get());
+    LoggedTunableNumber.ifChanged(hashCode(), ()-> extenderMotor.setPid(PID_P.get(), PID_I.get(), PID_D.get()), PID_P, PID_I, PID_D);
     Logger.recordOutput("HiHi/PID_D", PID_D.get());
     inputs.process(inputProvider);
   }
