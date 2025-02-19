@@ -25,12 +25,13 @@ import frc.robot.commands.coral.CoralToFWRLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.elevator.ElevatorToPosition;
+import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
+import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -53,6 +54,8 @@ import frc.robot.subsystems.coral.MockCoralIOFollower;
 import frc.robot.subsystems.coral.MockCoralIOLeader;
 import frc.robot.subsystems.coral.RealCoralIOFollower;
 import frc.robot.subsystems.coral.RealCoralIOLeader;
+import frc.robot.subsystems.coral.SimCoralIOFollower;
+import frc.robot.subsystems.coral.SimCoralIOLeader;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -69,6 +72,9 @@ import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
 import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
 import frc.robot.subsystems.hihiroller.SimHihiRollerIO;
+import frc.robot.subsystems.lightStrip.LightStrip;
+import frc.robot.subsystems.lightStrip.MockLightStripIO;
+import frc.robot.subsystems.lightStrip.RealLightStripIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -77,6 +83,7 @@ import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
+import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
@@ -93,6 +100,7 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
   private final ClimberSubsystem climber;
+  private final LightStrip lightStrip;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -108,6 +116,7 @@ public class RobotContainer {
         climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
+        lightStrip = new LightStrip(new RealLightStripIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
@@ -117,15 +126,17 @@ public class RobotContainer {
         climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
+        lightStrip = new LightStrip(new MockLightStripIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
-        coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
+        coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
         climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
+        lightStrip = new LightStrip(new MockLightStripIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
@@ -154,7 +165,7 @@ public class RobotContainer {
         .povRight()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
     controller.rightBumper().onTrue(new ResetElevator(elevatorSubsystem));
-    controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
+    controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
@@ -307,7 +318,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
 
       SmartShuffleboard.putCommand(
-          "Elevator", "Elevator To position", new ElevatorToPosition(elevatorSubsystem));
+          "Elevator", "Elevator To position", new ElevatorToStoredPosition(elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
@@ -328,10 +339,21 @@ public class RobotContainer {
           "Elevator",
           "Store L4",
           new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
-      SmartShuffleboard.putCommand("Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator", "Level3", new ElevatorToStoredPosition(elevatorSubsystem));
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
+      SmartShuffleboard.putCommand(
+          "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
+      SmartShuffleboard.putCommand(
+          "DEBUG",
+          "LightStripPatternGreen",
+          new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
+      SmartShuffleboard.putCommand(
+          "DEBUG",
+          "LightStripPatternViolet",
+          new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
       SmartShuffleboard.putCommand(
           "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
     }
