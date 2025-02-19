@@ -9,6 +9,18 @@
           "data": {
             "pathName": "Robot 2 to Post H"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Robot 2 to Post H"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.0
+          }
         }
       ]
     }
