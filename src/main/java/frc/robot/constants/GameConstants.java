@@ -16,6 +16,10 @@ public class GameConstants {
   public static final boolean SWERVE_DEBUG = false;
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
+  public static final boolean ELEVATOR_DEBUG = false;
+  public static final boolean CORAL_DEBUG = false;
+  public static final boolean HIHI_DEBUG = false;
+  public static final boolean BYEBYE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = true;
   public static final boolean INPUTS_DEBUG = false;
 
@@ -37,7 +41,7 @@ public class GameConstants {
   public static final double HIHI_INTAKE_SPEED = 0.4;
   public static final double HIHI_SHOOT_SPEED = -0.4;
   public static final double CLIMBER_SPEED = 0.5;
-  public static final double CLIMBER_RISE_SPEED = 0;
+  public static final double CLIMBER_RISE_SPEED = 0.5;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
