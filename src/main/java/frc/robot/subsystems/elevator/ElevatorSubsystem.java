@@ -7,6 +7,7 @@ import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
@@ -73,6 +74,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     elevatorSystem.updateInputs();
+    SmartShuffleboard.put("Elevator", "Elevator Encoder", getEncoderValue());
+    SmartShuffleboard.put("Elevator", "Upper limit switch state", getForwardLimitSwitchState());
+    SmartShuffleboard.put("Elevator", "Lower limit switch state", getReverseLimitSwitchState());
+    SmartShuffleboard.put("Elevator", "Elevator Height", getElevatorHeight());
   }
 
   public double getElevatorHeight() {
