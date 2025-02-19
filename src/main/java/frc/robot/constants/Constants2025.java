@@ -30,18 +30,18 @@ public class Constants2025 extends GameConstants {
   public static final int LIGHTSTRIP_PORT = 0; // TODO: change later
 
   // Drive
-  public static final int DRIVE_FRONT_RIGHT_D = 59; // TODO: change later
-  public static final int DRIVE_BACK_RIGHT_D = 60; // TODO: change later
-  public static final int DRIVE_FRONT_LEFT_D = 58; // TODO: change later
-  public static final int DRIVE_BACK_LEFT_D = 57; // TODO: change later
-  public static final int DRIVE_CANCODER_FRONT_RIGHT = 39; // TODO: change later
-  public static final int DRIVE_CANCODER_BACK_RIGHT = 40; // TODO: change later
-  public static final int DRIVE_CANCODER_FRONT_LEFT = 38; // TODO: change later
-  public static final int DRIVE_CANCODER_BACK_LEFT = 37; // TODO: change later
+  public static final int DRIVE_FRONT_RIGHT_D = 34; // TODO: change later
+  public static final int DRIVE_BACK_RIGHT_D = 31; // TODO: change later
+  public static final int DRIVE_FRONT_LEFT_D = 56; // TODO: change later
+  public static final int DRIVE_BACK_LEFT_D = 51; // TODO: change later
+  public static final int DRIVE_CANCODER_FRONT_RIGHT = 12; // TODO: change later
+  public static final int DRIVE_CANCODER_BACK_RIGHT = 13; // TODO: change later
+  public static final int DRIVE_CANCODER_FRONT_LEFT = 11; // TODO: change later
+  public static final int DRIVE_CANCODER_BACK_LEFT = 14; // TODO: change later
 
   // Steer
-  public static final int DRIVE_FRONT_RIGHT_S = 29; // TODO: change later
-  public static final int DRIVE_BACK_RIGHT_S = 30; // TODO: change later
-  public static final int DRIVE_FRONT_LEFT_S = 28; // TODO: change later
-  public static final int DRIVE_BACK_LEFT_S = 27; // TODO: change later
+  public static final int DRIVE_FRONT_RIGHT_S = 46; // TODO: change later
+  public static final int DRIVE_BACK_RIGHT_S = 43; // TODO: change later
+  public static final int DRIVE_FRONT_LEFT_S = 55; // TODO: change later
+  public static final int DRIVE_BACK_LEFT_S = 49; // TODO: change later
 }
