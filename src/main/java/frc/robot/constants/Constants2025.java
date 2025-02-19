@@ -14,7 +14,7 @@ public class Constants2025 extends GameConstants {
   public static final int SHOOTER_TILT_MOTOR_ID = 4; // TODO: change later
 
   // Algae Roller
-  public static final int ALGAE_ROLLER_CAN_ID = 5; // TODO: change later
+  public static final int ALGAE_ROLLER_CAN_ID = 500; // TODO: change later
 
   // Algae Extender
   public static final int ALGAE_EXTENDER_MOTOR_ID = 6; // TODO: change later
