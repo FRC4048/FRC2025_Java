@@ -12,8 +12,10 @@ import org.littletonrobotics.junction.Logger;
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
   private ReefPosition reefPosition;
-  private final LoggedTunableNumber heightOffset = new LoggedTunableNumber("HeightOffset", Constants.ELEVATOR_ENCODER_HEIGHT_OFFSET);
-  private final LoggedTunableNumber heightRatio = new LoggedTunableNumber("HeightRatio", Constants.ELEVATOR_ENCODER_HEIGHT_RATIO);
+  private final LoggedTunableNumber heightOffset =
+      new LoggedTunableNumber("HeightOffset", Constants.ELEVATOR_ENCODER_HEIGHT_OFFSET);
+  private final LoggedTunableNumber heightRatio =
+      new LoggedTunableNumber("HeightRatio", Constants.ELEVATOR_ENCODER_HEIGHT_RATIO);
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();

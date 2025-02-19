@@ -10,7 +10,6 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -350,8 +349,10 @@ public class RobotContainer {
 
     if (Constants.ELEVATOR_DEBUG) {
       SmartShuffleboard.put("Elevator", "Elevator Position", elevatorSubsystem.getEncoderValue());
-      SmartShuffleboard.put("Elevator", "Upper limit switch state", elevatorSubsystem.getForwardLimitSwitchState());
-      SmartShuffleboard.put("Elevator", "Lower limit switch state", elevatorSubsystem.getReverseLimitSwitchState());
+      SmartShuffleboard.put(
+          "Elevator", "Upper limit switch state", elevatorSubsystem.getForwardLimitSwitchState());
+      SmartShuffleboard.put(
+          "Elevator", "Lower limit switch state", elevatorSubsystem.getReverseLimitSwitchState());
       SmartShuffleboard.put("Elevator", "Elevator Height", elevatorSubsystem.getElevatorHeight());
       // Elevator Commands
       SmartShuffleboard.putCommand(

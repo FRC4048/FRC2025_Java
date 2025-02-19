@@ -42,6 +42,4 @@ public class RealElevatorIO implements ElevatorIO {
   public void updateInputs(PidMotorInputs inputs) {
     inputs.process(inputProvider);
   }
-
-  
 }
