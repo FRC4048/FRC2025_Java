@@ -42,4 +42,9 @@ public class RealElevatorIO implements ElevatorIO {
   public void updateInputs(PidMotorInputs inputs) {
     inputs.process(inputProvider);
   }
+
+  @Override
+  public double getEncoderValue() {
+    return this.elevatorMotor.getEncoder().getPosition();
+  }
 }

@@ -348,7 +348,7 @@ public class RobotContainer {
     }
 
     if (Constants.ELEVATOR_DEBUG) {
-      SmartShuffleboard.put("Elevator", "Elevator Position", elevatorSubsystem.getEncoderValue());
+      SmartShuffleboard.put("Elevator", "Elevator Encoder", elevatorSubsystem.getEncoderValue());
       SmartShuffleboard.put(
           "Elevator", "Upper limit switch state", elevatorSubsystem.getForwardLimitSwitchState());
       SmartShuffleboard.put(
