@@ -1,6 +1,7 @@
 package frc.robot.commands.hihi;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
@@ -21,7 +22,7 @@ public class RetractHiHi extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    hihiExtender.setExtenderSpeed(-.2);
+    hihiExtender.setExtenderSpeed(Constants.HIHI_RETRACT_SPEED);
     ticksAtLimit = 0;
   }
 
@@ -40,11 +41,11 @@ public class RetractHiHi extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if (timer.hasElapsed(3)) {
+    if (timer.hasElapsed(Constants.HIHI_RETRACT_TIMEOUT)) {
       // Couldn't get to limit
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (hihiExtender.getReverseSwitchState() && ticksAtLimit > 15);
+    return (hihiExtender.getReverseSwitchState() && ticksAtLimit > Constants.HIHI_EXTENDER_TICK_LIMIT);
   }
 }

@@ -14,7 +14,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
     NeoPidConfig params =
         new NeoPidConfig()
             .setP(Constants.HIHI_EXTENDER_PID_P)
-            .setCurrentLimit(20)
+            .setCurrentLimit(Constants.NEO_550_CURRENT_LIMIT)
             .setAllowedError(Constants.HIHI_EXTENDER_ALLOWED_ERROR)
             .setMaxAccel(Constants.HIHI_EXTENDER_MAX_ACCEL)
             .setMaxVelocity(Constants.HIHI_EXTENDER_MAX_VELOCITY);
