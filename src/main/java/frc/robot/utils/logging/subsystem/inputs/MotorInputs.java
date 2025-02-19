@@ -9,6 +9,7 @@ import org.littletonrobotics.junction.LogTable;
 /** Contains Inputs that could be logged for a motor */
 public class MotorInputs extends FolderInputs {
   private Double encoderPosition;
+  private Double alternateEncoderPosition;
   private Double encoderVelocity;
   private Double motorCurrent;
   private Double motorTemperature;
@@ -19,6 +20,7 @@ public class MotorInputs extends FolderInputs {
   public MotorInputs(MotorInputBuilder<?> builder) {
     super(builder.getFolder());
     this.encoderPosition = builder.isLogEncoderPosition() ? 0.0 : null;
+    this.alternateEncoderPosition = builder.isLogAlternateEncoderPosition() ? 0.0 : null;
     this.encoderVelocity = builder.isLogEncoderVelocity() ? 0.0 : null;
     this.motorCurrent = builder.isLogMotorCurrent() ? 0.0 : null;
     this.motorTemperature = builder.isLogMotorTemperature() ? 0.0 : null;
@@ -32,6 +34,9 @@ public class MotorInputs extends FolderInputs {
     // This is my first EVER if train
     if (builder.isLogEncoderPosition()) {
       table.put("encoderPosition", encoderPosition);
+    }
+    if (builder.isLogAlternateEncoderPosition()) {
+      table.put("alternateEncoderPosition", alternateEncoderPosition);
     }
     if (builder.isLogEncoderVelocity()) {
       table.put("encoderVelocity", encoderVelocity);
@@ -56,6 +61,9 @@ public class MotorInputs extends FolderInputs {
     if (builder.isLogEncoderPosition()) {
       encoderPosition = table.get("encoderPosition", encoderPosition);
     }
+    if (builder.isLogAlternateEncoderPosition()) {
+      alternateEncoderPosition = table.get("alternateEncoderPosition", alternateEncoderPosition);
+    }
     if (builder.isLogEncoderVelocity()) {
       encoderVelocity = table.get("encoderVelocity", encoderVelocity);
     }
@@ -78,6 +86,9 @@ public class MotorInputs extends FolderInputs {
     if (inputProvider instanceof MotorInputProvider motorinputProvider) {
       if (builder.isLogEncoderPosition()) {
         encoderPosition = motorinputProvider.getEncoderPosition();
+      }
+      if (builder.isLogAlternateEncoderPosition()) {
+        alternateEncoderPosition = motorinputProvider.getAlternateEncoderPosition();
       }
       if (builder.isLogEncoderVelocity()) {
         encoderVelocity = motorinputProvider.getEncoderVelocity();
@@ -103,6 +114,10 @@ public class MotorInputs extends FolderInputs {
 
   public Double getEncoderPosition() {
     return encoderPosition;
+  }
+
+  public Double getAlternateEncoderPosition() {
+    return alternateEncoderPosition;
   }
 
   public Double getEncoderVelocity() {

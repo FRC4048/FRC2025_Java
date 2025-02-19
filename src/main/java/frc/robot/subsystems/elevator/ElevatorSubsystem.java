@@ -37,7 +37,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getEncoderValue() {
-    return elevatorSystem.getInputs().getEncoderPosition();
+    return elevatorSystem.getInputs().getAlternateEncoderPosition();
   }
 
   public double getElevatorPosition() {

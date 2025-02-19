@@ -8,6 +8,8 @@ public interface MotorInputProvider extends InputProvider {
 
   double getEncoderPosition();
 
+  double getAlternateEncoderPosition();
+
   double getEncoderVelocity();
 
   boolean getFwdLimit();

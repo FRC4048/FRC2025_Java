@@ -27,6 +27,11 @@ public class TalonInputProvider implements MotorInputProvider {
   }
 
   @Override
+  public double getAlternateEncoderPosition() {
+    return talon.getSelectedSensorPosition();
+  }
+
+  @Override
   public double getEncoderVelocity() {
     return talon.getSelectedSensorVelocity();
   }

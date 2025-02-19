@@ -26,6 +26,10 @@ public class SparkMaxInputProvider implements MotorInputProvider {
     return sparkMax.getEncoder().getPosition();
   }
 
+  public double getAlternateEncoderPosition() {
+    return sparkMax.getAlternateEncoder().getPosition();
+  }
+
   @Override
   public double getEncoderVelocity() {
     return sparkMax.getEncoder().getVelocity();

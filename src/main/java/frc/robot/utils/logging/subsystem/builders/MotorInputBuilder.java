@@ -4,6 +4,7 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
   private boolean logEncoderPosition;
+  private boolean logAlternateEncoderPosition;
   private boolean logEncoderVelocity;
   private boolean logMotorCurrent;
   private boolean logMotorTemperature;
@@ -25,6 +26,7 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
 
   public T reset() {
     logEncoderPosition = false;
+    logAlternateEncoderPosition = false;
     logEncoderVelocity = false;
     logMotorCurrent = false;
     logMotorTemperature = false;
@@ -45,6 +47,11 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
 
   public T encoderPosition() {
     logEncoderPosition = true;
+    return self();
+  }
+
+  public T alternateEncoderPosition() {
+    logAlternateEncoderPosition = true;
     return self();
   }
 
@@ -101,6 +108,10 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
 
   public boolean isLogEncoderPosition() {
     return logEncoderPosition;
+  }
+
+  public boolean isLogAlternateEncoderPosition() {
+    return logAlternateEncoderPosition;
   }
 
   public boolean isLogEncoderVelocity() {
