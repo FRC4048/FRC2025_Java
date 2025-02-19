@@ -39,6 +39,11 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
+  public void setPid(double kP, double kI, double kD) {
+    elevatorMotor.setPid(kP, kI, kD);
+  }
+
+  @Override
   public void updateInputs(PidMotorInputs inputs) {
     inputs.process(inputProvider);
   }

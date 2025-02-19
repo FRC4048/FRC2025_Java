@@ -3,14 +3,19 @@ package frc.robot.subsystems.elevator;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ReefPosition;
+import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.motor.NeoPidMotor;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
   private ReefPosition reefPosition;
+  private final LoggedTunableNumber kP = new LoggedTunableNumber("ElevatorSubsystem/kP", NeoPidMotor.DEFAULT_P);
+  private final LoggedTunableNumber kI = new LoggedTunableNumber("ElevatorSubsystem/kI", NeoPidMotor.DEFAULT_I);
+  private final LoggedTunableNumber kD = new LoggedTunableNumber("ElevatorSubsystem/kD", NeoPidMotor.DEFAULT_D);
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
@@ -68,5 +73,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     elevatorSystem.updateInputs();
+    LoggedTunableNumber.ifChanged(
+        hashCode(),
+        doubles -> {
+          elevatorSystem.getIO().setPid(doubles[0], doubles[1], doubles[2]);
+        },
+        kP,
+        kI,
+        kD);
   }
 }

@@ -13,4 +13,6 @@ public interface ElevatorIO extends LoggableIO<PidMotorInputs> {
   void stopMotor();
 
   void resetEncoder();
+
+  void setPid(double kP, double kI, double kD);
 }

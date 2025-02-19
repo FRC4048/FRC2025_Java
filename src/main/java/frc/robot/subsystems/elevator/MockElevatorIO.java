@@ -20,4 +20,7 @@ public class MockElevatorIO implements ElevatorIO {
 
   @Override
   public void resetEncoder() {}
+
+  @Override
+  public void setPid(double kP, double kI, double kD) {}
 }
