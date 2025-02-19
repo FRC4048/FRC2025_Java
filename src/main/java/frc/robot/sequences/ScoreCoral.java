@@ -1,4 +1,4 @@
-package frc.robot.commands.sequences;
+package frc.robot.sequences;
 
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
