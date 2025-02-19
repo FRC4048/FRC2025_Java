@@ -1,4 +1,4 @@
-package frc.robot.subsystems.LightStrip;
+package frc.robot.subsystems.lightStrip;
 
 import frc.robot.utils.BlinkinPattern;
 
