@@ -33,9 +33,9 @@ import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
-import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
 import frc.robot.commands.hihi.ShootHiHiRollerOut;
+import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -357,7 +357,7 @@ public class RobotContainer {
           "Elevator", "Reset Elevator", new ResetElevator(elevatorSubsystem));
 
       SmartShuffleboard.putCommand(
-          "Elevator", "Elevator To Position", new ElevatorToPosition(elevatorSubsystem));
+          "Elevator", "Elevator To Position", new ElevatorToStoredPosition(elevatorSubsystem));
 
       SmartShuffleboard.putCommand(
           "Elevator",
@@ -390,16 +390,17 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
 
       SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
-      SmartShuffleboard.putCommand(
-          "DEBUG",
-          "LightStripPatternGreen",
-          new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
-      SmartShuffleboard.putCommand(
-          "DEBUG",
-          "LightStripPatternViolet",
-          new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
     }
+
+    SmartShuffleboard.putCommand(
+        "DEBUG",
+        "LightStripPatternGreen",
+        new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
+    SmartShuffleboard.putCommand(
+        "DEBUG",
+        "LightStripPatternViolet",
+        new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
+    SmartShuffleboard.putCommand(
+        "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
   }
 }
