@@ -152,7 +152,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(shooter, 0.4));
     NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
     NamedCommands.registerCommand(
-      "ElevatorToPositionL0", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL0));
+      "ElevatorToPositionL0", new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL0));
     NamedCommands.registerCommand(
         "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
     NamedCommands.registerCommand(
