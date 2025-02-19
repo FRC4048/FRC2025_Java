@@ -48,7 +48,7 @@
   "folder": "Posts to Station (4)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -121.401
+    "rotation": -120.81000000000002
   },
   "useDefaultConstraints": false
 }
