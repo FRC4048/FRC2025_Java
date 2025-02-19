@@ -20,7 +20,6 @@ import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.climber.ClimberRunMotors;
 import frc.robot.commands.climber.CloseClimber;
 import frc.robot.commands.climber.ResetClimber;
 import frc.robot.commands.coral.IntakeCoral;
@@ -181,8 +180,8 @@ public class RobotContainer {
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      SmartShuffleboard.putCommand("DEBUG", "Climber run", new ClimberRunMotors(climber, 0.5));
-      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new ClimberRunMotors(climber, 0));
+      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
+      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
       SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
   }
@@ -383,9 +382,6 @@ public class RobotContainer {
 
     if (Constants.CLIMBER_DEBUG) {
       // Climber Commands
-
-      SmartShuffleboard.putCommand(
-          "Climber", "Climber Run", new ClimberRunMotors(climber, Constants.CLIMBER_RISE_SPEED));
 
       SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
 
