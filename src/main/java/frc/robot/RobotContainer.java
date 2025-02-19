@@ -19,6 +19,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.autochooser.AutoAction;
+import frc.robot.autochooser.FieldLocation;
+import frc.robot.autochooser.chooser.AutoChooser2025;
+import frc.robot.autochooser.event.AutoEventProvider;
+import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
@@ -29,6 +34,7 @@ import frc.robot.commands.coral.CoralToFWRLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.elevator.ElevatorSpinMotors;
 import frc.robot.commands.elevator.ElevatorToPosition;
 import frc.robot.commands.elevator.ResetElevator;
@@ -90,6 +96,7 @@ import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
+  private AutoChooser2025 autoChooser;
   private SwerveDrivetrain drivetrain;
   private final AlgaeByeByeRollerSubsystem byebyeRoller;
   private final AlgaeByeByeTiltSubsystem byebyeTilt;
@@ -141,11 +148,21 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
+    setupAutoChooser();
     putShuffleboardCommands();
-    PathPlannerCommands();
+    pathPlannerCommands();
   }
 
-  private void PathPlannerCommands() {
+
+private void setupAutoChooser(){
+  autoChooser = new AutoChooser2025(new RealAutoEventProvider(AutoAction.DoNothing, FieldLocation.ZERO));
+  autoChooser.getProvider().addOnValidationCommand(() -> new SetInitOdom(drivetrain, autoChooser).initialize());
+  autoChooser.getProvider().forceRefresh();
+}
+
+
+
+  private void pathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
     NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
     NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt));
