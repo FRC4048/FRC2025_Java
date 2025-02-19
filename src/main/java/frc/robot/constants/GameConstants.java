@@ -22,6 +22,7 @@ public class GameConstants {
   public static final boolean BYEBYE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = true;
   public static final boolean INPUTS_DEBUG = false;
+  public static final boolean TUNING_MODE = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -77,7 +78,6 @@ public class GameConstants {
   // Mode
   public static final Mode simMode = Mode.SIM;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
-  public static final boolean TUNING_MODE = true;
 
   public enum Mode {
     /** Running on a real robot. */
@@ -95,7 +95,7 @@ public class GameConstants {
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
   public static final int NEO_CURRENT_LIMIT = 20;
 
-  // Hi Hi PID
+  // HiHi PID
   public static final double HIHI_PID_P = 0;
   public static final double HIHI_PID_I = 0;
   public static final double HIHI_PID_D = 0;
