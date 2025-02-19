@@ -1,8 +1,7 @@
 
 package frc.robot.utils.diag;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxLimitSwitch.Type;
+import com.revrobotics.spark.SparkMax;
 
 /**
  * Diagnostics class for digital switch connected directly to the talon SRX
@@ -14,7 +13,7 @@ public class DiagSparkMaxSwitch extends DiagBoolean {
     }
 
     public enum Direction {FORWARD, REVERSE};
-    private CANSparkMax canSparkMax;
+    private SparkMax canSparkMax;
     private Direction direction;
 
     /*
@@ -24,7 +23,7 @@ public class DiagSparkMaxSwitch extends DiagBoolean {
      * @param talonSRX  -the talon SRX to read the switch value from
      */
 
-    public DiagSparkMaxSwitch(String title, String name, CANSparkMax canSparkMax, Direction direction) {
+    public DiagSparkMaxSwitch(String title, String name, SparkMax canSparkMax, Direction direction) {
         super(title, name);
         this.canSparkMax = canSparkMax;
         this.direction = direction;
@@ -33,9 +32,9 @@ public class DiagSparkMaxSwitch extends DiagBoolean {
     protected boolean getValue() {
         switch (direction) {
             case FORWARD:
-                return canSparkMax.getForwardLimitSwitch(Type.kNormallyOpen).isPressed();
+                return canSparkMax.getForwardLimitSwitch().isPressed();
             case REVERSE:
-                return canSparkMax.getReverseLimitSwitch(Type.kNormallyOpen).isPressed();
+                return canSparkMax.getReverseLimitSwitch().isPressed();
             default:
                 return false;
         }
