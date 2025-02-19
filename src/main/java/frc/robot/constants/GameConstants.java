@@ -115,6 +115,7 @@ public class GameConstants {
   public static final double MAX_ELEVATOR_HEIGHT_METERS = 200; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
+  public static final double BYEBYE_LENGTH = 0.5; // TODO: change later in m
 
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE =
@@ -123,6 +124,10 @@ public class GameConstants {
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
   public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
+  public static final Rotation2d BYEBYE_MIN_ANGLE =
+      Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
+  public static final Rotation2d BYEBYE_MAX_ANGLE =
+      Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
 
   // Zeros
   public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
@@ -148,7 +153,10 @@ public class GameConstants {
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4; // TODO: change later
+  public static final boolean HI_HI_SIMULATE_GRAVITY = true;
+  public static final boolean BYE_BYE_SIMULATE_GRAVITY = false;
+  public static final double BYEBYE_GEARING = 45.0; // TODO: change later
+  public static final double BYEBYE_INERTIA = 1.0; // TODO: change later
   public static final double HIHI_GEARING = 45.0; // TODO: change later
   public static final double HIHI_INERTIA = 1.0; // TODO: change later
-  public static final boolean HI_HI_SIMULATE_GRAVITY = true;
 }

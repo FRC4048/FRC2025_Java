@@ -47,6 +47,7 @@ import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
+import frc.robot.subsystems.algaebyebyetilt.SimAlgaeByeByeTiltIO;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.climber.MockClimberIO;
 import frc.robot.subsystems.climber.RealClimberIO;
@@ -136,7 +137,7 @@ public class RobotContainer {
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
         climber = new ClimberSubsystem(new SimClimberIO());
-        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
+        byebyeTilt = new AlgaeByeByeTiltSubsystem(new SimAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
         lightStrip = new LightStrip(new MockLightStripIO());
       }
