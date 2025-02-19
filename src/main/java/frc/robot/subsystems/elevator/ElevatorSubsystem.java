@@ -3,6 +3,7 @@ package frc.robot.subsystems.elevator;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ReefPosition;
+import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
@@ -11,6 +12,8 @@ import org.littletonrobotics.junction.Logger;
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
   private ReefPosition reefPosition;
+  private final LoggedTunableNumber heightOffset = new LoggedTunableNumber("HeightOffset", Constants.ELEVATOR_ENCODER_HEIGHT_OFFSET);
+  private final LoggedTunableNumber heightRatio = new LoggedTunableNumber("HeightRatio", Constants.ELEVATOR_ENCODER_HEIGHT_RATIO);
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
@@ -68,5 +71,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     elevatorSystem.updateInputs();
+  }
+
+  public double getElevatorHeight() {
+    double encValue = getEncoderValue();
+    return heightOffset.get() + heightRatio.get() * encValue;
   }
 }

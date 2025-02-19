@@ -16,12 +16,13 @@ public class GameConstants {
   public static final boolean SWERVE_DEBUG = false;
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
-  public static final boolean ELEVATOR_DEBUG = false;
+  public static final boolean ELEVATOR_DEBUG = true;
   public static final boolean CORAL_DEBUG = false;
   public static final boolean HIHI_DEBUG = false;
   public static final boolean BYEBYE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = true;
   public static final boolean INPUTS_DEBUG = false;
+  public static final boolean TUNING = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -115,6 +116,8 @@ public class GameConstants {
   public static final double MAX_ELEVATOR_HEIGHT_METERS = 200; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
+  public static final double ELEVATOR_ENCODER_HEIGHT_OFFSET = 0;
+  public static final double ELEVATOR_ENCODER_HEIGHT_RATIO = 1;
 
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE =
