@@ -115,7 +115,7 @@ public class GameConstants {
   public static final double MAX_ELEVATOR_HEIGHT_METERS = 200; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
-  public static final double BYEBYE_LENGTH = 0.5; // TODO: change later
+  public static final double BYEBYE_LENGTH = 0.5; // TODO: change later in m
 
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE =
