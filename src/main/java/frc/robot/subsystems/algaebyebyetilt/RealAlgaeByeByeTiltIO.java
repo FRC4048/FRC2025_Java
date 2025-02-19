@@ -16,7 +16,7 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 /** Add your docs here. */
 public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
-  private final SparkMax removerTiltMotor; // SnowblowerMotor
+  protected final SparkMax removerTiltMotor; // SnowblowerMotor
   private final SparkMaxInputProvider inputProvider;
 
   public RealAlgaeByeByeTiltIO() {
