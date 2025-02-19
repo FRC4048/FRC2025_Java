@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.105548525528169,
-        "y": 5.051
+        "x": 7.128,
+        "y": 4.172508119733145
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.615326185629401,
-        "y": 4.795730344960388
+        "x": 6.840258261635418,
+        "y": 4.1993176190502455
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 4.172508119733145
       },
       "prevControl": {
-        "x": 6.042499506618803,
-        "y": 4.306559891300048
+        "x": 6.0256423373266434,
+        "y": 4.212499419921276
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
+    "maxVelocity": 3.0,
     "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.77105494143672
+    "rotation": -179.995
   },
   "reversed": false,
   "folder": "Robot to Post (4)",
