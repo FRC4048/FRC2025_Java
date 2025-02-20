@@ -4,17 +4,17 @@ import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.system.plant.DCMotor;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 /**
- * A simulator for an intake mechanism: A motor hooked up to some wheels and a limit switch.
- * The mechanism run in the "forward" direction for some rotations until it hits the FORWARD_ROTATIONS_TO_SWITCH
- * limit. At this point, the forward limit switch will trigger. (The state will change from EMPTY to FULL).
- * At this point, driving the motor backwards until the BACKWARDS_ROTATIONS_TO_UNSWITCH will release the switch.
- * Driving backwards more, until BACKWARD_ROTATIONS_TO_CLEAR will also change the state to EMPTY (the starting point).
- * To simulate "shooting", one can configure the motor to NOT have a switch configured (so that when the switch triggers
- * the motor will not stop) and moving the motor forward again. Once the motor gets to FORWARD_ROTATIONS_TO_CLEAR the
- * state will change to EMPTY and the switch will also clear.
+ * A simulator for an intake mechanism: A motor hooked up to some wheels and a limit switch. The
+ * mechanism run in the "forward" direction for some rotations until it hits the
+ * FORWARD_ROTATIONS_TO_SWITCH limit. At this point, the forward limit switch will trigger. (The
+ * state will change from EMPTY to FULL). At this point, driving the motor backwards until the
+ * BACKWARDS_ROTATIONS_TO_UNSWITCH will release the switch. Driving backwards more, until
+ * BACKWARD_ROTATIONS_TO_CLEAR will also change the state to EMPTY (the starting point). To simulate
+ * "shooting", one can configure the motor to NOT have a switch configured (so that when the switch
+ * triggers the motor will not stop) and moving the motor forward again. Once the motor gets to
+ * FORWARD_ROTATIONS_TO_CLEAR the state will change to EMPTY and the switch will also clear.
  */
 public class IntakeSimulator {
   // number of rotations from start point to where piece hits forward switch
@@ -26,7 +26,10 @@ public class IntakeSimulator {
   // number of rotations from start point to where piece clears the forward switch
   public static final double BACKWARDS_ROTATIONS_TO_UNSWITCH = 65;
 
-  private enum Mode {EMPTY, FULL}
+  private enum Mode {
+    EMPTY,
+    FULL
+  }
 
   private static final double RPM_PER_VOLT = 100;
 
@@ -35,7 +38,6 @@ public class IntakeSimulator {
   private final SparkMax motor;
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
-  private final boolean debug;
   // The encoder simulator from the simulated motor
   private final SparkRelativeEncoderSim encoderSim;
 
@@ -45,13 +47,8 @@ public class IntakeSimulator {
   private double startPoint = 0;
 
   public IntakeSimulator(SparkMax motor) {
-    this(motor, false);
-  }
-
-  public IntakeSimulator(SparkMax motor, boolean debug) {
     this.motor = motor;
     motorSim = new SparkMaxSim(motor, gearbox);
-    this.debug = debug;
     encoderSim = motorSim.getRelativeEncoderSim();
 
     encoderSim.setPositionConversionFactor(1.0);
@@ -68,9 +65,6 @@ public class IntakeSimulator {
     // Next, we set our simulated encoder's readings and simulated battery voltage
     // We use a very simplistic formula to calculate the no-load motor speed
     double rpm = motorOut * RPM_PER_VOLT;
-    if (debug) {
-      System.out.println("Motor out: " + motorOut);
-    }
     motorSim.iterate(rpm, 12, 0.020);
 
     // Finally, calculate the switch positions based off of intake-like simulation
@@ -102,13 +96,6 @@ public class IntakeSimulator {
       }
     }
     motorSim.getForwardLimitSwitchSim().setPressed(forwardSwitch);
-
-    if (debug) {
-      SmartShuffleboard.put("DEBUG", "Algae Position", position);
-      SmartShuffleboard.put("DEBUG", "Algae Startpoint", startPoint);
-      SmartShuffleboard.put("DEBUG", "Algae switch", Boolean.valueOf(forwardSwitch));
-      SmartShuffleboard.put("DEBUG", "Algae Mode", mode.name());
-    }
   }
 
   public SparkRelativeEncoderSim getEncoder() {
