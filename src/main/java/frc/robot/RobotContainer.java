@@ -206,7 +206,7 @@ private void setupAutoChooser(){
         .povRight()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
     controller.rightBumper().onTrue(new ResetElevator(elevatorSubsystem));
-    controller.leftBumper().onTrue(new ElevatorToPosition(elevatorSubsystem));
+    controller.leftBumper().onTrue(new setElevatorPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);

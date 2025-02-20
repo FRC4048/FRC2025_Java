@@ -10,6 +10,7 @@ public enum AutoAction {
   FourPieceFork("4 Piece Auto - Fork"),
   FourPieceLine("4 Piece Auto - Line" ),
   OnePiece("1 Piece"),
+  CrossTheLine("Cross The Line"),
   INVALID("INVALID");
   private final String name;
   private static final HashMap<String, AutoAction> nameMap =

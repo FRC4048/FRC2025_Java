@@ -7,49 +7,49 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Robot 4 to Post F"
+            "pathName": "Robot 1 to Post J"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Post F to Station 2"
+            "pathName": "Post J to Station 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Station 2 to Post B"
+            "pathName": "Station 1 to Post L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Post B to Station 2"
+            "pathName": "Post L to Station 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Station 2 to Post C"
+            "pathName": "Station 1 to Post L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Post C to Station 2"
+            "pathName": "Post L to Station 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Station 2 to Post D"
+            "pathName": "Station 1 to Post L"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "THE GLORIOUS 4 PIECE AUTO",
+  "folder": "FINAL",
   "choreoAuto": false
 }

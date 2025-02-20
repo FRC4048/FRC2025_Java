@@ -11,21 +11,21 @@
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Robot 2 to Post H"
+            "waitTime": 11.79
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.0
+            "name": null
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "THE GLORIOUS 4 PIECE AUTO",
+  "folder": "FINAL",
   "choreoAuto": false
 }

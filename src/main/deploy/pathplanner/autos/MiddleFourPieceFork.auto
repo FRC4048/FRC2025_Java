@@ -19,13 +19,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Station 1 to Post A"
+            "pathName": "Station 1 to Post K"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Post A to Station 1"
+            "pathName": "Post K to Station 1"
           }
         },
         {
@@ -43,19 +43,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Station 1 to Post K"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Post K to Station 1"
+            "pathName": "Station 1 to Post A"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "THE GLORIOUS 4 PIECE AUTO",
+  "folder": "FINAL",
   "choreoAuto": false
 }

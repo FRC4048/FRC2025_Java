@@ -31,14 +31,14 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
             Map.entry(new AutoEvent(AutoAction.DoNothing, FieldLocation.LEFT), new DoNothingCommand()),
             Map.entry(new AutoEvent(AutoAction.DoNothing, FieldLocation.MIDDLE), new DoNothingCommand()),
             Map.entry(new AutoEvent(AutoAction.DoNothing, FieldLocation.RIGHT), new DoNothingCommand()),
-            Map.entry(new AutoEvent(AutoAction.FourPieceLine, FieldLocation.RIGHT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Right 4 Piece 1 Post")))),
-            Map.entry(new AutoEvent(AutoAction.FourPieceLine, FieldLocation.LEFT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Left 4 Piece 1 Post")))),
-            Map.entry(new AutoEvent(AutoAction.OnePiece, FieldLocation.MIDDLE), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Middle 1 Piece")))),
-            Map.entry(new AutoEvent(AutoAction.FourPieceFork, FieldLocation.RIGHT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Right 4 Piece 3 Post")))),
-            Map.entry(new AutoEvent(AutoAction.FourPieceFork, FieldLocation.LEFT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Left 4 Piece 3 Post")))),
-            Map.entry(new AutoEvent(AutoAction.FourPieceFork, FieldLocation.MIDDLE), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Middle 4 Piece")))),//fork
-
-        )
+            Map.entry(new AutoEvent(AutoAction.FourPieceLine, FieldLocation.RIGHT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("RightFourPieceLine")))),
+            Map.entry(new AutoEvent(AutoAction.FourPieceLine, FieldLocation.LEFT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("LeftFourPieceLine")))),
+            Map.entry(new AutoEvent(AutoAction.OnePiece, FieldLocation.MIDDLE), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("MiddleOnePiece")))),
+            Map.entry(new AutoEvent(AutoAction.FourPieceFork, FieldLocation.RIGHT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("RightFourPieceFork")))),
+            Map.entry(new AutoEvent(AutoAction.FourPieceFork, FieldLocation.LEFT), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("LeftFourPieceFork")))),
+            Map.entry(new AutoEvent(AutoAction.FourPieceFork, FieldLocation.MIDDLE), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("MiddleFourPieceFork")))),
+            Map.entry(new AutoEvent(AutoAction.CrossTheLine, FieldLocation.MIDDLE), LoggableCommandWrapper.wrap(AutoBuilder.followPath(PathPlannerPath.fromPathFile("CrossTheLine")))))
+        
     }
 
     @Override

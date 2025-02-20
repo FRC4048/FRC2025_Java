@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.998138341769366,
-        "y": 5.202338248239437
+        "x": 3.9925831761853448,
+        "y": 5.2291167160560335
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.670039883299953,
-        "y": 4.665543763833328
+        "x": 3.8079537862030652,
+        "y": 5.397675276665607
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.148,
-        "y": 7.011
+        "x": 1.626,
+        "y": 7.361
       },
       "prevControl": {
-        "x": 0.979556553143358,
-        "y": 7.195734418046702
+        "x": 1.8091544936739319,
+        "y": 7.190839982818978
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Posts to Station (4)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -59.58942050655299
+    "rotation": -59.502657867203865
   },
   "useDefaultConstraints": false
 }

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.783032196679926,
-        "y": 3.2857464905905744
+        "x": 3.09083279650689,
+        "y": 3.627080013573543
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.201,
-        "y": 0.961
+        "x": 1.626,
+        "y": 0.679
       },
       "prevControl": {
-        "x": 1.9852372915391672,
-        "y": 1.5393962285801706
+        "x": 1.7515022363490522,
+        "y": 0.8952156069098312
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.266102700228714
+    "rotation": 53.627
   },
   "reversed": false,
   "folder": "Station 2 to Posts (12)",
