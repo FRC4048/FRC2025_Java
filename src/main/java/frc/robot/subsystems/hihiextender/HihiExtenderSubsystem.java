@@ -22,6 +22,16 @@ public class HihiExtenderSubsystem extends SubsystemBase {
       new LoggedTunableNumber("HiHi/PID_I", Constants.HIHI_PID_I);
   private static final LoggedTunableNumber PID_D =
       new LoggedTunableNumber("HiHi/PID_D", Constants.HIHI_PID_D);
+  private static final LoggedTunableNumber PID_I_ZONE =
+      new LoggedTunableNumber("HiHi/PID_I_ZONE", Constants.HIHI_PID_I_ZONE);
+  private static final LoggedTunableNumber PID_FF =
+      new LoggedTunableNumber("HiHi/PID_FF", Constants.HIHI_PID_FF);
+  private static final LoggedTunableNumber PID_MAX_VEL =
+      new LoggedTunableNumber("HiHi/PID_MAX_VEL", Constants.HIHI_PID_MAX_VEL);
+  private static final LoggedTunableNumber PID_MAX_ACCEL =
+      new LoggedTunableNumber("HiHi/PID_MAX_ACCEL", Constants.HIHI_PID_MAX_ACC);
+  private static final LoggedTunableNumber PID_ALLOWED_ERROR =
+      new LoggedTunableNumber("HiHi/PID_ALLOWED_ERROR", Constants.HIHI_PID_ALLOWED_ERROR);
 
   private final PIDTunableConfig pidConfig;
 
@@ -29,7 +39,19 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   public HihiExtenderSubsystem(HihiExtenderIO io) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
     system = new LoggableSystem<>(io, inputs);
-    pidConfig = new PIDTunableConfig("HiHi", new NeoPidConfig(), io, PID_P, PID_I, PID_D);
+    pidConfig =
+        new PIDTunableConfig(
+            "HiHi",
+            new NeoPidConfig(),
+            io,
+            PID_P,
+            PID_I,
+            PID_D,
+            PID_I_ZONE,
+            PID_FF,
+            PID_MAX_VEL,
+            PID_MAX_ACCEL,
+            PID_ALLOWED_ERROR);
   }
 
   @Override

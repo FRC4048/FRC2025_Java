@@ -99,6 +99,11 @@ public class GameConstants {
   public static final double HIHI_PID_P = 0;
   public static final double HIHI_PID_I = 0;
   public static final double HIHI_PID_D = 0;
+  public static final double HIHI_PID_I_ZONE = 0;
+  public static final double HIHI_PID_FF = 0;
+  public static final double HIHI_PID_MAX_VEL = 0;
+  public static final double HIHI_PID_MAX_ACC = 0;
+  public static final double HIHI_PID_ALLOWED_ERROR = 0;
 
   // Drive PID
   public static final double DRIVE_PID_P = 1; // TODO: change later
