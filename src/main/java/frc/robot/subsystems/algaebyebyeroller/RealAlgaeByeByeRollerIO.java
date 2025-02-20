@@ -28,6 +28,7 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
   private void configureMotor() {
     SparkMaxConfig removerMotorConfig = new SparkMaxConfig();
     removerMotorConfig.idleMode(IdleMode.kBrake);
+    removerMotorConfig.smartCurrentLimit(Constants.NEO_CURRENT_LIMIT);
     removerMotor.configure(
         removerMotorConfig,
         SparkBase.ResetMode.kResetSafeParameters,

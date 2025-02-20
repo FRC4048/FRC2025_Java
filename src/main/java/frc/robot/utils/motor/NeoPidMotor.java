@@ -50,22 +50,25 @@ public class NeoPidMotor {
    * @param id the CAN ID for the controller
    */
   public NeoPidMotor(int id) {
-    this(id, DEFAULT_P, DEFAULT_I, DEFAULT_D, DEFAULT_IZONE, DEFAULT_FF);
+    this(new NeoPidConfig().setId(id));
   }
 
-  public NeoPidMotor(int id, double pidP, double pidI, double pidD, double iZone, double pidFF) {
-    neoMotor = new SparkMax(id, SparkLowLevel.MotorType.kBrushless);
+  public NeoPidMotor(NeoPidConfig pidConfig) {
+    neoMotor = new SparkMax(pidConfig.getId(), SparkLowLevel.MotorType.kBrushless);
     encoder = neoMotor.getEncoder();
 
     pidController = neoMotor.getClosedLoopController();
     SparkMaxConfig config = new SparkMaxConfig();
-    config.smartCurrentLimit(40).closedLoopRampRate(RAMP_RATE).idleMode(kBrake);
+    config
+        .smartCurrentLimit(pidConfig.getCurrentLimit())
+        .closedLoopRampRate(RAMP_RATE)
+        .idleMode(kBrake);
     config
         .closedLoop
         .feedbackSensor(ClosedLoopConfig.FeedbackSensor.kPrimaryEncoder)
-        .pid(pidP, pidI, pidD)
-        .velocityFF(pidFF)
-        .iZone(iZone)
+        .pid(pidConfig.getP(), pidConfig.getI(), pidConfig.getD())
+        .velocityFF(pidConfig.getFF())
+        .iZone(pidConfig.getIZone())
         .outputRange(-1, 1)
         .maxMotion
         .maxVelocity(MAX_VELOCITY)

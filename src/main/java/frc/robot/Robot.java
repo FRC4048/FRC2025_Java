@@ -13,6 +13,7 @@ import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.RobotVisualizer;
 import frc.robot.utils.RobotMode;
+import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
 import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
@@ -24,6 +25,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
+  private static Diagnostics diagnostics;
 
   private final RobotContainer m_robotContainer;
   private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
@@ -74,6 +76,7 @@ public class Robot extends LoggedRobot {
     Logger.start();
     CommandLogger.get().init();
     m_robotContainer = new RobotContainer();
+    diagnostics = new Diagnostics();
   }
 
   public static RobotMode getMode() {
@@ -130,6 +133,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
+    diagnostics.reset();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -144,17 +148,24 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void testInit() {
+    diagnostics.reset();
     CommandScheduler.getInstance().cancelAll();
     mode.set(RobotMode.TEST);
   }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    diagnostics.refresh();
+  }
 
   @Override
   public void testExit() {}
 
   public void simulationInit() {
     mode.set(RobotMode.SIMULATION);
+  }
+
+  public static Diagnostics getDiagnostics() {
+    return diagnostics;
   }
 }
