@@ -94,7 +94,10 @@ public class NeoPidMotor {
         .closedLoop
         .pid(params.getP(), params.getI(), params.getD())
         .velocityFF(params.getFF())
-        .iZone(params.getIZone())
+        .iZone(params.getIZone());
+    if (params.getUsesMaxMotion()) {
+      config
+        .closedLoop
         .maxMotion
         .maxVelocity(params.getMaxVelocity())
         .maxAcceleration(params.getMaxAccel())

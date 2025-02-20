@@ -8,7 +8,6 @@ In terms of modifications I just basically tried to make it simpler to understan
 
 package frc.robot.utils;
 
-import frc.robot.constants.Constants;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +25,7 @@ public class LoggedTunableNumber implements DoubleSupplier {
   private final String key;
   private boolean hasDefault = false;
   private double defaultValue;
+  private boolean TUNING_MODE = true;
   private LoggedNetworkNumber dashboardNumber;
   private Map<Integer, Double> lastHasChangedValues = new HashMap<>();
 
@@ -58,7 +58,7 @@ public class LoggedTunableNumber implements DoubleSupplier {
     if (!hasDefault) {
       hasDefault = true;
       this.defaultValue = defaultValue;
-      if (Constants.TUNING_MODE) {
+      if (TUNING_MODE) {
         dashboardNumber = new LoggedNetworkNumber(key, defaultValue);
       }
     }
@@ -73,7 +73,7 @@ public class LoggedTunableNumber implements DoubleSupplier {
     if (!hasDefault) {
       return 0.0;
     } else {
-      return Constants.TUNING_MODE ? dashboardNumber.get() : defaultValue;
+      return TUNING_MODE ? dashboardNumber.get() : defaultValue;
     }
   }
 

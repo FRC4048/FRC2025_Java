@@ -21,7 +21,6 @@ public class GameConstants {
   public static final boolean HIHI_DEBUG = true;
   public static final boolean BYEBYE_DEBUG = true;
   public static final boolean COMMAND_DEBUG = true;
-  public static final boolean TUNING_MODE = true;
   public static final boolean INPUTS_DEBUG = true;
 
   // Speeds
