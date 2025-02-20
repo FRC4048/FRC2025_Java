@@ -104,6 +104,10 @@ public class GameConstants {
   public static final double HIHI_PID_MAX_VEL = 3000;
   public static final double HIHI_PID_MAX_ACC = 2500;
   public static final double HIHI_PID_ALLOWED_ERROR = 0.1;
+  public static final boolean HIHI_USE_MAX_MOTION = true;
+
+  // Elevator PID
+  public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Drive PID
   public static final double DRIVE_PID_P = 1; // TODO: change later

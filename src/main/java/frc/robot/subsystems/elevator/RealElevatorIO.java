@@ -11,7 +11,9 @@ public class RealElevatorIO implements ElevatorIO {
   private final NeoPidMotorInputProvider inputProvider;
 
   public RealElevatorIO() {
-    this.elevatorMotor = new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID, MotorName.Neo, true);
+    this.elevatorMotor =
+        new NeoPidMotor(
+            Constants.ELEVATOR_MOTOR_ID, MotorName.Neo, Constants.ELEVATOR_USE_MAX_MOTION);
     this.inputProvider = new NeoPidMotorInputProvider(elevatorMotor);
   }
 

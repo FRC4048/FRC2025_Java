@@ -14,7 +14,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
 
   public RealHihiExtenderIO() {
     this.initConfig =
-        new NeoPidConfig(MotorName.Neo550, true)
+        new NeoPidConfig(MotorName.Neo550, Constants.HIHI_USE_MAX_MOTION)
             .setP(Constants.HIHI_PID_P)
             .setI(Constants.HIHI_PID_I)
             .setD(Constants.HIHI_PID_D)
