@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public enum AutoAction {
   DoNothing("Do Nothing"),
   FourPieceFork("4 Piece Auto - Fork"),
-  FourPieceLine("4 Piece Auto - Line" ),
+  FourPieceLine("4 Piece Auto - Line"),
   OnePiece("1 Piece"),
   CrossTheLine("Cross The Line"),
   INVALID("INVALID");
@@ -17,7 +17,6 @@ public enum AutoAction {
       new HashMap<>(
           Arrays.stream(AutoAction.values())
               .collect(Collectors.toMap(AutoAction::getName, Function.identity())));
-              
 
   AutoAction(String name) {
     this.name = name;

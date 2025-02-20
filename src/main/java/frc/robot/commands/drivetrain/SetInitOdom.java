@@ -11,7 +11,6 @@ public class SetInitOdom extends LoggableCommand {
   public SetInitOdom(SwerveDrivetrain drivetrain, AutoChooser2025 autoChooser) {
     this.drivetrain = drivetrain;
     this.autoChooser = autoChooser;
-
   }
 
   @Override
