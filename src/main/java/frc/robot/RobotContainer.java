@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -22,30 +22,30 @@ import frc.robot.apriltags.TCPApriltag;
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
-import frc.robot.autochooser.event.AutoEventProvider;
 import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
-import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.climber.ClimberRunMotors;
-import frc.robot.commands.coral.CoralToFWRLimit;
+import frc.robot.commands.climber.CloseClimber;
+import frc.robot.commands.climber.ResetClimber;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.elevator.ElevatorSpinMotors;
-import frc.robot.commands.elevator.ElevatorToPosition;
+import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
+import frc.robot.commands.hihi.RollHiHiRollerIn;
+import frc.robot.commands.hihi.ShootHiHiRollerOut;
+import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
-import frc.robot.commands.subsystemtests.SpinTiltByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -64,6 +64,8 @@ import frc.robot.subsystems.coral.MockCoralIOFollower;
 import frc.robot.subsystems.coral.MockCoralIOLeader;
 import frc.robot.subsystems.coral.RealCoralIOFollower;
 import frc.robot.subsystems.coral.RealCoralIOLeader;
+import frc.robot.subsystems.coral.SimCoralIOFollower;
+import frc.robot.subsystems.coral.SimCoralIOLeader;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -80,6 +82,9 @@ import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
 import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
 import frc.robot.subsystems.hihiroller.SimHihiRollerIO;
+import frc.robot.subsystems.lightStrip.LightStrip;
+import frc.robot.subsystems.lightStrip.MockLightStripIO;
+import frc.robot.subsystems.lightStrip.RealLightStripIO;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -88,6 +93,7 @@ import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
+import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
@@ -105,6 +111,7 @@ public class RobotContainer {
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
   private final ClimberSubsystem climber;
+  private final LightStrip lightStrip;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
@@ -123,6 +130,7 @@ public class RobotContainer {
         climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
+        lightStrip = new LightStrip(new RealLightStripIO());
       }
       case REPLAY -> {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
@@ -132,15 +140,17 @@ public class RobotContainer {
         climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
+        lightStrip = new LightStrip(new MockLightStripIO());
       }
       case SIM -> {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
-        coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
+        coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
         climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
+        lightStrip = new LightStrip(new MockLightStripIO());
       }
       default -> {
         throw new RuntimeException("Did not specify Robot Mode");
@@ -153,14 +163,14 @@ public class RobotContainer {
     pathPlannerCommands();
   }
 
-
-private void setupAutoChooser(){
-  autoChooser = new AutoChooser2025(new RealAutoEventProvider(AutoAction.DoNothing, FieldLocation.ZERO));
-  autoChooser.getProvider().addOnValidationCommand(() -> new SetInitOdom(drivetrain, autoChooser).initialize());
-  autoChooser.getProvider().forceRefresh();
-}
-
-
+  private void setupAutoChooser() {
+    autoChooser =
+        new AutoChooser2025(new RealAutoEventProvider(AutoAction.DoNothing, FieldLocation.ZERO));
+    autoChooser
+        .getProvider()
+        .addOnValidationCommand(() -> new SetInitOdom(drivetrain, autoChooser).initialize());
+    autoChooser.getProvider().forceRefresh();
+  }
 
   private void pathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
@@ -169,14 +179,14 @@ private void setupAutoChooser(){
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(shooter, 0.4));
     NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
     NamedCommands.registerCommand(
-      "ElevatorToPositionL0", new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL0));
+        "ElevatorToPositionL0", new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL0));
     NamedCommands.registerCommand(
         "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
     NamedCommands.registerCommand(
         "ElevatorToPositionL2", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL2));
     NamedCommands.registerCommand(
         "ElevatorToPositionL3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
-        NamedCommands.registerCommand(
+    NamedCommands.registerCommand(
         "ElevatorToPositionL4", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));
     // NamedCommands.registerCommand("ElevatorToPositionL1", new
     // ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));
@@ -206,7 +216,7 @@ private void setupAutoChooser(){
         .povRight()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
     controller.rightBumper().onTrue(new ResetElevator(elevatorSubsystem));
-    controller.leftBumper().onTrue(new setElevatorPosition(elevatorSubsystem));
+    controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
@@ -219,8 +229,8 @@ private void setupAutoChooser(){
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      SmartShuffleboard.putCommand("DEBUG", "Climber run", new ClimberRunMotors(climber, 0.5));
-      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new ClimberRunMotors(climber, 0));
+      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
+      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
       SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
   }
@@ -339,26 +349,64 @@ private void setupAutoChooser(){
   }
 
   public void putShuffleboardCommands() {
-    if (Constants.INTAKE_DEBUG) {
+
+    if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
-    }
-    if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.putCommand(
-          "Bye Bye",
-          "Spin Roller ",
-          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
-      SmartShuffleboard.putCommand(
-          "Bye Bye", "Spin Tilt", new SpinTiltByeBye(byebyeTilt, Constants.TILT_SPEED));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "DisableLimitCoral", new SetCoralLimitState(coralSubsystem, false));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "EnableLimitCoral", new SetCoralLimitState(coralSubsystem, true));
-      SmartShuffleboard.putCommand("Bye Bye", "ToFWRLImit", new ByeByeToFwrLimit(byebyeTilt));
 
       SmartShuffleboard.putCommand(
-          "Elevator", "Elevator To position", new ElevatorToPosition(elevatorSubsystem));
+          "Coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "CoralBreakModeBrake", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "Set Coral Limit True", new SetCoralLimitState(coralSubsystem, true));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "Set Coral Limit False", new SetCoralLimitState(coralSubsystem, false));
+    }
+
+    if (Constants.HIHI_DEBUG) {
+      // HiHi Commads
+
+      SmartShuffleboard.putCommand("HiHi", "Extend HiHi", new ExtendHiHi(hihiExtender));
+
+      SmartShuffleboard.putCommand("HiHi", "Retract HiHi", new RetractHiHi(hihiExtender));
+
+      SmartShuffleboard.putCommand("HiHi", "Roll HiHi Roller In", new RollHiHiRollerIn(hihiRoller));
+
+      SmartShuffleboard.putCommand(
+          "HiHi", "Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
+    }
+
+    if (Constants.BYEBYE_DEBUG) {
+      // ByeBye Commands
+
+      SmartShuffleboard.putCommand(
+          "ByeBye", "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
+
+      SmartShuffleboard.putCommand(
+          "ByeBye", "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
+
+      SmartShuffleboard.putCommand(
+          "ByeBye",
+          "ByeBye Spin Roller",
+          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+    }
+
+    if (Constants.ELEVATOR_DEBUG) {
+      // Elevator Commands
+      SmartShuffleboard.putCommand(
+          "Elevator", "Spin Elevator Motors", new ElevatorSpinMotors(elevatorSubsystem));
+
+      SmartShuffleboard.putCommand(
+          "Elevator", "Reset Elevator", new ResetElevator(elevatorSubsystem));
+
+      SmartShuffleboard.putCommand(
+          "Elevator", "Elevator To Position", new ElevatorToStoredPosition(elevatorSubsystem));
+
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
@@ -379,12 +427,25 @@ private void setupAutoChooser(){
           "Elevator",
           "Store L4",
           new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
-      SmartShuffleboard.putCommand("Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem));
-      SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "CoralBreakModeBreak", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
-      SmartShuffleboard.putCommand(
-          "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
     }
+
+    if (Constants.CLIMBER_DEBUG) {
+      // Climber Commands
+
+      SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
+
+      SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
+    }
+
+    SmartShuffleboard.putCommand(
+        "DEBUG",
+        "LightStripPatternGreen",
+        new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
+    SmartShuffleboard.putCommand(
+        "DEBUG",
+        "LightStripPatternViolet",
+        new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
+    SmartShuffleboard.putCommand(
+        "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
   }
 }
