@@ -50,8 +50,8 @@ public class IntakeTillAlgae extends LoggableCommand {
     if (currentVelocity > hihiRoller.getRollerVelocity()) {
       currentVelocity = hihiRoller.getRollerVelocity();
       validTicks++;
-      if (validTicks > Constants.HIHI_ROLLER_MAX_TICKS)
-        return currentVelocity < Constants.HIHI_INTAKE_MIN_SPEED;
+      return (validTicks > Constants.HIHI_ROLLER_MAX_TICKS)
+          && (currentVelocity < Constants.HIHI_INTAKE_MIN_SPEED);
     }
     currentVelocity = hihiRoller.getRollerVelocity();
     return false;
