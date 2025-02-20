@@ -6,15 +6,19 @@ package frc.robot.commands.elevator;
 
 import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.lightStrip.LightStrip;
+import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SetElevatorStoredPosition extends LoggableCommand {
   public final ReefPosition reefPosition;
   public final ElevatorSubsystem elevatorSubsystem;
+  public final LightStrip lightStrip;
 
   public SetElevatorStoredPosition(
-      ReefPosition storedElevatorHeight, ElevatorSubsystem elevatorSubsystem) {
+      ReefPosition storedElevatorHeight, ElevatorSubsystem elevatorSubsystem, LightStrip lightStrip) {
     this.reefPosition = storedElevatorHeight;
+    this.lightStrip = lightStrip;
     this.elevatorSubsystem = elevatorSubsystem;
     addRequirements(elevatorSubsystem);
   }
@@ -22,6 +26,17 @@ public class SetElevatorStoredPosition extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if(reefPosition == reefPosition.LEVEL0){
+      lightStrip.setPattern(BlinkinPattern.RED);
+    }else if(reefPosition == reefPosition.LEVEL1){
+      lightStrip.setPattern(BlinkinPattern.YELLOW);
+    }else if(reefPosition == reefPosition.LEVEL2){
+      lightStrip.setPattern(BlinkinPattern.GOLD);
+    }else if(reefPosition == reefPosition.LEVEL3){
+      lightStrip.setPattern(BlinkinPattern.RED_ORANGE);
+    }else{
+      lightStrip.setPattern(BlinkinPattern.ORANGE);
+    }
     elevatorSubsystem.setStoredReefPosition(reefPosition);
   }
 
