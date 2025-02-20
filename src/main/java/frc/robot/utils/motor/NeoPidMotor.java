@@ -97,11 +97,12 @@ public class NeoPidMotor {
         .iZone(params.getIZone());
     if (params.getUsesMaxMotion()) {
       config
-        .closedLoop
-        .maxMotion
-        .maxVelocity(params.getMaxVelocity())
-        .maxAcceleration(params.getMaxAccel())
-        .allowedClosedLoopError(params.getAllowedError());
+          .closedLoop
+          .maxMotion
+          .maxVelocity(params.getMaxVelocity())
+          .maxAcceleration(params.getMaxAccel())
+          .allowedClosedLoopError(params.getAllowedError());
+    }
     neoMotor.configure(config, kNoResetSafeParameters, kNoPersistParameters);
   }
 
