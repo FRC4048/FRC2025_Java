@@ -42,7 +42,6 @@ public class IntakeTillAlgae extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if (currentVelocity == 0) currentVelocity = hihiRoller.getRollerVelocity();
     if (timer.hasElapsed(Constants.HIHI_INTAKE_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
