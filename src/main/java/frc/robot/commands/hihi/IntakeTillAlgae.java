@@ -46,8 +46,7 @@ public class IntakeTillAlgae extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    if (currentVelocity > hihiRoller.getRollerVelocity()) validTicks++;
-    else validTicks = 0;
+    validTicks = currentVelocity > hihiRoller.getRollerVelocity() ? validTicks + 1 : 0;
     currentVelocity = hihiRoller.getRollerVelocity();
     return (validTicks > Constants.HIHI_ROLLER_MAX_TICKS)
         && (currentVelocity < Constants.HIHI_INTAKE_MIN_SPEED);
