@@ -16,7 +16,9 @@ public class SetElevatorStoredPosition extends LoggableCommand {
   public final LightStrip lightStrip;
 
   public SetElevatorStoredPosition(
-      ReefPosition storedElevatorHeight, ElevatorSubsystem elevatorSubsystem, LightStrip lightStrip) {
+      ReefPosition storedElevatorHeight,
+      ElevatorSubsystem elevatorSubsystem,
+      LightStrip lightStrip) {
     this.reefPosition = storedElevatorHeight;
     this.lightStrip = lightStrip;
     this.elevatorSubsystem = elevatorSubsystem;
@@ -26,16 +28,16 @@ public class SetElevatorStoredPosition extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(reefPosition == reefPosition.LEVEL0){
-      lightStrip.setPattern(BlinkinPattern.RED);
-    }else if(reefPosition == reefPosition.LEVEL1){
-      lightStrip.setPattern(BlinkinPattern.YELLOW);
-    }else if(reefPosition == reefPosition.LEVEL2){
-      lightStrip.setPattern(BlinkinPattern.GOLD);
-    }else if(reefPosition == reefPosition.LEVEL3){
-      lightStrip.setPattern(BlinkinPattern.RED_ORANGE);
-    }else{
+    if (reefPosition == reefPosition.LEVEL0) {
+      lightStrip.setPattern(BlinkinPattern.DARK_GREEN);
+    } else if (reefPosition == reefPosition.LEVEL1) {
+      lightStrip.setPattern(BlinkinPattern.BLUE_VIOLET);
+    } else if (reefPosition == reefPosition.LEVEL2) {
+      lightStrip.setPattern(BlinkinPattern.DARK_BLUE);
+    } else if (reefPosition == reefPosition.LEVEL3) {
       lightStrip.setPattern(BlinkinPattern.ORANGE);
+    } else {
+      lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
     }
     elevatorSubsystem.setStoredReefPosition(reefPosition);
   }

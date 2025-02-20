@@ -13,7 +13,7 @@ public class ScoreCoral extends LoggableSequentialCommandGroup {
   public ScoreCoral(
       CoralSubsystem coralSubsystem,
       ElevatorSubsystem elevatorSubsystem,
-      ReefPosition reefPosition, 
+      ReefPosition reefPosition,
       LightStrip lightStrip) {
     super(
         new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED),

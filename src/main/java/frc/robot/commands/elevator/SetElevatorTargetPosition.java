@@ -28,7 +28,6 @@ public class SetElevatorTargetPosition extends LoggableCommand {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
 
     double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.1);
 

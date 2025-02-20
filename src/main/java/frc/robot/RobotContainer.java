@@ -361,7 +361,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
-          new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem,lightStrip));
+          new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",

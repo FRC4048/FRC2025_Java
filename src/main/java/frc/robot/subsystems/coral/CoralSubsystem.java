@@ -6,8 +6,6 @@ package frc.robot.subsystems.coral;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.lightStrip.LightStrip;
-import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
@@ -40,9 +38,7 @@ public class CoralSubsystem extends SubsystemBase {
   public void periodic() {
     coralSystemLeader.updateInputs();
     coralSystemFollower.updateInputs();
-    if(coralSystemLeader.getInputs().getFwdLimit() == true){
-
-    }
+    if (coralSystemLeader.getInputs().getFwdLimit() == true) {}
   }
 
   public void setShooterSpeed(double speed) {
