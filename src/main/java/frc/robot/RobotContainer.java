@@ -153,7 +153,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
-    controller.leftTrigger().onTrue(new IntakeCoral(coralSubsystem));
+    controller.leftTrigger().onTrue(new IntakeCoral(coralSubsystem, Constants.INTAKE_MOTOR_SPEED));
     controller
         .povUp()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
@@ -304,7 +304,7 @@ public class RobotContainer {
     if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
-      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
+      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem, Constants.INTAKE_MOTOR_SPEED));
 
       SmartShuffleboard.putCommand(
           "Coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));

@@ -10,10 +10,12 @@ public class IntakeCoral extends LoggableCommand {
   private final CoralSubsystem intake;
   private final TimeoutLogger timoutCounter;
   private final Timer timer = new Timer();
+  private double speed;
 
-  public IntakeCoral(CoralSubsystem intake) {
+  public IntakeCoral(CoralSubsystem intake, double speed) {
     addRequirements(intake);
     this.intake = intake;
+    this.speed = speed;
     timoutCounter = new TimeoutLogger("Intake Coral");
   }
 
@@ -25,7 +27,7 @@ public class IntakeCoral extends LoggableCommand {
 
   @Override
   public void execute() {
-    intake.setShooterSpeed(Constants.INTAKE_MOTOR_SPEED);
+    intake.setShooterSpeed(speed);
   }
 
   @Override

@@ -6,13 +6,16 @@ package frc.robot.subsystems.coral;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIOLeader, MotorInputs> coralSystemLeader;
   private final LoggableSystem<CoralIOFollower, MotorInputs> coralSystemFollower;
+  private static final LoggedTunableNumber intakeSpeed = new LoggedTunableNumber("CoralSubsystem/IntakeSpeed", Constants.);
 
   /** Creates a new Shooter. */
   public CoralSubsystem(CoralIOFollower ioFollower, CoralIOLeader ioLeader) {
@@ -38,6 +41,9 @@ public class CoralSubsystem extends SubsystemBase {
   public void periodic() {
     coralSystemLeader.updateInputs();
     coralSystemFollower.updateInputs();
+    SmartShuffleboard.put("Coral", "ForwardTripped", getForwardSwitchState());
+    SmartShuffleboard.put("Coral", "EncoderPosition", getEncoderPosition());
+    SmartShuffleboard.put("Coral", "CurrentDraw", getCurrentDraw());
   }
 
   public void setShooterSpeed(double speed) {
@@ -59,5 +65,17 @@ public class CoralSubsystem extends SubsystemBase {
 
   public boolean getForwardSwitchState() {
     return coralSystemLeader.getInputs().getFwdLimit();
+  }
+
+  public double getEncoderPosition() {
+    return coralSystemLeader.getInputs().getEncoderPosition();
+  }
+
+  public double getCurrentDraw() {
+    return coralSystemLeader.getInputs().getMotorCurrent();
+  }
+
+  public void setShooterSpeedIntake() {
+    setShooterSpeed();
   }
 }

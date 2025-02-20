@@ -22,6 +22,7 @@ public class GameConstants {
   public static final boolean BYEBYE_DEBUG = true;
   public static final boolean COMMAND_DEBUG = true;
   public static final boolean INPUTS_DEBUG = true;
+  public static final boolean TUNING = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
