@@ -23,11 +23,7 @@ import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.elevator.ElevatorSpinMotors;
-import frc.robot.commands.elevator.ElevatorToStoredPosition;
-import frc.robot.commands.elevator.ResetElevator;
-import frc.robot.commands.elevator.SetElevatorStoredPosition;
-import frc.robot.commands.elevator.SetElevatorTargetPosition;
+import frc.robot.commands.elevator.*;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
@@ -346,6 +342,8 @@ public class RobotContainer {
           "Elevator",
           "SetElevatorSetpointTo0",
           new SetElevatorTargetPosition(() -> 0, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator", "RestElevatorEncoder", new ResetElevatorEncoder(elevatorSubsystem));
 
       SmartShuffleboard.putCommand(
           "Elevator", "Reset Elevator", new ResetElevator(elevatorSubsystem));
