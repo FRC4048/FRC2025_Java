@@ -31,6 +31,7 @@ import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
+import frc.robot.commands.hihi.IntakeTillAlgae;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
 import frc.robot.commands.hihi.ShootHiHiRollerOut;
@@ -330,6 +331,8 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "HiHi", "Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
+
+      SmartShuffleboard.putCommand("HiHi", "Intake Till Algae", new IntakeTillAlgae(hihiRoller));
     }
 
     if (Constants.BYEBYE_DEBUG) {

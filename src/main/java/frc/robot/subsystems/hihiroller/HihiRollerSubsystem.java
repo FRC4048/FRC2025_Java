@@ -27,6 +27,10 @@ public class HihiRollerSubsystem extends SubsystemBase {
     hihiRollerSystem.getIO().stopRollerMotor();
   }
 
+  public double getRollerVelocity() {
+    return hihiRollerSystem.getInputs().getEncoderVelocity();
+  }
+
   @Override
   public void periodic() {
     hihiRollerSystem.updateInputs();

@@ -42,6 +42,7 @@ public class GameConstants {
   public static final double HIHI_SHOOT_SPEED = -0.4;
   public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0.5;
+  public static final int HIHI_INTAKE_MIN_SPEED = 2000; // rpm
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -59,6 +60,7 @@ public class GameConstants {
   public static final double HIHI_RETRACT_TIMEOUT = 10;
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
+  public static final double HIHI_INTAKE_TIMEOUT = 10;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
@@ -151,4 +153,5 @@ public class GameConstants {
   public static final double HIHI_GEARING = 45.0; // TODO: change later
   public static final double HIHI_INERTIA = 1.0; // TODO: change later
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
+  public static final int HIHI_ROLLER_MAX_TICKS = 20;
 }
