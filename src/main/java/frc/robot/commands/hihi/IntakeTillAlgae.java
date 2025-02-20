@@ -10,7 +10,6 @@ import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class IntakeTillAlgae extends LoggableCommand {
   private final HihiRollerSubsystem hihiRoller;
   private final Timer timer;
@@ -25,7 +24,6 @@ public class IntakeTillAlgae extends LoggableCommand {
     addRequirements(hihiRoller);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     timer.reset();
@@ -34,17 +32,14 @@ public class IntakeTillAlgae extends LoggableCommand {
     validTicks = 0;
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     hihiRoller.stopHihiRollerMotor();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     if (currentVelocity == 0) currentVelocity = hihiRoller.getRollerVelocity();
