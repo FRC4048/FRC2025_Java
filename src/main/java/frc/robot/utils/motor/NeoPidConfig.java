@@ -6,8 +6,8 @@ public class NeoPidConfig {
   public static final double DEFAULT_D = 0.0;
   public static final double DEFAULT_IZONE = 0.0;
   public static final double DEFAULT_FF = 0.0;
-  public static final int MAX_VELOCITY = 5000;
-  public static final int MAX_ACCELERATION = 10000;
+  public static final double MAX_VELOCITY = 5000;
+  public static final double MAX_ACCELERATION = 10000;
   public static final double ALLOWED_ERROR = 1.0;
 
   private double p = DEFAULT_P;
@@ -15,10 +15,16 @@ public class NeoPidConfig {
   private double d = DEFAULT_D;
   private double iZone = DEFAULT_IZONE;
   private double ff = DEFAULT_FF;
-  private int currentLimit = 40;
+  private int neoCurrentLimit = 40;
+  private int neo550CurrentLimit = 20;
+  private int currentLimit;
   private double maxVelocity = MAX_VELOCITY;
   private double maxAccel = MAX_ACCELERATION;
   private double allowedError = ALLOWED_ERROR;
+
+  public NeoPidConfig(boolean is550) {
+    this.currentLimit = is550 ? neo550CurrentLimit : neoCurrentLimit;
+  }
 
   public NeoPidConfig setP(double p) {
     this.p = p;

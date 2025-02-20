@@ -15,10 +15,11 @@ public class PIDTunableConfig {
   private final LoggedTunableNumber PID_MAX_VEL;
   private final LoggedTunableNumber PID_MAX_ACCEL;
   private final LoggedTunableNumber PID_ALLOWED_ERROR;
+  private final boolean is550;
 
-  public PIDTunableConfig(String prefix, NeoPidConfig initConfig, PIDLoggableIO io) {
+  public PIDTunableConfig(String prefix, PIDLoggableIO io, boolean is550) {
     this.io = io;
-    this.initConfig = initConfig;
+    this.initConfig = io.getPIDConfig();
     this.prefix = prefix;
     PID_P = new LoggedTunableNumber(prefix + "/PID_P", initConfig.getP());
     PID_I = new LoggedTunableNumber(prefix + "/PID_I", initConfig.getI());
@@ -29,6 +30,7 @@ public class PIDTunableConfig {
     PID_MAX_ACCEL = new LoggedTunableNumber(prefix + "/PID_MAX_ACCEL", initConfig.getMaxAccel());
     PID_ALLOWED_ERROR =
         new LoggedTunableNumber(prefix + "/PID_ALLOWED_ERROR", initConfig.getAllowedError());
+    this.is550 = is550;
   }
 
   public void periodic() {
@@ -36,7 +38,7 @@ public class PIDTunableConfig {
         hashCode(),
         () ->
             io.configurePID(
-                new NeoPidConfig()
+                new NeoPidConfig(is550)
                     .setP(PID_P.get())
                     .setI(PID_I.get())
                     .setD(PID_D.get())

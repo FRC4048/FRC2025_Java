@@ -30,4 +30,9 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
 
   @Override
   public void updateInputs(PidMotorInputs inputs) {}
+
+  @Override
+  public NeoPidConfig getPIDConfig() {
+    return new NeoPidConfig(false);
+  }
 }

@@ -5,4 +5,6 @@ import frc.robot.utils.motor.NeoPidConfig;
 
 public interface PIDLoggableIO extends LoggableIO<PidMotorInputs> {
   void configurePID(NeoPidConfig pidConfig);
+
+  NeoPidConfig getPIDConfig();
 }

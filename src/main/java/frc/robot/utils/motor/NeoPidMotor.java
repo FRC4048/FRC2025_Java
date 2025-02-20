@@ -42,8 +42,8 @@ public class NeoPidMotor {
    *
    * @param id the CAN ID for the controller
    */
-  public NeoPidMotor(int id) {
-    this(id, new NeoPidConfig());
+  public NeoPidMotor(int id, boolean is550) {
+    this(id, new NeoPidConfig(is550));
   }
 
   public NeoPidMotor(int id, NeoPidConfig pidConfig) {

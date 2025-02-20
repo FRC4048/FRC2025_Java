@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
-import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.motor.PIDTunableConfig;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
@@ -20,7 +19,7 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   public HihiExtenderSubsystem(HihiExtenderIO io) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
     system = new LoggableSystem<>(io, inputs);
-    pidConfig = new PIDTunableConfig("HiHi", new NeoPidConfig(), io);
+    pidConfig = new PIDTunableConfig("HiHi", io, true);
   }
 
   @Override
