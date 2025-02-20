@@ -1,7 +1,6 @@
 package frc.robot.subsystems.hihiextender;
 
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.MotorName;
@@ -47,11 +46,6 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   @Override
   public void setExtenderPosition(double encoderPos) {
     extenderMotor.setPidPos(encoderPos);
-  }
-
-  @Override
-  public void updateInputs(MotorInputs inputs) {
-    inputs.process(inputProvider);
   }
 
   @Override

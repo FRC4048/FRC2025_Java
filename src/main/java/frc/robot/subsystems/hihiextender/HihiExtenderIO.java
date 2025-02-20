@@ -5,7 +5,7 @@
 package frc.robot.subsystems.hihiextender;
 
 import frc.robot.utils.logging.PIDLoggableIO;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.motor.NeoPidConfig;
 
 public interface HihiExtenderIO extends PIDLoggableIO {
@@ -17,7 +17,7 @@ public interface HihiExtenderIO extends PIDLoggableIO {
 
   void setExtenderPosition(double encoderPos);
 
-  void updateInputs(MotorInputs inputs);
+  void updateInputs(PidMotorInputs inputs);
 
   NeoPidConfig getPIDConfig();
 }
