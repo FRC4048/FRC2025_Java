@@ -19,9 +19,13 @@ public class TunablePIDManager {
   private final boolean usesMaxMotion;
 
   public TunablePIDManager(
-      String prefix, PIDLoggableIO io, MotorName motorName, boolean usesMaxMotion) {
+      String prefix,
+      PIDLoggableIO io,
+      NeoPidConfig initConfig,
+      MotorName motorName,
+      boolean usesMaxMotion) {
     this.io = io;
-    this.initConfig = io.getPIDConfig();
+    this.initConfig = initConfig;
     this.prefix = prefix;
     kPTunable = new LoggedTunableNumber(prefix + "/PID_P", initConfig.getP());
     kITunable = new LoggedTunableNumber(prefix + "/PID_I", initConfig.getI());

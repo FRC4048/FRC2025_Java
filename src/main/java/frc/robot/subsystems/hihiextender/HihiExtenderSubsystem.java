@@ -20,7 +20,7 @@ public class HihiExtenderSubsystem extends SubsystemBase {
   public HihiExtenderSubsystem(HihiExtenderIO io) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
     system = new LoggableSystem<>(io, inputs);
-    pidConfig = new TunablePIDManager("HiHi", io, MotorName.Neo550, true);
+    pidConfig = new TunablePIDManager("HiHi", io, io.getPIDConfig(), MotorName.Neo550, true);
   }
 
   @Override
