@@ -42,8 +42,8 @@ public class NeoPidMotor {
    *
    * @param id the CAN ID for the controller
    */
-  public NeoPidMotor(int id, MotorName motorName, boolean usesMaxMotion) {
-    this(id, new NeoPidConfig(motorName, usesMaxMotion));
+  public NeoPidMotor(int id, boolean usesMaxMotion) {
+    this(id, new NeoPidConfig(usesMaxMotion));
   }
 
   public NeoPidMotor(int id, NeoPidConfig pidConfig) {

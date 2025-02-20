@@ -3,7 +3,6 @@ package frc.robot.subsystems.elevator;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
-import frc.robot.utils.motor.MotorName;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealElevatorIO implements ElevatorIO {
@@ -12,8 +11,7 @@ public class RealElevatorIO implements ElevatorIO {
 
   public RealElevatorIO() {
     this.elevatorMotor =
-        new NeoPidMotor(
-            Constants.ELEVATOR_MOTOR_ID, MotorName.Neo, Constants.ELEVATOR_USE_MAX_MOTION);
+        new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID, Constants.ELEVATOR_USE_MAX_MOTION);
     this.inputProvider = new NeoPidMotorInputProvider(elevatorMotor);
   }
 

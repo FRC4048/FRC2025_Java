@@ -21,8 +21,7 @@ public class NeoPidConfig {
   private double allowedError = ALLOWED_ERROR;
   private boolean usesMaxMotion;
 
-  public NeoPidConfig(MotorName motorName, boolean usesMaxMotion) {
-    this.currentLimit = motorName.getCurrentLimit();
+  public NeoPidConfig(boolean usesMaxMotion) {
     this.usesMaxMotion = usesMaxMotion;
   }
 
