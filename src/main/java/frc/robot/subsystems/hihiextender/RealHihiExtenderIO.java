@@ -4,6 +4,7 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
+import frc.robot.utils.motor.MotorName;
 import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.motor.NeoPidMotor;
 
@@ -14,7 +15,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
 
   public RealHihiExtenderIO() {
     this.initConfig =
-        new NeoPidConfig(true)
+        new NeoPidConfig(MotorName.Neo550, true)
             .setP(Constants.HIHI_PID_P)
             .setI(Constants.HIHI_PID_I)
             .setD(Constants.HIHI_PID_D)
@@ -23,7 +24,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
             .setMaxVelocity(Constants.HIHI_PID_MAX_VEL)
             .setMaxAccel(Constants.HIHI_PID_MAX_ACC)
             .setAllowedError(Constants.HIHI_PID_ALLOWED_ERROR);
-    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, new NeoPidConfig(true));
+    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, initConfig);
     inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
   }

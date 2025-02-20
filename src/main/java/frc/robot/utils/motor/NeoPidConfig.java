@@ -15,15 +15,15 @@ public class NeoPidConfig {
   private double d = DEFAULT_D;
   private double iZone = DEFAULT_IZONE;
   private double ff = DEFAULT_FF;
-  private int neoCurrentLimit = 40;
-  private int neo550CurrentLimit = 20;
   private int currentLimit;
   private double maxVelocity = MAX_VELOCITY;
   private double maxAccel = MAX_ACCELERATION;
   private double allowedError = ALLOWED_ERROR;
+  private boolean usesMaxMotion;
 
-  public NeoPidConfig(boolean is550) {
-    this.currentLimit = is550 ? neo550CurrentLimit : neoCurrentLimit;
+  public NeoPidConfig(MotorName motorName, boolean usesMaxMotion) {
+    this.currentLimit = motorName.getCurrentLimit();
+    this.usesMaxMotion = usesMaxMotion;
   }
 
   public NeoPidConfig setP(double p) {
@@ -105,5 +105,9 @@ public class NeoPidConfig {
 
   public double getAllowedError() {
     return allowedError;
+  }
+
+  public boolean getUsesMaxMotion() {
+    return usesMaxMotion;
   }
 }

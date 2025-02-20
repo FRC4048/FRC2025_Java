@@ -42,8 +42,8 @@ public class NeoPidMotor {
    *
    * @param id the CAN ID for the controller
    */
-  public NeoPidMotor(int id, boolean is550) {
-    this(id, new NeoPidConfig(is550));
+  public NeoPidMotor(int id, MotorName motorName, boolean usesMaxMotion) {
+    this(id, new NeoPidConfig(motorName, usesMaxMotion));
   }
 
   public NeoPidMotor(int id, NeoPidConfig pidConfig) {
@@ -62,12 +62,17 @@ public class NeoPidMotor {
         .pid(pidConfig.getP(), pidConfig.getI(), pidConfig.getD())
         .velocityFF(pidConfig.getFF())
         .iZone(pidConfig.getIZone())
-        .outputRange(-1, 1)
-        .maxMotion
-        .maxVelocity(pidConfig.getMaxVelocity())
-        .maxAcceleration(pidConfig.getMaxAccel())
-        .positionMode(kMAXMotionTrapezoidal)
-        .allowedClosedLoopError(pidConfig.getAllowedError());
+        .outputRange(-1, 1);
+    if (pidConfig.getUsesMaxMotion()) {
+      config
+          .closedLoop
+          .maxMotion
+          .maxVelocity(pidConfig.getMaxVelocity())
+          .maxAcceleration(pidConfig.getMaxAccel())
+          .positionMode(kMAXMotionTrapezoidal)
+          .allowedClosedLoopError(pidConfig.getAllowedError());
+    }
+
     config
         .limitSwitch
         .forwardLimitSwitchEnabled(true)
