@@ -13,11 +13,15 @@ public class GameConstants {
   public static final int XBOX_CONTROLLER_ID = 2;
 
   // Debug
-  public static final boolean SWERVE_DEBUG = false;
-  public static final boolean INTAKE_DEBUG = false;
-  public static final boolean CLIMBER_DEBUG = false;
+  public static final boolean SWERVE_DEBUG = true;
+  public static final boolean INTAKE_DEBUG = true;
+  public static final boolean CLIMBER_DEBUG = true;
+  public static final boolean ELEVATOR_DEBUG = true;
+  public static final boolean CORAL_DEBUG = true;
+  public static final boolean HIHI_DEBUG = true;
+  public static final boolean BYEBYE_DEBUG = true;
   public static final boolean COMMAND_DEBUG = true;
-  public static final boolean INPUTS_DEBUG = false;
+  public static final boolean INPUTS_DEBUG = true;
   public static final boolean TUNING = true;
 
   // Speeds
@@ -38,7 +42,7 @@ public class GameConstants {
   public static final double HIHI_INTAKE_SPEED = 0.4;
   public static final double HIHI_SHOOT_SPEED = -0.4;
   public static final double CLIMBER_SPEED = 0.5;
-  public static final double CLIMBER_RISE_SPEED = 0;
+  public static final double CLIMBER_RISE_SPEED = 0.5;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -122,16 +126,16 @@ public class GameConstants {
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros
-  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
-  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later
-  public static final double BACK_LEFT_ABS_ENCODER_ZERO = -0.031; // TODO: change later
-  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.3974; // TODO: change later
+  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.306885; // TODO: change later
+  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = -0.059082; // TODO: change later
+  public static final double BACK_LEFT_ABS_ENCODER_ZERO = 0.379150; // TODO: change later
+  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.100586; // TODO: change later
 
   // Drivetrain
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
   public static final double ROBOT_WIDTH = 0.8636; // TODO: change later
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
-  public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later
+  public static final double MAX_VELOCITY = 3.81; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
 
   // Other
@@ -144,7 +148,7 @@ public class GameConstants {
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
-      SwerveModuleProfileV2.MK4; // TODO: change later
+      SwerveModuleProfileV2.MK4I; // TODO: change later
   public static final double HIHI_GEARING = 45.0; // TODO: change later
   public static final double HIHI_INERTIA = 1.0; // TODO: change later
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
