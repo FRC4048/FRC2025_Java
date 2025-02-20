@@ -4,10 +4,10 @@
 
 package frc.robot.subsystems.hihiextender;
 
-import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.PIDLoggableIO;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
-public interface HihiExtenderIO extends LoggableIO<MotorInputs> {
+public interface HihiExtenderIO extends PIDLoggableIO {
   void stopHihiExtenderMotor();
 
   void setHihiExtenderSpeed(double speed);
@@ -15,4 +15,6 @@ public interface HihiExtenderIO extends LoggableIO<MotorInputs> {
   void resetExtenderEncoder();
 
   void setExtenderPosition(double encoderPos);
+
+  void updateInputs(MotorInputs inputs);
 }

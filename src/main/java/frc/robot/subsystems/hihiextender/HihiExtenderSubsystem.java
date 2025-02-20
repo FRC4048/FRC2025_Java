@@ -5,21 +5,36 @@
 package frc.robot.subsystems.hihiextender;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
+import frc.robot.utils.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.motor.NeoPidConfig;
+import frc.robot.utils.motor.PIDTunableConfig;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
-  private final LoggableSystem<HihiExtenderIO, MotorInputs> system;
+  private final LoggableSystem<HihiExtenderIO, PidMotorInputs> system;
+
+  private static final LoggedTunableNumber PID_P =
+      new LoggedTunableNumber("HiHi/PID_P", Constants.HIHI_PID_P);
+  private static final LoggedTunableNumber PID_I =
+      new LoggedTunableNumber("HiHi/PID_I", Constants.HIHI_PID_I);
+  private static final LoggedTunableNumber PID_D =
+      new LoggedTunableNumber("HiHi/PID_D", Constants.HIHI_PID_D);
+
+  private final PIDTunableConfig pidConfig;
 
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
-    MotorInputs inputs = new MotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
+    PidMotorInputs inputs = new PidMotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
     system = new LoggableSystem<>(io, inputs);
+    pidConfig = new PIDTunableConfig("HiHi", new NeoPidConfig(), io, PID_P, PID_I, PID_D);
   }
 
   @Override
   public void periodic() {
+    pidConfig.periodic();
     system.updateInputs();
   }
 

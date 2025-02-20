@@ -5,6 +5,8 @@
 package frc.robot.subsystems.hihiextender;
 
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.motor.NeoPidConfig;
 
 public class MockHihiExtenderIO implements HihiExtenderIO {
 
@@ -22,4 +24,10 @@ public class MockHihiExtenderIO implements HihiExtenderIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {}
+
+  @Override
+  public void configurePID(NeoPidConfig pidConfig) {}
+
+  @Override
+  public void updateInputs(PidMotorInputs inputs) {}
 }

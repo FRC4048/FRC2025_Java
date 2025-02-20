@@ -1,34 +1,18 @@
 package frc.robot.subsystems.hihiextender;
 
 import frc.robot.constants.Constants;
-import frc.robot.utils.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.motor.NeoPidMotor;
-import org.littletonrobotics.junction.Logger;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
   protected final NeoPidMotor extenderMotor;
   private final NeoPidMotorInputProvider inputProvider;
-  private static final LoggedTunableNumber PID_P =
-      new LoggedTunableNumber("HiHi/PID_P", Constants.HIHI_PID_P);
-  private static final LoggedTunableNumber PID_I =
-      new LoggedTunableNumber("HiHi/PID_I", Constants.HIHI_PID_I);
-  private static final LoggedTunableNumber PID_D =
-      new LoggedTunableNumber("HiHi/PID_D", Constants.HIHI_PID_D);
 
   public RealHihiExtenderIO() {
-    this.extenderMotor =
-        new NeoPidMotor(
-            new NeoPidConfig()
-                .setId(Constants.ALGAE_EXTENDER_MOTOR_ID)
-                .setCurrentLimit(Constants.NEO_CURRENT_LIMIT)
-                .setP(PID_P.get())
-                .setI(PID_I.get())
-                .setD(PID_D.get()));
+    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, new NeoPidConfig());
     inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
   }
@@ -55,8 +39,16 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
 
   @Override
   public void updateInputs(MotorInputs inputs) {
-    LoggedTunableNumber.ifChanged(hashCode(), ()-> extenderMotor.setPid(PID_P.get(), PID_I.get(), PID_D.get()), PID_P, PID_I, PID_D);
-    Logger.recordOutput("HiHi/PID_D", PID_D.get());
+    inputs.process(inputProvider);
+  }
+
+  @Override
+  public void configurePID(NeoPidConfig pidConfig) {
+    extenderMotor.configurePID(pidConfig);
+  }
+
+  @Override
+  public void updateInputs(PidMotorInputs inputs) {
     inputs.process(inputProvider);
   }
 }
