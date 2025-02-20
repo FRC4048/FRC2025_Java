@@ -26,7 +26,7 @@ public class IntakeTillAlgae extends LoggableCommand {
 
   @Override
   public void initialize() {
-    timer.reset();
+    timer.restart();
     currentVelocity = 0;
     hihiRoller.setRollerMotorSpeed(Constants.HIHI_INTAKE_SPEED);
     validTicks = 0;
@@ -46,13 +46,10 @@ public class IntakeTillAlgae extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    if (currentVelocity > hihiRoller.getRollerVelocity()) {
-      currentVelocity = hihiRoller.getRollerVelocity();
-      validTicks++;
-      return (validTicks > Constants.HIHI_ROLLER_MAX_TICKS)
-          && (currentVelocity < Constants.HIHI_INTAKE_MIN_SPEED);
-    }
+    if (currentVelocity > hihiRoller.getRollerVelocity()) validTicks++;
+    else validTicks = 0;
     currentVelocity = hihiRoller.getRollerVelocity();
-    return false;
+    return (validTicks > Constants.HIHI_ROLLER_MAX_TICKS)
+        && (currentVelocity < Constants.HIHI_INTAKE_MIN_SPEED);
   }
 }
