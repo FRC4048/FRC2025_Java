@@ -21,7 +21,7 @@ public class ElevatorSubsystem extends SubsystemBase {
   private final LoggedTunableNumber maxVelocity =
       new LoggedTunableNumber("ElevatorSubsystem/maxVelocity", 3000);
   private final LoggedTunableNumber maxAcceleration =
-      new LoggedTunableNumber("ElevatorSubsystem/maxAcceleration", 35000);
+      new LoggedTunableNumber("ElevatorSubsystem/maxAcceleration", 30000);
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
@@ -98,5 +98,10 @@ public class ElevatorSubsystem extends SubsystemBase {
         maxVelocity,
         maxAcceleration,
         iZone);
+    Logger.recordOutput(
+        "ElevatorErrorTimesP",
+        (elevatorSystem.getInputs().getPidSetpoint()
+                - elevatorSystem.getInputs().getEncoderPosition())
+            * kP.get());
   }
 }

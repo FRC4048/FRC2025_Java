@@ -4,14 +4,10 @@ import static com.revrobotics.spark.SparkBase.PersistMode.kNoPersistParameters;
 import static com.revrobotics.spark.SparkBase.PersistMode.kPersistParameters;
 import static com.revrobotics.spark.SparkBase.ResetMode.kNoResetSafeParameters;
 import static com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters;
-import static com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode.kMAXMotionTrapezoidal;
 import static com.revrobotics.spark.config.SparkBaseConfig.IdleMode.kBrake;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkLowLevel;
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.*;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -36,6 +32,7 @@ public class NeoPidMotor {
 
   // The neo motor controller
   private final SparkMax neoMotor;
+  private final NeoPidConfig pidConfig; //if using arbff we need to keep track of pidConfig
   // The built-in relative encoder
   private final RelativeEncoder encoder;
   // The built-in PID controller
@@ -55,6 +52,7 @@ public class NeoPidMotor {
 
   public NeoPidMotor(NeoPidConfig pidConfig) {
     neoMotor = new SparkMax(pidConfig.getId(), SparkLowLevel.MotorType.kBrushless);
+    this.pidConfig = pidConfig;
     encoder = neoMotor.getEncoder();
 
     pidController = neoMotor.getClosedLoopController();
@@ -73,8 +71,8 @@ public class NeoPidMotor {
         .maxMotion
         .maxVelocity(MAX_VELOCITY)
         .maxAcceleration(MAX_ACCELERATION)
-        .positionMode(kMAXMotionTrapezoidal)
         .allowedClosedLoopError(ALLOWED_ERROR);
+
     config
         .limitSwitch
         .forwardLimitSwitchEnabled(true)
