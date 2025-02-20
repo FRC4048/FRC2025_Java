@@ -7,8 +7,8 @@ public class Constants2025 extends GameConstants {
   public static final int ELEVATOR_MOTOR_ID = 35;
 
   // Coral Shooter
-  public static final int SHOOTER_MOTOR_LEADER_ID = 8;
-  public static final int SHOOTER_MOTOR_FOLLOWER_ID = 53;
+  public static final int SHOOTER_MOTOR_LEADER_ID = 53;
+  public static final int SHOOTER_MOTOR_FOLLOWER_ID = 8;
 
   // Algae Roller
   public static final int ALGAE_ROLLER_CAN_ID = 2;

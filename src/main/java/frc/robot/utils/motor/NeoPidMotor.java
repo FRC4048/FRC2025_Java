@@ -32,7 +32,7 @@ public class NeoPidMotor {
 
   // The neo motor controller
   private final SparkMax neoMotor;
-  private final NeoPidConfig pidConfig; //if using arbff we need to keep track of pidConfig
+  private final NeoPidConfig pidConfig; // if using arbff we need to keep track of pidConfig
   // The built-in relative encoder
   private final RelativeEncoder encoder;
   // The built-in PID controller
