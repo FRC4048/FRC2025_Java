@@ -396,5 +396,13 @@ public class RobotContainer {
         new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
     SmartShuffleboard.putCommand(
         "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
+    SmartShuffleboard.putCommand(
+        "DEBUG",
+        "ElevatorToPositionL4",
+        new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL4));
+    SmartShuffleboard.putCommand(
+        "DEBUG",
+        "ElevatorToPositionL1",
+        new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL1));
   }
 }
