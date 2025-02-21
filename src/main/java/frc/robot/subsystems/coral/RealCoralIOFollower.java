@@ -26,7 +26,7 @@ public class RealCoralIOFollower implements CoralIOFollower {
     coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(true));
     coralConfig.idleMode(IdleMode.kBrake);
     coralConfig.smartCurrentLimit(Constants.NEO_CURRENT_LIMIT);
-    coralConfig.follow(Constants.SHOOTER_MOTOR_LEADER_ID);
+    coralConfig.follow(Constants.SHOOTER_MOTOR_LEADER_ID, true);
     shooterMotorFollower.configure(
         coralConfig,
         SparkBase.ResetMode.kResetSafeParameters,
