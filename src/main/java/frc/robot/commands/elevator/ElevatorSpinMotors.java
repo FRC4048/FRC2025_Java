@@ -48,6 +48,6 @@ public class ElevatorSpinMotors extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (elevator.getEncoderValue() >= Constants.ENCODER_THRESHHOLD_ELEVATOR);
+    return (elevator.getEncoderValue() >= Constants.ELEVATOR_SPIN_MAX_ENCODER);
   }
 }

@@ -32,7 +32,10 @@ public class IntakeTillAlgae extends LoggableCommand {
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    validTicks = lastVelocity > hihiRoller.getRollerEncoderVelocity() ? validTicks + 1 : validTicks;
+    lastVelocity = hihiRoller.getRollerEncoderVelocity();
+  }
 
   @Override
   public void end(boolean interrupted) {
@@ -45,8 +48,6 @@ public class IntakeTillAlgae extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    validTicks = lastVelocity > hihiRoller.getRollerEncoderVelocity() ? validTicks + 1 : validTicks;
-    lastVelocity = hihiRoller.getRollerEncoderVelocity();
     return ((validTicks > Constants.MAX_VALID_TICKS_INTAKE)
         && lastVelocity < Constants.MIN_HIHI_INTAKE_VELOCITY);
   }
