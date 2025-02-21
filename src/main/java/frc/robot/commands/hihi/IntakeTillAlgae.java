@@ -33,7 +33,7 @@ public class IntakeTillAlgae extends LoggableCommand {
 
   @Override
   public void execute() {
-    validTicks = lastVelocity > hihiRoller.getRollerEncoderVelocity() ? validTicks + 1 : validTicks;
+    validTicks = lastVelocity > hihiRoller.getRollerEncoderVelocity() ? validTicks + 1 : 0;
     lastVelocity = hihiRoller.getRollerEncoderVelocity();
   }
 
