@@ -11,12 +11,12 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class WaitTillElevatorAtPosition extends LoggableCommand {
   private final ElevatorSubsystem elevator;
-  private final ReefPosition desiredPosition;
+  private final double position;
   private int validTicks;
 
-  public WaitTillElevatorAtPosition(ElevatorSubsystem elevator, ReefPosition desiredPosition) {
+  public WaitTillElevatorAtPosition(ElevatorSubsystem elevator, double position) {
     this.elevator = elevator;
-    this.desiredPosition = desiredPosition;
+    this.position = position;
   }
 
   @Override
@@ -26,7 +26,7 @@ public class WaitTillElevatorAtPosition extends LoggableCommand {
 
   @Override
   public void execute() {
-    validTicks = Math.abs((elevator.getElevatorPosition() - desiredPosition.getElevatorHeight())) < Constants.ELEVATOR_ENCODER_THRESHHOLD ? validTicks + 1 : 0;
+    validTicks = Math.abs((elevator.getElevatorPosition() - position)) < Constants.ELEVATOR_ENCODER_THRESHHOLD ? validTicks + 1 : 0;
   }
 
   @Override

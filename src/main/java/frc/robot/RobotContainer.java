@@ -348,10 +348,6 @@ public class RobotContainer {
     if (Constants.ELEVATOR_DEBUG) {
       // Elevator Commands
       SmartShuffleboard.putCommand(
-          "Elevator", "Spin Elevator Motor up", new ElevatorSpinMotors(elevatorSubsystem, -0.2));
-      SmartShuffleboard.putCommand(
-          "Elevator", "Spin Elevator Motor Down", new ElevatorSpinMotors(elevatorSubsystem, 0.2));
-      SmartShuffleboard.putCommand(
           "Elevator",
           "SetElevatorSetpointTo0",
           new SetElevatorTargetPosition(() -> 0, elevatorSubsystem));

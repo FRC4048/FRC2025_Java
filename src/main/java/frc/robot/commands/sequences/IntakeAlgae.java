@@ -9,15 +9,15 @@ import frc.robot.commands.hihi.IntakeTillAlgae;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
-import frc.robot.utils.logging.commands.LoggableDeadlineCommandGroup;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 public class IntakeAlgae extends LoggableSequentialCommandGroup {
 
   public IntakeAlgae(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
     super(
-        new LoggableDeadlineCommandGroup(
-            new IntakeTillAlgae(hihiRoller), new ExtendHiHi(hihiExtender)),
-        new RetractHiHi(hihiExtender));
+      new ExtendHiHi(hihiExtender),
+      new IntakeTillAlgae(hihiRoller),
+      new RetractHiHi(hihiExtender)
+    );
   }
 }
