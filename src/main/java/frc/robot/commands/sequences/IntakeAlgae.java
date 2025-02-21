@@ -5,14 +5,19 @@
 package frc.robot.commands.sequences;
 
 import frc.robot.commands.hihi.ExtendHiHi;
-import frc.robot.commands.hihi.RollHiHiRollerIn;
+import frc.robot.commands.hihi.IntakeTillAlgae;
+import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
-import frc.robot.utils.logging.commands.LoggableParallelCommandGroup;
+import frc.robot.utils.logging.commands.LoggableDeadlineCommandGroup;
+import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
-public class IntakeAlgae extends LoggableParallelCommandGroup {
+public class IntakeAlgae extends LoggableSequentialCommandGroup {
 
   public IntakeAlgae(HihiExtenderSubsystem hihiExtender, HihiRollerSubsystem hihiRoller) {
-    super(new ExtendHiHi(hihiExtender), new RollHiHiRollerIn(hihiRoller));
+    super(
+        new LoggableDeadlineCommandGroup(
+            new IntakeTillAlgae(hihiRoller), new ExtendHiHi(hihiExtender)),
+        new RetractHiHi(hihiExtender));
   }
 }
