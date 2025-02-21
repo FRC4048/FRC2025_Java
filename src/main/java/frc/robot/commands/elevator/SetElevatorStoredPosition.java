@@ -29,27 +29,25 @@ public class SetElevatorStoredPosition extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    switch(reefPosition){
+    switch (reefPosition) {
       case LEVEL0:
-        lightStrip.setPattern(BlinkinPattern.DARK_GREEN);  
+        lightStrip.setPattern(BlinkinPattern.DARK_GREEN);
         break;
       case LEVEL1:
-        lightStrip.setPattern(BlinkinPattern.BLUE_VIOLET);  
+        lightStrip.setPattern(BlinkinPattern.BLUE_VIOLET);
         break;
       case LEVEL2:
-      lightStrip.setPattern(BlinkinPattern.DARK_BLUE);  
-      break;
+        lightStrip.setPattern(BlinkinPattern.DARK_BLUE);
+        break;
       case LEVEL3:
-      lightStrip.setPattern(BlinkinPattern.ORANGE); 
-      break;
+        lightStrip.setPattern(BlinkinPattern.ORANGE);
+        break;
       case LEVEL4:
-      lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);  
-      break;
+        lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
+        break;
       default:
         break;
-
-
-        }    
+    }
     elevatorSubsystem.setStoredReefPosition(reefPosition);
   }
 
