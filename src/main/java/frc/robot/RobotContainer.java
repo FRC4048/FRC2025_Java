@@ -399,18 +399,18 @@ public class RobotContainer {
     SmartShuffleboard.putCommand(
         "DEBUG",
         "ElevatorToPositionL4",
-        new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL4));
+        new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL4));
     SmartShuffleboard.putCommand(
         "DEBUG",
         "ElevatorToPositionL4",
-        new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL3));
+        new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL3));
     SmartShuffleboard.putCommand(
         "DEBUG",
         "ElevatorToPositionL4",
-        new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL2));
+        new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL2));
     SmartShuffleboard.putCommand(
         "DEBUG",
         "ElevatorToPositionL1",
-        new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL1));
+        new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL1));
   }
 }

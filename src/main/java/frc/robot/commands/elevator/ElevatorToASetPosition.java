@@ -5,11 +5,11 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 
-public class ElevatorToPosition extends LoggableCommand {
+public class ElevatorToASetPosition extends LoggableCommand {
   private final ElevatorSubsystem elevator;
   private final ReefPosition reefPosition;
 
-  public ElevatorToPosition(ElevatorSubsystem elevator, ReefPosition reefPosition) {
+  public ElevatorToASetPosition(ElevatorSubsystem elevator, ReefPosition reefPosition) {
     this.reefPosition = reefPosition;
     this.elevator = elevator;
     addRequirements(elevator);
