@@ -20,16 +20,10 @@ import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.climber.CloseClimber;
-import frc.robot.commands.climber.ResetClimber;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.elevator.ElevatorSpinMotors;
-import frc.robot.commands.elevator.ElevatorToStoredPosition;
-import frc.robot.commands.elevator.ResetElevator;
-import frc.robot.commands.elevator.SetElevatorStoredPosition;
-import frc.robot.commands.elevator.SetElevatorTargetPosition;
+import frc.robot.commands.elevator.*;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
@@ -48,10 +42,6 @@ import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.SimAlgaeByeByeTiltIO;
-import frc.robot.subsystems.climber.ClimberSubsystem;
-import frc.robot.subsystems.climber.MockClimberIO;
-import frc.robot.subsystems.climber.RealClimberIO;
-import frc.robot.subsystems.climber.SimClimberIO;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIOFollower;
 import frc.robot.subsystems.coral.MockCoralIOLeader;
@@ -102,7 +92,7 @@ public class RobotContainer {
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
-  private final ClimberSubsystem climber;
+  //  private final ClimberSubsystem climber;
   private final LightStrip lightStrip;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
@@ -116,7 +106,7 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         coralSubsystem = new CoralSubsystem(new RealCoralIOFollower(), new RealCoralIOLeader());
-        climber = new ClimberSubsystem(new RealClimberIO());
+        //                climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new RealLightStripIO());
@@ -126,7 +116,7 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
-        climber = new ClimberSubsystem(new MockClimberIO());
+        //                climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new MockLightStripIO());
@@ -136,7 +126,7 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
-        climber = new ClimberSubsystem(new SimClimberIO());
+        //        climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new SimAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
         lightStrip = new LightStrip(new MockLightStripIO());
@@ -181,8 +171,8 @@ public class RobotContainer {
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
-      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
+      //      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
+      //      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
       SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
   }
@@ -351,7 +341,15 @@ public class RobotContainer {
     if (Constants.ELEVATOR_DEBUG) {
       // Elevator Commands
       SmartShuffleboard.putCommand(
-          "Elevator", "Spin Elevator Motors", new ElevatorSpinMotors(elevatorSubsystem));
+          "Elevator", "Spin Elevator Motor up", new ElevatorSpinMotors(elevatorSubsystem, -0.2));
+      SmartShuffleboard.putCommand(
+          "Elevator", "Spin Elevator Motor Down", new ElevatorSpinMotors(elevatorSubsystem, 0.2));
+      SmartShuffleboard.putCommand(
+          "Elevator",
+          "SetElevatorSetpointTo0",
+          new SetElevatorTargetPosition(() -> 0, elevatorSubsystem));
+      SmartShuffleboard.putCommand(
+          "Elevator", "RestElevatorEncoder", new ResetElevatorEncoder(elevatorSubsystem));
 
       SmartShuffleboard.putCommand(
           "Elevator", "Reset Elevator", new ResetElevator(elevatorSubsystem));
@@ -384,9 +382,9 @@ public class RobotContainer {
     if (Constants.CLIMBER_DEBUG) {
       // Climber Commands
 
-      SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
-
-      SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
+      //      SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
+      //
+      //      SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
     }
 
     SmartShuffleboard.putCommand(

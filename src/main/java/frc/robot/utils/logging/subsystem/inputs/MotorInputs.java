@@ -12,6 +12,7 @@ public class MotorInputs extends FolderInputs {
   private Double encoderVelocity;
   private Double motorCurrent;
   private Double motorTemperature;
+  private Double appliedOutput;
   private Boolean fwdLimit;
   private Boolean revLimit;
   private final MotorInputBuilder<?> builder;
@@ -24,6 +25,7 @@ public class MotorInputs extends FolderInputs {
     this.motorTemperature = builder.isLogMotorTemperature() ? 0.0 : null;
     this.fwdLimit = builder.isLogFwdLimit() ? false : null;
     this.revLimit = builder.isLogRevLimit() ? false : null;
+    this.appliedOutput = builder.isLogAppliedOutput() ? 0.0 : null;
     this.builder = builder;
   }
 
@@ -48,6 +50,9 @@ public class MotorInputs extends FolderInputs {
     if (builder.isLogRevLimit()) {
       table.put("revLimit", revLimit);
     }
+    if (builder.isLogAppliedOutput()) {
+      table.put("appliedOutput", appliedOutput);
+    }
   }
 
   @Override
@@ -71,6 +76,9 @@ public class MotorInputs extends FolderInputs {
     if (builder.isLogRevLimit()) {
       revLimit = table.get("revLimit", revLimit);
     }
+    if (builder.isLogAppliedOutput()) {
+      appliedOutput = table.get("appliedOutput", appliedOutput);
+    }
   }
 
   @Override
@@ -93,6 +101,9 @@ public class MotorInputs extends FolderInputs {
       }
       if (builder.isLogRevLimit()) {
         revLimit = motorinputProvider.getRevLimit();
+      }
+      if (builder.isLogAppliedOutput()) {
+        appliedOutput = motorinputProvider.getAppliedOutput();
       }
       return true;
     } else {
@@ -123,5 +134,9 @@ public class MotorInputs extends FolderInputs {
 
   public Boolean getRevLimit() {
     return revLimit;
+  }
+
+  public Double getAppliedOutput() {
+    return appliedOutput;
   }
 }
