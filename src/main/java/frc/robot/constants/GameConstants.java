@@ -22,7 +22,7 @@ public class GameConstants {
   public static final boolean BYEBYE_DEBUG = true;
   public static final boolean COMMAND_DEBUG = true;
   public static final boolean INPUTS_DEBUG = true;
-  public static final boolean TUNING = true;
+  public static final boolean TUNING_MODE = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -38,11 +38,12 @@ public class GameConstants {
   public static final double INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.5;
   public static final double HIHI_EXTEND_SPEED = 0.4;
-  public static final double HIHI_RETRACT_SPEED = -0.4;
+  public static final double HIHI_RETRACT_SPEED = -0.15;
   public static final double HIHI_INTAKE_SPEED = 0.4;
-  public static final double HIHI_SHOOT_SPEED = -0.4;
+  public static final double HIHI_SHOOT_SPEED = -0.9;
   public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0.5;
+  public static final double HIHI_INTAKE_BASE_VELOCITY = 3500.0;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -74,6 +75,7 @@ public class GameConstants {
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final int ELEVATOR_MIN_WINDOW = 1; // TODO: change later
   public static final int ELEVATOR_MAX_WINDOW = 1; // TODO: change later
+  public static final int HIHI_EXTENDER_TICK_LIMIT = 20;
 
   // Mode
   public static final Mode simMode = Mode.SIM;
@@ -94,6 +96,21 @@ public class GameConstants {
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
   public static final int NEO_CURRENT_LIMIT = 20;
+  public static final int HIHI_CURRENT_LIMIT = 10;
+
+  // HiHi PID
+  public static final double HIHI_PID_P = 0.03; // 0.08 with max motion
+  public static final double HIHI_PID_I = 0;
+  public static final double HIHI_PID_D = 0;
+  public static final double HIHI_PID_I_ZONE = 0;
+  public static final double HIHI_PID_FF = 0;
+  public static final double HIHI_PID_MAX_VEL = 3000;
+  public static final double HIHI_PID_MAX_ACC = 2500;
+  public static final double HIHI_PID_ALLOWED_ERROR = 0.1;
+  public static final boolean HIHI_USE_MAX_MOTION = false;
+
+  // Elevator PID
+  public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Drive PID
   public static final double DRIVE_PID_P = 1; // TODO: change later
@@ -122,7 +139,7 @@ public class GameConstants {
       Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
   public static final Rotation2d HIHI_MAX_ANGLE =
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 8.9; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros
