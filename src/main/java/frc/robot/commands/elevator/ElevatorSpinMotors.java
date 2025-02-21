@@ -14,11 +14,14 @@ public class ElevatorSpinMotors extends LoggableCommand {
   /** Creates a new ElevatorSpinMotors. */
   private final ElevatorSubsystem elevator;
 
+  private final double speed;
+
   private final TimeoutLogger timeoutCounter;
   public final Timer timer;
 
-  public ElevatorSpinMotors(ElevatorSubsystem elevator) {
+  public ElevatorSpinMotors(ElevatorSubsystem elevator, double speed) {
     this.elevator = elevator;
+    this.speed = speed;
     this.timer = new Timer();
     timeoutCounter = new TimeoutLogger("Elevator Spin Motors");
     addRequirements(elevator);
@@ -31,7 +34,7 @@ public class ElevatorSpinMotors extends LoggableCommand {
 
   @Override
   public void execute() {
-    elevator.setElevatorMotorSpeed(Constants.ELEVATOR_RISE_SPEED);
+    elevator.setElevatorMotorSpeed(speed);
   }
 
   @Override

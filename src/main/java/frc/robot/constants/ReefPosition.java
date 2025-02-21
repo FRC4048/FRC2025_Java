@@ -1,11 +1,11 @@
 package frc.robot.constants;
 
 public enum ReefPosition {
-  LEVEL0(0), // Starting and Intake Height
-  LEVEL1(20), // L1 Scoring
-  LEVEL2(60), // L2 Scoring and Lower Algae ByeBye
-  LEVEL3(100), // L3 Scoring and Higher Algae ByeBye
-  LEVEL4(200); // L4 Scoring
+  LEVEL0(-1),
+  LEVEL1(-10),
+  LEVEL2(-20),
+  LEVEL3(-30),
+  LEVEL4(-45);
 
   private final double heightElevator;
 
