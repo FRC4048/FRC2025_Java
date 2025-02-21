@@ -53,7 +53,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "SetElevatorStoredPosition"
+                        "name": "ResetElevator"
                       }
                     }
                   ]
@@ -244,12 +244,6 @@
                 "type": "named",
                 "data": {
                   "name": "ShootCoral"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": []
                 }
               }
             ]
