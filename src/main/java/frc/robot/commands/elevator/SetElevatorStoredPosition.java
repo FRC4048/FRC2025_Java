@@ -22,8 +22,7 @@ public class SetElevatorStoredPosition extends LoggableCommand {
     this.reefPosition = storedElevatorHeight;
     this.lightStrip = lightStrip;
     this.elevatorSubsystem = elevatorSubsystem;
-    addRequirements(elevatorSubsystem);
-    addRequirements(lightStrip);
+    addRequirements(elevatorSubsystem, lightStrip);
   }
 
   // Called when the command is initially scheduled.
