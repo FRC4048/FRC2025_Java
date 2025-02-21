@@ -9,6 +9,7 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
   private boolean logMotorTemperature;
   private boolean logFwdLimit;
   private boolean logRevLimit;
+  private boolean logAppliedOutput;
   private final String folder;
 
   public MotorInputBuilder(String folder) {
@@ -30,6 +31,12 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
     logMotorTemperature = false;
     logFwdLimit = false;
     logRevLimit = false;
+    logAppliedOutput = false;
+    return self();
+  }
+
+  public T motorAppliedOutput() {
+    logAppliedOutput = true;
     return self();
   }
 
@@ -96,7 +103,8 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
         .encoderPosition()
         .encoderVelocity()
         .revLimit()
-        .fwdLimit();
+        .fwdLimit()
+        .motorAppliedOutput();
   }
 
   public boolean isLogEncoderPosition() {
@@ -121,6 +129,10 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
 
   public boolean isLogRevLimit() {
     return logRevLimit;
+  }
+
+  public boolean isLogAppliedOutput() {
+    return logAppliedOutput;
   }
 
   public String getFolder() {

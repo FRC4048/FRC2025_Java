@@ -25,9 +25,17 @@ public class NeoPidConfig {
     this.usesMaxMotion = usesMaxMotion;
   }
 
+  public double getP() {
+    return p;
+  }
+
   public NeoPidConfig setP(double p) {
     this.p = p;
     return this;
+  }
+
+  public double getI() {
+    return i;
   }
 
   public NeoPidConfig setI(double i) {
@@ -35,9 +43,17 @@ public class NeoPidConfig {
     return this;
   }
 
+  public double getD() {
+    return d;
+  }
+
   public NeoPidConfig setD(double d) {
     this.d = d;
     return this;
+  }
+
+  public double getIZone() {
+    return iZone;
   }
 
   public NeoPidConfig setIZone(double iZone) {
@@ -45,9 +61,17 @@ public class NeoPidConfig {
     return this;
   }
 
+  public double getFF() {
+    return ff;
+  }
+
   public NeoPidConfig setFF(double ff) {
     this.ff = ff;
     return this;
+  }
+
+  public int getCurrentLimit() {
+    return currentLimit;
   }
 
   public NeoPidConfig setCurrentLimit(int currentLimit) {
@@ -70,28 +94,19 @@ public class NeoPidConfig {
     return this;
   }
 
-  public double getP() {
-    return p;
+  public NeoPidConfig setPid(double p, double i, double d) {
+    setP(p).setI(i).setD(d);
+    return this;
   }
 
-  public double getI() {
-    return i;
+  public NeoPidConfig setPidf(double p, double i, double d, double ff) {
+    setPid(p, i, d).setFF(ff);
+    return this;
   }
 
-  public double getD() {
-    return d;
-  }
-
-  public double getIZone() {
-    return iZone;
-  }
-
-  public double getFF() {
-    return ff;
-  }
-
-  public int getCurrentLimit() {
-    return currentLimit;
+  public NeoPidConfig setTrapezoidConstructions(double maxVelocity, double maxAccel) {
+    setMaxVelocity(maxVelocity).setMaxAccel(maxAccel);
+    return this;
   }
 
   public double getMaxVelocity() {
