@@ -13,11 +13,16 @@ public class GameConstants {
   public static final int XBOX_CONTROLLER_ID = 2;
 
   // Debug
-  public static final boolean SWERVE_DEBUG = false;
-  public static final boolean INTAKE_DEBUG = false;
-  public static final boolean CLIMBER_DEBUG = false;
+  public static final boolean SWERVE_DEBUG = true;
+  public static final boolean INTAKE_DEBUG = true;
+  public static final boolean CLIMBER_DEBUG = true;
+  public static final boolean ELEVATOR_DEBUG = true;
+  public static final boolean CORAL_DEBUG = true;
+  public static final boolean HIHI_DEBUG = true;
+  public static final boolean BYEBYE_DEBUG = true;
   public static final boolean COMMAND_DEBUG = true;
-  public static final boolean INPUTS_DEBUG = false;
+  public static final boolean INPUTS_DEBUG = true;
+  public static final boolean TUNING = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -25,11 +30,11 @@ public class GameConstants {
   public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
-  public static final double BYEBYE_ROLLER_SPEED = 0.15;
+  public static final double BYEBYE_ROLLER_SPEED = 0.5;
   public static final double TILT_SPEED = 0.15;
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
-  public static final double INTAKE_MOTOR_SPEED = 0.5;
+  public static final double INTAKE_MOTOR_SPEED = 0.25;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.5;
   public static final double HIHI_EXTEND_SPEED = 0.4;
@@ -37,7 +42,7 @@ public class GameConstants {
   public static final double HIHI_INTAKE_SPEED = 0.4;
   public static final double HIHI_SHOOT_SPEED = -0.4;
   public static final double CLIMBER_SPEED = 0.5;
-  public static final double CLIMBER_RISE_SPEED = 0;
+  public static final double CLIMBER_RISE_SPEED = 0.5;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -108,7 +113,7 @@ public class GameConstants {
   public static final double ELEVATOR_DRUM_RADIUS =
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
-  public static final double MAX_ELEVATOR_HEIGHT_METERS = 200; // in m
+  public static final double MAX_ELEVATOR_HEIGHT_METERS = -200; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
 
@@ -121,16 +126,16 @@ public class GameConstants {
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros
-  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.47119; // TODO: change later
-  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.2773; // TODO: change later
-  public static final double BACK_LEFT_ABS_ENCODER_ZERO = -0.031; // TODO: change later
-  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.3974; // TODO: change later
+  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.306885; // TODO: change later
+  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = -0.059082; // TODO: change later
+  public static final double BACK_LEFT_ABS_ENCODER_ZERO = 0.379150; // TODO: change later
+  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.100586; // TODO: change later
 
   // Drivetrain
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
   public static final double ROBOT_WIDTH = 0.8636; // TODO: change later
   public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
-  public static final double MAX_VELOCITY = 4.8; // 4 meters per second //TODO: change later
+  public static final double MAX_VELOCITY = 3.81; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
 
   // Other
@@ -143,7 +148,7 @@ public class GameConstants {
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
-      SwerveModuleProfileV2.MK4; // TODO: change later
+      SwerveModuleProfileV2.MK4I; // TODO: change later
   public static final double HIHI_GEARING = 45.0; // TODO: change later
   public static final double HIHI_INERTIA = 1.0; // TODO: change later
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
