@@ -10,7 +10,9 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.diag.DiagSparkMaxSwitch;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -26,6 +28,14 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
     inputProvider = new SparkMaxInputProvider(removerTiltMotor);
     configureMotor();
     resetEncoder();
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "ByeByeTilt", "Forward", removerTiltMotor, DiagSparkMaxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "ByeByeTilt", "Reverse", removerTiltMotor, DiagSparkMaxSwitch.Direction.REVERSE));
   }
 
   public void configureMotor() {
