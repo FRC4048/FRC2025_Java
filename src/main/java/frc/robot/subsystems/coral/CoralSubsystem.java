@@ -38,7 +38,6 @@ public class CoralSubsystem extends SubsystemBase {
   public void periodic() {
     coralSystemLeader.updateInputs();
     coralSystemFollower.updateInputs();
-    if (coralSystemLeader.getInputs().getFwdLimit() == true) {}
   }
 
   public void setShooterSpeed(double speed) {
