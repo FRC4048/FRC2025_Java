@@ -1,6 +1,6 @@
 package frc.robot.utils.motor;
 
-import frc.robot.utils.LoggedTunableNumber;
+import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.PIDLoggableIO;
 
 public class TunablePIDManager {

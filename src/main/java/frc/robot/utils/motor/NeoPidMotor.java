@@ -10,8 +10,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.*;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.LimitSwitchConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 /**
  * A Wrapper utility to encapsulate the NEO motor with PID capability. This is simply a wrapper with
