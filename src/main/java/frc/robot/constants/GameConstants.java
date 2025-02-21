@@ -43,6 +43,7 @@ public class GameConstants {
   public static final double HIHI_SHOOT_SPEED = -0.4;
   public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0.5;
+  public static final double HIHI_INTAKE_BASE_VELOCITY = 3000.0;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
