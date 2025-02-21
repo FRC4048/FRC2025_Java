@@ -6,16 +6,35 @@ import frc.robot.constants.ReefPosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.motor.NeoPidConfig;
+import frc.robot.utils.motor.TunablePIDManager;
 import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
   private ReefPosition reefPosition;
+  public final NeoPidConfig initConfig;
+  private final TunablePIDManager pidConfig;
 
-  public ElevatorSubsystem(ElevatorIO ElevatorIO) {
+  public ElevatorSubsystem(ElevatorIO elevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
     reefPosition = ReefPosition.LEVEL0;
-    this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
+    this.elevatorSystem = new LoggableSystem<>(elevatorIO, inputs);
+    this.initConfig =
+        new NeoPidConfig(Constants.ELEVATOR_USE_MAX_MOTION)
+            .setP(Constants.ELEVATOR_PID_P)
+            .setI(Constants.ELEVATOR_PID_I)
+            .setD(Constants.ELEVATOR_PID_D)
+            .setIZone(Constants.ELEVATOR_PID_I_ZONE)
+            .setFF(Constants.ELEVATOR_PID_FF)
+            .setMaxVelocity(Constants.ELEVATOR_PID_MAX_VEL)
+            .setMaxAccel(Constants.ELEVATOR_PID_MAX_ACC)
+            .setAllowedError(Constants.ELEVATOR_PID_ALLOWED_ERROR);
+    initConfig.setCurrentLimit(Constants.ELEVATOR_CURRENT_LIMIT);
+    elevatorIO.configurePID(initConfig);
+    pidConfig =
+        new TunablePIDManager(
+            "Elevator", elevatorIO, initConfig, Constants.ELEVATOR_USE_MAX_MOTION);
   }
 
   public void setElevatorMotorSpeed(double speed) {
@@ -67,6 +86,11 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    pidConfig.periodic();
     elevatorSystem.updateInputs();
+  }
+
+  public NeoPidConfig getInitConfig() {
+    return initConfig;
   }
 }
