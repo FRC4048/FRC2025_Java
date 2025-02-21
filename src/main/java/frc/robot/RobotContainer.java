@@ -397,19 +397,19 @@ public class RobotContainer {
     SmartShuffleboard.putCommand(
         "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
     SmartShuffleboard.putCommand(
-        "DEBUG",
+        "Elevator",
         "ElevatorToPositionL4",
         new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL4));
     SmartShuffleboard.putCommand(
-        "DEBUG",
-        "ElevatorToPositionL4",
+        "Elevator",
+        "ElevatorToPositionL3",
         new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL3));
     SmartShuffleboard.putCommand(
-        "DEBUG",
-        "ElevatorToPositionL4",
+        "Elevator",
+        "ElevatorToPositionL2",
         new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL2));
     SmartShuffleboard.putCommand(
-        "DEBUG",
+        "Elevator",
         "ElevatorToPositionL1",
         new ElevatorToASetPosition(elevatorSubsystem, ReefPosition.LEVEL1));
   }
