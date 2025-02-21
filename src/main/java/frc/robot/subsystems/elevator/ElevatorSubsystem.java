@@ -1,6 +1,7 @@
 package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.constants.ReefPosition;
 import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
@@ -36,8 +37,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setElevatorPosition(double encoderPos) {
     if (encoderPos > 0) {
       encoderPos = 0;
-    } else if (encoderPos < -46.9) {
-      encoderPos = -46.9;
+    } else if (encoderPos < Constants.MAX_ELEVATOR_ENCODER_POSITION) {
+      encoderPos = Constants.MAX_ELEVATOR_ENCODER_POSITION;
     }
     // TODO: This can be moved to input-based logging once that framework switches to composition
     Logger.recordOutput("ElevatorSubsystem/targetPosition", encoderPos);

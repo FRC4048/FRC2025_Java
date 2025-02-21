@@ -6,6 +6,8 @@ public class Constants2025 extends GameConstants {
   // Elevator
   public static final int ELEVATOR_MOTOR_ID = 35;
 
+  public static final double MAX_ELEVATOR_ENCODER_POSITION = -46.9;
+
   // Coral Shooter
   public static final int SHOOTER_MOTOR_LEADER_ID = 53;
   public static final int SHOOTER_MOTOR_FOLLOWER_ID = 8;
