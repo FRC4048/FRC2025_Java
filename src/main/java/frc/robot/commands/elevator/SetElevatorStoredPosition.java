@@ -4,6 +4,7 @@
 
 package frc.robot.commands.elevator;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.lightStrip.LightStrip;
@@ -45,6 +46,7 @@ public class SetElevatorStoredPosition extends LoggableCommand {
         lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
         break;
       default:
+        DriverStation.reportError("Invalid Reef Position selected", true);
         break;
     }
     elevatorSubsystem.setStoredReefPosition(reefPosition);
