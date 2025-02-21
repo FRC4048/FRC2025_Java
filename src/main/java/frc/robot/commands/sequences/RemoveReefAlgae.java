@@ -11,9 +11,9 @@ import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.utils.logging.commands.LoggableParallelCommandGroup;
 
 /** Add your docs here. */
-public class RemoveAlgaeFromReef extends LoggableParallelCommandGroup {
+public class RemoveReefAlgae extends LoggableParallelCommandGroup {
 
-  public RemoveAlgaeFromReef(
+  public RemoveReefAlgae(
       AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem,
       AlgaeByeByeRollerSubsystem algaeByeByeRollerSubsystem) {
     super(

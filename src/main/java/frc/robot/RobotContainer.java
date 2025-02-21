@@ -29,6 +29,11 @@ import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
 import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedPattern;
+import frc.robot.commands.sequences.IntakeAlgae;
+import frc.robot.commands.sequences.PickUpCoral;
+import frc.robot.commands.sequences.RemoveReefAlgae;
+import frc.robot.commands.sequences.ScoreCoral;
+import frc.robot.commands.sequences.ShootAlgae;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -307,6 +312,29 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "Coral", "Set Coral Limit False", new SetCoralLimitState(coralSubsystem, false));
+
+      SmartShuffleboard.putCommand(
+          "Coral", "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem));
+
+      SmartShuffleboard.putCommand(
+          "Coral",
+          "Score Coral L1",
+          new ScoreCoral(coralSubsystem, elevatorSubsystem, ReefPosition.LEVEL1));
+
+      SmartShuffleboard.putCommand(
+          "Coral",
+          "Score Coral L2",
+          new ScoreCoral(coralSubsystem, elevatorSubsystem, ReefPosition.LEVEL2));
+
+      SmartShuffleboard.putCommand(
+          "Coral",
+          "Score Coral L3",
+          new ScoreCoral(coralSubsystem, elevatorSubsystem, ReefPosition.LEVEL3));
+
+      SmartShuffleboard.putCommand(
+          "Coral",
+          "Score Coral L4",
+          new ScoreCoral(coralSubsystem, elevatorSubsystem, ReefPosition.LEVEL4));
     }
 
     if (Constants.HIHI_DEBUG) {
@@ -320,6 +348,11 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "HiHi", "Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
+
+      SmartShuffleboard.putCommand(
+          "HiHi", "Intake Algae", new IntakeAlgae(hihiExtender, hihiRoller));
+
+      SmartShuffleboard.putCommand("HiHi", "Shoot Algae", new ShootAlgae(hihiExtender, hihiRoller));
     }
 
     if (Constants.BYEBYE_DEBUG) {
@@ -335,6 +368,9 @@ public class RobotContainer {
           "ByeBye",
           "ByeBye Spin Roller",
           new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+
+      SmartShuffleboard.putCommand(
+          "ByeBye", "Remove ReefAlgae", new RemoveReefAlgae(byebyeTilt, byebyeRoller));
     }
 
     if (Constants.ELEVATOR_DEBUG) {
