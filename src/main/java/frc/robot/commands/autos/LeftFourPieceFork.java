@@ -14,6 +14,7 @@ import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import frc.robot.utils.logging.commands.LoggableParallelCommandGroup;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
@@ -22,32 +23,32 @@ public class LeftFourPieceFork extends LoggableSequentialCommandGroup {
    public LeftFourPieceFork(ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem) { 
     super(
       new LoggableParallelCommandGroup(
-        Paths.getInstance().getRobotOneToPostJCommand(), //Robot 1 to Post J
+        new LoggableCommandWrapper(Paths.getInstance().getRobotOneToPostJCommand()), //Robot 1 to Post J
         new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem) //Elevator to L4
       ),
       new ShootCoral(coralSubsystem, 0.5), //Score a Coral
       new LoggableParallelCommandGroup(
-        Paths.getInstance().getPostJToStationOneCommand(), //Post J To Station 1
+        new LoggableCommandWrapper(Paths.getInstance().getPostJToStationOneCommand()), //Post J To Station 1
         new ResetElevator(elevatorSubsystem) //Elevator to L0
       ),
       new IntakeCoral(coralSubsystem), //Intake a Coral
       new LoggableParallelCommandGroup(
-        Paths.getInstance().getStationOneToPostKCommand(), //Station 1 to Post K
+        new LoggableCommandWrapper(Paths.getInstance().getStationOneToPostKCommand()), //Station 1 to Post K
         new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem) // Elevator to L4
       ),
       new ShootCoral(coralSubsystem, 0.5),  //Score a Coral
       new LoggableParallelCommandGroup(
-        Paths.getInstance().getPostKToStationOne(), //Post K to Station 1
+        new LoggableCommandWrapper(Paths.getInstance().getPostKToStationOne()), //Post K to Station 1
         new ResetElevator(elevatorSubsystem) //Elevator to L0
       ),
       new IntakeCoral(coralSubsystem), // Intake a Coral
       new LoggableParallelCommandGroup(
-        Paths.getInstance().getStationOneToPostKCommand(), //Station 1 to Post K Command
+        new LoggableCommandWrapper(Paths.getInstance().getStationOneToPostKCommand()), //Station 1 to Post K Command
         new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem) //Elevator to L4
       ),
       new ShootCoral(coralSubsystem, 0.5), //Score a Coral
       new LoggableParallelCommandGroup(
-        Paths.getInstance().getPostKToStationOne(), //Post K to Station 1
+        new LoggableCommandWrapper(Paths.getInstance().getPostKToStationOne()), //Post K to Station 1
         new ResetElevator(elevatorSubsystem) //Elevator to L0
       ),
       );
