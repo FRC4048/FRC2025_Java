@@ -1,7 +1,7 @@
 package frc.robot.constants;
 
 public enum ReefPosition {
-  LEVEL0(0),
+  LEVEL0(-1),
   LEVEL1(-10),
   LEVEL2(-20),
   LEVEL3(-30),
