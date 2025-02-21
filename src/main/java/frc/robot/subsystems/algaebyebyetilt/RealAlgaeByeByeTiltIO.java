@@ -24,7 +24,7 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
   public RealAlgaeByeByeTiltIO() {
 
     this.removerTiltMotor =
-        new SparkMax(Constants.ALGAE_BYEBYE_TILT_ID, SparkLowLevel.MotorType.kBrushless);
+        new SparkMax(Constants.ALGAE_BYEBYE_TILT_ID, SparkLowLevel.MotorType.kBrushed);
     inputProvider = new SparkMaxInputProvider(removerTiltMotor);
     configureMotor();
     resetEncoder();
