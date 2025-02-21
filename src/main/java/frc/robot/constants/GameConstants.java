@@ -99,7 +99,7 @@ public class GameConstants {
   public static final int HIHI_CURRENT_LIMIT = 10;
 
   // HiHi PID
-  public static final double HIHI_PID_P = 0.08;
+  public static final double HIHI_PID_P = 0.03; // 0.08 with max motion
   public static final double HIHI_PID_I = 0;
   public static final double HIHI_PID_D = 0;
   public static final double HIHI_PID_I_ZONE = 0;
@@ -107,7 +107,7 @@ public class GameConstants {
   public static final double HIHI_PID_MAX_VEL = 3000;
   public static final double HIHI_PID_MAX_ACC = 2500;
   public static final double HIHI_PID_ALLOWED_ERROR = 0.1;
-  public static final boolean HIHI_USE_MAX_MOTION = true;
+  public static final boolean HIHI_USE_MAX_MOTION = false;
 
   // Elevator PID
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;

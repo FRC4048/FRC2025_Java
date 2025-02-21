@@ -110,8 +110,8 @@ public class NeoPidMotor {
    *
    * @param position the desired motor position
    */
-  public void setPidPos(double position) {
-    pidController.setReference(position, SparkBase.ControlType.kMAXMotionPositionControl);
+  public void setPidPos(double position, SparkBase.ControlType controlType) {
+    pidController.setReference(position, controlType);
     this.setPosition = position;
   }
 
