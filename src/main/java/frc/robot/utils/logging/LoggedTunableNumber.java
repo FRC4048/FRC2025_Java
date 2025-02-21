@@ -1,12 +1,12 @@
-/*This code is HEAVILY(currently copy and pasted) inspired by mechanical advantage's LoggedTunableNumber:
-https://github.com/Mechanical-Advantage/RobotCode2025Public/blob/main/src/main/java/org/littletonrobotics/frc2025/util/LoggedTunableNumber.java
-It basically lets you tune any value easily during simulation or on-robot testing
-while also keeping the constants values,
-specifically being able to switch to all constant values easily
+// Copyright (c) 2025 FRC 6328
+// http://github.com/Mechanical-Advantage
+//
+// Use of this source code is governed by an MIT-style
+// license that can be found in the LICENSE file at
+// the root directory of this project.
+// Modified by FRC 4048
 
-In terms of modifications I just basically tried to make it simpler to understand for now*/
-
-package frc.robot.utils;
+package frc.robot.utils.logging;
 
 import frc.robot.constants.Constants;
 import java.util.Arrays;
@@ -23,11 +23,11 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 public class LoggedTunableNumber implements DoubleSupplier {
   private static final String tableKey = "/Tuning";
 
-  private final String key;
   private boolean hasDefault = false;
   private double defaultValue;
   private LoggedNetworkNumber dashboardNumber;
-  private Map<Integer, Double> lastHasChangedValues = new HashMap<>();
+  private final Map<Integer, Double> lastHasChangedValues = new HashMap<>();
+  private final String key;
 
   /**
    * Create a new LoggedTunableNumber
@@ -86,9 +86,6 @@ public class LoggedTunableNumber implements DoubleSupplier {
    *     otherwise.
    */
   public boolean hasChanged(int id) {
-    if (!Constants.TUNING_MODE) {
-      return false;
-    }
     double currentValue = get();
     Double lastValue = lastHasChangedValues.get(id);
     if (lastValue == null || currentValue != lastValue) {

@@ -4,16 +4,13 @@ import static com.revrobotics.spark.SparkBase.PersistMode.kNoPersistParameters;
 import static com.revrobotics.spark.SparkBase.PersistMode.kPersistParameters;
 import static com.revrobotics.spark.SparkBase.ResetMode.kNoResetSafeParameters;
 import static com.revrobotics.spark.SparkBase.ResetMode.kResetSafeParameters;
-import static com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode.kMAXMotionTrapezoidal;
 import static com.revrobotics.spark.config.SparkBaseConfig.IdleMode.kBrake;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkLowLevel;
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.*;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.LimitSwitchConfig;
+import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 /**
@@ -29,6 +26,7 @@ public class NeoPidMotor {
 
   // The neo motor controller
   private final SparkMax neoMotor;
+  private final NeoPidConfig pidConfig; // if using arbff we need to keep track of pidConfig
   // The built-in relative encoder
   private final RelativeEncoder encoder;
   // The built-in PID controller
@@ -48,6 +46,7 @@ public class NeoPidMotor {
 
   public NeoPidMotor(int id, NeoPidConfig pidConfig) {
     neoMotor = new SparkMax(id, SparkLowLevel.MotorType.kBrushless);
+    this.pidConfig = pidConfig;
     encoder = neoMotor.getEncoder();
 
     pidController = neoMotor.getClosedLoopController();
@@ -69,7 +68,7 @@ public class NeoPidMotor {
           .maxMotion
           .maxVelocity(pidConfig.getMaxVelocity())
           .maxAcceleration(pidConfig.getMaxAccel())
-          .positionMode(kMAXMotionTrapezoidal)
+          .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
           .allowedClosedLoopError(pidConfig.getAllowedError());
     }
 
@@ -142,5 +141,18 @@ public class NeoPidMotor {
 
   public SparkClosedLoopController getPidController() {
     return pidController;
+  }
+
+  public void configure(NeoPidConfig config) {
+    SparkMaxConfig sparkMaxConfig = new SparkMaxConfig();
+    sparkMaxConfig
+        .closedLoop
+        .pidf(config.getP(), config.getI(), config.getD(), config.getFF())
+        .iZone(config.getIZone())
+        .maxMotion
+        .maxVelocity(config.getMaxVelocity())
+        .maxAcceleration(config.getMaxAccel())
+        .allowedClosedLoopError(config.getAllowedError());
+    getNeoMotor().configure(sparkMaxConfig, kResetSafeParameters, kNoPersistParameters);
   }
 }

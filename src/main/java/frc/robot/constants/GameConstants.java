@@ -30,19 +30,20 @@ public class GameConstants {
   public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
-  public static final double BYEBYE_ROLLER_SPEED = 0.15;
+  public static final double BYEBYE_ROLLER_SPEED = 0.5;
   public static final double TILT_SPEED = 0.15;
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
-  public static final double INTAKE_MOTOR_SPEED = 0.5;
+  public static final double INTAKE_MOTOR_SPEED = 0.25;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.5;
   public static final double HIHI_EXTEND_SPEED = 0.4;
-  public static final double HIHI_RETRACT_SPEED = -0.4;
+  public static final double HIHI_RETRACT_SPEED = -0.15;
   public static final double HIHI_INTAKE_SPEED = 0.4;
-  public static final double HIHI_SHOOT_SPEED = -0.4;
+  public static final double HIHI_SHOOT_SPEED = -0.9;
   public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0.5;
+  public static final double HIHI_INTAKE_BASE_VELOCITY = 3500.0;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -74,6 +75,7 @@ public class GameConstants {
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final int ELEVATOR_MIN_WINDOW = 1; // TODO: change later
   public static final int ELEVATOR_MAX_WINDOW = 1; // TODO: change later
+  public static final int HIHI_EXTENDER_TICK_LIMIT = 20;
 
   // Mode
   public static final Mode simMode = Mode.SIM;
@@ -128,7 +130,7 @@ public class GameConstants {
   public static final double ELEVATOR_DRUM_RADIUS =
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
-  public static final double MAX_ELEVATOR_HEIGHT_METERS = 200; // in m
+  public static final double MAX_ELEVATOR_HEIGHT_METERS = -200; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
 
@@ -137,7 +139,7 @@ public class GameConstants {
       Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
   public static final Rotation2d HIHI_MAX_ANGLE =
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 0.5; // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 8.9; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros

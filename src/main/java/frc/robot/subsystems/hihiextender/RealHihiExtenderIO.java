@@ -11,8 +11,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   private final NeoPidMotorInputProvider inputProvider;
 
   public RealHihiExtenderIO() {
-    this.extenderMotor =
-        new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, Constants.HIHI_USE_MAX_MOTION);
+    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, false);
     inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
   }

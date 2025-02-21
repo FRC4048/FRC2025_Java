@@ -40,4 +40,9 @@ public class TalonInputProvider implements MotorInputProvider {
   public boolean getRevLimit() {
     return talon.isRevLimitSwitchClosed() == 1;
   }
+
+  @Override
+  public double getAppliedOutput() {
+    return talon.getMotorOutputVoltage();
+  }
 }
