@@ -97,6 +97,7 @@ public class GameConstants {
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
   public static final int NEO_CURRENT_LIMIT = 20;
   public static final int HIHI_CURRENT_LIMIT = 10;
+  public static final int ELEVATOR_CURRENT_LIMIT = 40;
 
   // HiHi PID
   public static final double HIHI_PID_P = 0.08;
@@ -109,7 +110,15 @@ public class GameConstants {
   public static final double HIHI_PID_ALLOWED_ERROR = 0.1;
   public static final boolean HIHI_USE_MAX_MOTION = true;
 
-  // Elevator PID
+  // HiHi PID
+  public static final double ELEVATOR_PID_P = 0.01;
+  public static final double ELEVATOR_PID_I = 0;
+  public static final double ELEVATOR_PID_D = 0;
+  public static final double ELEVATOR_PID_I_ZONE = 0;
+  public static final double ELEVATOR_PID_FF = 0;
+  public static final double ELEVATOR_PID_MAX_VEL = 5000;
+  public static final double ELEVATOR_PID_MAX_ACC = 10000;
+  public static final double ELEVATOR_PID_ALLOWED_ERROR = 1.0;
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Drive PID

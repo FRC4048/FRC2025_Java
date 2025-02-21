@@ -57,4 +57,8 @@ public class TunablePIDManager {
         kMaxAccTunable,
         kAllowedErrorTunable);
   }
+
+  public double getkP() {
+    return kPTunable.get();
+  }
 }
