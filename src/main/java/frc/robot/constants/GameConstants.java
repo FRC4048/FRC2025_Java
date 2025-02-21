@@ -30,7 +30,7 @@ public class GameConstants {
   public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
-  public static final double BYEBYE_ROLLER_SPEED = 0.15;
+  public static final double BYEBYE_ROLLER_SPEED = 0.5;
   public static final double TILT_SPEED = 0.15;
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later

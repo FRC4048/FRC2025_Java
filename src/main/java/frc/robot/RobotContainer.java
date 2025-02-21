@@ -31,8 +31,13 @@ import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
+import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ReefPosition;
+import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
+import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
+import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
@@ -80,7 +85,7 @@ import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
-  //  private final AlgaeByeByeRollerSubsystem byebyeRoller;
+  private final AlgaeByeByeRollerSubsystem byebyeRoller;
   private final AlgaeByeByeTiltSubsystem byebyeTilt;
   private final HihiRollerSubsystem hihiRoller;
   private final HihiExtenderSubsystem hihiExtender;
@@ -100,8 +105,8 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         coralSubsystem = new CoralSubsystem(new RealCoralIOFollower(), new RealCoralIOLeader());
-        //        climber = new ClimberSubsystem(new RealClimberIO());
-        //        byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
+        //                climber = new ClimberSubsystem(new RealClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new RealLightStripIO());
       }
@@ -110,8 +115,8 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
-        //        climber = new ClimberSubsystem(new MockClimberIO());
-        //        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
+        //                climber = new ClimberSubsystem(new MockClimberIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new MockLightStripIO());
       }
@@ -122,7 +127,7 @@ public class RobotContainer {
         coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
         //        climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
-        //        byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
+        byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
         lightStrip = new LightStrip(new MockLightStripIO());
       }
       default -> {
@@ -326,10 +331,10 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "ByeBye", "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
 
-      //      SmartShuffleboard.putCommand(
-      //          "ByeBye",
-      //          "ByeBye Spin Roller",
-      //          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
+      SmartShuffleboard.putCommand(
+          "ByeBye",
+          "ByeBye Spin Roller",
+          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
     }
 
     if (Constants.ELEVATOR_DEBUG) {
