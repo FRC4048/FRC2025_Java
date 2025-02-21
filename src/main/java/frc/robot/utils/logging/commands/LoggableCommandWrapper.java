@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.Set;
 
+import com.pathplanner.lib.path.PathPlannerPath;
+
 public class LoggableCommandWrapper extends LoggableCommand {
   private final Command wrap;
 
@@ -11,7 +13,7 @@ public class LoggableCommandWrapper extends LoggableCommand {
     this.wrap = toWrap;
   }
 
-  public static LoggableCommandWrapper wrap(Command toWrap) {
+  public static LoggableCommandWrapper wrap(PathPlannerPath toWrap) {
     return new LoggableCommandWrapper(toWrap);
   }
 

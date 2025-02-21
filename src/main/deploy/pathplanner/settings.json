@@ -3,8 +3,9 @@
   "robotLength": 0.864,
   "holonomicMode": true,
   "pathFolders": [
-    "Push",
+    "Cross",
     "Posts to Station (4)",
+    "Push",
     "Robot to Post (4)",
     "Station 1 to Posts (12)",
     "Station 2 to Posts (12)"

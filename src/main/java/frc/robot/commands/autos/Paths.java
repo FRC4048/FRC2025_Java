@@ -1,47 +1,88 @@
 package frc.robot.commands.autos;
 
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.wpilibj2.command.Command;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 public class Paths {
-  private final Command robot1ToPostICommand;
-  private final Command poseItoStation1Command;
-  private final Command station1ToPoseACommand;
-
-  private static Paths instance;
-
-  public static Paths getInstance() {
-    if (instance == null) {
-      instance = new Paths();
+  private final PathPlannerPath robotOneToPostJCommand;
+  private final PathPlannerPath postJToStationOneCommand;
+  private final PathPlannerPath stationOneToPostKCommand;
+  private final PathPlannerPath postKToStationOne;
+  private final PathPlannerPath middleOnePieceCommand;
+  private final PathPlannerPath middleFourPieceForkCommand;
+  private final PathPlannerPath middleFourPieceLineCommand;
+    private final PathPlannerPath rightCrossTheLineCommand;
+    private final PathPlannerPath rightFourPieceForkCommand;
+    private final PathPlannerPath rightFourPieceLineCommand;
+  
+    private static Paths instance;
+  
+    public static Paths getInstance() {
+      if (instance == null) {
+        instance = new Paths();
+      }
+      return instance;
     }
-    return instance;
-  }
+  
+    public Paths() {
+      try {
+        robotOneToPostJCommand = PathPlannerPath.fromPathFile("Robot 1 to Post J");
+        postJToStationOneCommand = PathPlannerPath.fromPathFile("Post J to Station 1");
+        stationOneToPostKCommand = PathPlannerPath.fromPathFile("Station 1 to Post K");
+        postKToStationOne =  PathPlannerPath.fromPathFile("Post K to Station 1");
+        middleFourPieceLineCommand = PathPlannerPath.fromPathFile("Middle 1 Piece");
+        middleFourPieceForkCommand = PathPlannerPath.fromPathFile("Middle 4 Piece Fork ");
+        middleOnePieceCommand = PathPlannerPath.fromPathFile("Middle One Piece");
+        rightCrossTheLineCommand = PathPlannerPath.fromPathFile("Right Cross The Line");
+        rightFourPieceForkCommand = PathPlannerPath.fromPathFile("Right Four Piece Fork");
+        rightFourPieceLineCommand = PathPlannerPath.fromPathFile("Right 4 Piece Line");
+        
+      
 
-  public Paths() {
-    try {
-      PathPlannerPath robot1ToPostIPath = PathPlannerPath.fromPathFile("Robot 1 to Post I");
-      PathPlannerPath poseItoStation1Path = PathPlannerPath.fromPathFile("Post I to Station 1");
-      PathPlannerPath station1ToPoseAPath = PathPlannerPath.fromPathFile("Station 1 to Post A");
-      robot1ToPostICommand = AutoBuilder.followPath(robot1ToPostIPath);
-      poseItoStation1Command = AutoBuilder.followPath(poseItoStation1Path);
-      station1ToPoseACommand = AutoBuilder.followPath(station1ToPoseAPath);
     } catch (IOException | ParseException e) {
       throw new RuntimeException(e);
     }
   }
 
-  public Command getRobot1ToPostICommand() {
-    return robot1ToPostICommand;
+  public PathPlannerPath getRobotOneToPostJCommand() {
+    return robotOneToPostJCommand;
   }
 
-  public Command getPoseItoStation1Command() {
-    return poseItoStation1Command;
+  public PathPlannerPath getPostJToStationOneCommand() {
+    return postJToStationOneCommand;
   }
 
-  public Command getStation1ToPoseACommand() {
-    return station1ToPoseACommand;
+  public PathPlannerPath getStationOneToPostKCommand() {
+    return stationOneToPostKCommand;
+  }
+
+  public PathPlannerPath getPostKToStationOne() {
+    return postKToStationOne;
+  }
+
+  public PathPlannerPath getMiddleOnePieceCommand() {
+    return middleOnePieceCommand;
+  }
+
+  public PathPlannerPath getMiddleFourPieceForkCommand() {
+    return middleFourPieceForkCommand;
+  }
+
+  public PathPlannerPath getMiddleFourPieceLineCommand() {
+    return middleFourPieceLineCommand;
+  }
+
+  public PathPlannerPath getRightCrossTheLine() {
+    return rightCrossTheLineCommand;
+  }
+
+  public PathPlannerPath getRightFourPieceLineCommand() {
+    return rightFourPieceForkCommand;
+  }
+
+  public PathPlannerPath getRightFourPieceForkCommand() {
+    return rightFourPieceLineCommand;
   }
 }

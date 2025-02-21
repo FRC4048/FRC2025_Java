@@ -172,24 +172,31 @@ public class RobotContainer {
     autoChooser.getProvider().forceRefresh();
   }
 
+  public AutoChooser2025 getAutoChooser() {
+    return autoChooser;
+  }
+
   private void pathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
     NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
     NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt));
-    NamedCommands.registerCommand("ShootCoral", new ShootCoral(shooter, 0.4));
+    NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
     NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
     NamedCommands.registerCommand(
-        "ElevatorToPositionL0", new ElevatorToPosition(elevatorSubsystem, ReefPosition.LEVEL0));
+        "ElevatorToPositionL0",
+        new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
     NamedCommands.registerCommand(
-        "ElevatorToPositionL1", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL1));
+        "ElevatorToPositionL1",
+        new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
     NamedCommands.registerCommand(
-        "ElevatorToPositionL2", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL2));
+        "ElevatorToPositionL2",
+        new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
     NamedCommands.registerCommand(
-        "ElevatorToPositionL3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
+        "ElevatorToPositionL3",
+        new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
     NamedCommands.registerCommand(
-        "ElevatorToPositionL4", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));
-    // NamedCommands.registerCommand("ElevatorToPositionL1", new
-    // ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL4));
+        "ElevatorToPositionL4",
+        new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
   }
 
   private void configureBindings() {

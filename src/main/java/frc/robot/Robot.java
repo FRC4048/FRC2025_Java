@@ -119,7 +119,7 @@ public class Robot extends LoggedRobot {
       m_autonomousCommand.schedule();
     }
     mode.set(RobotMode.AUTONOMOUS);
-    new SetInitOdom(m_robotContainer.getDrivetrain()).schedule();
+    new SetInitOdom(m_robotContainer.getDrivetrain(), m_robotContainer.getAutoChooser()).schedule();
   }
 
   @Override
