@@ -5,7 +5,6 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.utils.diag.DiagSparkMaxSwitch;
@@ -23,13 +22,13 @@ public class RealCoralIOFollower implements CoralIOFollower {
     inputProvider = new SparkMaxInputProvider(shooterMotorFollower);
     configureMotor();
     Robot.getDiagnostics()
-    .addDiagnosable(
-        new DiagSparkMaxSwitch(
-            "Coral", "Forward", shooterMotorFollower, DiagSparkMaxSwitch.Direction.FORWARD));
-Robot.getDiagnostics()
-    .addDiagnosable(
-        new DiagSparkMaxSwitch(
-            "Coral", "Reverse", shooterMotorFollower, DiagSparkMaxSwitch.Direction.REVERSE));
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "Coral", "Forward", shooterMotorFollower, DiagSparkMaxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "Coral", "Reverse", shooterMotorFollower, DiagSparkMaxSwitch.Direction.REVERSE));
   }
 
   private void configureMotor() {

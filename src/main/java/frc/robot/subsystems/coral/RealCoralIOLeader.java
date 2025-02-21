@@ -5,7 +5,6 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.utils.diag.DiagSparkMaxSwitch;
@@ -22,14 +21,14 @@ public class RealCoralIOLeader implements CoralIOLeader {
         new SparkMax(Constants.SHOOTER_MOTOR_LEADER_ID, SparkLowLevel.MotorType.kBrushless);
     this.initProvider = new SparkMaxInputProvider(shooterMotorLeader);
     configureMotor();
-     Robot.getDiagnostics()
-    .addDiagnosable(
-        new DiagSparkMaxSwitch(
-            "Coral", "Forward", shooterMotorLeader, DiagSparkMaxSwitch.Direction.FORWARD));
-Robot.getDiagnostics()
-    .addDiagnosable(
-        new DiagSparkMaxSwitch(
-            "Coral", "Reverse", shooterMotorLeader, DiagSparkMaxSwitch.Direction.REVERSE));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "Coral", "Forward", shooterMotorLeader, DiagSparkMaxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "Coral", "Reverse", shooterMotorLeader, DiagSparkMaxSwitch.Direction.REVERSE));
   }
 
   private void configureMotor() {
