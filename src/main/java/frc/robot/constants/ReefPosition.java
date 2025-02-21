@@ -1,11 +1,11 @@
 package frc.robot.constants;
 
 public enum ReefPosition {
-  LEVEL0(0),
-  LEVEL1(20),
-  LEVEL2(60),
-  LEVEL3(100),
-  LEVEL4(200);
+  LEVEL0(-1),
+  LEVEL1(-10),
+  LEVEL2(-20),
+  LEVEL3(-30),
+  LEVEL4(-45);
 
   private final double heightElevator;
 

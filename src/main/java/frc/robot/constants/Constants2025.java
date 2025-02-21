@@ -10,9 +10,11 @@ public class Constants2025 extends GameConstants {
   public static final double ELEVATOR_STARTING_HEIGHT = 0.5;
   // Get from hardwareg
 
+  public static final double MAX_ELEVATOR_ENCODER_POSITION = -46.9;
+
   // Coral Shooter
-  public static final int SHOOTER_MOTOR_LEADER_ID = 8;
-  public static final int SHOOTER_MOTOR_FOLLOWER_ID = 53;
+  public static final int SHOOTER_MOTOR_LEADER_ID = 53;
+  public static final int SHOOTER_MOTOR_FOLLOWER_ID = 8;
 
   // Algae Roller
   public static final int ALGAE_ROLLER_CAN_ID = 2;

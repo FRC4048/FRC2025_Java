@@ -40,4 +40,9 @@ public class SparkMaxInputProvider implements MotorInputProvider {
   public boolean getRevLimit() {
     return sparkMax.getReverseLimitSwitch().isPressed();
   }
+
+  @Override
+  public double getAppliedOutput() {
+    return sparkMax.getAppliedOutput();
+  }
 }
