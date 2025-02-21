@@ -7,13 +7,13 @@ import java.util.Set;
 import com.pathplanner.lib.path.PathPlannerPath;
 
 public class LoggableCommandWrapper extends LoggableCommand {
-  private final Command wrap;
+  public final static Command wrap;
 
   public LoggableCommandWrapper(Command toWrap) {
     this.wrap = toWrap;
   }
 
-  public static LoggableCommandWrapper wrap(PathPlannerPath toWrap) {
+  public static LoggableCommandWrapper wrap(Command toWrap) {
     return new LoggableCommandWrapper(toWrap);
   }
 

@@ -1,21 +1,21 @@
 package frc.robot.commands.autos;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.wpilibj2.command.Command;
+
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 public class Paths {
-  private final PathPlannerPath robotOneToPostJCommand;
-  private final PathPlannerPath postJToStationOneCommand;
-  private final PathPlannerPath stationOneToPostKCommand;
-  private final PathPlannerPath postKToStationOne;
-  private final PathPlannerPath middleOnePieceCommand;
-  private final PathPlannerPath middleFourPieceForkCommand;
-  private final PathPlannerPath middleFourPieceLineCommand;
-    private final PathPlannerPath rightCrossTheLineCommand;
-    private final PathPlannerPath rightFourPieceForkCommand;
-    private final PathPlannerPath rightFourPieceLineCommand;
+  private final Command robotOneToPostJCommand;
+  private final Command postJToStationOneCommand;
+  private final Command stationOneToPostKCommand;
+  private final Command postKToStationOneCommand;
+  private final Command stationOneToPostLCommand;
+  private final Command postLToStationOneCommand;
+  private final Command stationOneToPostACommand;
   
     private static Paths instance;
   
@@ -28,16 +28,14 @@ public class Paths {
   
     public Paths() {
       try {
-        robotOneToPostJCommand = PathPlannerPath.fromPathFile("Robot 1 to Post J");
-        postJToStationOneCommand = PathPlannerPath.fromPathFile("Post J to Station 1");
-        stationOneToPostKCommand = PathPlannerPath.fromPathFile("Station 1 to Post K");
-        postKToStationOne =  PathPlannerPath.fromPathFile("Post K to Station 1");
-        middleFourPieceLineCommand = PathPlannerPath.fromPathFile("Middle 1 Piece");
-        middleFourPieceForkCommand = PathPlannerPath.fromPathFile("Middle 4 Piece Fork ");
-        middleOnePieceCommand = PathPlannerPath.fromPathFile("Middle One Piece");
-        rightCrossTheLineCommand = PathPlannerPath.fromPathFile("Right Cross The Line");
-        rightFourPieceForkCommand = PathPlannerPath.fromPathFile("Right Four Piece Fork");
-        rightFourPieceLineCommand = PathPlannerPath.fromPathFile("Right 4 Piece Line");
+        robotOneToPostJCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post J"));
+        postJToStationOneCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post J to Station 1"));
+        stationOneToPostKCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 1 to Post K"));
+        postKToStationOneCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post K to Station 1"));
+        stationOneToPostLCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 1 to Post L"));
+        postLToStationOneCommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Middle 4 Piece Fork "));
+        stationOneToPostACommand = AutoBuilder.followPath(PathPlannerPath.fromPathFile("Middle One Piece"));
+        
         
       
 
@@ -45,44 +43,35 @@ public class Paths {
       throw new RuntimeException(e);
     }
   }
-
-  public PathPlannerPath getRobotOneToPostJCommand() {
+  
+  public Command getRobotOneToPostJCommand() {
     return robotOneToPostJCommand;
   }
-
-  public PathPlannerPath getPostJToStationOneCommand() {
+  public Command getPostJToStationOneCommand() {
     return postJToStationOneCommand;
   }
-
-  public PathPlannerPath getStationOneToPostKCommand() {
+  public Command getStationOneToPostKCommand() {
     return stationOneToPostKCommand;
   }
-
-  public PathPlannerPath getPostKToStationOne() {
-    return postKToStationOne;
+  public Command getPostKToStationOne() {
+    return postKToStationOneCommand;
   }
-
-  public PathPlannerPath getMiddleOnePieceCommand() {
-    return middleOnePieceCommand;
+  public Command getStationOneToPostLCommand() {
+    return stationOneToPostLCommand;
   }
-
-  public PathPlannerPath getMiddleFourPieceForkCommand() {
-    return middleFourPieceForkCommand;
+  public Command getPostLToStationOneCommand() {
+    return postLToStationOneCommand;
   }
+  public Command getStationOneToPostACommand() {
+    return stationOneToPostACommand;
 
-  public PathPlannerPath getMiddleFourPieceLineCommand() {
-    return middleFourPieceLineCommand;
-  }
+  public Command getStationOneToPostACommand() {
+    return stationOneToPostACommand;
 
-  public PathPlannerPath getRightCrossTheLine() {
-    return rightCrossTheLineCommand;
-  }
-
-  public PathPlannerPath getRightFourPieceLineCommand() {
-    return rightFourPieceForkCommand;
-  }
-
-  public PathPlannerPath getRightFourPieceForkCommand() {
-    return rightFourPieceLineCommand;
+  public Command getStationOneToPostACommand() {
+    return stationOneToPostACommand;
+  
+  public Command getStationOneToPostACommand() {
+    return stationOneToPostACommand;
   }
 }
