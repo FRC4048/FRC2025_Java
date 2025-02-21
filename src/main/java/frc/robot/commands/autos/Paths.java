@@ -69,4 +69,8 @@ public class Paths {
   public Command getPostLToStationOneCommand() {
     return postLToStationOneCommand;
   }
+
+  public Command getStationOneToPostACommand() {
+    return stationOneToPostACommand;
+  }
 }

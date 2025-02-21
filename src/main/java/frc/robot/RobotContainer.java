@@ -176,7 +176,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
     NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt));
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
-    NamedCommands.registerCommand("ElevatorSpinMotors", new ElevatorSpinMotors(elevatorSubsystem));
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
         new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
