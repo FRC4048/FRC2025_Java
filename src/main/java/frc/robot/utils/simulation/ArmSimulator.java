@@ -12,10 +12,8 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
-import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
-import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
-import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.RobotVisualizer;
 
 /**
  * A class to encapsulate the behavior of a simulated single jointed arm. Wraps around the motor and
@@ -38,11 +36,6 @@ public class ArmSimulator {
   private final SparkLimitSwitchSim reverseSwitchSim;
   // Elevator physical model, simulating movement based on physics, motor load and gravity
   private final SingleJointedArmSim armSim;
-  // The mechanism simulation used for visualization
-  private final Mechanism2d mech2d = new Mechanism2d(3, 5);
-  private final MechanismRoot2d mech2dRoot = mech2d.getRoot("Arm Root", 1, 1);
-  private final MechanismLigament2d armMech2d =
-      mech2dRoot.append(new MechanismLigament2d("Arm", 1, -90));
   private final double armGearing;
   private final String name;
 
@@ -68,9 +61,6 @@ public class ArmSimulator {
     encoderSim.setPositionConversionFactor(1.0);
     encoderSim.setPosition(0.0);
     encoderSim.setInverted(false);
-    // Publish Mechanism2d to SmartDashboard
-    // To view the Elevator visualization, select Network Tables -> SmartDashboard -> Elevator Sim
-    SmartDashboard.putData(name + " Arm Sim", mech2d);
   }
 
   /** Advance the simulation. */
@@ -92,27 +82,19 @@ public class ArmSimulator {
         BatterySim.calculateDefaultBatteryLoadedVoltage(armSim.getCurrentDrawAmps()));
     // Update elevator visualization with position
     Rotation2d positionRadians = Rotation2d.fromRadians(armSim.getAngleRads());
-    armMech2d.setAngle(positionRadians);
+    RobotVisualizer.getInstance().setAlgaeHiHiTiltAngle(positionRadians.getDegrees());
     forwardSwitchSim.setPressed(armSim.hasHitUpperLimit());
     reverseSwitchSim.setPressed(armSim.hasHitLowerLimit());
     SmartDashboard.putNumber(name + "/Arm Motor out voltage", motorOut);
     SmartDashboard.putNumber(name + "/Arm Velocity rads per s", velocityRadsPerSecond.getRadians());
     SmartDashboard.putNumber(name + "/Arm RPM", rpm);
     SmartDashboard.putNumber(name + "/Arm actual position", armSim.getAngleRads());
-    SmartDashboard.putNumber(name + "/Arm Mechanism angle", armMech2d.getAngle());
     SmartDashboard.putBoolean(name + "/Arm Forward switch", forwardSwitchSim.getPressed());
     SmartDashboard.putBoolean(name + "/Arm Reverse switch", reverseSwitchSim.getPressed());
     SmartDashboard.putNumber(name + "/Arm Encoder", encoderSim.getPosition());
   }
 
-  /**
-   * Convert {@link Angle} into RPM
-   *
-   * @param angle Rotation angle, in Radians.
-   * @return {@link Angle} equivalent to rotations of the motor.
-   */
   public void close() {
     motor.close();
-    mech2d.close();
   }
 }

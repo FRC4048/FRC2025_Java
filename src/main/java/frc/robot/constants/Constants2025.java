@@ -4,7 +4,11 @@ public class Constants2025 extends GameConstants {
   /** Constants2025 is only for CANIDs and nothing else, everything else goes into GameConstants. */
 
   // Elevator
-  public static final int ELEVATOR_MOTOR_ID = 35;
+  public static final int ELEVATOR_MOTOR_ID = 35; // TODO: change later
+
+  public static final int ELEVATOR_MOTOR_2_ID = 1; // TODO: change later
+  public static final double ELEVATOR_STARTING_HEIGHT = 0.5;
+  // Get from hardwareg
 
   public static final double MAX_ELEVATOR_ENCODER_POSITION = -46.9;
 
