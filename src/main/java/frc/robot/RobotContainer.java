@@ -20,6 +20,7 @@ import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
+import frc.robot.commands.coral.CoralToFWRLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -365,11 +366,15 @@ public class RobotContainer {
           "Store L0",
           new SetElevatorStoredPosition(ElevatorPositions.CORAL_INTAKE, elevatorSubsystem));
       SmartShuffleboard.putCommand(
-          "Elevator", "Level3", new ElevatorToPosition(elevatorSubsystem, CoralDeposit.LEVEL3));
+          "Elevator",
+          "Level3",
+          new ElevatorToPosition(elevatorSubsystem, ElevatorPositions.LEVEL3));
       SmartShuffleboard.putCommand("Hihi", "Retract Hihi", new RetractHiHi(hihiExtender));
       SmartShuffleboard.putCommand("Hihi", "Extend HiHi", new ExtendHiHi(hihiExtender));
 
       SmartShuffleboard.putCommand("DEBUG", "CoralToFWRLImit", new CoralToFWRLimit(coralSubsystem));
+
+      SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",
           new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
