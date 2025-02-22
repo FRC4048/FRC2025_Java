@@ -6,15 +6,15 @@ package frc.robot.subsystems.coral;
 
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.motor.MotorSimulator;
+import frc.robot.utils.simulation.IntakeSimulator;
 
 /** Add your docs here. */
 public class SimCoralIOLeader extends RealCoralIOLeader {
-  private final MotorSimulator simCoralIOLeader;
+  private final IntakeSimulator simCoralIOLeader;
 
   public SimCoralIOLeader() {
     super();
-    simCoralIOLeader = new MotorSimulator(shooterMotorLeader);
+    simCoralIOLeader = new IntakeSimulator(shooterMotorLeader);
   }
 
   @Override
