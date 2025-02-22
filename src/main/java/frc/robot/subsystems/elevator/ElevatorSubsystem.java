@@ -86,7 +86,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         hashCode(),
         doubles -> {
           NeoPidConfig neoPidConfig =
-              new NeoPidConfig()
+              new NeoPidConfig(true)
                   .setPidf(doubles[0], doubles[1], doubles[2], doubles[3])
                   .setTrapezoidConstructions(doubles[4], doubles[5])
                   .setIZone(doubles[6]);
