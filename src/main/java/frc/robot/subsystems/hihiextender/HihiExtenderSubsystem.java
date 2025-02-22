@@ -35,7 +35,7 @@ public class HihiExtenderSubsystem extends SubsystemBase {
             .setAllowedError(Constants.HIHI_PID_ALLOWED_ERROR);
     initConfig.setCurrentLimit(Constants.HIHI_CURRENT_LIMIT);
     io.configurePID(initConfig);
-    pidConfig = new TunablePIDManager("HiHi", io, initConfig, Constants.HIHI_USE_MAX_MOTION);
+    pidConfig = new TunablePIDManager("HiHi", io, initConfig);
   }
 
   @Override
