@@ -462,5 +462,5 @@ public class RobotContainer {
         new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
     SmartShuffleboard.putCommand(
         "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
-  }
+}
 }
