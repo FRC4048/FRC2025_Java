@@ -155,4 +155,7 @@ public class SwerveModule {
     return AngleUtils.normalizeSwerveAngle(
         steerSystem.getInputs().getEncoderPosition() - steerOffset);
   }
+  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit ){
+    driveSystem.getIO().updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+  }
 }

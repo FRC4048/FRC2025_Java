@@ -9,13 +9,11 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
-import frc.robot.utils.motor.NeoPidConfig;
-import frc.robot.utils.motor.TunablePIDManager;
 
 public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
   private final SparkMax driveMotor;
-  private final SparkBaseConfig driveConfig;
+  private final SparkMaxConfig driveConfig;
   private final SparkMaxInputProvider inputProvider;
 
   public SparkMaxDriveMotorIO(
@@ -71,5 +69,17 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   @Override
   public void updateInputs(MotorInputs inputs) {
     inputs.process(inputProvider);
+  }
+
+  @Override
+  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+    driveConfig
+    .closedLoopRampRate(closedLoopRampRate)
+    .secondaryCurrentLimit(secondaryCurrentLimit)
+    .smartCurrentLimit(smartCurrentLimit);
+    driveMotor.configure(
+      driveConfig,
+        SparkBase.ResetMode.kNoResetSafeParameters,
+        SparkBase.PersistMode.kNoPersistParameters);
   }
 }

@@ -17,6 +17,7 @@ import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
@@ -41,7 +42,9 @@ public class SwerveDrivetrain extends SubsystemBase {
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
-
+  private LoggedTunableNumber closedLoopTunable;
+  private LoggedTunableNumber smartLimitTunable;
+  private LoggedTunableNumber secondaryLimitTunable;
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
       SwerveModule frontRightModule,
@@ -57,6 +60,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+    closedLoopTunable = new LoggedTunableNumber("Swerve/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
+    smartLimitTunable = new LoggedTunableNumber("Swerve/SmartLimit", Constants.DRIVE_SMART_LIMIT);
+    secondaryLimitTunable = new LoggedTunableNumber("Swerve/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
   }
 
   @Override
@@ -87,6 +93,10 @@ public class SwerveDrivetrain extends SubsystemBase {
       SmartShuffleboard.put("Drive", "BL ABS Pos", backLeft.getAbsPosition());
       SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
     }
+    LoggedTunableNumber.ifChanged(
+      hashCode(), () -> {
+      updateConfig(closedLoopTunable.get(),secondaryLimitTunable.get(),(int)smartLimitTunable.get() );
+    }, closedLoopTunable, secondaryLimitTunable, smartLimitTunable);
   }
 
   private void processInputs() {
@@ -204,4 +214,17 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
+  /**
+   * 
+   * @param closedLoopRampRate
+   * @param secondaryCurrentLimit
+   * @param smartCurrentLimit
+   */
+  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+    frontLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+    frontRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+    backRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+    backLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);  
+  }
 }
+
