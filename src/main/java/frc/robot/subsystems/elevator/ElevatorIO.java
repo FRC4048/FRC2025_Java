@@ -9,8 +9,6 @@ public interface ElevatorIO extends LoggableIO<PidMotorInputs> {
 
   public void setElevatorPosition(double encoderPos);
 
-  public double getElevatorPosition();
-
   void stopMotor();
 
   void resetEncoder();
