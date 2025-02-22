@@ -91,7 +91,7 @@ public class GameConstants {
   }
 
   // Limits
-  public static final int DRIVE_SMART_LIMIT = 38; // TODO: change later
+  public static final int DRIVE_SMART_LIMIT = 50; // TODO: change later
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
   public static final int NEO_CURRENT_LIMIT = 20;

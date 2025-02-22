@@ -48,7 +48,6 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   }
 
   private void setMotorConfig(boolean driveInverted) {
-    // driveMotor.restoreFactoryDefaults(); //TODO: idk what to do
     driveConfig
         .inverted(driveInverted)
         .idleMode(IdleMode.kBrake)
