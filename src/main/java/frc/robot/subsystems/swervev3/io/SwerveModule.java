@@ -7,7 +7,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
 import frc.robot.subsystems.swervev3.SwervePidConfig;
@@ -160,9 +159,12 @@ public class SwerveModule {
   public void setDrivePID(double P, double I, double D) {
     drivePIDController.setPID(P, I, D);
   }
-  public void setSteerPID(double P, double I, double D, double maxAcceleration, double maxVelocity) {
+
+  public void setSteerPID(
+      double P, double I, double D, double maxAcceleration, double maxVelocity) {
     turningPIDController.setPID(P, I, D);
-    turningPIDController.setConstraints(new TrapezoidProfile.Constraints(maxAcceleration, maxVelocity));
+    turningPIDController.setConstraints(
+        new TrapezoidProfile.Constraints(maxAcceleration, maxVelocity));
   }
 
   public void updateConfig(

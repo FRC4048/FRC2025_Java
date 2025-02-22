@@ -80,8 +80,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     steerPTunable = new LoggedTunableNumber("Swerve/steer/P", Constants.STEER_PID_P);
     steerITunable = new LoggedTunableNumber("Swerve/steer/I", Constants.STEER_PID_I);
     steerDTunable = new LoggedTunableNumber("Swerve/steer/D", Constants.STEER_PID_D);
-    steerMaxAccelerationTunable = new LoggedTunableNumber("Swerve/steer/maxAccel", Constants.MAX_ANGULAR_SPEED * 150);
-    steerMaxVelocityTunable = new LoggedTunableNumber("Swerve/steer/maxVelocity", 2 * Math.PI * 150);
+    steerMaxAccelerationTunable =
+        new LoggedTunableNumber("Swerve/steer/maxAccel", Constants.MAX_ANGULAR_SPEED * 150);
+    steerMaxVelocityTunable =
+        new LoggedTunableNumber("Swerve/steer/maxVelocity", 2 * Math.PI * 150);
   }
 
   @Override
@@ -132,20 +134,40 @@ public class SwerveDrivetrain extends SubsystemBase {
         drivePTunable,
         driveITunable,
         driveDTunable);
-        LoggedTunableNumber.ifChanged(
-          hashCode(),
-          () -> {
-            frontLeft.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
-            frontRight.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
-            backLeft.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
-            backRight.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
-          },
-          steerPTunable,
-          steerITunable,
-          steerDTunable,
-          steerMaxAccelerationTunable, 
-          steerMaxVelocityTunable);
-      }
+    LoggedTunableNumber.ifChanged(
+        hashCode(),
+        () -> {
+          frontLeft.setSteerPID(
+              steerPTunable.get(),
+              steerITunable.get(),
+              steerDTunable.get(),
+              steerMaxAccelerationTunable.get(),
+              steerMaxVelocityTunable.get());
+          frontRight.setSteerPID(
+              steerPTunable.get(),
+              steerITunable.get(),
+              steerDTunable.get(),
+              steerMaxAccelerationTunable.get(),
+              steerMaxVelocityTunable.get());
+          backLeft.setSteerPID(
+              steerPTunable.get(),
+              steerITunable.get(),
+              steerDTunable.get(),
+              steerMaxAccelerationTunable.get(),
+              steerMaxVelocityTunable.get());
+          backRight.setSteerPID(
+              steerPTunable.get(),
+              steerITunable.get(),
+              steerDTunable.get(),
+              steerMaxAccelerationTunable.get(),
+              steerMaxVelocityTunable.get());
+        },
+        steerPTunable,
+        steerITunable,
+        steerDTunable,
+        steerMaxAccelerationTunable,
+        steerMaxVelocityTunable);
+  }
 
   private void processInputs() {
     frontLeft.updateInputs();
