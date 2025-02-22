@@ -1,24 +1,28 @@
 package frc.robot.utils.motor;
 
 public class NeoPidConfig {
-  private int id = 0;
-  private double p = NeoPidMotor.DEFAULT_P;
-  private double i = NeoPidMotor.DEFAULT_I;
-  private double d = NeoPidMotor.DEFAULT_D;
-  private double iZone = NeoPidMotor.DEFAULT_IZONE;
-  private double ff = NeoPidMotor.DEFAULT_FF;
-  private int currentLimit = 40;
-  private double maxVelocity = NeoPidMotor.MAX_VELOCITY;
-  private double maxAccel = NeoPidMotor.MAX_ACCELERATION;
-  private double allowedError = NeoPidMotor.ALLOWED_ERROR;
+  public static final double DEFAULT_P = 0.01;
+  public static final double DEFAULT_I = 0;
+  public static final double DEFAULT_D = 0.0;
+  public static final double DEFAULT_IZONE = 0.0;
+  public static final double DEFAULT_FF = 0.0;
+  public static final double MAX_VELOCITY = 5000;
+  public static final double MAX_ACCELERATION = 10000;
+  public static final double ALLOWED_ERROR = 1.0;
 
-  public int getId() {
-    return id;
-  }
+  private double p = DEFAULT_P;
+  private double i = DEFAULT_I;
+  private double d = DEFAULT_D;
+  private double iZone = DEFAULT_IZONE;
+  private double ff = DEFAULT_FF;
+  private int currentLimit;
+  private double maxVelocity = MAX_VELOCITY;
+  private double maxAccel = MAX_ACCELERATION;
+  private double allowedError = ALLOWED_ERROR;
+  private boolean usesMaxMotion;
 
-  public NeoPidConfig setId(int id) {
-    this.id = id;
-    return this;
+  public NeoPidConfig(boolean usesMaxMotion) {
+    this.usesMaxMotion = usesMaxMotion;
   }
 
   public double getP() {
@@ -75,26 +79,14 @@ public class NeoPidConfig {
     return this;
   }
 
-  public double getMaxVelocity() {
-    return maxVelocity;
-  }
-
   public NeoPidConfig setMaxVelocity(double maxVelocity) {
     this.maxVelocity = maxVelocity;
     return this;
   }
 
-  public double getMaxAccel() {
-    return maxAccel;
-  }
-
   public NeoPidConfig setMaxAccel(double maxAccel) {
     this.maxAccel = maxAccel;
     return this;
-  }
-
-  public double getAllowedError() {
-    return allowedError;
   }
 
   public NeoPidConfig setAllowedError(double allowedError) {
@@ -115,5 +107,21 @@ public class NeoPidConfig {
   public NeoPidConfig setTrapezoidConstructions(double maxVelocity, double maxAccel) {
     setMaxVelocity(maxVelocity).setMaxAccel(maxAccel);
     return this;
+  }
+
+  public double getMaxVelocity() {
+    return maxVelocity;
+  }
+
+  public double getMaxAccel() {
+    return maxAccel;
+  }
+
+  public double getAllowedError() {
+    return allowedError;
+  }
+
+  public boolean getUsesMaxMotion() {
+    return usesMaxMotion;
   }
 }

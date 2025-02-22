@@ -25,7 +25,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
-  private static Diagnostics diagnostics;
+  private static final Diagnostics diagnostics = new Diagnostics();
 
   private final RobotContainer m_robotContainer;
   private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
@@ -76,7 +76,6 @@ public class Robot extends LoggedRobot {
     Logger.start();
     CommandLogger.get().init();
     m_robotContainer = new RobotContainer();
-    diagnostics = new Diagnostics();
   }
 
   public static RobotMode getMode() {

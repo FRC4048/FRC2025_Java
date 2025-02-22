@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.*;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.LimitSwitchConfig;
+import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 /**
@@ -20,15 +21,8 @@ import com.revrobotics.spark.config.SparkMaxConfig;
  * does not yet support velocity PID or other advanced features
  */
 public class NeoPidMotor {
-  public static final double DEFAULT_P = 1e-2;
-  public static final double DEFAULT_I = 0;
-  public static final double DEFAULT_D = 0.0;
-  public static final double DEFAULT_IZONE = 0.0;
-  public static final double DEFAULT_FF = 0.0;
+
   public static final double RAMP_RATE = 0;
-  public static final int MAX_VELOCITY = 5000;
-  public static final int MAX_ACCELERATION = 10000;
-  public static final double ALLOWED_ERROR = 1.0;
 
   // The neo motor controller
   private final SparkMax neoMotor;
@@ -46,12 +40,12 @@ public class NeoPidMotor {
    *
    * @param id the CAN ID for the controller
    */
-  public NeoPidMotor(int id) {
-    this(new NeoPidConfig().setId(id));
+  public NeoPidMotor(int id, boolean usesMaxMotion) {
+    this(id, new NeoPidConfig(usesMaxMotion));
   }
 
-  public NeoPidMotor(NeoPidConfig pidConfig) {
-    neoMotor = new SparkMax(pidConfig.getId(), SparkLowLevel.MotorType.kBrushless);
+  public NeoPidMotor(int id, NeoPidConfig pidConfig) {
+    neoMotor = new SparkMax(id, SparkLowLevel.MotorType.kBrushless);
     this.pidConfig = pidConfig;
     encoder = neoMotor.getEncoder();
 
@@ -67,11 +61,16 @@ public class NeoPidMotor {
         .pid(pidConfig.getP(), pidConfig.getI(), pidConfig.getD())
         .velocityFF(pidConfig.getFF())
         .iZone(pidConfig.getIZone())
-        .outputRange(-1, 1)
-        .maxMotion
-        .maxVelocity(MAX_VELOCITY)
-        .maxAcceleration(MAX_ACCELERATION)
-        .allowedClosedLoopError(ALLOWED_ERROR);
+        .outputRange(-1, 1);
+    if (pidConfig.getUsesMaxMotion()) {
+      config
+          .closedLoop
+          .maxMotion
+          .maxVelocity(pidConfig.getMaxVelocity())
+          .maxAcceleration(pidConfig.getMaxAccel())
+          .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
+          .allowedClosedLoopError(pidConfig.getAllowedError());
+    }
 
     config
         .limitSwitch
@@ -84,12 +83,35 @@ public class NeoPidMotor {
   }
 
   /**
+   * Reconfigure the PID fully using all values from motor params
+   *
+   * @param params
+   */
+  public void configurePID(NeoPidConfig params) {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config
+        .closedLoop
+        .pid(params.getP(), params.getI(), params.getD())
+        .velocityFF(params.getFF())
+        .iZone(params.getIZone());
+    if (params.getUsesMaxMotion()) {
+      config
+          .closedLoop
+          .maxMotion
+          .maxVelocity(params.getMaxVelocity())
+          .maxAcceleration(params.getMaxAccel())
+          .allowedClosedLoopError(params.getAllowedError());
+    }
+    neoMotor.configure(config, kNoResetSafeParameters, kNoPersistParameters);
+  }
+
+  /**
    * Set the desired position using the relative encoder as a reference
    *
    * @param position the desired motor position
    */
-  public void setPidPos(double position) {
-    pidController.setReference(position, SparkBase.ControlType.kMAXMotionPositionControl);
+  public void setPidPos(double position, SparkBase.ControlType controlType) {
+    pidController.setReference(position, controlType);
     this.setPosition = position;
   }
 
