@@ -13,4 +13,6 @@ public interface MotorInputProvider extends InputProvider {
   boolean getFwdLimit();
 
   boolean getRevLimit();
+
+  double getAppliedOutput();
 }
