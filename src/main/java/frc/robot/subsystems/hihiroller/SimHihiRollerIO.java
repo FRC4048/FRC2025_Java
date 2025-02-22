@@ -2,14 +2,14 @@ package frc.robot.subsystems.hihiroller;
 
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.simulation.IntakeSimulator;
+import frc.robot.utils.motor.MotorSimulator;
 
 public class SimHihiRollerIO extends RealHihiRollerIO {
-  private final IntakeSimulator hihiRollerSimulator;
+  private final MotorSimulator hihiRollerSimulator;
 
   public SimHihiRollerIO() {
     super();
-    hihiRollerSimulator = new IntakeSimulator(hihiRollerMotor);
+    hihiRollerSimulator = new MotorSimulator(hihiRollerMotor);
   }
 
   @Override

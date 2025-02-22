@@ -18,9 +18,9 @@ import edu.wpi.first.math.system.plant.DCMotor;
  */
 public class IntakeSimulator {
   // number of rotations from start point to where piece hits forward switch
-  public static final double FORWARD_ROTATIONS_TO_SWITCH = 70;
+  public static final double FORWARD_ROTATIONS_TO_SWITCH = 20;
   // number of rotations from start point to where piece clears the mechanism off the front
-  public static final double FORWARD_ROTATIONS_TO_CLEAR = 140;
+  public static final double FORWARD_ROTATIONS_TO_CLEAR = 24;
   // number of rotations from start point to where piece clears the mechanism off the back
   public static final double BACKWARD_ROTATIONS_TO_CLEAR = -5;
   // number of rotations from start point to where piece clears the forward switch
