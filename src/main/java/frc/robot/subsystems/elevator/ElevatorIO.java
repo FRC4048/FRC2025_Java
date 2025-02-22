@@ -8,8 +8,6 @@ public interface ElevatorIO extends PIDLoggableIO {
 
   public void setElevatorPosition(double encoderPos);
 
-  public double getElevatorPosition();
-
   void stopMotor();
 
   void resetEncoder();

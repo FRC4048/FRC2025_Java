@@ -52,8 +52,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     return elevatorSystem.getInputs().getEncoderPosition();
   }
 
-  public double getElevatorPosition() {
-    return elevatorSystem.getIO().getElevatorPosition();
+  public double getElevatorTargetPosition() {
+    return elevatorSystem.getInputs().getPidSetpoint();
   }
 
   public void setStoredReefPosition(ElevatorPositions elevatorPositions) {

@@ -27,10 +27,6 @@ public class RealElevatorIO implements ElevatorIO {
     elevatorMotor.setPidPos(encoderPos, SparkBase.ControlType.kMAXMotionPositionControl);
   }
 
-  public double getElevatorPosition() {
-    return elevatorMotor.getPidPosition();
-  }
-
   @Override
   public void stopMotor() {
     elevatorMotor.getNeoMotor().set(0);
