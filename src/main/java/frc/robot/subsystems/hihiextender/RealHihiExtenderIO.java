@@ -34,7 +34,8 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
                 DiagSparkMaxSwitch.Direction.REVERSE));
     Robot.getDiagnostics()
         .addDiagnosable(
-            new DiagSparkMaxEncoder("HiHiExtender", "Encoder", 10, extenderMotor.getNeoMotor()));
+            new DiagSparkMaxEncoder(
+                "HiHiExtender", "Encoder", Constants.DIAGS_TIMEOUT, extenderMotor.getNeoMotor()));
   }
 
   @Override

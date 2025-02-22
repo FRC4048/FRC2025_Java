@@ -34,7 +34,8 @@ public class RealElevatorIO implements ElevatorIO {
                 DiagSparkMaxSwitch.Direction.REVERSE));
     Robot.getDiagnostics()
         .addDiagnosable(
-            new DiagSparkMaxEncoder("Elevator", "Encoder", 10, elevatorMotor.getNeoMotor()));
+            new DiagSparkMaxEncoder(
+                "Elevator", "Encoder", Constants.DIAGS_TIMEOUT, elevatorMotor.getNeoMotor()));
   }
 
   @Override
