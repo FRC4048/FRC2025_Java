@@ -4,17 +4,17 @@
 
 package frc.robot.commands.elevator;
 
-import frc.robot.constants.ReefPosition;
+import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SetElevatorStoredPosition extends LoggableCommand {
-  public final ReefPosition reefPosition;
+  public final ElevatorPositions elevatorPositions;
   public final ElevatorSubsystem elevatorSubsystem;
 
   public SetElevatorStoredPosition(
-      ReefPosition storedElevatorHeight, ElevatorSubsystem elevatorSubsystem) {
-    this.reefPosition = storedElevatorHeight;
+      ElevatorPositions storedElevatorHeight, ElevatorSubsystem elevatorSubsystem) {
+    this.elevatorPositions = storedElevatorHeight;
     this.elevatorSubsystem = elevatorSubsystem;
     addRequirements(elevatorSubsystem);
   }
@@ -22,7 +22,7 @@ public class SetElevatorStoredPosition extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevatorSubsystem.setStoredReefPosition(reefPosition);
+    elevatorSubsystem.setStoredReefPosition(elevatorPositions);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

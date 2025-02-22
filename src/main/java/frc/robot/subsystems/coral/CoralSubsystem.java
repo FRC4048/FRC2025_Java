@@ -19,12 +19,14 @@ public class CoralSubsystem extends SubsystemBase {
     MotorInputs followerInputs =
         new MotorInputBuilder<>("CoralSubsystem/Follower")
             .encoderVelocity()
+            .encoderPosition()
             .fwdLimit()
             .addStatus()
             .build();
     MotorInputs leaderInputs =
         new MotorInputBuilder<>("CoralSubsystem/Leader")
             .encoderVelocity()
+            .encoderPosition()
             .fwdLimit()
             .addStatus()
             .build();

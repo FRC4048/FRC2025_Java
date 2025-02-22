@@ -30,9 +30,8 @@ public class SetElevatorTargetPosition extends LoggableCommand {
   public void execute() {
 
     double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.1);
-
     elevatorSubsystem.setElevatorPosition(
-        -postDeadbandValue + elevatorSubsystem.getElevatorPosition());
+        postDeadbandValue + elevatorSubsystem.getElevatorTargetPosition());
   }
 
   // Called once the command ends or is interrupted.

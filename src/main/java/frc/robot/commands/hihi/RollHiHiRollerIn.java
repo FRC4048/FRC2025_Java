@@ -4,10 +4,12 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
+import org.littletonrobotics.junction.Logger;
 
 public class RollHiHiRollerIn extends LoggableCommand {
   private final HihiRollerSubsystem hihiRoller;
   private final Timer timer;
+  private boolean speedArmed = false;
 
   public RollHiHiRollerIn(HihiRollerSubsystem hihiRoller) {
     this.hihiRoller = hihiRoller;
@@ -19,10 +21,17 @@ public class RollHiHiRollerIn extends LoggableCommand {
   public void initialize() {
     hihiRoller.setRollerMotorSpeed(Constants.HIHI_INTAKE_SPEED);
     timer.restart();
+    speedArmed = false;
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    if (hihiRoller.getRollerMotorVelocity() > Constants.HIHI_INTAKE_BASE_VELOCITY) {
+      // Motor has spun up
+      speedArmed = true;
+    }
+    Logger.recordOutput("HiHi/armed", speedArmed);
+  }
 
   @Override
   public void end(boolean interrupted) {
@@ -31,6 +40,9 @@ public class RollHiHiRollerIn extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
+    if (speedArmed && hihiRoller.getRollerMotorVelocity() < Constants.HIHI_INTAKE_BASE_VELOCITY) {
+      return true;
+    }
     return (timer.hasElapsed(Constants.HIHI_ROLLER_IN_TIMEOUT));
   }
 }
