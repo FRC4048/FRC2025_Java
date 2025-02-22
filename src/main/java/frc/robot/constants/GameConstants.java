@@ -73,7 +73,7 @@ public class GameConstants {
   // Treshholds
   public static final double VISION_CONSISTANCY_THRESHOLD = 0.25;
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
-  public static final double ELEVATOR_ENCODER_THRESHHOLD = 1; //TODO: Change Later
+  public static final double ELEVATOR_ENCODER_THRESHHOLD = 1; // TODO: Change Later
   public static final int HIHI_EXTENDER_TICK_LIMIT = 20;
 
   // Mode

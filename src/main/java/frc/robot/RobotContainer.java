@@ -142,7 +142,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
-    controller.leftTrigger().onTrue(new IntakeCoral(coralSubsystem));
+    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem));
     controller
         .povUp()
         .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
@@ -161,7 +161,7 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.x().onTrue(new ExtendHiHi(hihiExtender));
+    controller.x().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
     controller.y().onTrue(new RetractHiHi(hihiExtender));
     controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
     controller.b().onTrue(new ByeByeToRevLimit(byebyeTilt));

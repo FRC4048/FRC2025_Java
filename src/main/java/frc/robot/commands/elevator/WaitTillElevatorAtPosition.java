@@ -5,7 +5,6 @@
 package frc.robot.commands.elevator;
 
 import frc.robot.constants.Constants;
-import frc.robot.constants.ReefPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
@@ -26,7 +25,11 @@ public class WaitTillElevatorAtPosition extends LoggableCommand {
 
   @Override
   public void execute() {
-    validTicks = Math.abs((elevator.getElevatorPosition() - position)) < Constants.ELEVATOR_ENCODER_THRESHHOLD ? validTicks + 1 : 0;
+    validTicks =
+        Math.abs((elevator.getElevatorPosition() - position))
+                < Constants.ELEVATOR_ENCODER_THRESHHOLD
+            ? validTicks + 1
+            : 0;
   }
 
   @Override
