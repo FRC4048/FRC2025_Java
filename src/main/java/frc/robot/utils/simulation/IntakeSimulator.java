@@ -24,7 +24,7 @@ public class IntakeSimulator {
   // number of rotations from start point to where piece clears the mechanism off the back
   public static final double BACKWARD_ROTATIONS_TO_CLEAR = -5;
   // number of rotations from start point to where piece clears the forward switch
-  public static final double BACKWARDS_ROTATIONS_TO_UNSWITCH = 65;
+  public static final double BACKWARDS_ROTATIONS_TO_UNSWITCH = 14;
 
   private enum Mode {
     EMPTY,
