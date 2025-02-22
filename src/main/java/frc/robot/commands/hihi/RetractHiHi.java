@@ -10,34 +10,43 @@ public class RetractHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
   private Timer timer;
   private final TimeoutLogger timeoutCounter;
+  private int ticksAtLimit = 0;
 
   public RetractHiHi(HihiExtenderSubsystem hihiExtender) {
     this.hihiExtender = hihiExtender;
+    timer = new Timer();
     timeoutCounter = new TimeoutLogger("RetractHIHI");
     addRequirements(hihiExtender);
-    timer = new Timer();
   }
 
   @Override
   public void initialize() {
-    hihiExtender.setExtenderPosition(Constants.HIHI_RETRACT_POSITION);
     timer.restart();
+    hihiExtender.setExtenderSpeed(Constants.HIHI_RETRACT_SPEED);
+    ticksAtLimit = 0;
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    if (hihiExtender.getReverseSwitchState()) {
+      ticksAtLimit++;
+    }
+  }
 
   @Override
   public void end(boolean interrupted) {
-    hihiExtender.stopExtenderMotors();
+    hihiExtender.resetEncoder();
+    hihiExtender.setExtenderPosition(0);
   }
 
   @Override
   public boolean isFinished() {
     if (timer.hasElapsed(Constants.HIHI_RETRACT_TIMEOUT)) {
+      // Couldn't get to limit
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (hihiExtender.getReverseSwitchState());
+    return (hihiExtender.getReverseSwitchState()
+        && ticksAtLimit > Constants.HIHI_EXTENDER_TICK_LIMIT);
   }
 }
