@@ -1,5 +1,6 @@
 package frc.robot.subsystems.elevator;
 
+import com.revrobotics.spark.SparkBase;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
@@ -11,7 +12,8 @@ public class RealElevatorIO implements ElevatorIO {
   private final NeoPidMotorInputProvider inputProvider;
 
   public RealElevatorIO() {
-    this.elevatorMotor = new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID);
+    this.elevatorMotor =
+        new NeoPidMotor(Constants.ELEVATOR_MOTOR_ID, Constants.ELEVATOR_USE_MAX_MOTION);
     this.inputProvider = new NeoPidMotorInputProvider(elevatorMotor);
   }
 
@@ -22,11 +24,7 @@ public class RealElevatorIO implements ElevatorIO {
 
   public void setElevatorPosition(double encoderPos) {
     // Does this need to be converted from heightInMeters to encoder Pos?
-    elevatorMotor.setPidPos(encoderPos);
-  }
-
-  public double getElevatorPosition() {
-    return elevatorMotor.getPidPosition();
+    elevatorMotor.setPidPos(encoderPos, SparkBase.ControlType.kMAXMotionPositionControl);
   }
 
   @Override
