@@ -12,8 +12,12 @@ import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.event.AutoEvent;
 import frc.robot.autochooser.event.AutoEventProvider;
 import frc.robot.autochooser.event.AutoEventProviderIO;
+import frc.robot.commands.autos.LeftCrossTheLine;
+import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.DoNothingCommand;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
+import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,10 +27,16 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
   private final Map<AutoEvent, Command> commandMap;
   private final AutoEventProvider provider;
 
-  public AutoChooser2025(AutoEventProviderIO providerIO) {
+  public AutoChooser2025(
+      AutoEventProviderIO providerIO, ElevatorSubsystem elevator, CoralSubsystem coral) {
     provider = new AutoEventProvider(providerIO, this::isValid);
-    Map<AutoEvent, Command> tempMap = new HashMap<>();
+    Map<AutoEvent, LoggableSequentialCommandGroup> tempMap = new HashMap<>();
     try {
+      tempMap =
+          Map.ofEntries(
+              Map.entry(
+                  new AutoEvent(AutoAction.CrossTheLine, FieldLocation.LEFT),
+                  new LeftCrossTheLine(elevator, coral)));
       tempMap =
           Map.ofEntries(
               // LEFT AUTOS
@@ -36,8 +46,7 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
               // LEFT CROSS THE LINE
               Map.entry(
                   new AutoEvent(AutoAction.CrossTheLine, FieldLocation.LEFT),
-                  LoggableCommandWrapper.wrap(
-                      AutoBuilder.followPath(PathPlannerPath.fromPathFile("Left Cross the Line")))),
+                  new LeftCrossTheLine(elevator, coral)),
               // LEFT 4 PIECE FORK
               Map.entry(
                   new AutoEvent(AutoAction.FourPieceFork, FieldLocation.LEFT),
