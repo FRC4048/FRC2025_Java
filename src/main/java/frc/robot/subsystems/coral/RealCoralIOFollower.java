@@ -24,11 +24,17 @@ public class RealCoralIOFollower implements CoralIOFollower {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "Coral", "Forward", shooterMotorFollower, DiagSparkMaxSwitch.Direction.FORWARD));
+                "Coral",
+                "FollowerForward",
+                shooterMotorFollower,
+                DiagSparkMaxSwitch.Direction.FORWARD));
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "Coral", "Reverse", shooterMotorFollower, DiagSparkMaxSwitch.Direction.REVERSE));
+                "Coral",
+                "FollowerReverse",
+                shooterMotorFollower,
+                DiagSparkMaxSwitch.Direction.REVERSE));
   }
 
   private void configureMotor() {
