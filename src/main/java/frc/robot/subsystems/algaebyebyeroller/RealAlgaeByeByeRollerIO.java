@@ -26,8 +26,7 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
     inputProvider = new SparkMaxInputProvider(removerMotor);
     configureMotor();
     Robot.getDiagnostics()
-        .addDiagnosable(
-            new DiagSparkMaxEncoder("ByeBye", "RollerEncoder", 10, removerMotor));
+        .addDiagnosable(new DiagSparkMaxEncoder("ByeBye", "RollerEncoder", 10, removerMotor));
   }
 
   private void configureMotor() {
