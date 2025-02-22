@@ -8,8 +8,8 @@ import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 public class LeftCrossTheLine extends LoggableSequentialCommandGroup {
   public LeftCrossTheLine(ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem) {
     super(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getLeftCrossTheLineCommand()) //Left Cross The Line
+        new LoggableCommandWrapper(
+            Paths.getInstance().getLeftCrossTheLineCommand()) // Left Cross The Line
         );
   }
 }

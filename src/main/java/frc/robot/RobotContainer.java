@@ -31,17 +31,15 @@ import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.SetInitOdom;
-import frc.robot.commands.elevator.*;
-import frc.robot.commands.elevator.ElevatorSpinMotors;
 import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.commands.elevator.ResetElevator;
+import frc.robot.commands.elevator.ResetElevatorEncoder;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
 import frc.robot.commands.hihi.ShootHiHiRollerOut;
-import frc.robot.commands.hihi.*;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
 import frc.robot.commands.sequences.IntakeAlgae;
@@ -184,19 +182,19 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
-        new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.CORAL_INTAKE, elevatorSubsystem));
     NamedCommands.registerCommand(
         "ElevatorToPositionL1",
-        new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
     NamedCommands.registerCommand(
         "ElevatorToPositionL2",
-        new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
     NamedCommands.registerCommand(
         "ElevatorToPositionL3",
-        new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
     NamedCommands.registerCommand(
         "ElevatorToPositionL4",
-        new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
   }
 
   private void configureBindings() {
