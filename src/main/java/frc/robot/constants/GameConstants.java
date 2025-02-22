@@ -49,12 +49,12 @@ public class GameConstants {
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
   public static final int ELEVATOR_RESET_TIMEOUT = 10;
-  public static final int BYEBYE_SPIN_ROLLER_TIMEOUT = 5;
+  public static final int BYEBYE_SPIN_ROLLER_TIMEOUT = 10;
   public static final int BYEBYE_SPIN_TILT_TIMEOUT = 5;
   public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
-  public static final int SHOOT_CORAL_TIMEOUT = 10;
+  public static final int SHOOT_CORAL_TIMEOUT = 1;
   public static final int CORAL_FWR_TIMEOUT = 10;
   public static final int ROLL_ALGAE_TIMEOUT = 10;
   public static final double HIHI_EXTEND_TIMEOUT = 10;
@@ -64,6 +64,7 @@ public class GameConstants {
   public static final int INTAKE_CORAL_TIMEOUT = 10;
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
+  public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -71,11 +72,9 @@ public class GameConstants {
 
   // Treshholds
   public static final double VISION_CONSISTANCY_THRESHOLD = 0.25;
-  public static final double ENCODER_THRESHHOLD_ELEVATOR = 12; // TODO: change later
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
-  public static final int ELEVATOR_MIN_WINDOW = 1; // TODO: change later
-  public static final int ELEVATOR_MAX_WINDOW = 1; // TODO: change later
-  public static final int HIHI_EXTENDER_TICK_LIMIT = 20;
+  public static final double ELEVATOR_ENCODER_THRESHHOLD = 1; // TODO: Change Later
+  public static final int HIHI_EXTENDER_TICK_LIMIT = 10;
 
   // Mode
   public static final Mode simMode = Mode.SIM;
@@ -139,7 +138,7 @@ public class GameConstants {
       Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
   public static final Rotation2d HIHI_MAX_ANGLE =
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 15; // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 15.5; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros
@@ -169,4 +168,6 @@ public class GameConstants {
   public static final double HIHI_GEARING = 45.0; // TODO: change later
   public static final double HIHI_INERTIA = 1.0; // TODO: change later
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
+  public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
+  public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
 }
