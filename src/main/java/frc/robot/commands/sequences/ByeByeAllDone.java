@@ -4,7 +4,6 @@
 
 package frc.robot.commands.sequences;
 
-
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.byebye.StopByeByeMotors;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -18,7 +17,7 @@ public class ByeByeAllDone extends LoggableSequentialCommandGroup {
       AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem,
       AlgaeByeByeRollerSubsystem algaeByeByeRollerSubsystem) {
     super(
-    new StopByeByeMotors(algaeByeByeRollerSubsystem),    
-    new ByeByeToRevLimit(algaeByeByeTiltSubsystem));
+        new StopByeByeMotors(algaeByeByeRollerSubsystem),
+        new ByeByeToRevLimit(algaeByeByeTiltSubsystem));
   }
 }
