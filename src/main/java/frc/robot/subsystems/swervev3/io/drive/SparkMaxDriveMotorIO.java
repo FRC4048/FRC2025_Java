@@ -2,7 +2,6 @@ package frc.robot.subsystems.swervev3.io.drive;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
@@ -72,13 +71,14 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   }
 
   @Override
-  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+  public void updateConfig(
+      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
     driveConfig
-    .closedLoopRampRate(closedLoopRampRate)
-    .secondaryCurrentLimit(secondaryCurrentLimit)
-    .smartCurrentLimit(smartCurrentLimit);
+        .closedLoopRampRate(closedLoopRampRate)
+        .secondaryCurrentLimit(secondaryCurrentLimit)
+        .smartCurrentLimit(smartCurrentLimit);
     driveMotor.configure(
-      driveConfig,
+        driveConfig,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
   }

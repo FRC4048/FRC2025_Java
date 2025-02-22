@@ -45,6 +45,13 @@ public class SwerveDrivetrain extends SubsystemBase {
   private LoggedTunableNumber closedLoopTunable;
   private LoggedTunableNumber smartLimitTunable;
   private LoggedTunableNumber secondaryLimitTunable;
+  private LoggedTunableNumber drivePTunable;
+  private LoggedTunableNumber driveITunable;
+  private LoggedTunableNumber driveDTunable;
+  private LoggedTunableNumber steerPTunable;
+  private LoggedTunableNumber steerITunable;
+  private LoggedTunableNumber steerDTunable;
+
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
       SwerveModule frontRightModule,
@@ -60,9 +67,17 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-    closedLoopTunable = new LoggedTunableNumber("Swerve/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
+    closedLoopTunable =
+        new LoggedTunableNumber("Swerve/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
     smartLimitTunable = new LoggedTunableNumber("Swerve/SmartLimit", Constants.DRIVE_SMART_LIMIT);
-    secondaryLimitTunable = new LoggedTunableNumber("Swerve/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
+    secondaryLimitTunable =
+        new LoggedTunableNumber("Swerve/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
+    drivePTunable = new LoggedTunableNumber("Swerve/driveP", Constants.DRIVE_PID_P);
+    driveITunable = new LoggedTunableNumber("Swerve/driveI", Constants.DRIVE_PID_I);
+    driveDTunable = new LoggedTunableNumber("Swerve/driveD", Constants.DRIVE_PID_D);
+    steerPTunable = new LoggedTunableNumber("Swerve/steerP", Constants.STEER_PID_P);
+    steerITunable = new LoggedTunableNumber("Swerve/steerI", Constants.STEER_PID_I);
+    steerDTunable = new LoggedTunableNumber("Swerve/steerD", Constants.STEER_PID_D);
   }
 
   @Override
@@ -94,10 +109,37 @@ public class SwerveDrivetrain extends SubsystemBase {
       SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
     }
     LoggedTunableNumber.ifChanged(
-      hashCode(), () -> {
-      updateConfig(closedLoopTunable.get(),secondaryLimitTunable.get(),(int)smartLimitTunable.get() );
-    }, closedLoopTunable, secondaryLimitTunable, smartLimitTunable);
-  }
+        hashCode(),
+        () -> {
+          updateConfig(
+              closedLoopTunable.get(), secondaryLimitTunable.get(), (int) smartLimitTunable.get());
+        },
+        closedLoopTunable,
+        secondaryLimitTunable,
+        smartLimitTunable);
+    LoggedTunableNumber.ifChanged(
+        hashCode(),
+        () -> {
+          frontLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+          frontRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+          backLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+          backRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+        },
+        drivePTunable,
+        driveITunable,
+        driveDTunable);
+        LoggedTunableNumber.ifChanged(
+          hashCode(),
+          () -> {
+            frontLeft.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            frontRight.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            backLeft.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            backRight.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+          },
+          steerPTunable,
+          steerITunable,
+          steerDTunable);
+      }
 
   private void processInputs() {
     frontLeft.updateInputs();
@@ -214,17 +256,17 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
+
   /**
-   * 
    * @param closedLoopRampRate
    * @param secondaryCurrentLimit
    * @param smartCurrentLimit
    */
-  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+  public void updateConfig(
+      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
     frontLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     frontRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     backRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
-    backLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);  
+    backLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
   }
 }
-

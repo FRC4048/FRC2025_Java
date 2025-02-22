@@ -108,7 +108,6 @@ public class GameConstants {
   public static final double HIHI_PID_ALLOWED_ERROR = 0.5;
   public static final boolean HIHI_USE_MAX_MOTION = false;
 
-
   // Elevator PID
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
@@ -121,7 +120,7 @@ public class GameConstants {
   public static final double DRIVE_PID_I_ZONE = 0; // TODO: change later
   public static final double DRIVE_PID_MAX_VEL = 0;
   public static final double DRIVE_PID_MAX_ACC = 0;
-  public static final double DRIVE_PID_ALLOWED_ERROR  = 0;
+  public static final double DRIVE_PID_ALLOWED_ERROR = 0;
 
   // Steer PID
   public static final double STEER_PID_P = 0.3; // TODO: change later

@@ -14,5 +14,6 @@ public class MockDriveMotorIO implements SwerveDriveMotorIO {
   public void updateInputs(MotorInputs inputs) {}
 
   @Override
-  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {}
+  public void updateConfig(
+      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {}
 }
