@@ -28,6 +28,7 @@ import frc.robot.commands.hihi.*;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.IntakeAlgae;
 import frc.robot.commands.sequences.PickUpCoral;
+import frc.robot.commands.sequences.ShootAlgae;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -162,7 +163,7 @@ public class RobotContainer {
         new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.x().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
-    controller.y().onTrue(new RetractHiHi(hihiExtender));
+    controller.y().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
     controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
     controller.b().onTrue(new ByeByeToRevLimit(byebyeTilt));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
