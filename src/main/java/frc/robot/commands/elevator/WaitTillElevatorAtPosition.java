@@ -4,39 +4,34 @@
 
 package frc.robot.commands.elevator;
 
-import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class WaitTillElevatorAtPosition extends LoggableCommand {
-  private final ElevatorSubsystem elevator;
-  private final double position;
-  private int validTicks;
+  private double position;
+  private final ElevatorSubsystem elevatorSubsystem;
+  private double counter = 0;
 
-  public WaitTillElevatorAtPosition(ElevatorSubsystem elevator, double position) {
-    this.elevator = elevator;
+  public WaitTillElevatorAtPosition(ElevatorSubsystem elevatorSubsystem, double position) {
+    this.elevatorSubsystem = elevatorSubsystem;
     this.position = position;
+    addRequirements(elevatorSubsystem);
   }
 
   @Override
   public void initialize() {
-    validTicks = 0;
+    counter = 0;
   }
 
   @Override
   public void execute() {
-    validTicks =
-        Math.abs((elevator.getElevatorPosition() - position))
-                < Constants.ELEVATOR_ENCODER_THRESHHOLD
-            ? validTicks + 1
-            : 0;
+    if (Math.abs(elevatorSubsystem.getElevatorPosition() - position) < 1) {
+      counter++;
+    }
   }
 
   @Override
-  public void end(boolean interrupted) {}
-
-  @Override
   public boolean isFinished() {
-    return validTicks > Constants.MAX_VALID_TICKS_ELEVATOR;
+    return counter > 10;
   }
 }

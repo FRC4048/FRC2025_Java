@@ -33,7 +33,7 @@ import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.constants.Constants;
-import frc.robot.constants.ReefPosition;
+import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -146,16 +146,16 @@ public class RobotContainer {
     controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem));
     controller
         .povUp()
-        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
     controller
         .povDown()
-        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
     controller
         .povLeft()
-        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
     controller
         .povRight()
-        .onTrue(new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
+        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
     controller.rightBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
@@ -361,23 +361,23 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
-          new SetElevatorStoredPosition(ReefPosition.LEVEL0, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.CORAL_INTAKE, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",
-          new SetElevatorStoredPosition(ReefPosition.LEVEL1, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L2",
-          new SetElevatorStoredPosition(ReefPosition.LEVEL2, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L3",
-          new SetElevatorStoredPosition(ReefPosition.LEVEL3, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L4",
-          new SetElevatorStoredPosition(ReefPosition.LEVEL4, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
     }
 
     if (Constants.CLIMBER_DEBUG) {
