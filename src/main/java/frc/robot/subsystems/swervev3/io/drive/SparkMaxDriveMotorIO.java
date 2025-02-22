@@ -9,6 +9,8 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
+import frc.robot.utils.motor.NeoPidConfig;
+import frc.robot.utils.motor.TunablePIDManager;
 
 public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
