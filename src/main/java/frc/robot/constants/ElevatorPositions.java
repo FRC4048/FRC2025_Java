@@ -1,15 +1,15 @@
 package frc.robot.constants;
 
-public enum ReefPosition {
-  LEVEL0(-1),
+public enum ElevatorPositions {
+  CORAL_INTAKE(-1),
   LEVEL1(-10),
   LEVEL2(-20),
   LEVEL3(-30),
-  LEVEL4(-45);
+  LEVEL4(-47);
 
   private final double heightElevator;
 
-  ReefPosition(double heightElevator) {
+  ElevatorPositions(double heightElevator) {
     this.heightElevator = heightElevator;
   }
 
