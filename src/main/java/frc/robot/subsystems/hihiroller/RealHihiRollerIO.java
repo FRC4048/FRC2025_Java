@@ -5,7 +5,10 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -18,6 +21,14 @@ public class RealHihiRollerIO implements HihiRollerIO {
         new SparkMax(Constants.ALGAE_ROLLER_CAN_ID, SparkLowLevel.MotorType.kBrushless);
     this.inputProvider = new SparkMaxInputProvider(hihiRollerMotor);
     configureMotor();
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxEncoder(
+                "HiHi", "RollerForward", 10, hihiRollerMotor));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxEncoder(
+                "ByeBye", "RollerReverse", 10, hihiRollerMotor));
   }
 
   public void configureMotor() {

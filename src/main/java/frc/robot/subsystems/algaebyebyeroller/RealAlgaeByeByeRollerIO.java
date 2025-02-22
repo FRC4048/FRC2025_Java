@@ -9,7 +9,10 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
+import frc.robot.utils.diag.DiagSparkMaxSwitch;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -23,6 +26,14 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
         new SparkMax(Constants.ALGAE_BYEBYE_SPINING_ID, SparkLowLevel.MotorType.kBrushless);
     inputProvider = new SparkMaxInputProvider(removerMotor);
     configureMotor();
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxEncoder(
+                "ByeBye", "RollerForward", 10, removerMotor));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxEncoder(
+                "ByeBye", "RollerReverse", 10, removerMotor));
   }
 
   private void configureMotor() {
