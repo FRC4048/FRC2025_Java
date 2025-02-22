@@ -4,7 +4,7 @@
 
 package frc.robot.commands.sequences;
 
-import frc.robot.commands.byebye.ByeByeToFwrLimit;
+import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.byebye.SpinByeByeRoller;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
@@ -17,7 +17,7 @@ public class RemoveAlgaeFromReef extends LoggableSequentialCommandGroup {
       AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem,
       AlgaeByeByeRollerSubsystem algaeByeByeRollerSubsystem) {
     super(
-        new ByeByeToFwrLimit(algaeByeByeTiltSubsystem),
+        new ByeByeToRevLimit(algaeByeByeTiltSubsystem),
         new SpinByeByeRoller(algaeByeByeRollerSubsystem));
   }
 }
