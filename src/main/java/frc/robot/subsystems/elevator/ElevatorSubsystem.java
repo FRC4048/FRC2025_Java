@@ -20,7 +20,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorPositions = ElevatorPositions.CORAL_INTAKE;
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
     NeoPidConfig neoPidConfig =
-        new NeoPidConfig(true)
+        new NeoPidConfig(Constants.ELEVATOR_USE_MAX_MOTION)
             .setPidf(
                 Constants.ELEVATOR_PID_P,
                 Constants.ELEVATOR_PID_I,
