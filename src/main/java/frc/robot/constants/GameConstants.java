@@ -39,11 +39,11 @@ public class GameConstants {
   public static final double CORAL_SHOOTER_SPEED = 0.5;
   public static final double HIHI_EXTEND_SPEED = 0.4;
   public static final double HIHI_RETRACT_SPEED = -0.15;
-  public static final double HIHI_INTAKE_SPEED = 0.4;
+  public static final double HIHI_INTAKE_SPEED = 0.7;
   public static final double HIHI_SHOOT_SPEED = -0.9;
   public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0.5;
-  public static final double HIHI_INTAKE_BASE_VELOCITY = 3500.0;
+  public static final double HIHI_INTAKE_BASE_VELOCITY = 7000.0;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -99,14 +99,14 @@ public class GameConstants {
   public static final int HIHI_CURRENT_LIMIT = 10;
 
   // HiHi PID
-  public static final double HIHI_PID_P = 0.03; // 0.08 with max motion
+  public static final double HIHI_PID_P = 0.02; // 0.08 with max motion
   public static final double HIHI_PID_I = 0;
   public static final double HIHI_PID_D = 0;
   public static final double HIHI_PID_I_ZONE = 0;
   public static final double HIHI_PID_FF = 0;
   public static final double HIHI_PID_MAX_VEL = 3000;
   public static final double HIHI_PID_MAX_ACC = 2500;
-  public static final double HIHI_PID_ALLOWED_ERROR = 0.1;
+  public static final double HIHI_PID_ALLOWED_ERROR = 0.5;
   public static final boolean HIHI_USE_MAX_MOTION = false;
 
   // Elevator PID
@@ -139,7 +139,7 @@ public class GameConstants {
       Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
   public static final Rotation2d HIHI_MAX_ANGLE =
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 8.9; // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 15; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros

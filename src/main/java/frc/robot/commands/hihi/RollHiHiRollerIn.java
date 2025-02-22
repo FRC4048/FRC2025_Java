@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
+import org.littletonrobotics.junction.Logger;
 
 public class RollHiHiRollerIn extends LoggableCommand {
   private final HihiRollerSubsystem hihiRoller;
@@ -29,6 +30,7 @@ public class RollHiHiRollerIn extends LoggableCommand {
       // Motor has spun up
       speedArmed = true;
     }
+    Logger.recordOutput("HiHi/armed", speedArmed);
   }
 
   @Override
