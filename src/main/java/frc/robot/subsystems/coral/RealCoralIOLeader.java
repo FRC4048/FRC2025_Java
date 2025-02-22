@@ -24,10 +24,7 @@ public class RealCoralIOLeader implements CoralIOLeader {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "Coral",
-                "LeaderForward",
-                shooterMotorLeader,
-                DiagSparkMaxSwitch.Direction.FORWARD));
+                "Coral", "LeaderLimit", shooterMotorLeader, DiagSparkMaxSwitch.Direction.FORWARD));
   }
 
   private void configureMotor() {

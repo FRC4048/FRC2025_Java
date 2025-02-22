@@ -30,15 +30,15 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "ByeBye",
-                "TiltForwardLimit",
+                "ByeByeTilt",
+                "ForwardLimit",
                 removerTiltMotor,
                 DiagSparkMaxSwitch.Direction.FORWARD));
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "ByeBye",
-                "TiltReverseLimit",
+                "ByeByeTilt",
+                "ReverseLimit",
                 removerTiltMotor,
                 DiagSparkMaxSwitch.Direction.REVERSE));
   }

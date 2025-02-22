@@ -27,11 +27,11 @@ public class RealClimberIO implements ClimberIO {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "Climber", "ClimbToFWD", climberMotor, DiagSparkMaxSwitch.Direction.FORWARD));
+                "Climber", "ForwardLimit", climberMotor, DiagSparkMaxSwitch.Direction.FORWARD));
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "Climber", "ClimbToREV", climberMotor, DiagSparkMaxSwitch.Direction.REVERSE));
+                "Climber", "ReverseLimit", climberMotor, DiagSparkMaxSwitch.Direction.REVERSE));
   }
 
   public void configureMotor() {
