@@ -9,7 +9,6 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.utils.diag.DiagSparkMaxSwitch;

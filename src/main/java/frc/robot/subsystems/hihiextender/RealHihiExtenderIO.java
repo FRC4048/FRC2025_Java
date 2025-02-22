@@ -1,7 +1,6 @@
 package frc.robot.subsystems.hihiextender;
 
 import com.revrobotics.spark.SparkBase;
-
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.utils.diag.DiagSparkMaxSwitch;
@@ -21,11 +20,17 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "HiHi", "ExtenderForward", extenderMotor.getNeoMotor(), DiagSparkMaxSwitch.Direction.FORWARD));
+                "HiHi",
+                "ExtenderForward",
+                extenderMotor.getNeoMotor(),
+                DiagSparkMaxSwitch.Direction.FORWARD));
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxSwitch(
-                "HiHi", "ExtenderReverse", extenderMotor.getNeoMotor(), DiagSparkMaxSwitch.Direction.REVERSE));
+                "HiHi",
+                "ExtenderReverse",
+                extenderMotor.getNeoMotor(),
+                DiagSparkMaxSwitch.Direction.REVERSE));
   }
 
   @Override
