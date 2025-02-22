@@ -11,13 +11,13 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class RealCoralIOFollower implements CoralIOFollower {
-  private final SparkMax shooterMotor;
+  protected final SparkMax shooterMotorFollower;
   private final SparkMaxInputProvider inputProvider;
 
   public RealCoralIOFollower() {
-    shooterMotor =
+    shooterMotorFollower =
         new SparkMax(Constants.SHOOTER_MOTOR_FOLLOWER_ID, SparkLowLevel.MotorType.kBrushless);
-    inputProvider = new SparkMaxInputProvider(shooterMotor);
+    inputProvider = new SparkMaxInputProvider(shooterMotorFollower);
     configureMotor();
   }
 
@@ -25,8 +25,9 @@ public class RealCoralIOFollower implements CoralIOFollower {
     SparkMaxConfig coralConfig = new SparkMaxConfig();
     coralConfig.apply(coralConfig.limitSwitch.forwardLimitSwitchEnabled(true));
     coralConfig.idleMode(IdleMode.kBrake);
-    coralConfig.follow(Constants.SHOOTER_MOTOR_LEADER_ID);
-    shooterMotor.configure(
+    coralConfig.smartCurrentLimit(Constants.NEO_CURRENT_LIMIT);
+    coralConfig.follow(Constants.SHOOTER_MOTOR_LEADER_ID, true);
+    shooterMotorFollower.configure(
         coralConfig,
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
@@ -35,7 +36,7 @@ public class RealCoralIOFollower implements CoralIOFollower {
   public void setIdleMode(IdleMode mode) {
     SparkMaxConfig coralConfigMotor = new SparkMaxConfig();
     coralConfigMotor.idleMode(mode);
-    shooterMotor.configure(
+    shooterMotorFollower.configure(
         coralConfigMotor,
         SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kNoPersistParameters);
@@ -46,7 +47,9 @@ public class RealCoralIOFollower implements CoralIOFollower {
     inputs.process(inputProvider);
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.put(
-          "coral", "ForwardTrippedFollower", shooterMotor.getForwardLimitSwitch().isPressed());
+          "coral",
+          "ForwardTrippedFollower",
+          shooterMotorFollower.getForwardLimitSwitch().isPressed());
     }
   }
 }
