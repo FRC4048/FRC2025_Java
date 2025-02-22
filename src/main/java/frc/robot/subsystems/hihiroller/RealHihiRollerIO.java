@@ -23,7 +23,7 @@ public class RealHihiRollerIO implements HihiRollerIO {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxEncoder(
-                "HiHiRoller", "Encoder", Constants.DIAGS_TIMEOUT, hihiRollerMotor));
+                "HiHiRoller", "Encoder", Constants.DIAGS_ENCODER, hihiRollerMotor));
   }
 
   public void configureMotor() {

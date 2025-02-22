@@ -35,7 +35,7 @@ public class RealElevatorIO implements ElevatorIO {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxEncoder(
-                "Elevator", "Encoder", Constants.DIAGS_TIMEOUT, elevatorMotor.getNeoMotor()));
+                "Elevator", "Encoder", Constants.DIAGS_ENCODER, elevatorMotor.getNeoMotor()));
   }
 
   @Override

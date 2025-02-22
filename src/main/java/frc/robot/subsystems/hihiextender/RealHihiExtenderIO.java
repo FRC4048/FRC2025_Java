@@ -35,7 +35,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxEncoder(
-                "HiHiExtender", "Encoder", Constants.DIAGS_TIMEOUT, extenderMotor.getNeoMotor()));
+                "HiHiExtender", "Encoder", Constants.DIAGS_ENCODER, extenderMotor.getNeoMotor()));
   }
 
   @Override

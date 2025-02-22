@@ -12,6 +12,9 @@ public class GameConstants {
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final int XBOX_CONTROLLER_ID = 2;
 
+  // Diags
+  public static final int DIAGS_ENCODER = 1;
+
   // Debug
   public static final boolean SWERVE_DEBUG = true;
   public static final boolean INTAKE_DEBUG = true;
