@@ -15,14 +15,14 @@ import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import frc.robot.utils.logging.commands.LoggableParallelCommandGroup;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
-// public class MiddleOnePiece extends LoggableSequentialCommandGroup {
-//   public MiddleOnePiece(ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem, AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem) {
-//     super(
-//             new LoggableCommandWrapper(
-//                 Paths.getInstance().getRobotTwoToPostHCommand()),
-//                 new WaitCommand(11.79),
-//                 new ByeByeToFwrLimit(algaeByeByeTiltSubsystem, 0.5)
-//         );
+public class MiddleOnePiece extends LoggableSequentialCommandGroup {
+  public MiddleOnePiece(ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem, AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem) {
+    super(
+            new LoggableCommandWrapper(
+                Paths.getInstance().getRobotTwoToPostHCommand()),
+                new WaitCommand(11.79),
+                new ByeByeToFwrLimit(algaeByeByeTiltSubsystem, 0.5)
+        );
    
-//   }
-// }
+  }
+}
