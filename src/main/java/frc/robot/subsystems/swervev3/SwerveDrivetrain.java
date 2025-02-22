@@ -51,6 +51,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   private LoggedTunableNumber steerPTunable;
   private LoggedTunableNumber steerITunable;
   private LoggedTunableNumber steerDTunable;
+  private LoggedTunableNumber steerMaxAccelerationTunable;
+  private LoggedTunableNumber steerMaxVelocityTunable;
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
@@ -72,12 +74,14 @@ public class SwerveDrivetrain extends SubsystemBase {
     smartLimitTunable = new LoggedTunableNumber("Swerve/SmartLimit", Constants.DRIVE_SMART_LIMIT);
     secondaryLimitTunable =
         new LoggedTunableNumber("Swerve/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
-    drivePTunable = new LoggedTunableNumber("Swerve/driveP", Constants.DRIVE_PID_P);
-    driveITunable = new LoggedTunableNumber("Swerve/driveI", Constants.DRIVE_PID_I);
-    driveDTunable = new LoggedTunableNumber("Swerve/driveD", Constants.DRIVE_PID_D);
-    steerPTunable = new LoggedTunableNumber("Swerve/steerP", Constants.STEER_PID_P);
-    steerITunable = new LoggedTunableNumber("Swerve/steerI", Constants.STEER_PID_I);
-    steerDTunable = new LoggedTunableNumber("Swerve/steerD", Constants.STEER_PID_D);
+    drivePTunable = new LoggedTunableNumber("Swerve/drive/P", Constants.DRIVE_PID_P);
+    driveITunable = new LoggedTunableNumber("Swerve/drive/I", Constants.DRIVE_PID_I);
+    driveDTunable = new LoggedTunableNumber("Swerve/drive/D", Constants.DRIVE_PID_D);
+    steerPTunable = new LoggedTunableNumber("Swerve/steer/P", Constants.STEER_PID_P);
+    steerITunable = new LoggedTunableNumber("Swerve/steer/I", Constants.STEER_PID_I);
+    steerDTunable = new LoggedTunableNumber("Swerve/steer/D", Constants.STEER_PID_D);
+    steerMaxAccelerationTunable = new LoggedTunableNumber("Swerve/steer/maxAccel", Constants.MAX_ANGULAR_SPEED * 150);
+    steerMaxVelocityTunable = new LoggedTunableNumber("Swerve/steer/maxVelocity", 2 * Math.PI * 150);
   }
 
   @Override
@@ -131,14 +135,16 @@ public class SwerveDrivetrain extends SubsystemBase {
         LoggedTunableNumber.ifChanged(
           hashCode(),
           () -> {
-            frontLeft.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-            frontRight.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-            backLeft.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-            backRight.setSteerPID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            frontLeft.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
+            frontRight.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
+            backLeft.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
+            backRight.setSteerPID(steerPTunable.get(), steerITunable.get(), steerDTunable.get(), steerMaxAccelerationTunable.get(), steerMaxVelocityTunable.get());
           },
           steerPTunable,
           steerITunable,
-          steerDTunable);
+          steerDTunable,
+          steerMaxAccelerationTunable, 
+          steerMaxVelocityTunable);
       }
 
   private void processInputs() {
