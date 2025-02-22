@@ -15,6 +15,7 @@ public class Paths {
   private final Command postJToStationOneCommand;
   private final Command postKToStationOneCommand;
   private final Command postLToStationOneCommand;
+  private final Command postHToStationOneCommand;
   private final Command postEToStationOneCommand;
   private final Command postBToStationTwoCommand;
   private final Command postCToStationTwoCommand;
@@ -52,6 +53,8 @@ public class Paths {
       //Post to Station Paths
       postJToStationOneCommand = 
         AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post J to Station 1"));
+      postHToStationOneCommand = 
+        AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post H to Station 1"));
       postKToStationOneCommand = 
         AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post K to Station 1"));
       postLToStationOneCommand = 
@@ -164,5 +167,9 @@ public class Paths {
 
   public Command getRightCrossTheLineCommand() {
     return rightCrossTheLineCommand;
+  }
+
+  public Command getPostHToStationeOneCommand() {
+    return postHToStationOneCommand;
   }
 }

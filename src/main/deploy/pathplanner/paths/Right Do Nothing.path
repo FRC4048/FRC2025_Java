@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.025784967890585,
-        "y": 1.1995487441265853
+        "x": 6.9747426669858035,
+        "y": 1.054679916917659
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.98027821871175,
-        "y": 2.829885681227049
+        "x": 7.224654835668104,
+        "y": 1.0480536099137918
       },
       "prevControl": {
-        "x": 5.197815634967455,
-        "y": 2.7066887960034682
+        "x": 7.4744332325574,
+        "y": 1.0585775087831695
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.47050676245637
+    "rotation": -179.72
   },
   "reversed": false,
-  "folder": "Robot to Post (4)",
+  "folder": "Do Nothing",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 179.721
