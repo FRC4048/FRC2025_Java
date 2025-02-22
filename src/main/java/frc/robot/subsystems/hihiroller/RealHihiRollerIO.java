@@ -21,9 +21,11 @@ public class RealHihiRollerIO implements HihiRollerIO {
     this.inputProvider = new SparkMaxInputProvider(hihiRollerMotor);
     configureMotor();
     Robot.getDiagnostics()
-        .addDiagnosable(new DiagSparkMaxEncoder("HiHi", "RollerForward", 10, hihiRollerMotor));
+        .addDiagnosable(
+            new DiagSparkMaxEncoder("HiHi", "RollerForwardEncoder", 10, hihiRollerMotor));
     Robot.getDiagnostics()
-        .addDiagnosable(new DiagSparkMaxEncoder("ByeBye", "RollerReverse", 10, hihiRollerMotor));
+        .addDiagnosable(
+            new DiagSparkMaxEncoder("HiHi", "RollerReverseEncoder", 10, hihiRollerMotor));
   }
 
   public void configureMotor() {
