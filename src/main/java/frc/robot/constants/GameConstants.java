@@ -138,7 +138,7 @@ public class GameConstants {
       Rotation2d.fromRadians(-Math.PI / 2); // TODO: change later
   public static final Rotation2d HIHI_MAX_ANGLE =
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
-  public static final double HIHI_EXTEND_POSITION = 15; // TODO: change later
+  public static final double HIHI_EXTEND_POSITION = 15.5; // TODO: change later
   public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
 
   // Zeros
