@@ -48,7 +48,7 @@ public class GameConstants {
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
   public static final int ELEVATOR_RESET_TIMEOUT = 10;
-  public static final int BYEBYE_SPIN_ROLLER_TIMEOUT = 5;
+  public static final int BYEBYE_SPIN_ROLLER_TIMEOUT = 10;
   public static final int BYEBYE_SPIN_TILT_TIMEOUT = 5;
   public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later

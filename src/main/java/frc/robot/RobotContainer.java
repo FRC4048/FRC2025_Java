@@ -29,6 +29,8 @@ import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
 import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedPattern;
+import frc.robot.commands.sequences.ByeByeAllDone;
+import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.subsystemtests.CoralIdleMode;
 import frc.robot.commands.subsystemtests.SetCoralLimitState;
 import frc.robot.commands.subsystemtests.SpinRollerByeBye;
@@ -164,8 +166,8 @@ public class RobotContainer {
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.x().onTrue(new ExtendHiHi(hihiExtender));
     controller.y().onTrue(new RetractHiHi(hihiExtender));
-    controller.a().onTrue(new ByeByeToFwrLimit(byebyeTilt));
-    controller.b().onTrue(new ByeByeToRevLimit(byebyeTilt));
+    controller.a().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
+    controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
