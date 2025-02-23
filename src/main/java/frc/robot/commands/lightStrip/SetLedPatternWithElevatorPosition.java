@@ -6,21 +6,24 @@ package frc.robot.commands.lightStrip;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.ElevatorPositions;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.BlinkinPattern;
 
 public class SetLedPatternWithElevatorPosition extends Command {
   private final LightStrip lightStrip;
-  private final ElevatorPositions elevatorPosition;
-  public SetLedPatternWithElevatorPosition(ElevatorPositions elevatorPosition, LightStrip lightStrip) {
+  private final ElevatorSubsystem elevatorSubsystem;
+
+  public SetLedPatternWithElevatorPosition(
+      ElevatorSubsystem elevatorSubsystem, LightStrip lightStrip) {
     this.lightStrip = lightStrip;
-    this.elevatorPosition = elevatorPosition;
+    this.elevatorSubsystem = elevatorSubsystem;
+    addRequirements(lightStrip);
   }
 
   @Override
   public void initialize() {
-    switch (elevatorPosition) {
+    switch (elevatorSubsystem.getStoredReefPosition()) {
       case CORAL_INTAKE:
         lightStrip.setPattern(BlinkinPattern.DARK_GREEN);
         break;

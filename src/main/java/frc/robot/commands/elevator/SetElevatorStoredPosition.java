@@ -4,11 +4,9 @@
 
 package frc.robot.commands.elevator;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.lightStrip.LightStrip;
-import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SetElevatorStoredPosition extends LoggableCommand {
