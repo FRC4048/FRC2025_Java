@@ -12,5 +12,7 @@ public interface ElevatorIO extends PIDLoggableIO {
 
   void resetEncoder();
 
+  void setEncoder(double value);
+
   void configurePID(NeoPidConfig neoPidConfig);
 }

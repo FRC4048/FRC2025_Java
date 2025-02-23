@@ -19,5 +19,8 @@ public class MockElevatorIO implements ElevatorIO {
   public void resetEncoder() {}
 
   @Override
+  public void setEncoder(double value) {}
+
+  @Override
   public void configurePID(NeoPidConfig neoPidConfig) {}
 }

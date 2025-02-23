@@ -6,6 +6,7 @@ package frc.robot.commands.sequences;
 
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.elevator.ResetElevator;
+import frc.robot.commands.elevator.ResetElevatorEncoder;
 import frc.robot.commands.elevator.WaitTillElevatorAtPosition;
 import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.coral.CoralSubsystem;
@@ -18,6 +19,7 @@ public class PickUpCoral extends LoggableSequentialCommandGroup {
         new ResetElevator(elevator),
         new WaitTillElevatorAtPosition(
             elevator, ElevatorPositions.CORAL_INTAKE.getElevatorHeight()),
+        new ResetElevatorEncoder(elevator),
         new IntakeCoral(coral));
   }
 }
