@@ -31,7 +31,8 @@ public class SetElevatorTargetPosition extends LoggableCommand {
   @Override
   public void execute() {
 
-    double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), Constants.ELEVATOR_MANUAL_DEADBAND);
+    double postDeadbandValue =
+        MathUtil.applyDeadband(targetSupplier.getAsDouble(), Constants.ELEVATOR_MANUAL_DEADBAND);
     if (postDeadbandValue > Constants.ELEVATOR_MANUAL_MAX_SPEED_UP) {
       postDeadbandValue = Constants.ELEVATOR_MANUAL_MAX_SPEED_UP;
     } else if (postDeadbandValue < Constants.ELEVATOR_MANUAL_MAX_SPEED_DOWN) {
