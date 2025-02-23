@@ -123,12 +123,22 @@ public class GameConstants {
   public static final double DRIVE_PID_FF_S = 1; // TODO: change later
   public static final double DRIVE_PID_FF_V = 2.8; // TODO: change later
 
+  // PathPlanner Drive PID
+  public static final double PATH_PLANNER_TRANSLATION_PID_P = 1;
+  public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
+  public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
+
   // Steer PID
   public static final double STEER_PID_P = 0.3; // TODO: change later
   public static final double STEER_PID_I = 0; // TODO: change later
   public static final double STEER_PID_D = 0.005; // TODO: change later
   public static final double STEER_PID_FF_S = 0; // 0.2; //TODO: change later
   public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
+
+  // PathPlanner Steer PID
+  public static final double PATH_PLANNER_ROTATION_PID_P = 0.3;
+  public static final double PATH_PLANNER_ROTATION_PID_I = 0;
+  public static final double PATH_PLANNER_ROTATION_PID_D = 0.005;
 
   // Lengths
   public static final double ELEVATOR_DRUM_RADIUS =
