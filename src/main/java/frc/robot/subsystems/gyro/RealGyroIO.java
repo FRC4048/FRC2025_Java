@@ -8,7 +8,7 @@ public class RealGyroIO implements GyroIO {
 
   public RealGyroIO(ThreadedGyro gyro) {
     this.gyro = gyro;
-    Robot.getDiagnostics().addDiagnosable(new DiagGyro("Diag", "Gyro", 0, gyro));
+    Robot.getDiagnostics().addDiagnosable(new DiagGyro("Diag", "Gyro", 30, gyro));
   }
 
   @Override
