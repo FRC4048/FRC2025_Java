@@ -38,7 +38,7 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
-  public void updatePidConfig(NeoPidConfig neoPidConfig) {
+  public void configurePID(NeoPidConfig neoPidConfig) {
     elevatorMotor.configure(neoPidConfig);
   }
 

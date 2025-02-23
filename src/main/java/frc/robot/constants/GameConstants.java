@@ -107,6 +107,13 @@ public class GameConstants {
   public static final boolean HIHI_USE_MAX_MOTION = false;
 
   // Elevator PID
+  public static final double ELEVATOR_PID_P = 0.03;
+  public static final double ELEVATOR_PID_I = 0;
+  public static final double ELEVATOR_PID_D = 0;
+  public static final double ELEVATOR_PID_FF = 0.001;
+  public static final double ELEVATOR_PID_IZONE = 0;
+  public static final double ELEVATOR_PID_MAX_VELOCITY = 3000;
+  public static final double ELEVATOR_PID_MAX_ACCELERATION = 30000;
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Drive PID
@@ -155,8 +162,6 @@ public class GameConstants {
 
   // Drivetrain
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
-  public static final double ROBOT_WIDTH = 0.8636; // TODO: change later
-  public static final double ROBOT_LENGTH = 0.8636; // TODO: change later
   public static final double MAX_VELOCITY = 3.81; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
 
