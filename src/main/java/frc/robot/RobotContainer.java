@@ -318,7 +318,7 @@ public class RobotContainer {
       // ByeBye Commands
 
       SmartShuffleboard.putCommand(
-          "ByeBye", "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
+          "ByeBye", "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt, elevatorSubsystem));
 
       SmartShuffleboard.putCommand(
           "ByeBye", "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
