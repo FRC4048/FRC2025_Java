@@ -1,6 +1,7 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
@@ -19,6 +20,7 @@ public class ElevatorToStoredPosition extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
+    if (elevator.getForwardLimitSwitchState()) elevator.setEncoder(Constants.ELEVATOR_RESET_VALUE);
     elevator.setElevatorPosition(elevator.getStoredReefPosition().getElevatorHeight());
   }
 
