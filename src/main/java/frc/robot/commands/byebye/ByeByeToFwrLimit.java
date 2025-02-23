@@ -31,7 +31,7 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (elevator.getEncoderValue() < -5) {
+    if (elevator.getEncoderValue() < Constants.ELEVATOR_NO_EXTEND_BYEBYE) {
       tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
     }
     timer.restart();
