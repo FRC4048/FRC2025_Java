@@ -63,6 +63,7 @@ public class GameConstants {
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
+  public static final double MOVE_DISTANCE_TIMEOUT = 0;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -73,6 +74,7 @@ public class GameConstants {
   public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
   public static final double ELEVATOR_ENCODER_THRESHHOLD = 1; // TODO: Change Later
   public static final int HIHI_EXTENDER_TICK_LIMIT = 10;
+  public static final double DRIVE_THRESHHOLD_METERS = 0;
 
   // Mode
   public static final Mode simMode = Mode.SIM;
