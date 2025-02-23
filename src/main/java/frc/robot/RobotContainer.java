@@ -164,6 +164,7 @@ public class RobotContainer {
             new RealAutoEventProvider(AutoAction.DO_NOTHING, FieldLocation.ZERO),
             elevatorSubsystem,
             coralSubsystem,
+            lightStrip,
             byebyeTilt);
 
     autoChooser
@@ -183,19 +184,20 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
-        new SetElevatorStoredPosition(ElevatorPositions.CORAL_INTAKE, elevatorSubsystem));
+        new SetElevatorStoredPosition(
+            ElevatorPositions.CORAL_INTAKE, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL1",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL2",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL3",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL4",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
+        new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
   }
 
   private void configureBindings() {

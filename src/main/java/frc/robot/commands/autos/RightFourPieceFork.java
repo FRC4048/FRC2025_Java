@@ -7,18 +7,20 @@ import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import frc.robot.utils.logging.commands.LoggableParallelCommandGroup;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 public class RightFourPieceFork extends LoggableSequentialCommandGroup {
-  public RightFourPieceFork(ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem) {
+  public RightFourPieceFork(
+      ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem, LightStrip lightStrip) {
     super(
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
                 Paths.getInstance().getRobotFourToPostECommand()), // Robot 4 to Post E
             new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip) // Elevator to L4
             ),
         new ShootCoral(
             coralSubsystem,
@@ -45,7 +47,7 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(
                 Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to Post C
             new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip) // Elevator to L4
             ),
         new ShootCoral(coralSubsystem, 0.5),
         new LoggableParallelCommandGroup(
@@ -58,7 +60,7 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(
                 Paths.getInstance().getStationTwoToPostDCommand()), // Station 2 to Post D
             new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip) // Elevator to L4
             ),
         new ShootCoral(
             coralSubsystem,

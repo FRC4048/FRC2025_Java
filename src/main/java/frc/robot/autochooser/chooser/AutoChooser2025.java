@@ -21,6 +21,7 @@ import frc.robot.commands.autos.RightFourPieceLine;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
       AutoEventProviderIO providerIO,
       ElevatorSubsystem elevator,
       CoralSubsystem coral,
+      LightStrip lightStrip,
       AlgaeByeByeTiltSubsystem byeBye) {
     provider = new AutoEventProvider(providerIO, this::isValid);
 
@@ -43,11 +45,11 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.LEFT),
-            new LeftFourPieceFork(elevator, coral)));
+            new LeftFourPieceFork(elevator, coral, lightStrip)));
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.LEFT),
-            new LeftFourPieceLine(elevator, coral)));
+            new LeftFourPieceLine(elevator, coral, lightStrip)));
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.MIDDLE),
@@ -55,11 +57,11 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.MIDDLE),
-            new MiddleFourPieceFork(elevator, coral)));
+            new MiddleFourPieceFork(elevator, coral, lightStrip)));
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.MIDDLE),
-            new MiddleFourPieceLine(elevator, coral)));
+            new MiddleFourPieceLine(elevator, coral, lightStrip)));
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
@@ -71,11 +73,11 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.RIGHT),
-            new RightFourPieceFork(elevator, coral)));
+            new RightFourPieceFork(elevator, coral, lightStrip)));
     Map.ofEntries(
         Map.entry(
             new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.RIGHT),
-            new RightFourPieceLine(elevator, coral)));
+            new RightFourPieceLine(elevator, coral, lightStrip)));
   }
 
   @Override

@@ -7,18 +7,20 @@ import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import frc.robot.utils.logging.commands.LoggableParallelCommandGroup;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 public class LeftFourPieceLine extends LoggableSequentialCommandGroup {
-  public LeftFourPieceLine(ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem) {
+  public LeftFourPieceLine(
+      ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem, LightStrip lightStrip) {
     super(
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
                 Paths.getInstance().getRobotFourToPostECommand()), // Robot 4 to Post E
             new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip) // Elevator to L4
             ),
         new ShootCoral(
             coralSubsystem,
@@ -33,7 +35,7 @@ public class LeftFourPieceLine extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(
                 Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to post C
             new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip) // Elevator to L4
             ),
         new ShootCoral(
             coralSubsystem,
@@ -48,7 +50,7 @@ public class LeftFourPieceLine extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(
                 Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to post C
             new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip) // Elevator to L4
             ),
         new ShootCoral(
             coralSubsystem,
@@ -63,7 +65,7 @@ public class LeftFourPieceLine extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(
                 Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to post C
             new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip) // Elevator to L4
             ),
         new ShootCoral(
             coralSubsystem,
