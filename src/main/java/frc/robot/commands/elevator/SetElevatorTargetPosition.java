@@ -5,6 +5,7 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.math.MathUtil;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.function.DoubleSupplier;
@@ -30,9 +31,11 @@ public class SetElevatorTargetPosition extends LoggableCommand {
   @Override
   public void execute() {
 
-    double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.2);
-    if (postDeadbandValue > .5) {
-      postDeadbandValue = .5;
+    double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), Constants.ELEVATOR_MANUAL_DEADBAND);
+    if (postDeadbandValue > Constants.ELEVATOR_MANUAL_MAX_SPEED_UP) {
+      postDeadbandValue = Constants.ELEVATOR_MANUAL_MAX_SPEED_UP;
+    } else if (postDeadbandValue < Constants.ELEVATOR_MANUAL_MAX_SPEED_DOWN) {
+      postDeadbandValue = Constants.ELEVATOR_MANUAL_MAX_SPEED_DOWN;
     }
 
     if (Math.abs(postDeadbandValue) > 0) {
