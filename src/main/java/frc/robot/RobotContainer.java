@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
@@ -22,6 +23,7 @@ import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.elevator.*;
 import frc.robot.commands.hihi.*;
 import frc.robot.commands.lightStrip.SetLedPattern;
@@ -141,19 +143,28 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
+
+    JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
+    RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX);
+    joyLeft2.whileTrue(robotSlide);
+
     controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem));
     controller
         .povUp()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
     controller
         .povDown()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
     controller
         .povLeft()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
     controller
         .povRight()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
@@ -342,23 +353,24 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
-          new SetElevatorStoredPosition(ElevatorPositions.CORAL_INTAKE, elevatorSubsystem));
+          new SetElevatorStoredPosition(
+              ElevatorPositions.CORAL_INTAKE, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L2",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L3",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L4",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
     }
 
     if (Constants.CLIMBER_DEBUG) {
