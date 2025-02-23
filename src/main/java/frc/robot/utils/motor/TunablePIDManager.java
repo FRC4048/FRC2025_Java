@@ -15,10 +15,8 @@ public class TunablePIDManager {
   private final LoggedTunableNumber kMaxVelTunable;
   private final LoggedTunableNumber kMaxAccTunable;
   private final LoggedTunableNumber kAllowedErrorTunable;
-  private final boolean usesMaxMotion;
 
-  public TunablePIDManager(
-      String prefix, PIDLoggableIO io, NeoPidConfig initConfig, boolean usesMaxMotion) {
+  public TunablePIDManager(String prefix, PIDLoggableIO io, NeoPidConfig initConfig) {
     this.io = io;
     this.initConfig = initConfig;
     this.prefix = prefix;
@@ -31,7 +29,6 @@ public class TunablePIDManager {
     kMaxAccTunable = new LoggedTunableNumber(prefix + "/PID_MAX_ACCEL", initConfig.getMaxAccel());
     kAllowedErrorTunable =
         new LoggedTunableNumber(prefix + "/PID_ALLOWED_ERROR", initConfig.getAllowedError());
-    this.usesMaxMotion = usesMaxMotion;
   }
 
   public void periodic() {
@@ -39,7 +36,7 @@ public class TunablePIDManager {
         hashCode(),
         () ->
             io.configurePID(
-                new NeoPidConfig(usesMaxMotion)
+                new NeoPidConfig(initConfig.getUsesMaxMotion())
                     .setP(kPTunable.get())
                     .setI(kITunable.get())
                     .setD(kDTunable.get())
