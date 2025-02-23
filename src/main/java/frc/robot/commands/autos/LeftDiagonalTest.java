@@ -9,14 +9,13 @@ import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 public class LeftDiagonalTest extends LoggableSequentialCommandGroup {
-  public LeftDiagonalTest(
-      ElevatorSubsystem elevatorSubsystem,
-      CoralSubsystem coralSubsystem) {
+  public LeftDiagonalTest(ElevatorSubsystem elevatorSubsystem, CoralSubsystem coralSubsystem) {
     super(
         new LoggableCommandWrapper(Paths.getInstance().getRobotTwoToPostHCommand()),
-        new LoggableCommandWrapper(new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem)),
-        new LoggableCommandWrapper(new ShootCoral(coralSubsystem, 0.5)) //Updated with GameConstants
-  );
+        new LoggableCommandWrapper(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem)),
+        new LoggableCommandWrapper(
+            new ShootCoral(coralSubsystem, 0.5)) // Updated with GameConstants
+        );
   }
 }
-
