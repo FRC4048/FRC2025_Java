@@ -38,6 +38,11 @@ public class RealElevatorIO implements ElevatorIO {
   }
 
   @Override
+  public void setEncoder(double value) {
+    this.elevatorMotor.getEncoder().setPosition(value);
+  }
+
+  @Override
   public void configurePID(NeoPidConfig neoPidConfig) {
     elevatorMotor.configure(neoPidConfig);
   }

@@ -81,6 +81,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSystem.getIO().resetEncoder();
   }
 
+  public void setEncoder(double value) {
+    elevatorSystem.getIO().setEncoder(value);
+  }
+
   @Override
   public void periodic() {
     elevatorSystem.updateInputs();
