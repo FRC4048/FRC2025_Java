@@ -300,7 +300,6 @@ public class RobotContainer {
   }
 
   private void setupPathPlanning() {
-    PathPlannerUtils.generateConfiguration();
     AutoBuilder.configure(
         drivetrain::getPose,
         drivetrain::resetOdometry,
@@ -316,7 +315,7 @@ public class RobotContainer {
                 Constants.PATH_PLANNER_ROTATION_PID_I,
                 Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
             ),
-        PathPlannerUtils.getConfig(),
+        PathPlannerUtils.config,
         RobotContainer::isRedAlliance,
         drivetrain);
   }

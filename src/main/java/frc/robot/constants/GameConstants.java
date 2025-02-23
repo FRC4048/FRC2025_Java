@@ -46,8 +46,8 @@ public class GameConstants {
   public static final double HIHI_INTAKE_BASE_VELOCITY = 7000.0;
 
   // Accelerations
-  public static final double MAX_PATHPLANNER_ACCEL = 11.8;
-  public static final double MAX_PATHPLANNER_ANGULAR_ACCEL = 3570;
+  public static final double MAX_PATHPLANNER_ACCEL = 11.7;
+  public static final double MAX_PATHPLANNER_ANGULAR_ACCEL = 3797;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;

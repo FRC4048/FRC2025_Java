@@ -16,10 +16,10 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 
 public class PathPlannerUtils {
-  public static PathConstraints defaultPathConstraints;
-  public static RobotConfig config;
+  public static final PathConstraints defaultPathConstraints;
+  public static final RobotConfig config;
 
-  public static void generateConfiguration() {
+  static {
     RobotConfig tempConf = null;
     PathConstraints tempConstraints = null;
     try {
@@ -40,10 +40,6 @@ public class PathPlannerUtils {
       config = tempConf;
       defaultPathConstraints = tempConstraints;
     }
-  }
-
-  public static RobotConfig getConfig() {
-    return config;
   }
 
   public static PathPlannerPath createManualPath(
