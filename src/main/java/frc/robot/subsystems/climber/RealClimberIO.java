@@ -9,7 +9,10 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -39,16 +42,16 @@ public class RealClimberIO implements ClimberIO {
 
   @Override
   public void setClimberSpeed(double speed) {
-    climberMotor.set(speed);
+    if (Robot.getMode() != RobotMode.TEST) climberMotor.set(speed);
   }
 
   @Override
   public void stopClimber() {
-    climberMotor.set(0);
+    if (Robot.getMode() != RobotMode.TEST) climberMotor.set(0);
   }
 
   public void resetClimberEncoder() {
-    climberMotor.getEncoder().setPosition(0);
+    if (Robot.getMode() != RobotMode.TEST) climberMotor.getEncoder().setPosition(0);
   }
 
   @Override

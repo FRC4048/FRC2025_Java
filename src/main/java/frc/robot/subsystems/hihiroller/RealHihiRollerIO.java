@@ -5,7 +5,10 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -32,12 +35,12 @@ public class RealHihiRollerIO implements HihiRollerIO {
 
   @Override
   public void setRollerSpeed(double speed) {
-    hihiRollerMotor.set(speed);
+    if (Robot.getMode() != RobotMode.TEST) hihiRollerMotor.set(speed);
   }
 
   @Override
   public void stopRollerMotor() {
-    hihiRollerMotor.set(0);
+    if (Robot.getMode() != RobotMode.TEST) hihiRollerMotor.set(0);
   }
 
   @Override

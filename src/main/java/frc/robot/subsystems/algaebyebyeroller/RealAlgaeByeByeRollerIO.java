@@ -9,7 +9,10 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -37,12 +40,12 @@ public class RealAlgaeByeByeRollerIO implements AlgaeByeByeRollerIO {
 
   @Override
   public void setSpeed(double speed) {
-    this.removerMotor.set(speed);
+    if (Robot.getMode() != RobotMode.TEST) this.removerMotor.set(speed);
   }
 
   @Override
   public void stopMotors() {
-    this.removerMotor.set(0);
+    if (Robot.getMode() != RobotMode.TEST) this.removerMotor.set(0);
   }
 
   public void updateInputs(MotorInputs inputs) {

@@ -1,7 +1,10 @@
 package frc.robot.subsystems.elevator;
 
 import com.revrobotics.spark.SparkBase;
+
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.NeoPidConfig;
@@ -19,17 +22,17 @@ public class RealElevatorIO implements ElevatorIO {
 
   @Override
   public void setSpeed(double spd) {
-    elevatorMotor.getNeoMotor().set(spd);
+    if (Robot.getMode() != RobotMode.TEST) elevatorMotor.getNeoMotor().set(spd);
   }
 
   public void setElevatorPosition(double encoderPos) {
     // Does this need to be converted from heightInMeters to encoder Pos?
-    elevatorMotor.setPidPos(encoderPos, SparkBase.ControlType.kMAXMotionPositionControl);
+    if (Robot.getMode() != RobotMode.TEST) elevatorMotor.setPidPos(encoderPos, SparkBase.ControlType.kMAXMotionPositionControl);
   }
 
   @Override
   public void stopMotor() {
-    elevatorMotor.getNeoMotor().set(0);
+    if (Robot.getMode() != RobotMode.TEST) elevatorMotor.getNeoMotor().set(0);
   }
 
   @Override

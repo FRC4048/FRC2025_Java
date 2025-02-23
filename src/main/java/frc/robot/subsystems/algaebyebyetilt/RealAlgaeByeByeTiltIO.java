@@ -10,7 +10,10 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -38,12 +41,12 @@ public class RealAlgaeByeByeTiltIO implements AlgaeByeByeTiltIO {
 
   @Override
   public void setSpeed(double speed) {
-    this.removerTiltMotor.set(speed);
+    if (Robot.getMode() != RobotMode.TEST) this.removerTiltMotor.set(speed);
   }
 
   @Override
   public void stopMotors() {
-    this.removerTiltMotor.set(0);
+    if (Robot.getMode() != RobotMode.TEST) this.removerTiltMotor.set(0);
   }
 
   @Override

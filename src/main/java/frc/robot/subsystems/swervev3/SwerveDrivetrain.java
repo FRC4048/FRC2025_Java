@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
@@ -16,6 +17,7 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
@@ -106,9 +108,11 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void drive(ChassisSpeeds speeds) {
-    SwerveModuleState[] swerveModuleStates = kinematics.toSwerveModuleStates(speeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.MAX_VELOCITY);
-    setModuleStates(swerveModuleStates);
+    if (Robot.getMode() != RobotMode.TEST) {
+      SwerveModuleState[] swerveModuleStates = kinematics.toSwerveModuleStates(speeds);
+      SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.MAX_VELOCITY);
+      setModuleStates(swerveModuleStates);
+    }
   }
 
   public ChassisSpeeds speedsFromStates() {
@@ -128,10 +132,12 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void stopMotor() {
-    frontLeft.stop();
-    frontRight.stop();
-    backLeft.stop();
-    backRight.stop();
+    if (Robot.getMode() != RobotMode.TEST) {
+      frontLeft.stop();
+      frontRight.stop();
+      backLeft.stop();
+      backRight.stop();
+    }
   }
 
   public void zeroRelativeEncoders() {

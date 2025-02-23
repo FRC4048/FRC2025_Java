@@ -7,6 +7,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.DiagSparkMaxSwitch;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
@@ -43,12 +44,12 @@ public class RealCoralIOLeader implements CoralIOLeader {
 
   @Override
   public void setShooterSpeed(double speed) {
-    this.shooterMotorLeader.set(speed);
+    if (Robot.getMode() != RobotMode.TEST) this.shooterMotorLeader.set(speed);
   }
 
   @Override
   public void stopShooterMotors() {
-    this.shooterMotorLeader.set(0);
+    if (Robot.getMode() != RobotMode.TEST) this.shooterMotorLeader.set(0);
   }
 
   @Override
