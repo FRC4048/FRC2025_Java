@@ -2,7 +2,7 @@ package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public enum AlignmentPositions {
@@ -34,11 +34,8 @@ public enum AlignmentPositions {
   }
 
   public static Pose2d getClosest(Pose2d currentPosition) {
-    AlignmentPositions[] listEnums = AlignmentPositions.values();
-    List<Pose2d> listPose2d = new ArrayList<>();
-    for (AlignmentPositions position : listEnums) {
-      listPose2d.add(position.getPosition());
-    }
-    return currentPosition.nearest(listPose2d);
+    List<Pose2d> poseList =
+        Arrays.stream(AlignmentPositions.values()).map(AlignmentPositions::getPosition).toList();
+    return currentPosition.nearest(poseList);
   }
 }
