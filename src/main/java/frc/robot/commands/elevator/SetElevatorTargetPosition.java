@@ -13,6 +13,7 @@ public class SetElevatorTargetPosition extends LoggableCommand {
 
   private final DoubleSupplier targetSupplier;
   private final ElevatorSubsystem elevatorSubsystem;
+  private boolean pidLocked = true;
 
   public SetElevatorTargetPosition(
       DoubleSupplier targetSupplier, ElevatorSubsystem elevatorSubsystem) {
@@ -29,9 +30,18 @@ public class SetElevatorTargetPosition extends LoggableCommand {
   @Override
   public void execute() {
 
-    double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.1);
-    elevatorSubsystem.setElevatorPosition(
-        postDeadbandValue + elevatorSubsystem.getElevatorTargetPosition());
+    double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.2);
+    if (postDeadbandValue > .5) {
+      postDeadbandValue = .5;
+    }
+
+    if (Math.abs(postDeadbandValue) > 0) {
+      elevatorSubsystem.setElevatorMotorSpeed(postDeadbandValue);
+      pidLocked = false;
+    } else if (pidLocked == false) {
+      elevatorSubsystem.setElevatorPosition(elevatorSubsystem.getEncoderValue());
+      pidLocked = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
