@@ -1,3 +1,3 @@
 package frc.robot.constants;
 
-public class Constants extends ConstantsChassis2024 {}
+public class Constants extends Constants2025 {}

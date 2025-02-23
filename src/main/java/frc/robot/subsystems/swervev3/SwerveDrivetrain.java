@@ -42,6 +42,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
+
   private LoggedTunableNumber closedLoopTunable;
   private LoggedTunableNumber smartLimitTunable;
   private LoggedTunableNumber secondaryLimitTunable;
@@ -69,7 +70,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-    closedLoopTunable =
+  if(Constants.SWERVE_DEBUG){
+            closedLoopTunable =
         new LoggedTunableNumber(
             "Swerve/currentLimiting/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
     smartLimitTunable =
@@ -87,6 +89,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         new LoggedTunableNumber("Swerve/steer/maxAccel", Constants.MAX_ANGULAR_SPEED * 150);
     steerMaxVelocityTunable =
         new LoggedTunableNumber("Swerve/steer/maxVelocity", 2 * Math.PI * 150);
+  }
   }
 
   @Override
@@ -117,6 +120,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       SmartShuffleboard.put("Drive", "BL ABS Pos", backLeft.getAbsPosition());
       SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
     }
+    if(Constants.SWERVE_DEBUG){
     LoggedTunableNumber.ifChanged(
         hashCode(),
         () -> {
@@ -170,6 +174,7 @@ public class SwerveDrivetrain extends SubsystemBase {
         steerDTunable,
         steerMaxAccelerationTunable,
         steerMaxVelocityTunable);
+      }
   }
 
   private void processInputs() {
