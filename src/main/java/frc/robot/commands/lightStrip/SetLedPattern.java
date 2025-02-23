@@ -11,6 +11,7 @@ public class SetLedPattern extends LoggableCommand {
   public SetLedPattern(LightStrip lightStrip, BlinkinPattern pattern) {
     this.lightStrip = lightStrip;
     this.pattern = pattern;
+    addRequirements(lightStrip);
   }
 
   @Override
