@@ -7,6 +7,7 @@ import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.auto.PathPlannerUtils;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
+import frc.robot.utils.math.PoseUtils;
 
 public class AlignClosestBranch extends LoggableCommand {
   private Pose2d targetPosition;
@@ -24,9 +25,7 @@ public class AlignClosestBranch extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return (Math.sqrt(
-            Math.pow(drivetrain.getPose().minus(targetPosition).getX(), 2)
-                + Math.pow(drivetrain.getPose().minus(targetPosition).getY(), 2))
+    return (PoseUtils.getDistance(drivetrain.getPose(), targetPosition)
         < Constants.ALIGNMENT_DISTANCE_THRESHOLD);
   }
 }
