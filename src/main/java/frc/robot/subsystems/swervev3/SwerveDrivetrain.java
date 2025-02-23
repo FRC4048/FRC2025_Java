@@ -70,10 +70,10 @@ public class SwerveDrivetrain extends SubsystemBase {
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
     closedLoopTunable =
-        new LoggedTunableNumber("Swerve/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
-    smartLimitTunable = new LoggedTunableNumber("Swerve/SmartLimit", Constants.DRIVE_SMART_LIMIT);
+        new LoggedTunableNumber("Swerve/currentLimiting/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
+    smartLimitTunable = new LoggedTunableNumber("Swerve/currentLimiting/SmartLimit", Constants.DRIVE_SMART_LIMIT);
     secondaryLimitTunable =
-        new LoggedTunableNumber("Swerve/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
+        new LoggedTunableNumber("Swerve/currentLimiting/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
     drivePTunable = new LoggedTunableNumber("Swerve/drive/P", Constants.DRIVE_PID_P);
     driveITunable = new LoggedTunableNumber("Swerve/drive/I", Constants.DRIVE_PID_I);
     driveDTunable = new LoggedTunableNumber("Swerve/drive/D", Constants.DRIVE_PID_D);
