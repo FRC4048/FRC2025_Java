@@ -13,7 +13,10 @@ public class GameConstants {
   public static final int XBOX_CONTROLLER_ID = 2;
 
   // Diags
-  public static final int DIAGS_ENCODER = 1;
+  public static final double BYEBYE_ROLLER_DIAGS_ENCODER = 1;
+  public static final double HIHI_ROLLER_DIAGS_ENCODER = 1;
+  public static final double ELEVATOR_DIAGS_ENCODER = 1;
+  public static final double HIHI_EXTENDER_DIAGS_ENCODER = 1;
 
   // Debug
   public static final boolean SWERVE_DEBUG = true;
