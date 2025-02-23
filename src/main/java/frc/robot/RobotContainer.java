@@ -161,7 +161,7 @@ public class RobotContainer {
   private void setupAutoChooser() {
     autoChooser =
         new AutoChooser2025(
-            new RealAutoEventProvider(AutoAction.DoNothing, FieldLocation.ZERO),
+            new RealAutoEventProvider(AutoAction.DO_NOTHING, FieldLocation.ZERO),
             elevatorSubsystem,
             coralSubsystem,
             byebyeTilt);

@@ -6,11 +6,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public enum AutoAction {
-  DoNothing("Do Nothing"),
-  FourPieceFork("4 Piece Auto - Fork"),
-  FourPieceLine("4 Piece Auto - Line"),
-  OnePiece("1 Piece"),
-  CrossTheLine("Cross The Line"),
+  DO_NOTHING("Do Nothing"),
+  FOUR_PIECE_FORK("4 Piece Auto - Fork"),
+  FOUR_PIECE_LINE("4 Piece Auto - Line"),
+  ONE_PIECE("1 Piece"),
+  CROSS_THE_LINE("Cross The Line"),
   INVALID("INVALID");
   private final String name;
   private static final HashMap<String, AutoAction> nameMap =

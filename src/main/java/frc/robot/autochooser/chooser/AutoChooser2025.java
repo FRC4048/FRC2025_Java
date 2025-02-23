@@ -38,43 +38,43 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
     commandMap =
         Map.ofEntries(
             Map.entry(
-                new AutoEvent(AutoAction.CrossTheLine, FieldLocation.LEFT),
+                new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.LEFT),
                 new LeftCrossTheLine(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.FourPieceFork, FieldLocation.LEFT),
+            new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.LEFT),
             new LeftFourPieceFork(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.FourPieceLine, FieldLocation.LEFT),
+            new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.LEFT),
             new LeftFourPieceLine(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.CrossTheLine, FieldLocation.MIDDLE),
+            new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.MIDDLE),
             new MiddleCrossTheLine(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.FourPieceFork, FieldLocation.MIDDLE),
+            new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.MIDDLE),
             new MiddleFourPieceFork(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.FourPieceLine, FieldLocation.MIDDLE),
+            new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.MIDDLE),
             new MiddleFourPieceLine(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.OnePiece, FieldLocation.MIDDLE),
+            new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
             new MiddleOnePiece(elevator, coral, byeBye)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.CrossTheLine, FieldLocation.RIGHT),
+            new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.RIGHT),
             new RightCrossTheLine(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.FourPieceFork, FieldLocation.RIGHT),
+            new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.RIGHT),
             new RightFourPieceFork(elevator, coral)));
     Map.ofEntries(
         Map.entry(
-            new AutoEvent(AutoAction.FourPieceLine, FieldLocation.RIGHT),
+            new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.RIGHT),
             new RightFourPieceLine(elevator, coral)));
   }
 

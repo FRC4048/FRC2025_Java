@@ -27,50 +27,49 @@ public class LeftFourPieceFork extends LoggableSequentialCommandGroup {
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
                 Paths.getInstance().getPostJToStationOneCommand()), // Post J To Station 1
-        new PickUpCoral(elevatorSubsystem, coralSubsystem), //Reset Elevator  
-
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getStationOneToPostKCommand()), // Station 1 to Post K
-            new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
-            ),
-        new ShootCoral(
-            coralSubsystem,
-            0.5), // Score a Coral, Updated with the correct Speed according to GameConstants
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getPostKToStationOneCommand()), // Post K to Station 1
-            new ResetElevator(elevatorSubsystem) // Elevator to L0
-            ),
-        new IntakeCoral(coralSubsystem), // Intake a Coral
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getStationOneToPostLCommand()), // Station 1 to Post L
-            new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
-            ),
-        new ShootCoral(
-            coralSubsystem,
-            0.5), // Score a Coral, Updated with the correct Speed according to GameConstants
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getPostLToStationOneCommand()), // Post L to Station 1
-            new ResetElevator(elevatorSubsystem) // Elevator to L0
-            ),
-        new IntakeCoral(coralSubsystem), // Intake a Coral
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getStationOneToPostACommand()), // Station One to Post A
-            new SetElevatorStoredPosition(
-                ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
-            ),
-        new ShootCoral(
-            coralSubsystem,
-            0.5), // Score a Coral, Updated with the correct Speed according to GameConstants
-        new ResetElevator(
-            elevatorSubsystem) // Elevator to L0 we probably won't get to this point but we should
-        // move the elevator to L0 at the end of an Auto
-        );
+            new PickUpCoral(elevatorSubsystem, coralSubsystem), // Reset Elevator
+            new LoggableParallelCommandGroup(
+                new LoggableCommandWrapper(
+                    Paths.getInstance().getStationOneToPostKCommand()), // Station 1 to Post K
+                new SetElevatorStoredPosition(
+                    ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ),
+            new ShootCoral(
+                coralSubsystem,
+                0.5), // Score a Coral, Updated with the correct Speed according to GameConstants
+            new LoggableParallelCommandGroup(
+                new LoggableCommandWrapper(
+                    Paths.getInstance().getPostKToStationOneCommand()), // Post K to Station 1
+                new ResetElevator(elevatorSubsystem) // Elevator to L0
+                ),
+            new IntakeCoral(coralSubsystem), // Intake a Coral
+            new LoggableParallelCommandGroup(
+                new LoggableCommandWrapper(
+                    Paths.getInstance().getStationOneToPostLCommand()), // Station 1 to Post L
+                new SetElevatorStoredPosition(
+                    ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ),
+            new ShootCoral(
+                coralSubsystem,
+                0.5), // Score a Coral, Updated with the correct Speed according to GameConstants
+            new LoggableParallelCommandGroup(
+                new LoggableCommandWrapper(
+                    Paths.getInstance().getPostLToStationOneCommand()), // Post L to Station 1
+                new ResetElevator(elevatorSubsystem) // Elevator to L0
+                ),
+            new IntakeCoral(coralSubsystem), // Intake a Coral
+            new LoggableParallelCommandGroup(
+                new LoggableCommandWrapper(
+                    Paths.getInstance().getStationOneToPostACommand()), // Station One to Post A
+                new SetElevatorStoredPosition(
+                    ElevatorPositions.LEVEL4, elevatorSubsystem) // Elevator to L4
+                ),
+            new ShootCoral(
+                coralSubsystem,
+                0.5), // Score a Coral, Updated with the correct Speed according to GameConstants
+            new ResetElevator(
+                elevatorSubsystem))); // Elevator to L0 we probably won't get to this point but we
+    // should
+    // move the elevator to L0 at the end of an Auto
   }
 }
