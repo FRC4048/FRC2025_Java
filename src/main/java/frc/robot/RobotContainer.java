@@ -80,6 +80,7 @@ import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
+import frc.robot.utils.auto.PathPlannerUtils;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
@@ -295,12 +296,7 @@ public class RobotContainer {
   }
 
   private void setupPathPlanning() {
-    try {
-      config = RobotConfig.fromGUISettings();
-    } catch (Exception e) {
-      // Handle exception as needed
-      e.printStackTrace();
-    }
+    PathPlannerUtils.generateConfiguration();
     AutoBuilder.configure(
         drivetrain::getPose,
         drivetrain::resetOdometry,
@@ -316,7 +312,7 @@ public class RobotContainer {
                 Constants.PATH_PLANNER_ROTATION_PID_I,
                 Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
             ),
-        config,
+        PathPlannerUtils.getConfig(),
         RobotContainer::isRedAlliance,
         drivetrain);
   }

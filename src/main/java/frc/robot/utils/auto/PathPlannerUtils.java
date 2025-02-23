@@ -1,23 +1,50 @@
 package frc.robot.utils.auto;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.Waypoint;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
+import java.io.IOException;
 import java.util.List;
+import org.json.simple.parser.ParseException;
 
 public class PathPlannerUtils {
-  private static final PathConstraints defualtPathConstraints =
-      new PathConstraints(
-          Constants.MAX_VELOCITY,
-          Constants.MAX_VELOCITY,
-          Math.toRadians(1000),
-          Math.toRadians(1000));
+  public static PathConstraints defaultPathConstraints;
+  public static RobotConfig config;
+
+  public static void generateConfiguration() {
+    RobotConfig tempConf = null;
+    PathConstraints tempConstraints = null;
+    try {
+      tempConf = RobotConfig.fromGUISettings();
+      tempConstraints =
+          new PathConstraints(
+              tempConf.moduleConfig.maxDriveVelocityMPS,
+              Constants.MAX_PATHPLANNER_ACCEL,
+              tempConf.moduleConfig.maxDriveVelocityRadPerSec,
+              Constants.MAX_PATHPLANNER_ANGULAR_ACCEL);
+    } catch (IOException e) {
+      DriverStation.reportError(
+          "IO Exception while opening PathPlanner config from GUISettings", true);
+    } catch (ParseException e) {
+      DriverStation.reportError("Could not parse PathPlanner config from GUISettings", true);
+      throw new RuntimeException(e);
+    } finally {
+      config = tempConf;
+      defaultPathConstraints = tempConstraints;
+    }
+  }
+
+  public static RobotConfig getConfig() {
+    return config;
+  }
 
   public static PathPlannerPath createManualPath(
       Pose2d startPose, Pose2d targetPos, double endVelocity) {
@@ -25,7 +52,7 @@ public class PathPlannerUtils {
     PathPlannerPath path =
         new PathPlannerPath(
             waypoints,
-            defualtPathConstraints,
+            defaultPathConstraints,
             null,
             new GoalEndState(endVelocity, targetPos.getRotation()));
     path.preventFlipping = true;
@@ -37,6 +64,6 @@ public class PathPlannerUtils {
   }
 
   public static Command pathToPose(Pose2d targetPos, double endVelocity) {
-    return AutoBuilder.pathfindToPose(targetPos, defualtPathConstraints, endVelocity);
+    return AutoBuilder.pathfindToPose(targetPos, defaultPathConstraints, endVelocity);
   }
 }

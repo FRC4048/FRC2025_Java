@@ -45,6 +45,10 @@ public class GameConstants {
   public static final double CLIMBER_RISE_SPEED = 0.5;
   public static final double HIHI_INTAKE_BASE_VELOCITY = 7000.0;
 
+  // Accelerations
+  public static final double MAX_PATHPLANNER_ACCEL = 11.8;
+  public static final double MAX_PATHPLANNER_ANGULAR_ACCEL = 3570;
+
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
@@ -123,17 +127,17 @@ public class GameConstants {
   public static final double DRIVE_PID_FF_S = 1; // TODO: change later
   public static final double DRIVE_PID_FF_V = 2.8; // TODO: change later
 
-  // PathPlanner Drive PID
-  public static final double PATH_PLANNER_TRANSLATION_PID_P = 1;
-  public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
-  public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
-
   // Steer PID
   public static final double STEER_PID_P = 0.3; // TODO: change later
   public static final double STEER_PID_I = 0; // TODO: change later
   public static final double STEER_PID_D = 0.005; // TODO: change later
   public static final double STEER_PID_FF_S = 0; // 0.2; //TODO: change later
   public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
+
+  // PathPlanner Drive PID
+  public static final double PATH_PLANNER_TRANSLATION_PID_P = 1;
+  public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
+  public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
 
   // PathPlanner Steer PID
   public static final double PATH_PLANNER_ROTATION_PID_P = 0.3;
@@ -147,7 +151,6 @@ public class GameConstants {
   public static final double MAX_ELEVATOR_HEIGHT_METERS = -200; // in m
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
-  public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.05; // TODO: change later
 
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE =
@@ -186,4 +189,5 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+  public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.05; // TODO: change later
 }

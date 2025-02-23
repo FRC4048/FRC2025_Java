@@ -1,9 +1,9 @@
+/** Technically not used now, mainly just for checking if the math is right */
 package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
-// Technically not used now, mainly just for checking if the math is right
 public enum BranchPositions {
   CENTER(new Pose2d(4.477430593, 4.0259230378, Rotation2d.fromDegrees(0.0))),
   CENTER_A_B(new Pose2d(3.64569375, 4.0259230378, Rotation2d.fromDegrees(0))),

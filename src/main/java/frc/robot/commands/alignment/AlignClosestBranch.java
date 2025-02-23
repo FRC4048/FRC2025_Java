@@ -15,6 +15,7 @@ public class AlignClosestBranch extends LoggableCommand {
 
   public AlignClosestBranch(SwerveDrivetrain drivetrain) {
     this.drivetrain = drivetrain;
+    addRequirements(drivetrain);
   }
 
   @Override
