@@ -7,6 +7,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.diag.DiagSparkMaxSwitch;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
@@ -25,6 +26,10 @@ public class RealCoralIOLeader implements CoralIOLeader {
         .addDiagnosable(
             new DiagSparkMaxSwitch(
                 "Coral", "LeaderLimit", shooterMotorLeader, DiagSparkMaxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxEncoder(
+                "Coral", "Leader Encoder", Constants.CORAL_DIAGS_ENCODER, shooterMotorLeader));
   }
 
   private void configureMotor() {

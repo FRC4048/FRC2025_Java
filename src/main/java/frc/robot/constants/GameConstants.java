@@ -14,9 +14,10 @@ public class GameConstants {
 
   // Diags
   public static final double BYEBYE_ROLLER_DIAGS_ENCODER = 1;
-  public static final double HIHI_ROLLER_DIAGS_ENCODER = 1;
+  public static final double HIHI_ROLLER_DIAGS_ENCODER = 0.3;
   public static final double ELEVATOR_DIAGS_ENCODER = 1;
   public static final double HIHI_EXTENDER_DIAGS_ENCODER = 1;
+  public static final double CORAL_DIAGS_ENCODER = 1;
 
   // Debug
   public static final boolean SWERVE_DEBUG = true;
