@@ -177,14 +177,12 @@ public class Robot extends LoggedRobot {
    * information is updated in {@link Robot#driverStationConnected()}
    */
   private void updateFmsAlliance() {
-    if (DriverStation.isDSAttached()) {
-      boolean fms = DriverStation.isFMSAttached();
-      if ((fms && !fmsAttached) || alliance == null) {
-        alliance = DriverStation.getAlliance().orElse(null);
-        Logger.recordOutput("FMS_ALLIANCE", alliance == null ? "null" : alliance.name());
-      }
-      fmsAttached = fms;
+    boolean fms = DriverStation.isFMSAttached();
+    if ((fms && !fmsAttached) || alliance == null) {
+      alliance = DriverStation.getAlliance().orElse(null);
+      Logger.recordOutput("FMS_ALLIANCE", alliance == null ? "null" : alliance.name());
     }
+    fmsAttached = fms;
   }
 
   /**
