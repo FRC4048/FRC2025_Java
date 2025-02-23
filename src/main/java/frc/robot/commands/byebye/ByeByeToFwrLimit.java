@@ -15,6 +15,7 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 public class ByeByeToFwrLimit extends LoggableCommand {
   /** Creates a new byeByeGoToAngle. */
   private final AlgaeByeByeTiltSubsystem tiltMotor;
+
   private final ElevatorSubsystem elevator;
 
   private final TimeoutLogger timeoutCounter;
@@ -36,7 +37,6 @@ public class ByeByeToFwrLimit extends LoggableCommand {
     }
     timer.restart();
   }
-
 
   // Called once the command ends or is interrupted.
   @Override
