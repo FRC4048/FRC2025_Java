@@ -1,6 +1,7 @@
 package frc.robot.subsystems.gyro;
 
 import frc.robot.Robot;
+import frc.robot.constants.Constants;
 import frc.robot.utils.diag.DiagGyro;
 
 public class RealGyroIO implements GyroIO {
@@ -8,7 +9,8 @@ public class RealGyroIO implements GyroIO {
 
   public RealGyroIO(ThreadedGyro gyro) {
     this.gyro = gyro;
-    Robot.getDiagnostics().addDiagnosable(new DiagGyro("Diag", "Gyro", 30, gyro));
+    Robot.getDiagnostics()
+        .addDiagnosable(new DiagGyro("Diag", "Gyro", Constants.GYRO_DIAGS_ANGLE, gyro));
   }
 
   @Override

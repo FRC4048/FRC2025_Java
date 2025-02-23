@@ -18,6 +18,7 @@ public class GameConstants {
   public static final double ELEVATOR_DIAGS_ENCODER = 1;
   public static final double HIHI_EXTENDER_DIAGS_ENCODER = 1;
   public static final double CORAL_DIAGS_ENCODER = 1;
+  public static final double GYRO_DIAGS_ANGLE = 30;
 
   // Debug
   public static final boolean SWERVE_DEBUG = true;
