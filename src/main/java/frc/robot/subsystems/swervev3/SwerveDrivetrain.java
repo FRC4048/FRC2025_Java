@@ -27,13 +27,13 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
   private final Translation2d frontLeftLocation =
-      new Translation2d(Constants.ROBOT_LENGTH / 2, Constants.ROBOT_WIDTH / 2);
+      new Translation2d(Constants.FRONT_LEFT_X, Constants.FRONT_LEFT_Y);
   private final Translation2d frontRightLocation =
-      new Translation2d(Constants.ROBOT_LENGTH / 2, -Constants.ROBOT_WIDTH / 2);
+      new Translation2d(Constants.FRONT_RIGHT_X, Constants.FRONT_RIGHT_Y);
   private final Translation2d backLeftLocation =
-      new Translation2d(-Constants.ROBOT_LENGTH / 2, Constants.ROBOT_WIDTH / 2);
+      new Translation2d(Constants.BACK_LEFT_X, Constants.BACK_LEFT_Y);
   private final Translation2d backRightLocation =
-      new Translation2d(-Constants.ROBOT_LENGTH / 2, -Constants.ROBOT_WIDTH / 2);
+      new Translation2d(Constants.BACK_RIGHT_X, Constants.BACK_RIGHT_Y);
   private final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
