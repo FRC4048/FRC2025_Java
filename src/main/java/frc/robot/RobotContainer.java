@@ -152,16 +152,20 @@ public class RobotContainer {
     controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem));
     controller
         .povUp()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
     controller
         .povDown()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
     controller
         .povLeft()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
     controller
         .povRight()
-        .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
+        .onTrue(
+            new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
@@ -374,23 +378,24 @@ public class RobotContainer {
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L0",
-          new SetElevatorStoredPosition(ElevatorPositions.CORAL_INTAKE, elevatorSubsystem));
+          new SetElevatorStoredPosition(
+              ElevatorPositions.CORAL_INTAKE, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L2",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L3",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L4",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem));
+          new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
     }
 
     if (Constants.CLIMBER_DEBUG) {
