@@ -18,6 +18,7 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.alignment.AlignClosestBranch;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
@@ -292,6 +293,8 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
+
+    SmartShuffleboard.putCommand("Align", "Align to Reef", new AlignClosestBranch(drivetrain));
 
     if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.putCommand(
