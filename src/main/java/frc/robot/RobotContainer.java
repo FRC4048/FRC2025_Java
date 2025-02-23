@@ -163,7 +163,9 @@ public class RobotContainer {
         new AutoChooser2025(
             new RealAutoEventProvider(AutoAction.DoNothing, FieldLocation.ZERO),
             elevatorSubsystem,
-            coralSubsystem);
+            coralSubsystem,
+            byebyeTilt);
+
     autoChooser
         .getProvider()
         .addOnValidationCommand(() -> new SetInitOdom(drivetrain, autoChooser).initialize());
