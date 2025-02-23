@@ -4,6 +4,7 @@ import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
+import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -26,9 +27,8 @@ public class LeftFourPieceFork extends LoggableSequentialCommandGroup {
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
                 Paths.getInstance().getPostJToStationOneCommand()), // Post J To Station 1
-            new ResetElevator(elevatorSubsystem) // Elevator to L0
-            ),
-        new IntakeCoral(coralSubsystem), // Intake a Coral
+        new PickUpCoral(elevatorSubsystem, coralSubsystem), //Reset Elevator  
+
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
                 Paths.getInstance().getStationOneToPostKCommand()), // Station 1 to Post K
