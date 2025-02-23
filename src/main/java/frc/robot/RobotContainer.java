@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -31,9 +30,6 @@ import frc.robot.commands.sequences.IntakeAlgae;
 import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
-import frc.robot.commands.subsystemtests.CoralIdleMode;
-import frc.robot.commands.subsystemtests.SetCoralLimitState;
-import frc.robot.commands.subsystemtests.SpinRollerByeBye;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -158,8 +154,8 @@ public class RobotContainer {
     controller
         .povRight()
         .onTrue(new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem));
-    controller.rightBumper().onTrue(new ResetElevator(elevatorSubsystem));
-    controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
+    controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
+    controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
@@ -299,18 +295,6 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartShuffleboard.putCommand(
-          "Coral", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
-
-      SmartShuffleboard.putCommand(
-          "Coral", "CoralBreakModeBrake", new CoralIdleMode(coralSubsystem, IdleMode.kBrake));
-
-      SmartShuffleboard.putCommand(
-          "Coral", "Set Coral Limit True", new SetCoralLimitState(coralSubsystem, true));
-
-      SmartShuffleboard.putCommand(
-          "Coral", "Set Coral Limit False", new SetCoralLimitState(coralSubsystem, false));
-
-      SmartShuffleboard.putCommand(
           "Coral", "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem));
     }
 
@@ -338,11 +322,6 @@ public class RobotContainer {
 
       SmartShuffleboard.putCommand(
           "ByeBye", "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
-
-      SmartShuffleboard.putCommand(
-          "ByeBye",
-          "ByeBye Spin Roller",
-          new SpinRollerByeBye(byebyeRoller, Constants.BYEBYE_ROLLER_SPEED));
     }
 
     if (Constants.ELEVATOR_DEBUG) {
@@ -398,7 +377,5 @@ public class RobotContainer {
         "DEBUG",
         "LightStripPatternViolet",
         new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
-    SmartShuffleboard.putCommand(
-        "DEBUG", "CoralBreakModeCoast", new CoralIdleMode(coralSubsystem, IdleMode.kCoast));
   }
 }
