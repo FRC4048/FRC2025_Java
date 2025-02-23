@@ -4,25 +4,52 @@
 
 package frc.robot.commands.elevator;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.ReefPosition;
+import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.constants.ElevatorPositions;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.lightStrip.LightStrip;
+import frc.robot.utils.BlinkinPattern;
+import frc.robot.utils.logging.commands.LoggableCommand;
 
-public class SetElevatorStoredPosition extends Command {
-  public final ReefPosition reefPosition;
+public class SetElevatorStoredPosition extends LoggableCommand {
+  public final ElevatorPositions elevatorPositions;
   public final ElevatorSubsystem elevatorSubsystem;
+  public final LightStrip lightStrip;
 
   public SetElevatorStoredPosition(
-      ReefPosition storedElevatorHeight, ElevatorSubsystem elevatorSubsystem) {
-    this.reefPosition = storedElevatorHeight;
+      ElevatorPositions storedElevatorHeight,
+      ElevatorSubsystem elevatorSubsystem,
+      LightStrip lightStrip) {
+    this.elevatorPositions = storedElevatorHeight;
+    this.lightStrip = lightStrip;
     this.elevatorSubsystem = elevatorSubsystem;
-    addRequirements(elevatorSubsystem);
+    addRequirements(elevatorSubsystem, lightStrip);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    elevatorSubsystem.setStoredReefPosition(reefPosition);
+    switch (elevatorPositions) {
+      case CORAL_INTAKE:
+        lightStrip.setPattern(BlinkinPattern.DARK_GREEN);
+        break;
+      case LEVEL1:
+        lightStrip.setPattern(BlinkinPattern.BLUE_VIOLET);
+        break;
+      case LEVEL2:
+        lightStrip.setPattern(BlinkinPattern.DARK_BLUE);
+        break;
+      case LEVEL3:
+        lightStrip.setPattern(BlinkinPattern.ORANGE);
+        break;
+      case LEVEL4:
+        lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
+        break;
+      default:
+        DriverStation.reportError("Invalid Reef Position selected", true);
+        break;
+    }
+    elevatorSubsystem.setStoredReefPosition(elevatorPositions);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

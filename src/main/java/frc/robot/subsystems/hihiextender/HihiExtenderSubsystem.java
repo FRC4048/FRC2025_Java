@@ -5,21 +5,43 @@
 package frc.robot.subsystems.hihiextender;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
+import frc.robot.utils.motor.NeoPidConfig;
+import frc.robot.utils.motor.TunablePIDManager;
 
 public class HihiExtenderSubsystem extends SubsystemBase {
-  private final LoggableSystem<HihiExtenderIO, MotorInputs> system;
+  private final LoggableSystem<HihiExtenderIO, PidMotorInputs> system;
+
+  private final TunablePIDManager pidConfig;
+
+  public final NeoPidConfig initConfig;
 
   /** Creates a new Extender. */
   public HihiExtenderSubsystem(HihiExtenderIO io) {
-    MotorInputs inputs = new MotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
+    PidMotorInputs inputs = new PidMotorInputBuilder<>("HihiExtenderSubsystem").addAll().build();
     system = new LoggableSystem<>(io, inputs);
+    this.initConfig =
+        new NeoPidConfig(Constants.HIHI_USE_MAX_MOTION)
+            .setP(Constants.HIHI_PID_P)
+            .setI(Constants.HIHI_PID_I)
+            .setD(Constants.HIHI_PID_D)
+            .setIZone(Constants.HIHI_PID_I_ZONE)
+            .setFF(Constants.HIHI_PID_FF)
+            .setMaxVelocity(Constants.HIHI_PID_MAX_VEL)
+            .setMaxAccel(Constants.HIHI_PID_MAX_ACC)
+            .setAllowedError(Constants.HIHI_PID_ALLOWED_ERROR);
+    initConfig.setCurrentLimit(Constants.HIHI_CURRENT_LIMIT);
+    io.configurePID(initConfig);
+    pidConfig = new TunablePIDManager("HiHi", io, initConfig);
+    setExtenderPosition(0.0);
   }
 
   @Override
   public void periodic() {
+    pidConfig.periodic();
     system.updateInputs();
   }
 
@@ -45,5 +67,9 @@ public class HihiExtenderSubsystem extends SubsystemBase {
 
   public void setExtenderPosition(double encoderPos) {
     system.getIO().setExtenderPosition(encoderPos);
+  }
+
+  public NeoPidConfig getInitConfig() {
+    return initConfig;
   }
 }

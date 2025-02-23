@@ -1,8 +1,10 @@
 package frc.robot.subsystems.hihiextender;
 
+import com.revrobotics.spark.SparkBase;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
+import frc.robot.utils.motor.NeoPidConfig;
 import frc.robot.utils.motor.NeoPidMotor;
 
 public class RealHihiExtenderIO implements HihiExtenderIO {
@@ -10,7 +12,7 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
   private final NeoPidMotorInputProvider inputProvider;
 
   public RealHihiExtenderIO() {
-    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID);
+    this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, false);
     inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
   }
@@ -32,11 +34,16 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
 
   @Override
   public void setExtenderPosition(double encoderPos) {
-    extenderMotor.setPidPos(encoderPos);
+    extenderMotor.setPidPos(encoderPos, SparkBase.ControlType.kPosition);
   }
 
   @Override
-  public void updateInputs(MotorInputs inputs) {
+  public void configurePID(NeoPidConfig pidConfig) {
+    extenderMotor.configurePID(pidConfig);
+  }
+
+  @Override
+  public void updateInputs(PidMotorInputs inputs) {
     inputs.process(inputProvider);
   }
 }

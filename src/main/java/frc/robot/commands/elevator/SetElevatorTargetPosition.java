@@ -5,11 +5,11 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.function.DoubleSupplier;
 
-public class SetElevatorTargetPosition extends Command {
+public class SetElevatorTargetPosition extends LoggableCommand {
 
   private final DoubleSupplier targetSupplier;
   private final ElevatorSubsystem elevatorSubsystem;
@@ -30,9 +30,8 @@ public class SetElevatorTargetPosition extends Command {
   public void execute() {
 
     double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.1);
-
     elevatorSubsystem.setElevatorPosition(
-        -postDeadbandValue + elevatorSubsystem.getElevatorPosition());
+        postDeadbandValue + elevatorSubsystem.getElevatorTargetPosition());
   }
 
   // Called once the command ends or is interrupted.
