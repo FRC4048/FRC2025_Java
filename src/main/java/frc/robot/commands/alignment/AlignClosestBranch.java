@@ -20,7 +20,7 @@ public class AlignClosestBranch extends LoggableCommand {
   @Override
   public void initialize() {
     targetPosition = AlignmentPositions.getClosest(drivetrain.getPose());
-    LoggableCommandWrapper.wrap(PathPlannerUtils.pathToPose(targetPosition, 0.0));
+    LoggableCommandWrapper.wrap(PathPlannerUtils.pathToPose(targetPosition, 0.0)).schedule();
   }
 
   @Override
