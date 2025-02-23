@@ -9,12 +9,15 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.drivetrain.MoveDistance;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
+import frc.robot.utils.logging.commands.LoggableCommandWrapper;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
@@ -94,6 +97,19 @@ public class Robot extends LoggedRobot {
       actualInit();
     }
     counter++;
+    if (alliance == DriverStation.Alliance.Red) {
+      SmartShuffleboard.put("Alliance", "What alliance are you", "Red");
+    } else if (alliance == DriverStation.Alliance.Blue) {
+      SmartShuffleboard.put("Alliance", "What alliance are you", "Blue");
+    }
+    SmartShuffleboard.put(
+        "Alliance", "X Position", m_robotContainer.getDrivetrain().getPose().getX());
+    SmartShuffleboard.put(
+        "Alliance", "Y Position", m_robotContainer.getDrivetrain().getPose().getY());
+    SmartShuffleboard.put(
+        "Alliance",
+        "Heading",
+        m_robotContainer.getDrivetrain().getPose().getRotation().getDegrees());
   }
 
   /** Use this instead of robot init. */
@@ -102,6 +118,7 @@ public class Robot extends LoggedRobot {
             new WheelAlign(m_robotContainer.getDrivetrain()),
             new ResetGyro(m_robotContainer.getDrivetrain()))
         .schedule();
+    alliance = DriverStation.Alliance.Blue;
   }
 
   @Override
@@ -119,12 +136,14 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void autonomousInit() {
+    alliance = DriverStation.Alliance.Red;
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
     mode.set(RobotMode.AUTONOMOUS);
+    LoggableCommandWrapper.wrap(new MoveDistance(m_robotContainer.getDrivetrain(), defaultPeriodSecs, counter, defaultPeriodSecs)).schedule();
   }
 
   @Override
@@ -193,9 +212,9 @@ public class Robot extends LoggedRobot {
    * not in competition. Competition alliance color selection is handled by {@link
    * Robot#updateFmsAlliance()}
    */
-  @Override
-  public void driverStationConnected() {
-    alliance = DriverStation.getAlliance().orElse(null);
-    Logger.recordOutput("FMS_ALLIANCE", alliance == null ? "null" : alliance.name());
-  }
+  // @Override
+  // public void driverStationConnected() {
+  //   alliance = DriverStation.getAlliance().orElse(null);
+  //   Logger.recordOutput("FMS_ALLIANCE", alliance == null ? "null" : alliance.name());
+  // }
 }
