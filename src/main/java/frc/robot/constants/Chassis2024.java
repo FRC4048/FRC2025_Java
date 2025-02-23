@@ -15,10 +15,10 @@ public class Chassis2024 extends Constants2025 {
   public static final int DRIVE_CANCODER_FRONT_LEFT = 38;
   public static final int DRIVE_CANCODER_BACK_LEFT = 37;
 
-  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.473;
-  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = -0.210;
-  public static final double BACK_LEFT_ABS_ENCODER_ZERO = 0.463;
-  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.391;
+  public static final double BACK_RIGHT_ABS_ENCODER_ZERO = 0.472;
+  public static final double FRONT_LEFT_ABS_ENCODER_ZERO = 0.276;
+  public static final double BACK_LEFT_ABS_ENCODER_ZERO = -0.035;
+  public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.401;
 
   public static final int DRIVE_FRONT_RIGHT_S = 29;
   public static final int DRIVE_BACK_RIGHT_S = 30;
