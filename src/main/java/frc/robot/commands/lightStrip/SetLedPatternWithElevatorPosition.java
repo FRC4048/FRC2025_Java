@@ -24,17 +24,14 @@ public class SetLedPatternWithElevatorPosition extends Command {
   @Override
   public void initialize() {
     switch (elevatorSubsystem.getStoredReefPosition()) {
-      case CORAL_INTAKE:
-        lightStrip.setPattern(BlinkinPattern.DARK_GREEN);
-        break;
       case LEVEL1:
-        lightStrip.setPattern(BlinkinPattern.BLUE_VIOLET);
+        lightStrip.setPattern(BlinkinPattern.WHITE);
         break;
       case LEVEL2:
-        lightStrip.setPattern(BlinkinPattern.DARK_BLUE);
+        lightStrip.setPattern(BlinkinPattern.YELLOW);
         break;
       case LEVEL3:
-        lightStrip.setPattern(BlinkinPattern.ORANGE);
+        lightStrip.setPattern(BlinkinPattern.BLUE);
         break;
       case LEVEL4:
         lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
