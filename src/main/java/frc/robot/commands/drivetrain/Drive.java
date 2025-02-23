@@ -1,8 +1,10 @@
 package frc.robot.commands.drivetrain;
 
+import static edu.wpi.first.wpilibj.DriverStation.Alliance;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import frc.robot.RobotContainer;
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.DriveMode;
@@ -15,7 +17,6 @@ public class Drive extends LoggableCommand {
   private final DoubleSupplier fwdSupplier;
   private final DoubleSupplier strSupplier;
   private final DoubleSupplier rtSupplier;
-  private boolean shouldFlip;
   private final Supplier<DriveMode> driveMode;
 
   public Drive(
@@ -33,12 +34,12 @@ public class Drive extends LoggableCommand {
   }
 
   @Override
-  public void initialize() {
-    this.shouldFlip = RobotContainer.isRedAlliance();
-  }
-
-  @Override
   public void execute() {
+    Alliance alliance = Robot.getAllianceColor().orElse(null);
+    if (alliance == null) {
+      return;
+    }
+    boolean shouldFlip = alliance == Alliance.Red;
     double fwd = MathUtil.applyDeadband(fwdSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
     double str = MathUtil.applyDeadband(strSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
     ChassisSpeeds driveStates;

@@ -1,8 +1,10 @@
 package frc.robot.autochooser;
 
+import static edu.wpi.first.wpilibj.DriverStation.Alliance;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.RobotContainer;
+import frc.robot.Robot;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -35,12 +37,20 @@ public enum FieldLocation {
   }
 
   public Pose2d getLocation() {
-    double x = RobotContainer.isRedAlliance() ? RED_X_POS - xPose : xPose;
-    double radian = RobotContainer.isRedAlliance() ? Math.PI - angle : angle;
+    Alliance alliance = Robot.getAllianceColor().orElse(null);
+    if (alliance == null) {
+      return new Pose2d(0.0, 0.0, Rotation2d.kZero);
+    }
+    double x = (alliance == Alliance.Red) ? RED_X_POS - xPose : xPose;
+    double radian = (alliance == Alliance.Red) ? Math.PI - angle : angle;
     return new Pose2d(x, yPos, Rotation2d.fromRadians(radian));
   }
 
   public String getShuffleboardName() {
-    return RobotContainer.isRedAlliance() ? redName : blueName;
+    Alliance alliance = Robot.getAllianceColor().orElseGet(() -> null);
+    if (alliance == null) {
+      return "INVALID";
+    }
+    return (alliance == Alliance.Red) ? redName : blueName;
   }
 }

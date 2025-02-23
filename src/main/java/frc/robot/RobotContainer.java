@@ -7,7 +7,6 @@ package frc.robot;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -79,7 +78,6 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
-import java.util.Optional;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
@@ -180,11 +178,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
-  }
-
-  public static boolean isRedAlliance() {
-    Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
-    return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
   }
 
   private void setupDriveTrain() {
