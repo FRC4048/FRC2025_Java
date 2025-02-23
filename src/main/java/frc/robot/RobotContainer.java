@@ -6,7 +6,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -161,7 +160,10 @@ public class RobotContainer {
 
   private void setupAutoChooser() {
     autoChooser =
-        new AutoChooser2025(new RealAutoEventProvider(AutoAction.DoNothing, FieldLocation.ZERO));
+        new AutoChooser2025(
+            new RealAutoEventProvider(AutoAction.DoNothing, FieldLocation.ZERO),
+            elevatorSubsystem,
+            coralSubsystem);
     autoChooser
         .getProvider()
         .addOnValidationCommand(() -> new SetInitOdom(drivetrain, autoChooser).initialize());

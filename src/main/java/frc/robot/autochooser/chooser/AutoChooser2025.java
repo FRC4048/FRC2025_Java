@@ -24,7 +24,7 @@ import java.util.Map;
 import org.json.simple.parser.ParseException;
 
 public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
-  private final Map<AutoEvent, Command> commandMap;
+  private final Map<AutoEvent, LoggableSequentialCommandGroup> commandMap;
   private final AutoEventProvider provider;
 
   public AutoChooser2025(
