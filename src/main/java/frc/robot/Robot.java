@@ -114,12 +114,16 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void autonomousInit() {
+    mode.set(RobotMode.AUTONOMOUS);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    mode.set(RobotMode.AUTONOMOUS);
+    new SequentialCommandGroup(
+            new WheelAlign(m_robotContainer.getDrivetrain()),
+            new ResetGyro(m_robotContainer.getDrivetrain()))
+            .schedule();
   }
 
   @Override
@@ -130,11 +134,11 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
+    mode.set(RobotMode.TELEOP);
     diagnostics.reset();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    mode.set(RobotMode.TELEOP);
   }
 
   @Override
@@ -145,9 +149,9 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void testInit() {
+    mode.set(RobotMode.TEST);
     diagnostics.reset();
     CommandScheduler.getInstance().cancelAll();
-    mode.set(RobotMode.TEST);
   }
 
   @Override
