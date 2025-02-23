@@ -25,6 +25,7 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.elevator.*;
 import frc.robot.commands.hihi.*;
 import frc.robot.commands.lightStrip.SetLedPattern;
+import frc.robot.commands.lightStrip.SetLedPatternWithElevatorPosition;
 import frc.robot.commands.sequences.ByeByeAllDone;
 import frc.robot.commands.sequences.IntakeAlgae;
 import frc.robot.commands.sequences.PickUpCoral;
@@ -76,6 +77,7 @@ import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
@@ -169,6 +171,7 @@ public class RobotContainer {
     controller.a().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
     controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
+    lightStrip.setDefaultCommand(new SetLedPatternWithElevatorPosition(elevatorSubsystem.getStoredReefPosition(), lightStrip));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
