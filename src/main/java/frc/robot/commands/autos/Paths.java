@@ -46,7 +46,7 @@ public class Paths {
       robotOneToPostJCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post J"));
       robotFourToPostECommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 To Post E"));
+          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post E"));
       robotTwoToPostHCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post H"));
       // Post to Station Paths
@@ -83,7 +83,7 @@ public class Paths {
       middleCrossTheLineCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post C"));
       rightCrossTheLineCommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post D"));
+          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Right Cross the Line"));
 
     } catch (IOException | ParseException e) {
       throw new RuntimeException(e);
