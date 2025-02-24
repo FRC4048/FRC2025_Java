@@ -95,14 +95,17 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
+    if (getMode() != RobotMode.TEST) {
+      CommandScheduler.getInstance().run();
+      if (counter == 0) {
+        actualInit();
+      }
+      counter++;
+    }
+
     if (Constants.ENABLE_LOGGING) {
       CommandLogger.get().log();
     }
-    if (counter == 0) {
-      actualInit();
-    }
-    counter++;
   }
 
   /** Use this instead of robot init. */

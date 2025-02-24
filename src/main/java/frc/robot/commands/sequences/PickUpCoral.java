@@ -7,17 +7,26 @@ package frc.robot.commands.sequences;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.WaitTillElevatorAtPosition;
-import frc.robot.constants.ElevatorPositions;
+import frc.robot.commands.lightStrip.SetLedOnCoralIntake;
+import frc.robot.commands.lightStrip.SetLedPatternForever;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
+import frc.robot.subsystems.lightStrip.LightStrip;
+import frc.robot.utils.BlinkinPattern;
+import frc.robot.utils.logging.commands.LoggableDeadlineCommandGroup;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 public class PickUpCoral extends LoggableSequentialCommandGroup {
-  public PickUpCoral(ElevatorSubsystem elevator, CoralSubsystem coral) {
+  public PickUpCoral(ElevatorSubsystem elevator, CoralSubsystem coral, LightStrip lightStrip) {
     super(
-        new ResetElevator(elevator),
-        new WaitTillElevatorAtPosition(
-            elevator, ElevatorPositions.CORAL_INTAKE.getElevatorHeight()),
-        new IntakeCoral(coral));
+        new LoggableDeadlineCommandGroup(
+            new LoggableSequentialCommandGroup(
+                new ResetElevator(elevator),
+                new WaitTillElevatorAtPosition(
+                    elevator, ElevatorPosition.CORAL_INTAKE.getElevatorHeight()),
+                new IntakeCoral(coral)),
+            new SetLedPatternForever(lightStrip, BlinkinPattern.RED)),
+        new SetLedOnCoralIntake(coral::getForwardSwitchState, lightStrip));
   }
 }
