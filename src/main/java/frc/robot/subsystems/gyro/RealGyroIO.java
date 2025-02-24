@@ -10,7 +10,7 @@ public class RealGyroIO implements GyroIO {
   public RealGyroIO(ThreadedGyro gyro) {
     this.gyro = gyro;
     Robot.getDiagnostics()
-        .addDiagnosable(new DiagGyro("Diag", "Gyro", Constants.GYRO_DIAGS_ANGLE, gyro));
+        .addDiagnosable(new DiagGyro("Gyro", "Gyro Angle", Constants.GYRO_DIAGS_ANGLE, gyro));
   }
 
   @Override
