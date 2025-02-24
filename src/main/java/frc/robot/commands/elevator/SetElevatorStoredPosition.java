@@ -5,22 +5,22 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.constants.ElevatorPositions;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class SetElevatorStoredPosition extends LoggableCommand {
-  public final ElevatorPositions elevatorPositions;
+  public final ElevatorPosition elevatorPosition;
   public final ElevatorSubsystem elevatorSubsystem;
   public final LightStrip lightStrip;
 
   public SetElevatorStoredPosition(
-      ElevatorPositions storedElevatorHeight,
+      ElevatorPosition storedElevatorHeight,
       ElevatorSubsystem elevatorSubsystem,
       LightStrip lightStrip) {
-    this.elevatorPositions = storedElevatorHeight;
+    this.elevatorPosition = storedElevatorHeight;
     this.lightStrip = lightStrip;
     this.elevatorSubsystem = elevatorSubsystem;
     addRequirements(elevatorSubsystem, lightStrip);
@@ -29,7 +29,7 @@ public class SetElevatorStoredPosition extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    switch (elevatorPositions) {
+    switch (elevatorPosition) {
       case CORAL_INTAKE:
         lightStrip.setPattern(BlinkinPattern.DARK_GREEN);
         break;
@@ -49,7 +49,7 @@ public class SetElevatorStoredPosition extends LoggableCommand {
         DriverStation.reportError("Invalid Reef Position selected", true);
         break;
     }
-    elevatorSubsystem.setStoredReefPosition(elevatorPositions);
+    elevatorSubsystem.setStoredReefPosition(elevatorPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

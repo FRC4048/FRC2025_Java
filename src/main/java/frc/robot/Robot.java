@@ -86,17 +86,20 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-    if (Constants.ENABLE_LOGGING) {
-      CommandLogger.get().log();
-    }
-    if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
+    if (getMode() != RobotMode.TEST) {
+      CommandScheduler.getInstance().run();
+      if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
       allianceColor = DriverStation.getAlliance();
     }
     if (counter == 0) {
-      actualInit();
+        actualInit();
+      }
+      counter++;
     }
-    counter++;
+
+    if (Constants.ENABLE_LOGGING) {
+      CommandLogger.get().log();
+    }
   }
 
   /** Use this instead of robot init. */
