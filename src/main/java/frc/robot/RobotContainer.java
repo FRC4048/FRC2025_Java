@@ -135,6 +135,8 @@ public class RobotContainer {
     setupDriveTrain();
     configureBindings();
     putShuffleboardCommands();
+    // Creates UsbCamera and MjpegServer [1] and connects them
+
   }
 
   private void configureBindings() {
