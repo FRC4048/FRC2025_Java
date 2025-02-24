@@ -14,8 +14,7 @@ public class AlgaeByeByeRollerSubsystem extends SubsystemBase {
   private final LoggableSystem<AlgaeByeByeRollerIO, MotorInputs> algaeSystem;
 
   public AlgaeByeByeRollerSubsystem(AlgaeByeByeRollerIO io) {
-    MotorInputs inputs =
-        new MotorInputBuilder<>("AlgaeByeByeRollerSubsystem").encoderVelocity().addStatus().build();
+    MotorInputs inputs = new MotorInputBuilder<>("AlgaeByeByeRollerSubsystem").addAll().build();
     algaeSystem = new LoggableSystem<>(io, inputs);
   }
 
