@@ -31,7 +31,7 @@ public class AlignClosestBranch extends LoggableCommand {
             LoggableCommandWrapper.wrap(PathPlannerUtils.pathToPose(targetPosition, 0.0)).withBasicName("GeneralAlign"),
             new FineAlign(drivetrain, targetPosition)
     ).withBasicName("PathPlannerToBranch");
-    sequence.setParent(this);
+    sequence.setParent(this); //for advantage scope logging
     sequence.schedule();
   }
 
