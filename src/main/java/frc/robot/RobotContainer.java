@@ -39,6 +39,9 @@ import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
 import frc.robot.commands.hihi.ShootHiHiRollerOut;
+import frc.robot.commands.drivetrain.RobotSlide;
+import frc.robot.commands.elevator.*;
+import frc.robot.commands.hihi.*;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
 import frc.robot.commands.sequences.IntakeAlgae;
@@ -210,6 +213,11 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
+
+    JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
+    RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX);
+    joyLeft2.whileTrue(robotSlide);
+
     controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem));
     controller
         .povUp()
