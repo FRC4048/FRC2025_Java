@@ -4,23 +4,11 @@
 
 package frc.robot;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-import org.littletonrobotics.junction.LogFileUtil;
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-
 import com.pathplanner.lib.pathfinding.Pathfinding;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -30,9 +18,17 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
-using CSCore;
-using OpenCvSharp;
-using System,Threading;
+import java.util.concurrent.atomic.AtomicReference;
+import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+import org.littletonrobotics.junction.wpilog.WPILOGReader;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 
 public class Robot extends LoggedRobot {
   private Command m_autonomousCommand;
@@ -41,8 +37,46 @@ public class Robot extends LoggedRobot {
   private final RobotContainer m_robotContainer;
   private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
   public double counter = 0;
+  Thread m_visionThread;
 
   public Robot() {
+    m_visionThread =
+        new Thread(
+            () -> {
+              // Get the UsbCamera from CameraServer
+              UsbCamera camera = CameraServer.startAutomaticCapture();
+              // Set the resolution
+              camera.setResolution(640, 480);
+
+              // Get a CvSink. This will capture Mats from the camera
+              CvSink cvSink = CameraServer.getVideo();
+              // Setup a CvSource. This will send images back to the Dashboard
+              CvSource outputStream = CameraServer.putVideo("Rectangle", 640, 480);
+
+              // Mats are very memory expensive. Lets reuse this Mat.
+              Mat mat = new Mat();
+
+              // This cannot be 'true'. The program will never exit if it is. This
+              // lets the robot stop this thread when restarting robot code or
+              // deploying.
+              while (!Thread.interrupted()) {
+                // Tell the CvSink to grab a frame from the camera and put it
+                // in the source mat.  If there is an error notify the output.
+                if (cvSink.grabFrame(mat) == 0) {
+                  // Send the output the error.
+                  outputStream.notifyError(cvSink.getError());
+                  // skip the rest of the current iteration
+                  continue;
+                }
+                // Put a rectangle on the image
+                Imgproc.rectangle(
+                    mat, new Point(100, 100), new Point(400, 400), new Scalar(255, 255, 255), 5);
+                // Give the output stream a new image to display
+                outputStream.putFrame(mat);
+              }
+            });
+    m_visionThread.setDaemon(true);
+    m_visionThread.start();
     Pathfinding.setPathfinder(new LocalADStarAK());
     // Record Metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
@@ -114,39 +148,6 @@ public class Robot extends LoggedRobot {
             new WheelAlign(m_robotContainer.getDrivetrain()),
             new ResetGyro(m_robotContainer.getDrivetrain()))
         .schedule();
-    Thread cameraThread = new Thread(() =>
-    {
-        // Get the Axis Camera from the camera server
-        AxisCamera camera = CameraServer.Instance.AddAxisCamera("axis-camera.local");
-        camera.SetResolution(640, 480);
-
-        // Get a CvSink. This will capture Mats from the Camera
-        CvSink cvSink = CameraServer.Instance.GetVideo();
-        // Setup a CvSource. This will send images back to the dashboard
-        CvSource outputStream = CameraServer.Instance.PutVideo("Rectangle", 640, 480);
-
-        // Mats are very expensive. Let's reuse this Mat.
-        Mat mat = new Mat();
-
-        while (true)
-        {
-            // Tell the CvSink to grab a frame from the camera and put it
-            // in the source mat.  If there is an error notify the output.
-            if (cvSink.GrabFrame(mat) == 0) {
-                // Send the output the error.
-                outputStream.NotifyError(cvSink.GetError());
-                // skip the rest of the current iteration
-                continue;
-            }
-            // Put a rectangle on the image
-            Cv2.Rectangle(mat, new Point(100, 100), new Point(400, 400),
-                    new Scalar(255, 255, 255), 5);
-            // Give the output stream a new image to display
-            outputStream.PutFrame(mat);
-        }
-    });
-    cameraThread.isBackground = true;
-    cameraThread.start();
   }
 
   @Override
