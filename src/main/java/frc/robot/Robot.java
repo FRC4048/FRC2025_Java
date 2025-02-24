@@ -87,6 +87,7 @@ public class Robot extends LoggedRobot {
     if (getMode() != RobotMode.TEST) {
       CommandScheduler.getInstance().run();
       if (counter == 0) {
+        m_robotContainer.getHihiExtenderSubsystem().setExtenderPosition(0.0);
         actualInit();
       }
       counter++;
@@ -101,8 +102,7 @@ public class Robot extends LoggedRobot {
   private void actualInit() {
     new SequentialCommandGroup(
             new WheelAlign(m_robotContainer.getDrivetrain()),
-            new ResetGyro(m_robotContainer.getDrivetrain()),
-            new RetractHiHi(m_robotContainer.getHihiExtenderSubsystem()))
+            new ResetGyro(m_robotContainer.getDrivetrain()))
         .schedule();
   }
 
