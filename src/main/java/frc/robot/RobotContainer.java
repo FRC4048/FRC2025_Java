@@ -26,6 +26,7 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.elevator.*;
 import frc.robot.commands.hihi.*;
+import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
 import frc.robot.commands.sequences.IntakeAlgae;
@@ -33,7 +34,7 @@ import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
 import frc.robot.constants.Constants;
-import frc.robot.constants.ElevatorPositions;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -140,6 +141,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    lightStrip.setDefaultCommand(
+        new SetLedFromElevatorPosition(elevatorSubsystem::getStoredReefPosition, lightStrip));
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
@@ -148,28 +151,28 @@ public class RobotContainer {
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX);
     joyLeft2.whileTrue(robotSlide);
 
-    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem));
+    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
     controller
         .povUp()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevatorSubsystem, lightStrip));
     controller
         .povDown()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
     controller
         .povLeft()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
     controller
         .povRight()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
-        new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
+        new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.x().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
     controller.y().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
@@ -310,7 +313,7 @@ public class RobotContainer {
       SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartShuffleboard.putCommand(
-          "Coral", "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem));
+          "Coral", "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
     }
 
     if (Constants.HIHI_DEBUG) {
@@ -358,23 +361,23 @@ public class RobotContainer {
           "Elevator",
           "Store L0",
           new SetElevatorStoredPosition(
-              ElevatorPositions.CORAL_INTAKE, elevatorSubsystem, lightStrip));
+              ElevatorPosition.CORAL_INTAKE, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L1",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
+          new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L2",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
+          new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L3",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
+          new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
       SmartShuffleboard.putCommand(
           "Elevator",
           "Store L4",
-          new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
+          new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevatorSubsystem, lightStrip));
     }
 
     if (Constants.CLIMBER_DEBUG) {

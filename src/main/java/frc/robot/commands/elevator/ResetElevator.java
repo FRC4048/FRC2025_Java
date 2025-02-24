@@ -1,6 +1,6 @@
 package frc.robot.commands.elevator;
 
-import frc.robot.constants.ElevatorPositions;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
@@ -16,7 +16,7 @@ public class ResetElevator extends LoggableCommand {
 
   @Override
   public void initialize() {
-    elevator.setElevatorPosition(ElevatorPositions.CORAL_INTAKE.getElevatorHeight());
+    elevator.setElevatorPosition(ElevatorPosition.CORAL_INTAKE.getElevatorHeight());
   }
 
   @Override
