@@ -176,6 +176,6 @@ public class GameConstants {
 
   // ELEVATOR CONSTANTS
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
-  public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = 0.5;
-  public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = -.3;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
 }
