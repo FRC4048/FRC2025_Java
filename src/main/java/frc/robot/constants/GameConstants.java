@@ -36,7 +36,7 @@ public class GameConstants {
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
   public static final double INTAKE_MOTOR_SPEED = 0.25;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
-  public static final double CORAL_SHOOTER_SPEED = 0.5;
+  public static final double CORAL_SHOOTER_SPEED = 0.8;
   public static final double HIHI_EXTEND_SPEED = 0.4;
   public static final double HIHI_RETRACT_SPEED = -0.15;
   public static final double HIHI_INTAKE_SPEED = 0.7;
@@ -173,4 +173,9 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+
+  // ELEVATOR CONSTANTS
+  public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
 }
