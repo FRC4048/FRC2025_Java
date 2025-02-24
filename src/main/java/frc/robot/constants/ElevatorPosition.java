@@ -1,6 +1,6 @@
 package frc.robot.constants;
 
-public enum ElevatorPositions {
+public enum ElevatorPosition {
   CORAL_INTAKE(-1),
   LEVEL1(-3.0),
   LEVEL2(-9.0),
@@ -9,7 +9,7 @@ public enum ElevatorPositions {
 
   private final double heightElevator;
 
-  ElevatorPositions(double heightElevator) {
+  ElevatorPosition(double heightElevator) {
     this.heightElevator = heightElevator;
   }
 

@@ -75,6 +75,7 @@ public class GameConstants {
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
+  public static final double INTAKE_LED_STRIP_TIME = 1;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;

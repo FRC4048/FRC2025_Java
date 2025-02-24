@@ -4,11 +4,11 @@ import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
-public class SetLedPattern extends LoggableCommand {
+public class SetLedPatternForever extends LoggableCommand {
   private final LightStrip lightStrip;
   private final BlinkinPattern pattern;
 
-  public SetLedPattern(LightStrip lightStrip, BlinkinPattern pattern) {
+  public SetLedPatternForever(LightStrip lightStrip, BlinkinPattern pattern) {
     this.lightStrip = lightStrip;
     this.pattern = pattern;
     addRequirements(lightStrip);
