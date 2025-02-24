@@ -5,6 +5,7 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.math.MathUtil;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.function.DoubleSupplier;
@@ -13,6 +14,7 @@ public class SetElevatorTargetPosition extends LoggableCommand {
 
   private final DoubleSupplier targetSupplier;
   private final ElevatorSubsystem elevatorSubsystem;
+  private boolean pidLocked = true;
 
   public SetElevatorTargetPosition(
       DoubleSupplier targetSupplier, ElevatorSubsystem elevatorSubsystem) {
@@ -29,9 +31,21 @@ public class SetElevatorTargetPosition extends LoggableCommand {
   @Override
   public void execute() {
 
-    double postDeadbandValue = MathUtil.applyDeadband(targetSupplier.getAsDouble(), 0.1);
-    elevatorSubsystem.setElevatorPosition(
-        postDeadbandValue + elevatorSubsystem.getElevatorTargetPosition());
+    double postDeadbandValue =
+        MathUtil.applyDeadband(targetSupplier.getAsDouble(), Constants.ELEVATOR_MANUAL_DEADBAND);
+    if (postDeadbandValue < Constants.ELEVATOR_MANUAL_MAX_SPEED_UP) {
+      postDeadbandValue = Constants.ELEVATOR_MANUAL_MAX_SPEED_UP;
+    } else if (postDeadbandValue > Constants.ELEVATOR_MANUAL_MAX_SPEED_DOWN) {
+      postDeadbandValue = Constants.ELEVATOR_MANUAL_MAX_SPEED_DOWN;
+    }
+
+    if (Math.abs(postDeadbandValue) > 0) {
+      elevatorSubsystem.setElevatorMotorSpeed(postDeadbandValue);
+      pidLocked = false;
+    } else if (pidLocked == false) {
+      elevatorSubsystem.setElevatorPosition(elevatorSubsystem.getEncoderValue());
+      pidLocked = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
