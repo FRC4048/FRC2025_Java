@@ -195,7 +195,7 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
-  public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.05; // TODO: change later
+  public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.005; // TODO: change later
 
   // ELEVATOR CONSTANTS
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;

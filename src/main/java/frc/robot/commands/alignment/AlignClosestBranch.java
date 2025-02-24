@@ -12,6 +12,7 @@ import frc.robot.utils.math.PoseUtils;
 public class AlignClosestBranch extends LoggableCommand {
   private Pose2d targetPosition;
   private final SwerveDrivetrain drivetrain;
+  private int counter = 0;
 
   public AlignClosestBranch(SwerveDrivetrain drivetrain) {
     this.drivetrain = drivetrain;
@@ -20,13 +21,23 @@ public class AlignClosestBranch extends LoggableCommand {
 
   @Override
   public void initialize() {
+    counter = 0;
     targetPosition = AlignmentPositions.getClosest(drivetrain.getPose());
     LoggableCommandWrapper.wrap(PathPlannerUtils.pathToPose(targetPosition, 0.0)).schedule();
   }
 
   @Override
+  public void execute() {
+    if (PoseUtils.getDistance(drivetrain.getPose(), targetPosition)
+            < Constants.ALIGNMENT_DISTANCE_THRESHOLD) {
+      counter++;
+    } else {
+      counter = 0;
+    }
+  }
+
+  @Override
   public boolean isFinished() {
-    return (PoseUtils.getDistance(drivetrain.getPose(), targetPosition)
-        < Constants.ALIGNMENT_DISTANCE_THRESHOLD);
+    return (counter > 20);
   }
 }
