@@ -51,7 +51,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       new HolonomicDriveController(
           new PIDController(1, 0, 0),
           new PIDController(1, 0, 0),
-          new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(3.5, 1)));
+          new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(0.5, 1)));
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
