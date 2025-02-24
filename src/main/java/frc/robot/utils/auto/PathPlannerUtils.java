@@ -26,7 +26,7 @@ public class PathPlannerUtils {
       tempConf = RobotConfig.fromGUISettings();
       tempConstraints =
           new PathConstraints(
-              1.0, //tempConf.moduleConfig.maxDriveVelocityMPS,
+              1.0, // tempConf.moduleConfig.maxDriveVelocityMPS,
               Constants.MAX_PATHPLANNER_ACCEL,
               tempConf.moduleConfig.maxDriveVelocityRadPerSec,
               Constants.MAX_PATHPLANNER_ANGULAR_ACCEL);

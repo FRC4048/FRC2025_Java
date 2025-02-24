@@ -126,7 +126,7 @@ public class Robot extends LoggedRobot {
     new SequentialCommandGroup(
             new WheelAlign(m_robotContainer.getDrivetrain()),
             new ResetGyro(m_robotContainer.getDrivetrain()))
-            .schedule();
+        .schedule();
   }
 
   @Override
