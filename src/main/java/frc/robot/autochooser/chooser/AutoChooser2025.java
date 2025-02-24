@@ -36,48 +36,38 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
       LightStrip lightStrip,
       AlgaeByeByeTiltSubsystem byeBye) {
     provider = new AutoEventProvider(providerIO, this::isValid);
-
     commandMap =
         Map.ofEntries(
             Map.entry(
                 new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.LEFT),
-                new LeftCrossTheLine(elevator, coral)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.LEFT),
-            new LeftFourPieceFork(elevator, coral, lightStrip)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.LEFT),
-            new LeftFourPieceLine(elevator, coral, lightStrip)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.MIDDLE),
-            new MiddleCrossTheLine(elevator, coral)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.MIDDLE),
-            new MiddleFourPieceFork(elevator, coral, lightStrip)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.MIDDLE),
-            new MiddleFourPieceLine(elevator, coral, lightStrip)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
-            new MiddleOnePiece(elevator, coral, byeBye)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.RIGHT),
-            new RightCrossTheLine(elevator, coral)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.RIGHT),
-            new RightFourPieceFork(elevator, coral, lightStrip)));
-    Map.ofEntries(
-        Map.entry(
-            new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.RIGHT),
-            new RightFourPieceLine(elevator, coral, lightStrip)));
+                new LeftCrossTheLine(elevator, coral)),
+            Map.entry(
+                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.LEFT),
+                new LeftFourPieceFork(elevator, coral, lightStrip)),
+            Map.entry(
+                new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.LEFT),
+                new LeftFourPieceLine(elevator, coral, lightStrip)),
+            Map.entry(
+                new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.MIDDLE),
+                new MiddleCrossTheLine(elevator, coral)),
+            Map.entry(
+                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.MIDDLE),
+                new MiddleFourPieceFork(elevator, coral, lightStrip)),
+            Map.entry(
+                new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.MIDDLE),
+                new MiddleFourPieceLine(elevator, coral, lightStrip)),
+            Map.entry(
+                new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
+                new MiddleOnePiece(elevator, coral, byeBye)),
+            Map.entry(
+                new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.RIGHT),
+                new RightCrossTheLine(elevator, coral)),
+            Map.entry(
+                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.RIGHT),
+                new RightFourPieceFork(elevator, coral, lightStrip)),
+            Map.entry(
+                new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.RIGHT),
+                new RightFourPieceLine(elevator, coral, lightStrip)));
   }
 
   @Override
