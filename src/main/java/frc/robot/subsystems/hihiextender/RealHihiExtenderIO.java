@@ -1,7 +1,10 @@
 package frc.robot.subsystems.hihiextender;
 
 import com.revrobotics.spark.SparkBase;
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
+import frc.robot.utils.diag.DiagSparkMaxEncoder;
+import frc.robot.utils.diag.DiagSparkMaxSwitch;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.NeoPidMotorInputProvider;
 import frc.robot.utils.motor.NeoPidConfig;
@@ -15,6 +18,27 @@ public class RealHihiExtenderIO implements HihiExtenderIO {
     this.extenderMotor = new NeoPidMotor(Constants.ALGAE_EXTENDER_MOTOR_ID, false);
     inputProvider = new NeoPidMotorInputProvider(extenderMotor);
     resetExtenderEncoder();
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "HiHiExtender",
+                "ForwardLimit",
+                extenderMotor.getNeoMotor(),
+                DiagSparkMaxSwitch.Direction.FORWARD));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxSwitch(
+                "HiHiExtender",
+                "ReverseLimit",
+                extenderMotor.getNeoMotor(),
+                DiagSparkMaxSwitch.Direction.REVERSE));
+    Robot.getDiagnostics()
+        .addDiagnosable(
+            new DiagSparkMaxEncoder(
+                "HiHiExtender",
+                "Encoder",
+                Constants.HIHI_EXTENDER_DIAGS_ENCODER,
+                extenderMotor.getNeoMotor()));
   }
 
   @Override

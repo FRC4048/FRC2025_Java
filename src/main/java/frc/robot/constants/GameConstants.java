@@ -12,6 +12,14 @@ public class GameConstants {
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final int XBOX_CONTROLLER_ID = 2;
 
+  // Diags
+  public static final double BYEBYE_ROLLER_DIAGS_ENCODER = 1;
+  public static final double HIHI_ROLLER_DIAGS_ENCODER = 0.3;
+  public static final double ELEVATOR_DIAGS_ENCODER = 1;
+  public static final double HIHI_EXTENDER_DIAGS_ENCODER = 1;
+  public static final double CORAL_DIAGS_ENCODER = 1;
+  public static final double GYRO_DIAGS_ANGLE = 30;
+
   // Debug
   public static final boolean SWERVE_DEBUG = true;
   public static final boolean INTAKE_DEBUG = true;
@@ -36,7 +44,7 @@ public class GameConstants {
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
   public static final double INTAKE_MOTOR_SPEED = 0.25;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
-  public static final double CORAL_SHOOTER_SPEED = 0.5;
+  public static final double CORAL_SHOOTER_SPEED = 0.8;
   public static final double HIHI_EXTEND_SPEED = 0.4;
   public static final double HIHI_RETRACT_SPEED = -0.15;
   public static final double HIHI_INTAKE_SPEED = 0.7;
@@ -188,4 +196,9 @@ public class GameConstants {
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
   public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.05; // TODO: change later
+
+  // ELEVATOR CONSTANTS
+  public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
 }

@@ -44,8 +44,9 @@ public class Constants2025 extends GameConstants {
   public static final int DRIVE_FRONT_LEFT_S = 55;
   public static final int DRIVE_BACK_LEFT_S = 49;
 
-  public static final double DRIVE_BASE_WIDTH =
-      0.635; // Measured distance between the center of the wheels
-  public static final double DRIVE_BASE_LENGTH =
-      0.635; // Measured distance between the center of the wheels
+  // Measured distance between the center of the wheels
+  public static final double DRIVE_BASE_WIDTH = 0.635;
+
+  // Measured distance between the center of the wheels
+  public static final double DRIVE_BASE_LENGTH = 0.635;
 }
