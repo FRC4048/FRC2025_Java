@@ -5,15 +5,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.constants.AlignmentPositions;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
-import frc.robot.utils.auto.PathPlannerUtils;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
-import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
+import org.littletonrobotics.junction.Logger;
 
 public class AlignClosestBranch extends LoggableCommand {
   private Pose2d targetPosition;
   private final SwerveDrivetrain drivetrain;
-  private LoggableSequentialCommandGroup driveSequence;
+  private LoggableCommand followTrajectory;
   private final Timer timer = new Timer();
 
   public AlignClosestBranch(SwerveDrivetrain drivetrain) {
@@ -25,25 +24,21 @@ public class AlignClosestBranch extends LoggableCommand {
   public void initialize() {
     timer.restart();
     targetPosition = AlignmentPositions.getClosest(drivetrain.getPose());
-    LoggableSequentialCommandGroup sequence =
-        new LoggableSequentialCommandGroup(
-                LoggableCommandWrapper.wrap(PathPlannerUtils.pathToPose(targetPosition, 0.0))
-                    .withBasicName("GeneralAlign"),
-                new FineAlign(drivetrain, targetPosition))
-            .withBasicName("PathPlannerToBranch");
-    sequence.setParent(this); // for advantage scope logging
-    sequence.schedule();
+    Logger.recordOutput("TargetReefPose", targetPosition);
+    followTrajectory = LoggableCommandWrapper.wrap(drivetrain.generateTrajectoryCommand(targetPosition));
+    followTrajectory.setParent(this);
+    followTrajectory.schedule();
   }
 
   @Override
   public void end(boolean interrupted) {
-    if (CommandScheduler.getInstance().isScheduled(driveSequence)) {
-      CommandScheduler.getInstance().cancel(driveSequence);
+    if (CommandScheduler.getInstance().isScheduled(followTrajectory)) {
+      CommandScheduler.getInstance().cancel(followTrajectory);
     }
   }
 
   @Override
   public boolean isFinished() {
-    return driveSequence.isFinished() | timer.hasElapsed(10);
+    return followTrajectory.isFinished() | timer.hasElapsed(10);
   }
 }

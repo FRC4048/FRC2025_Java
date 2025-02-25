@@ -10,8 +10,13 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
@@ -21,8 +26,11 @@ import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.commands.LoggableCommand;
+import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
+import java.util.Collections;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -45,13 +53,14 @@ public class SwerveDrivetrain extends SubsystemBase {
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
+  private TrajectoryConfig trajectoryConfig;
   // controller will add an additional meter per second in the x direction for every meter of error
   // in the x direction
   private final HolonomicDriveController finePathController =
       new HolonomicDriveController(
           new PIDController(1, 0, 0),
           new PIDController(1, 0, 0),
-          new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(0.5, 1)));
+          new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(6.28, 3.14)));
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
@@ -68,7 +77,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-    finePathController.setTolerance(new Pose2d(0.05, 0.05, Rotation2d.fromDegrees(5)));
+    finePathController.setTolerance(new Pose2d(0.025, 0.025, Rotation2d.fromDegrees(5)));
+    trajectoryConfig = new TrajectoryConfig(0.25, 0.25);
   }
 
   @Override
@@ -217,11 +227,16 @@ public class SwerveDrivetrain extends SubsystemBase {
     return facingTarget;
   }
 
-  public ChassisSpeeds calculateSpeedsTowardsPoint(Pose2d targetPose) {
-    return finePathController.calculate(getPose(), targetPose, 0, targetPose.getRotation());
-  }
-
-  public boolean atTarget(Pose2d targetPose) {
-    return finePathController.atReference();
+  public Command generateTrajectoryCommand(Pose2d targetPose) {
+    Trajectory trajectory =
+        TrajectoryGenerator.generateTrajectory(
+            getPose(), Collections.emptyList(), targetPose, trajectoryConfig);
+    return new SwerveControllerCommand(
+            trajectory,
+            this::getPose,
+            kinematics, // Position controllers
+            finePathController,
+            this::setModuleStates,
+            this);
   }
 }
