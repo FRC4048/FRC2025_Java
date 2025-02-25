@@ -79,9 +79,9 @@ public class Paths {
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post D"));
       // Cross The Line Paths
       leftCrossTheLineCommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post B"));
+          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Left Cross the Line"));
       middleCrossTheLineCommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post C"));
+          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Middle Cross the Line"));
       rightCrossTheLineCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Right Cross the Line"));
 
