@@ -130,7 +130,7 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
-        climber = new ClimberSubsystem(new MockClimberIO(), new MockRatchetIO());
+        climber = new ClimberSubsystem(new SimClimberIO(), new MockRatchetIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
         lightStrip = new LightStrip(new MockLightStripIO());

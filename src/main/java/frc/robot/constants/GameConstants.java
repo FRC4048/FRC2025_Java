@@ -170,7 +170,7 @@ public class GameConstants {
   // Climber
   public static final int RATCHET_ENGAGE = 0;
   public static final int RATCHET_DISENGAGE = 180;
-  public static final double CLIMBER_PHASE1_POSITION = 0.5;
+  public static final double CLIMBER_PHASE1_POSITION = 15.0;
   public static final double CLIMBER_DEADBAND = 0.4;
 
   // Other

@@ -7,7 +7,6 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.function.DoubleSupplier;
 
 public class Climb extends LoggableCommand {
-
   private final ClimberSubsystem climber;
   private DoubleSupplier supplier;
 
@@ -22,20 +21,22 @@ public class Climb extends LoggableCommand {
 
   @Override
   public void execute() {
+
     double value = MathUtil.applyDeadband(supplier.getAsDouble(), Constants.CLIMBER_DEADBAND);
-    if (supplier.getAsDouble() > 0) { // Phase2
-      climber.setClimberSpeed(Constants.CLIMBER_PHASE2_SPEED);
-    } else if (climber.getEncoderPosition() < Constants.CLIMBER_PHASE1_POSITION) { // phase2
+
+    if (value > 0 && climber.getEncoderPosition() < Constants.CLIMBER_PHASE1_POSITION) {
+      // phase1 - deploying harpoon
+      climber.setClimberSpeed(Constants.CLIMBER_PHASE1_SPEED);
+    } else if (value < 0 && climber.getEncoderPosition() >= Constants.CLIMBER_PHASE1_POSITION) {
+      // Phase2 - lifting robot
       climber.setClimberSpeed(Constants.CLIMBER_PHASE2_SPEED);
     } else {
-      climber.setClimberSpeed(0);
+      climber.stopClimber();
     }
   }
 
   @Override
-  public void end(boolean interrupted) {
-    climber.stopClimber();
-  }
+  public void end(boolean interrupted) {}
 
   @Override
   public boolean isFinished() {
