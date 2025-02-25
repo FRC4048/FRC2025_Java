@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.utils.RobotMode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class Diagnostics extends SubsystemBase {
   private ShuffleboardTab shuffleBoardTab;
 
   private List<Diagnosable> diagnosables;
-
 
   public Diagnostics() {
     shuffleBoardTab = Shuffleboard.getTab(SHUFFLEBOARD_TAB_NAME);

@@ -148,7 +148,6 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void testInit() {
-    diagnostics.setTestStatus(true);
     diagnostics.reset();
     CommandScheduler.getInstance().cancelAll();
     mode.set(RobotMode.TEST);
@@ -160,9 +159,7 @@ public class Robot extends LoggedRobot {
   }
 
   @Override
-  public void testExit() {
-    diagnostics.setTestStatus(false);
-  }
+  public void testExit() {}
 
   public void simulationInit() {
     mode.set(RobotMode.SIMULATION);
