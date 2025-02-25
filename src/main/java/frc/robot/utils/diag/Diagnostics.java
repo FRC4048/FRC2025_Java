@@ -21,6 +21,8 @@ public class Diagnostics extends SubsystemBase {
 
   private List<Diagnosable> diagnosables;
 
+  private boolean isTest = false;
+
   public Diagnostics() {
     shuffleBoardTab = Shuffleboard.getTab(SHUFFLEBOARD_TAB_NAME);
     diagnosables = new ArrayList<>();
@@ -37,8 +39,12 @@ public class Diagnostics extends SubsystemBase {
   }
 
   public void addDiagnosable(Diagnosable diagnosable) {
-    diagnosable.setShuffleBoardTab(shuffleBoardTab, width, height);
+    if (isTest) diagnosable.setShuffleBoardTab(shuffleBoardTab, width, height);
     diagnosables.add(diagnosable);
+  }
+
+  public void setTestStatus(boolean isTest) {
+    this.isTest = isTest;
   }
 
   /**
@@ -47,7 +53,7 @@ public class Diagnostics extends SubsystemBase {
    * periodically (e.g. in test mode) to ensure the components are all tested
    */
   public void refresh() {
-    diagnosables.forEach(Diagnosable::refresh);
+    if (isTest) diagnosables.forEach(Diagnosable::refresh);
   }
 
   /**
