@@ -189,19 +189,19 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
         new SetElevatorStoredPosition(
-            ElevatorPositions.CORAL_INTAKE, elevatorSubsystem, lightStrip));
+            ElevatorPosition.CORAL_INTAKE, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL1",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip));
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL2",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL2, elevatorSubsystem, lightStrip));
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL3",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL3, elevatorSubsystem, lightStrip));
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     NamedCommands.registerCommand(
         "ElevatorToPositionL4",
-        new SetElevatorStoredPosition(ElevatorPositions.LEVEL4, elevatorSubsystem, lightStrip));
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevatorSubsystem, lightStrip));
   }
 
   private void configureBindings() {

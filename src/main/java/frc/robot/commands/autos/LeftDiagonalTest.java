@@ -2,7 +2,7 @@ package frc.robot.commands.autos;
 
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
-import frc.robot.constants.ElevatorPositions;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.lightStrip.LightStrip;
@@ -15,7 +15,7 @@ public class LeftDiagonalTest extends LoggableSequentialCommandGroup {
     super(
         new LoggableCommandWrapper(Paths.getInstance().getRobotTwoToPostHCommand()),
         new LoggableCommandWrapper(
-            new SetElevatorStoredPosition(ElevatorPositions.LEVEL1, elevatorSubsystem, lightStrip)),
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip)),
         new LoggableCommandWrapper(
             new ShootCoral(coralSubsystem, 0.5)) // Updated with GameConstants
         );
