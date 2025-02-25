@@ -6,12 +6,9 @@ package frc.robot.subsystems.climber;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import frc.robot.Robot;
 import frc.robot.constants.Constants;
-import frc.robot.utils.diag.DiagSparkMaxSwitch;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
@@ -24,23 +21,11 @@ public class RealClimberIO implements ClimberIO {
     this.climberMotor = new SparkMax(Constants.CLIMBER_MOTOR_ID, SparkMax.MotorType.kBrushless);
     inputProvider = new SparkMaxInputProvider(climberMotor);
     configureMotor();
-    Robot.getDiagnostics()
-        .addDiagnosable(
-            new DiagSparkMaxSwitch(
-                "Climber", "ForwardLimit", climberMotor, DiagSparkMaxSwitch.Direction.FORWARD));
-    Robot.getDiagnostics()
-        .addDiagnosable(
-            new DiagSparkMaxSwitch(
-                "Climber", "ReverseLimit", climberMotor, DiagSparkMaxSwitch.Direction.REVERSE));
   }
 
   public void configureMotor() {
     SparkMaxConfig climberConfig = new SparkMaxConfig();
-    climberConfig
-        .idleMode(IdleMode.kBrake)
-        .limitSwitch
-        .forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen)
-        .reverseLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+    climberConfig.idleMode(IdleMode.kBrake);
     climberMotor.configure(
         climberConfig,
         SparkBase.ResetMode.kResetSafeParameters,
