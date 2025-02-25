@@ -10,6 +10,7 @@ public class RealLightStripIO implements LightStripIO {
 
   public RealLightStripIO() {
     colorSensorPort = new Spark(Constants.LIGHTSTRIP_PORT);
+    colorSensorPort.set(BlinkinPattern.HOT_PINK.getPwm());
   }
 
   @Override
