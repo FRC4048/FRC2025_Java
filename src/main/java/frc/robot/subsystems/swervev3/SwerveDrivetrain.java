@@ -70,26 +70,26 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-  if(Constants.TUNING_MODE){
-            closedLoopTunable =
-        new LoggedTunableNumber(
-            "Swerve/currentLimiting/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
-    smartLimitTunable =
-        new LoggedTunableNumber("Swerve/currentLimiting/SmartLimit", Constants.DRIVE_SMART_LIMIT);
-    secondaryLimitTunable =
-        new LoggedTunableNumber(
-            "Swerve/currentLimiting/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
-    drivePTunable = new LoggedTunableNumber("Swerve/drive/P", Constants.DRIVE_PID_P);
-    driveITunable = new LoggedTunableNumber("Swerve/drive/I", Constants.DRIVE_PID_I);
-    driveDTunable = new LoggedTunableNumber("Swerve/drive/D", Constants.DRIVE_PID_D);
-    steerPTunable = new LoggedTunableNumber("Swerve/steer/P", Constants.STEER_PID_P);
-    steerITunable = new LoggedTunableNumber("Swerve/steer/I", Constants.STEER_PID_I);
-    steerDTunable = new LoggedTunableNumber("Swerve/steer/D", Constants.STEER_PID_D);
-    steerMaxAccelerationTunable =
-        new LoggedTunableNumber("Swerve/steer/maxAccel", Constants.MAX_ANGULAR_SPEED * 150);
-    steerMaxVelocityTunable =
-        new LoggedTunableNumber("Swerve/steer/maxVelocity", 2 * Math.PI * 150);
-  }
+    if (Constants.TUNING_MODE) {
+      closedLoopTunable =
+          new LoggedTunableNumber(
+              "Swerve/currentLimiting/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
+      smartLimitTunable =
+          new LoggedTunableNumber("Swerve/currentLimiting/SmartLimit", Constants.DRIVE_SMART_LIMIT);
+      secondaryLimitTunable =
+          new LoggedTunableNumber(
+              "Swerve/currentLimiting/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
+      drivePTunable = new LoggedTunableNumber("Swerve/drive/P", Constants.DRIVE_PID_P);
+      driveITunable = new LoggedTunableNumber("Swerve/drive/I", Constants.DRIVE_PID_I);
+      driveDTunable = new LoggedTunableNumber("Swerve/drive/D", Constants.DRIVE_PID_D);
+      steerPTunable = new LoggedTunableNumber("Swerve/steer/P", Constants.STEER_PID_P);
+      steerITunable = new LoggedTunableNumber("Swerve/steer/I", Constants.STEER_PID_I);
+      steerDTunable = new LoggedTunableNumber("Swerve/steer/D", Constants.STEER_PID_D);
+      steerMaxAccelerationTunable =
+          new LoggedTunableNumber("Swerve/steer/maxAccel", Constants.MAX_ANGULAR_SPEED * 150);
+      steerMaxVelocityTunable =
+          new LoggedTunableNumber("Swerve/steer/maxVelocity", 2 * Math.PI * 150);
+    }
   }
 
   @Override
@@ -120,61 +120,63 @@ public class SwerveDrivetrain extends SubsystemBase {
       SmartShuffleboard.put("Drive", "BL ABS Pos", backLeft.getAbsPosition());
       SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
     }
-    if(Constants.TUNING_MODE){
-    LoggedTunableNumber.ifChanged(
-        hashCode(),
-        () -> {
-          updateConfig(
-              closedLoopTunable.get(), secondaryLimitTunable.get(), (int) smartLimitTunable.get());
-        },
-        closedLoopTunable,
-        secondaryLimitTunable,
-        smartLimitTunable);
-    LoggedTunableNumber.ifChanged(
-        hashCode(),
-        () -> {
-          frontLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-          frontRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-          backLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-          backRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-        },
-        drivePTunable,
-        driveITunable,
-        driveDTunable);
-    LoggedTunableNumber.ifChanged(
-        hashCode(),
-        () -> {
-          frontLeft.setSteerPID(
-              steerPTunable.get(),
-              steerITunable.get(),
-              steerDTunable.get(),
-              steerMaxAccelerationTunable.get(),
-              steerMaxVelocityTunable.get());
-          frontRight.setSteerPID(
-              steerPTunable.get(),
-              steerITunable.get(),
-              steerDTunable.get(),
-              steerMaxAccelerationTunable.get(),
-              steerMaxVelocityTunable.get());
-          backLeft.setSteerPID(
-              steerPTunable.get(),
-              steerITunable.get(),
-              steerDTunable.get(),
-              steerMaxAccelerationTunable.get(),
-              steerMaxVelocityTunable.get());
-          backRight.setSteerPID(
-              steerPTunable.get(),
-              steerITunable.get(),
-              steerDTunable.get(),
-              steerMaxAccelerationTunable.get(),
-              steerMaxVelocityTunable.get());
-        },
-        steerPTunable,
-        steerITunable,
-        steerDTunable,
-        steerMaxAccelerationTunable,
-        steerMaxVelocityTunable);
-      }
+    if (Constants.TUNING_MODE) {
+      LoggedTunableNumber.ifChanged(
+          hashCode(),
+          () -> {
+            updateConfig(
+                closedLoopTunable.get(),
+                secondaryLimitTunable.get(),
+                (int) smartLimitTunable.get());
+          },
+          closedLoopTunable,
+          secondaryLimitTunable,
+          smartLimitTunable);
+      LoggedTunableNumber.ifChanged(
+          hashCode(),
+          () -> {
+            frontLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            frontRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            backLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            backRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+          },
+          drivePTunable,
+          driveITunable,
+          driveDTunable);
+      LoggedTunableNumber.ifChanged(
+          hashCode(),
+          () -> {
+            frontLeft.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+            frontRight.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+            backLeft.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+            backRight.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+          },
+          steerPTunable,
+          steerITunable,
+          steerDTunable,
+          steerMaxAccelerationTunable,
+          steerMaxVelocityTunable);
+    }
   }
 
   private void processInputs() {
@@ -298,8 +300,7 @@ public class SwerveDrivetrain extends SubsystemBase {
    * @param secondaryCurrentLimit
    * @param smartCurrentLimit
    */
-  public void updateConfig(
-      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
     frontLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     frontRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     backRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
