@@ -41,7 +41,7 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
         .velocityConversionFactor(driveVelConvFactor);
     driveMotor.configure(
         driveConfig,
-        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
 
@@ -56,7 +56,7 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
             Constants.DRIVE_SMART_LIMIT); // TODO: change current limiting because its different
     driveMotor.configure(
         driveConfig,
-        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
 
