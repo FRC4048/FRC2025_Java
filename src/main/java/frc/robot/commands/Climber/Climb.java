@@ -1,4 +1,4 @@
-package frc.robot.commands.Climber;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.math.MathUtil;
 import frc.robot.constants.Constants;
