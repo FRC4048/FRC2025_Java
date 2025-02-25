@@ -9,15 +9,20 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.ServoInputs;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
   private final LoggableSystem<ClimberIO, MotorInputs> climberSystem;
 
-  public ClimberSubsystem(ClimberIO io) {
-    MotorInputs inputs = new MotorInputBuilder<>("ClimberSubsystem").addAll().build();
-    climberSystem = new LoggableSystem<>(io, inputs);
+  private final LoggableSystem<RatchetIO, ServoInputs> ratchetSystem;
+
+  public ClimberSubsystem(ClimberIO motorIO, RatchetIO ratchetIO) {
+    MotorInputs motorInputs = new MotorInputBuilder<>("ClimberSubsystem/Climber").addAll().build();
+    ServoInputs ratchetInputs = new ServoInputs("ClimberSubsystem/Ratchet");
+    climberSystem = new LoggableSystem<>(motorIO, motorInputs);
+    ratchetSystem = new LoggableSystem<>(ratchetIO, ratchetInputs);
   }
 
   @Override
@@ -27,6 +32,7 @@ public class ClimberSubsystem extends SubsystemBase {
       SmartShuffleboard.put("Climber", "Backward", isRetractedLimitSwitchPressed());
     }
     climberSystem.updateInputs();
+    ratchetSystem.updateInputs();
     if (isExtendedLimitSwitchPressed() || isRetractedLimitSwitchPressed()) {
       stopClimber();
     }
@@ -50,5 +56,13 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public boolean isExtendedLimitSwitchPressed() {
     return climberSystem.getInputs().getFwdLimit();
+  }
+
+  public void engageRatchet() {
+    ratchetSystem.getIO().engageRatchet();
+  }
+
+  public void disengageRatchet() {
+    ratchetSystem.getIO().disengageRatchet();
   }
 }

@@ -20,6 +20,8 @@ import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
+import frc.robot.commands.climber.DisengageRatchet;
+import frc.robot.commands.climber.EngageRatchet;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -42,6 +44,7 @@ import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
+import frc.robot.subsystems.climber.*;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIOFollower;
 import frc.robot.subsystems.coral.MockCoralIOLeader;
@@ -92,7 +95,7 @@ public class RobotContainer {
   private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
-  //  private final ClimberSubsystem climber;
+  private final ClimberSubsystem climber;
   private final LightStrip lightStrip;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
@@ -106,7 +109,7 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         coralSubsystem = new CoralSubsystem(new RealCoralIOFollower(), new RealCoralIOLeader());
-        //                climber = new ClimberSubsystem(new RealClimberIO());
+        climber = new ClimberSubsystem(new RealClimberIO(), new RealRatchetIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new RealLightStripIO());
@@ -116,7 +119,7 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
-        //                climber = new ClimberSubsystem(new MockClimberIO());
+        climber = new ClimberSubsystem(new MockClimberIO(), new MockRatchetIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new MockLightStripIO());
@@ -126,7 +129,7 @@ public class RobotContainer {
         hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
         coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
-        //        climber = new ClimberSubsystem(new SimClimberIO());
+        climber = new ClimberSubsystem(new MockClimberIO(), new MockRatchetIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
         lightStrip = new LightStrip(new MockLightStripIO());
@@ -378,7 +381,8 @@ public class RobotContainer {
 
     if (Constants.CLIMBER_DEBUG) {
       // Climber Commands
-
+      SmartShuffleboard.putCommand("Climber", "engage Ratchet", new EngageRatchet(climber));
+      SmartShuffleboard.putCommand("Climber", "disengage Ratchet", new DisengageRatchet(climber));
       //      SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
       //
       //      SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));

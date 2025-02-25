@@ -166,6 +166,10 @@ public class GameConstants {
   public static final double MAX_VELOCITY = 3.81; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
 
+  // Climber ratchet
+  public static final int RATCHET_ENGAGE = 0;
+  public static final int RATCHET_DISENGAGE = 180;
+
   // Other
   public static final double GRAVITY = -9.81;
   public static final long GYRO_THREAD_RATE_MS = 10;
