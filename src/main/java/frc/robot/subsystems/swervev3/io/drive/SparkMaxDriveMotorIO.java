@@ -12,14 +12,12 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
   private final SparkMax driveMotor;
-  private final SparkMaxConfig driveConfig;
   private final SparkMaxInputProvider inputProvider;
 
   public SparkMaxDriveMotorIO(
       int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
     inputProvider = new SparkMaxInputProvider(driveMotor);
-    driveConfig = new SparkMaxConfig();
     setMotorConfig(driveInverted);
     setConversionFactors(conversionConfig);
   }
@@ -30,6 +28,7 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   }
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
+    SparkMaxConfig driveConfig = new SparkMaxConfig();
     double driveVelConvFactor =
         (2 * conversionConfig.getWheelRadius() * Math.PI)
             / (conversionConfig.getProfile().getDriveGearRatio() * 60);
@@ -47,6 +46,7 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   }
 
   private void setMotorConfig(boolean driveInverted) {
+    SparkMaxConfig driveConfig = new SparkMaxConfig();
     driveConfig
         .inverted(driveInverted)
         .idleMode(IdleMode.kBrake)
@@ -73,6 +73,7 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   @Override
   public void updateConfig(
       double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+    SparkMaxConfig driveConfig = new SparkMaxConfig();
     driveConfig
         .closedLoopRampRate(closedLoopRampRate)
         .secondaryCurrentLimit(secondaryCurrentLimit)

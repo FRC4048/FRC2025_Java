@@ -70,7 +70,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-  if(Constants.SWERVE_DEBUG){
+  if(Constants.TUNING_MODE){
             closedLoopTunable =
         new LoggedTunableNumber(
             "Swerve/currentLimiting/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
@@ -120,7 +120,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       SmartShuffleboard.put("Drive", "BL ABS Pos", backLeft.getAbsPosition());
       SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
     }
-    if(Constants.SWERVE_DEBUG){
+    if(Constants.TUNING_MODE){
     LoggedTunableNumber.ifChanged(
         hashCode(),
         () -> {
