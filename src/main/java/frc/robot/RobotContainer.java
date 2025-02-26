@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
@@ -20,7 +21,6 @@ import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.climber.Climb;
 import frc.robot.commands.climber.DisengageRatchet;
 import frc.robot.commands.climber.EngageRatchet;
 import frc.robot.commands.coral.IntakeCoral;
@@ -31,11 +31,7 @@ import frc.robot.commands.elevator.*;
 import frc.robot.commands.hihi.*;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
-import frc.robot.commands.sequences.ByeByeAllDone;
-import frc.robot.commands.sequences.IntakeAlgae;
-import frc.robot.commands.sequences.PickUpCoral;
-import frc.robot.commands.sequences.RemoveAlgaeFromReef;
-import frc.robot.commands.sequences.ShootAlgae;
+import frc.robot.commands.sequences.*;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -184,13 +180,13 @@ public class RobotContainer {
     controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
 
-    Climb manualClimb = new Climb(climber, () -> controller.getLeftY());
-    climber.setDefaultCommand(manualClimb);
+    new Trigger(() -> controller.getRightY() > Constants.CLIMBER_DEADBAND)
+        .whileTrue(new DeployHarpoonSequence(climber, elevatorSubsystem, lightStrip));
+    new Trigger(() -> controller.getRightY() < -Constants.CLIMBER_DEADBAND)
+        .whileTrue(new ClimbSequence(climber, () -> controller.getRightY()));
 
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
       SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
   }
@@ -387,9 +383,6 @@ public class RobotContainer {
       // Climber Commands
       SmartShuffleboard.putCommand("Climber", "engage Ratchet", new EngageRatchet(climber));
       SmartShuffleboard.putCommand("Climber", "disengage Ratchet", new DisengageRatchet(climber));
-      //      SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
-      //
-      //      SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
     }
 
     SmartShuffleboard.putCommand(

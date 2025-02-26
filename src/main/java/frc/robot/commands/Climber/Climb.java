@@ -1,6 +1,5 @@
 package frc.robot.commands.climber;
 
-import edu.wpi.first.math.MathUtil;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
@@ -21,25 +20,17 @@ public class Climb extends LoggableCommand {
 
   @Override
   public void execute() {
-
-    double value = MathUtil.applyDeadband(supplier.getAsDouble(), Constants.CLIMBER_DEADBAND);
-
-    if (value > 0 && climber.getEncoderPosition() < Constants.CLIMBER_PHASE1_POSITION) {
-      // phase1 - deploying harpoon
-      climber.setClimberSpeed(Constants.CLIMBER_PHASE1_SPEED);
-    } else if (value < 0 && climber.getEncoderPosition() >= Constants.CLIMBER_PHASE1_POSITION) {
-      // Phase2 - lifting robot
-      climber.setClimberSpeed(Constants.CLIMBER_PHASE2_SPEED);
-    } else {
-      climber.stopClimber();
-    }
+    climber.setClimberSpeed(Constants.CLIMBER_PHASE2_SPEED);
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climber.stopClimber();
+  }
 
   @Override
   public boolean isFinished() {
-    return true;
+    double value = supplier.getAsDouble();
+    return supplier.getAsDouble() < -Constants.CLIMBER_DEADBAND;
   }
 }

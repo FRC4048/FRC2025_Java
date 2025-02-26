@@ -69,10 +69,9 @@ public class GameConstants {
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
-  public static final int START_CLIMB_TIMEOUT = 2; // TODO: change later
-  public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
   public static final double INTAKE_LED_STRIP_TIME = 1;
+  public static final int CLIMBER_DEPLOY_HARPOON_TIMEOUT = 2;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -172,6 +171,7 @@ public class GameConstants {
   public static final int RATCHET_DISENGAGE = 180;
   public static final double CLIMBER_PHASE1_POSITION = 15.0;
   public static final double CLIMBER_DEADBAND = 0.4;
+  public static final double CLIMBER_ELEVATOR_TOLERANCE = 1.0;
 
   // Other
   public static final double GRAVITY = -9.81;
