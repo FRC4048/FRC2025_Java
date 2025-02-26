@@ -35,6 +35,7 @@ import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
+import frc.robot.constants.GameConstants;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -72,6 +73,7 @@ import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
 import frc.robot.subsystems.swervev3.SwervePidConfig;
+import frc.robot.subsystems.swervev3.io.SimSwerveModule;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
@@ -261,6 +263,11 @@ public class RobotContainer {
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       apriltagIO = new TCPApriltag();
+    } else if (Constants.currentMode == Constants.Mode.SIM) {
+      frontLeft =
+              new SimSwerveModule.createModule(
+              )
+
     } else {
       frontLeft =
           new SwerveModule(

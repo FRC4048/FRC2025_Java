@@ -4,23 +4,35 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
+import frc.robot.subsystems.swervev3.SwerveIdConfig;
+import frc.robot.subsystems.swervev3.SwervePidConfig;
+import frc.robot.subsystems.swervev3.io.abs.CANCoderAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
+import frc.robot.subsystems.swervev3.io.drive.SparkMaxDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.drive.SwerveDriveMotorIO;
+import frc.robot.subsystems.swervev3.io.steer.SparkMaxSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SwerveSteerMotorIO;
+import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
+import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 
 import static edu.wpi.first.units.Units.*;
 
-public class SimSwerveModule {
+public class SimSwerveModule{
     private final SwerveModuleSimulation moduleSimulation;
+    private final SwerveModuleSimulationConfig config;
     private final LoggableSystem<SwerveDriveMotorIO, MotorInputs> driveSystem;
     private final LoggableSystem<SwerveSteerMotorIO, MotorInputs> steerSystem;
     private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
@@ -35,7 +47,7 @@ public class SimSwerveModule {
     private double driveAppliedVolts = 0.0;
     private double turnAppliedVolts = 0.0;
 
-    public SimSwerveModule(SwerveModuleSimulation moduleSimulation, SwerveDriveMotorIO driveMotorIO,
+    public SimSwerveModule(SwerveDriveMotorIO driveMotorIO,
                            SwerveSteerMotorIO steerMotorIO,
                            SwerveAbsIO absIO,
                            PID drivePid,
@@ -44,7 +56,6 @@ public class SimSwerveModule {
                            Gain turnGain,
                            TrapezoidProfile.Constraints goalConstraint,
                            String moduleName) {
-        this.moduleSimulation = moduleSimulation;
         MotorInputs driveInputs =
                 new MotorInputBuilder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
         MotorInputs steerInputs =
@@ -56,11 +67,14 @@ public class SimSwerveModule {
         turningPIDController =
                 new ProfiledPIDController(turnPid.getP(), turnPid.getI(), turnPid.getD(), goalConstraint);
         driveFeedforward = new SimpleMotorFeedforward(driveGain.getS(), driveGain.getV());
+        driveFFVolts = driveFeedforward.getKv();
         turnFeedforward = new SimpleMotorFeedforward(turnGain.getS(), turnGain.getV());
         turningPIDController.enableContinuousInput(0, Math.PI * 2);
+        this.config = new SwerveModuleSimulationConfig(driveSystem.getIO());
+        this.moduleSimulation = new SwerveModuleSimulation(config);
     }
 
-    public void updateInputs(ModuleIOInputs inputs) {
+    public void updateInputs() {
         // Run closed-loop control
         if (driveClosedLoop) {
             driveAppliedVolts = driveFFVolts
@@ -73,37 +87,28 @@ public class SimSwerveModule {
             turnAppliedVolts = turningPIDController.calculate(
                     moduleSimulation.getSteerAbsoluteFacing().getRadians());
         } else {
-            turningPIDController.reset();
+            turningPIDController.reset(absSystem.getInputs().absEncoderPosition); // TODO: might be wrong
         }
 
         // Update simulation state
         driveSystem.getIO().setDriveVoltage(driveAppliedVolts);
-        steerSystem.getIO().setSteerVoltage(turnAppliedVolts));
+        steerSystem.getIO().setSteerVoltage(turnAppliedVolts);
 
         // Update drive inputs
-        inputs.driveConnected = true;
-        inputs.drivePositionRad = moduleSimulation.getDriveWheelFinalPosition().in(Radians);
-        inputs.driveVelocityRadPerSec =
-                moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond);
-        inputs.driveAppliedVolts = driveAppliedVolts;
-        inputs.driveCurrentAmps =
-                Math.abs(moduleSimulation.getDriveMotorStatorCurrent().in(Amps));
+        driveSystem.updateInputs();
 
         // Update turn inputs
-        inputs.turnConnected = true;
-        inputs.turnPosition = moduleSimulation.getSteerAbsoluteFacing();
-        inputs.turnVelocityRadPerSec =
-                moduleSimulation.getSteerAbsoluteEncoderSpeed().in(RadiansPerSecond);
-        inputs.turnAppliedVolts = turnAppliedVolts;
-        inputs.turnCurrentAmps =
-                Math.abs(moduleSimulation.getSteerMotorStatorCurrent().in(Amps));
+        steerSystem.updateInputs();
 
-        // Update odometry inputs
-        inputs.odometryTimestamps = SparkUtil.getSimulationOdometryTimeStamps();
-        inputs.odometryDrivePositionsRad = Arrays.stream(moduleSimulation.getCachedDriveWheelFinalPositions())
-                .mapToDouble(angle -> angle.in(Radians))
-                .toArray();
-        inputs.odometryTurnPositions = moduleSimulation.getCachedSteerAbsolutePositions();
+        // Update abs inputs
+        absSystem.updateInputs();
+
+//        // Update odometry inputs
+//        inputs.odometryTimestamps = SparkUtil.getSimulationOdometryTimeStamps();
+//        inputs.odometryDrivePositionsRad = Arrays.stream(moduleSimulation.getCachedDriveWheelFinalPositions())
+//                .mapToDouble(angle -> angle.in(Radians))
+//                .toArray();
+//        inputs.odometryTurnPositions = moduleSimulation.getCachedSteerAbsolutePositions(); // TODO: UNCOMMENT
     }
 
 
@@ -129,6 +134,78 @@ public class SimSwerveModule {
     public void setTurnPosition(Rotation2d rotation) {
         turnClosedLoop = true;
         turningPIDController.setGoal(rotation.getRadians());
+    }
+    public void setState(SwerveModuleState desiredState) {
+        double steerEncoderPosition = getSteerPosition();
+        SwerveModuleState state =
+                SwerveModuleState.optimize(desiredState, new Rotation2d(steerEncoderPosition));
+        double driveSpeed =
+                drivePIDController.calculate(
+                        driveSystem.getInputs().getEncoderVelocity(), (state.speedMetersPerSecond))
+                        + driveFeedforward.calculate(state.speedMetersPerSecond);
+        double turnSpeed =
+                turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
+                        + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
+        driveSystem.getIO().setDriveVoltage(driveSpeed);
+        steerSystem.getIO().setSteerVoltage(turnSpeed * 12);
+    }
+
+    public SwerveModuleState getLatestState() {
+        return new SwerveModuleState(
+                driveSystem.getInputs().getEncoderVelocity(), new Rotation2d(getSteerPosition()));
+    }
+
+
+    public void stop() {
+        driveSystem.getIO().setDriveVoltage(0);
+        steerSystem.getIO().setSteerVoltage(0);
+    }
+
+    public void resetRelativeEnc() {
+        driveSystem.getIO().resetEncoder();
+        steerSystem.getIO().resetEncoder();
+    }
+
+    public void setSteerOffset(double zeroAbs) {
+        steerSystem.getIO().resetEncoder();
+        double offset = AngleUtils.normalizeAbsAngleRadians(zeroAbs - getAbsPosition());
+        steerOffset = AngleUtils.normalizeSwerveAngle(offset);
+    }
+
+    public SwerveModulePosition getPosition() {
+        return new SwerveModulePosition(
+                driveSystem.getInputs().getEncoderPosition(), new Rotation2d(getSteerPosition()));
+    }
+
+    public static SimSwerveModule createModule(
+            SwerveIdConfig idConf,
+            KinematicsConversionConfig kinematicsConfig,
+            SwervePidConfig pidConfig,
+            ModulePosition position,
+            boolean driveInverted) {
+        SparkMaxDriveMotorIO frontLeftDriveMotorIO =
+                new SparkMaxDriveMotorIO(idConf.getDriveMotorId(), kinematicsConfig, driveInverted);
+        SparkMaxSteerMotorIO frontLeftSteerMotorIO =
+                new SparkMaxSteerMotorIO(
+                        idConf.getTurnMotorId(),
+                        kinematicsConfig,
+                        kinematicsConfig.getProfile().isSteerInverted());
+        CANCoderAbsIO frontLeftAbsIO = new CANCoderAbsIO(idConf.getCanCoderId());
+        return new SimSwerveModule(
+                frontLeftDriveMotorIO,
+                frontLeftSteerMotorIO,
+                frontLeftAbsIO,
+                pidConfig,
+                position.getLoggingKey());
+    }
+
+    public double getAbsPosition() {
+        return absSystem.getInputs().absEncoderPosition;
+    }
+
+    private double getSteerPosition() {
+        return AngleUtils.normalizeSwerveAngle(
+                steerSystem.getInputs().getEncoderPosition() - steerOffset);
     }
 }
 
