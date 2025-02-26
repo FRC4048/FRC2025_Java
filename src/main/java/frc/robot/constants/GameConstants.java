@@ -178,6 +178,8 @@ public class GameConstants {
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
   public static final double ROBOT_MASS = 58.967; // In Kg, change later
+  public static final double ROBOT_BUMPER_WIDTH = 0.914;
+  public static final double ROBOT_BUMPER_LENGTH = 0.914;
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4I; // TODO: change later
   public static final double HIHI_GEARING = 45.0; // TODO: change later

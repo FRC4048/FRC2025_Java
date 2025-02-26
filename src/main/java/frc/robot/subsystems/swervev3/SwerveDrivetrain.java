@@ -213,5 +213,5 @@ public class SwerveDrivetrain extends SubsystemBase {
       DriveTrainSimulationConfig.Default()
           .withCustomModuleTranslations(kinematics.getModules())
           .withRobotMass(Kilograms.of(Constants.ROBOT_MASS))
-          .withBumperSize(Meters.of(Constants.DRIVE_BASE_WIDTH+Constants.BUMPER), Meters.of(Constants.DRIVE_BASE_LENGTH));
+          .withBumperSize(Meters.of(Constants.ROBOT_BUMPER_LENGTH), Meters.of(0.914));
 }
