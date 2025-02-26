@@ -8,6 +8,7 @@ import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.camera.CameraThread;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
@@ -75,6 +76,8 @@ public class Robot extends LoggedRobot {
     Logger.start();
     CommandLogger.get().init();
     m_robotContainer = new RobotContainer();
+
+    new CameraThread();
   }
 
   public static RobotMode getMode() {
