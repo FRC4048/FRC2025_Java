@@ -17,7 +17,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
-    elevatorPosition = ElevatorPosition.CORAL_INTAKE;
+    elevatorPosition = ElevatorPosition.LEVEL4;
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
     NeoPidConfig neoPidConfig =
         new NeoPidConfig(Constants.ELEVATOR_USE_MAX_MOTION)
