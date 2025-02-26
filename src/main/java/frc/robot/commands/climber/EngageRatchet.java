@@ -13,9 +13,7 @@ public class EngageRatchet extends LoggableCommand {
   }
 
   @Override
-  public void initialize() {
-    System.out.println("ENGAGE!!!!!");
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {

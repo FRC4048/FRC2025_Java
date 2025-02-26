@@ -181,7 +181,10 @@ public class RobotContainer {
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
 
     new Trigger(() -> controller.getRightY() > Constants.CLIMBER_DEADBAND)
-        .whileTrue(new DeployHarpoonSequence(climber, elevatorSubsystem, lightStrip));
+        .onTrue(
+            new DeployHarpoonSequence(
+                climber, elevatorSubsystem, lightStrip, ElevatorPosition.LEVEL1));
+
     new Trigger(() -> controller.getRightY() < -Constants.CLIMBER_DEADBAND)
         .whileTrue(new ClimbSequence(climber, () -> controller.getRightY()));
 
@@ -383,6 +386,13 @@ public class RobotContainer {
       // Climber Commands
       SmartShuffleboard.putCommand("Climber", "engage Ratchet", new EngageRatchet(climber));
       SmartShuffleboard.putCommand("Climber", "disengage Ratchet", new DisengageRatchet(climber));
+      SmartShuffleboard.putCommand(
+          "Climber",
+          "Harpoon sequence",
+          new DeployHarpoonSequence(
+              climber, elevatorSubsystem, lightStrip, ElevatorPosition.LEVEL1));
+      SmartShuffleboard.putCommand(
+          "Climber", "Climb sequence", new ClimbSequence(climber, () -> controller.getRightY()));
     }
 
     SmartShuffleboard.putCommand(

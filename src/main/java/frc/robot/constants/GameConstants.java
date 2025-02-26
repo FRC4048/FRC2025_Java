@@ -35,8 +35,8 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final double CLIMBER_PHASE1_SPEED = 0.66; // TODO: change later
-  public static final double CLIMBER_PHASE2_SPEED = 0.66; // TODO: change later
+  public static final double CLIMBER_PHASE1_SPEED = 0.2; // TODO: change later
+  public static final double CLIMBER_PHASE2_SPEED = 0.4; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_ROLLER_SPEED = 0.5;
@@ -50,8 +50,6 @@ public class GameConstants {
   public static final double HIHI_RETRACT_SPEED = -0.15;
   public static final double HIHI_INTAKE_SPEED = 0.7;
   public static final double HIHI_SHOOT_SPEED = -0.9;
-  public static final double CLIMBER_SPEED = 0.5;
-  public static final double CLIMBER_RISE_SPEED = 0.5;
   public static final double HIHI_INTAKE_BASE_VELOCITY = 7000.0;
 
   // Timeouts
@@ -71,7 +69,7 @@ public class GameConstants {
   public static final int INTAKE_CORAL_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
   public static final double INTAKE_LED_STRIP_TIME = 1;
-  public static final int CLIMBER_DEPLOY_HARPOON_TIMEOUT = 2;
+  public static final int CLIMBER_DEPLOY_HARPOON_TIMEOUT = 5;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -169,9 +167,8 @@ public class GameConstants {
   // Climber
   public static final int RATCHET_ENGAGE = 0;
   public static final int RATCHET_DISENGAGE = 180;
-  public static final double CLIMBER_PHASE1_POSITION = 15.0;
+  public static final double CLIMBER_PHASE1_POSITION = 150000.0;
   public static final double CLIMBER_DEADBAND = 0.4;
-  public static final double CLIMBER_ELEVATOR_TOLERANCE = 1.0;
 
   // Other
   public static final double GRAVITY = -9.81;

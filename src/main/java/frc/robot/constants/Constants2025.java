@@ -4,7 +4,7 @@ public class Constants2025 extends GameConstants {
   /** Constants2025 is only for CANIDs and nothing else, everything else goes into GameConstants. */
 
   // Elevator
-  public static final int ELEVATOR_MOTOR_ID = 35;
+  public static final int ELEVATOR_MOTOR_ID = 45; // 35;
 
   public static final double MAX_ELEVATOR_ENCODER_POSITION = -46.9;
 
@@ -23,7 +23,7 @@ public class Constants2025 extends GameConstants {
   public static final int ALGAE_BYEBYE_TILT_ID = 1;
 
   // Climber
-  public static final int CLIMBER_MOTOR_ID = 9; // TODO: change later
+  public static final int CLIMBER_MOTOR_ID = 44; // 9; // TODO: change later
 
   // Climber ratchet
   public static final int RATCHET_ID = 1;

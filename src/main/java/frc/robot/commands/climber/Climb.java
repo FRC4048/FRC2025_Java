@@ -30,7 +30,6 @@ public class Climb extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    double value = supplier.getAsDouble();
-    return supplier.getAsDouble() < -Constants.CLIMBER_DEADBAND;
+    return false;
   }
 }
