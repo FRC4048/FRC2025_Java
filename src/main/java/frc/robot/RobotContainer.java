@@ -170,7 +170,7 @@ public class RobotContainer {
     controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
     // climber on Right Trigger
-    if (Constants.COMMAND_DEBUG) {
+    if (Constants.BYEBYE_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
     }
   }

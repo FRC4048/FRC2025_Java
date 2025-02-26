@@ -20,7 +20,6 @@ public class GameConstants {
   public static final boolean CORAL_DEBUG = false;
   public static final boolean HIHI_DEBUG = false;
   public static final boolean BYEBYE_DEBUG = false;
-  public static final boolean COMMAND_DEBUG = false;
   public static final boolean INPUTS_DEBUG = false;
   public static final boolean TUNING_MODE = false;
 
