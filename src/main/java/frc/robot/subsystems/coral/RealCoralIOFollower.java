@@ -8,7 +8,6 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class RealCoralIOFollower implements CoralIOFollower {
   protected final SparkMax shooterMotorFollower;
@@ -45,11 +44,5 @@ public class RealCoralIOFollower implements CoralIOFollower {
   @Override
   public void updateInputs(MotorInputs inputs) {
     inputs.process(inputProvider);
-    if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.put(
-          "coral",
-          "ForwardTrippedFollower",
-          shooterMotorFollower.getForwardLimitSwitch().isPressed());
-    }
   }
 }

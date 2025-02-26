@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 /**
  * A class to encapsulate the behavior of a simulated elevator. Wraps around the motor and the
@@ -107,14 +106,13 @@ public class ElevatorSimulator {
     reverseSwitchSim.setPressed(
         MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
 
-    SmartShuffleboard.put("Elevator", "Motor out voltage", motorOut);
-    SmartShuffleboard.put("Elevator", "Velocity mps", velocityMetersPerSecond);
-    SmartShuffleboard.put("Elevator", "RPM", rpm);
-    SmartShuffleboard.put(
-        "Elevator", "Elevator actual position", m_elevatorSim.getPositionMeters());
-    SmartShuffleboard.put("Elevator", "Mechanism length", elevatorMech2d.getLength());
-    SmartShuffleboard.put("Elevator", "Forward switch", forwardSwitchSim.getPressed());
-    SmartShuffleboard.put("Elevator", "Reverse switch", reverseSwitchSim.getPressed());
+    SmartDashboard.putNumber("Elevator Motor out voltage", motorOut);
+    SmartDashboard.putNumber("Elevator Velocity mps", velocityMetersPerSecond);
+    SmartDashboard.putNumber("ElevatorRPM", rpm);
+    SmartDashboard.putNumber("Elevator actual position", m_elevatorSim.getPositionMeters());
+    SmartDashboard.putNumber("Elevator Mechanism length", elevatorMech2d.getLength());
+    SmartDashboard.putBoolean("Elevator Forward switch", forwardSwitchSim.getPressed());
+    SmartDashboard.putBoolean("Elevator Reverse switch", reverseSwitchSim.getPressed());
   }
 
   /**
