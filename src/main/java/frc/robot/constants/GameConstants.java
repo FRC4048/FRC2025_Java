@@ -12,6 +12,14 @@ public class GameConstants {
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final int XBOX_CONTROLLER_ID = 2;
 
+  // Diags
+  public static final double BYEBYE_ROLLER_DIAGS_ENCODER = 1;
+  public static final double HIHI_ROLLER_DIAGS_ENCODER = 0.3;
+  public static final double ELEVATOR_DIAGS_ENCODER = 1;
+  public static final double HIHI_EXTENDER_DIAGS_ENCODER = 1;
+  public static final double CORAL_DIAGS_ENCODER = 1;
+  public static final double GYRO_DIAGS_ANGLE = 30;
+
   // Debug
   public static final boolean SWERVE_DEBUG = false;
   public static final boolean INTAKE_DEBUG = false;

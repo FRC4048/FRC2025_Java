@@ -12,9 +12,9 @@ public class IntakeCoral extends LoggableCommand {
   private final Timer timer = new Timer();
 
   public IntakeCoral(CoralSubsystem intake) {
-    addRequirements(intake);
     this.intake = intake;
     timoutCounter = new TimeoutLogger("Intake Coral");
+    addRequirements(intake);
   }
 
   @Override
@@ -31,7 +31,6 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void end(boolean interrupted) {
     intake.stopShooterMotors();
-    // intake.enableOrDisableLimitSwitch(false);
   }
 
   @Override

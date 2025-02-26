@@ -2,7 +2,7 @@ package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
-import frc.robot.constants.ElevatorPositions;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.PidMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.PidMotorInputs;
@@ -12,12 +12,12 @@ import org.littletonrobotics.junction.Logger;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private final LoggableSystem<ElevatorIO, PidMotorInputs> elevatorSystem;
-  private ElevatorPositions elevatorPositions;
+  private ElevatorPosition elevatorPosition;
   private final TunablePIDManager pidConfig;
 
   public ElevatorSubsystem(ElevatorIO ElevatorIO) {
     PidMotorInputs inputs = new PidMotorInputBuilder<>("ElevatorSubsystem").addAll().build();
-    elevatorPositions = ElevatorPositions.CORAL_INTAKE;
+    elevatorPosition = ElevatorPosition.LEVEL4;
     this.elevatorSystem = new LoggableSystem<>(ElevatorIO, inputs);
     NeoPidConfig neoPidConfig =
         new NeoPidConfig(Constants.ELEVATOR_USE_MAX_MOTION)
@@ -56,13 +56,13 @@ public class ElevatorSubsystem extends SubsystemBase {
     return elevatorSystem.getInputs().getPidSetpoint();
   }
 
-  public void setStoredReefPosition(ElevatorPositions elevatorPositions) {
-    Logger.recordOutput("SelectedReefPosition", elevatorPositions);
-    this.elevatorPositions = elevatorPositions;
+  public void setStoredReefPosition(ElevatorPosition elevatorPosition) {
+    Logger.recordOutput("SelectedReefPosition", elevatorPosition);
+    this.elevatorPosition = elevatorPosition;
   }
 
-  public ElevatorPositions getStoredReefPosition() {
-    return elevatorPositions;
+  public ElevatorPosition getStoredReefPosition() {
+    return elevatorPosition;
   }
 
   public boolean getForwardLimitSwitchState() {
