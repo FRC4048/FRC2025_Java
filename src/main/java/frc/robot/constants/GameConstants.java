@@ -181,7 +181,7 @@ public class GameConstants {
   public static final long GYRO_THREAD_RATE_MS = 10;
   public static final int SERVER_SOCKET_ATTEMPT_DELAY = 100;
   public static final int TCP_SERVER_PORT = 5806;
-  public static final boolean ENABLE_VISION = true;
+  public static final boolean ENABLE_VISION = false;
   public static final long POSE_BUFFER_STORAGE_TIME = 2;
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
