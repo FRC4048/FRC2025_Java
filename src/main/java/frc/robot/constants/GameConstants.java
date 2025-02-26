@@ -28,9 +28,6 @@ public class GameConstants {
   public static final long MAX_LOG_TIME_WAIT = 10;
   public static final boolean ENABLE_LOGGING = true;
 
-  // Treshholds
-  public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
-
   // Mode
   public static final Mode simMode = Mode.SIM;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
@@ -63,6 +60,7 @@ public class GameConstants {
   public static final int SHOOT_CORAL_TIMEOUT = 1;
   public static final int CORAL_FWR_TIMEOUT = 10;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
+  public static final int MAX_VALID_TICKS_CORAL_INTAKE = 15; // TODO: Change Later
 
   // Climber
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
@@ -159,6 +157,8 @@ public class GameConstants {
   public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.100586; // TODO: change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4I; // TODO: change later
+  public static final double MAX_AUTO_ALIGN_SPEED = 0.9; // TODO: change later
+  public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
 
   // Vision
   public static final boolean ENABLE_VISION = true;
@@ -170,7 +170,5 @@ public class GameConstants {
   public static final int SERVER_SOCKET_ATTEMPT_DELAY = 100;
   public static final int TCP_SERVER_PORT = 5806;
   public static final long POSE_BUFFER_STORAGE_TIME = 2;
-  public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
-  public static final double MAX_AUTO_ALIGN_SPEED = 0.9; // TODO: change later
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
 }
