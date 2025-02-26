@@ -165,6 +165,8 @@ public class GameConstants {
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
   public static final double MAX_VELOCITY = 3.81; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
+  public static final double STEER_ROTATIONAL_INERTIA = 0.5; // TODO: change later
+  public static final double COEFFICIENT_OF_FRICTION = 1.542;
 
   // Other
   public static final double GRAVITY = -9.81;
@@ -175,6 +177,7 @@ public class GameConstants {
   public static final long POSE_BUFFER_STORAGE_TIME = 2;
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
+  public static final double ROBOT_MASS = 58.967; // In Kg, change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4I; // TODO: change later
   public static final double HIHI_GEARING = 45.0; // TODO: change later

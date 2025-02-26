@@ -1,5 +1,8 @@
 package frc.robot.subsystems.swervev3;
 
+import static edu.wpi.first.units.Units.Kilograms;
+import static edu.wpi.first.units.Units.Meters;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -19,6 +22,7 @@ import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
+import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -26,15 +30,15 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
-  private final Translation2d frontLeftLocation =
+  private static final Translation2d frontLeftLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d frontRightLocation =
+  private static final Translation2d frontRightLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, -Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d backLeftLocation =
+  private static final Translation2d backLeftLocation =
       new Translation2d(-Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d backRightLocation =
+  private static final Translation2d backRightLocation =
       new Translation2d(-Constants.DRIVE_BASE_WIDTH / 2, -Constants.DRIVE_BASE_LENGTH / 2);
-  private final SwerveDriveKinematics kinematics =
+  private static final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
   private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
@@ -204,4 +208,10 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
+
+  public static final DriveTrainSimulationConfig mapleSimConfig =
+      DriveTrainSimulationConfig.Default()
+          .withCustomModuleTranslations(kinematics.getModules())
+          .withRobotMass(Kilograms.of(Constants.ROBOT_MASS))
+          .withBumperSize(Meters.of(Constants.DRIVE_BASE_WIDTH+Constants.BUMPER), Meters.of(Constants.DRIVE_BASE_LENGTH));
 }
