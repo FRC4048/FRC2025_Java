@@ -86,7 +86,7 @@ public class GameConstants {
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
   public static final double HIHI_EXTEND_POSITION = 15.5; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
-  public static final boolean HIHI_SIMULATE_GRAVITY = true;
+  public static final boolean HIHI_SIM_GRAVITY = true;
   public static final double HIHI_GEARING = 45.0; // TODO: change later
   public static final double HIHI_INERTIA = 1.0; // TODO: change later
   public static final double HIHI_RETRACT_TIMEOUT = 10;

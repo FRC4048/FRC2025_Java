@@ -17,7 +17,7 @@ public class SimHihiExtenderIO extends RealHihiExtenderIO {
     params.armLength = Constants.HIHI_LENGTH;
     params.armMinAngle = Constants.HIHI_MIN_ANGLE;
     params.armMaxAngle = Constants.HIHI_MAX_ANGLE;
-    params.armSimulateGravity = Constants.HIHI_SIMULATE_GRAVITY;
+    params.armSimulateGravity = Constants.HIHI_SIM_GRAVITY;
     hihiExtenderSimulator = new ArmSimulator(extenderMotor.getNeoMotor(), params);
   }
 
