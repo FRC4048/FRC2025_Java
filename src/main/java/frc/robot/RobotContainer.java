@@ -172,9 +172,6 @@ public class RobotContainer {
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
-      SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
   }
 
