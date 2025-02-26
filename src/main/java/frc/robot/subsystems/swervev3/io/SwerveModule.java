@@ -173,4 +173,8 @@ public class SwerveModule {
       double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
     driveSystem.getIO().updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
   }
+
+  public void applyVolts(double volts) {
+    driveSystem.getIO().setDriveVoltage(volts);
+  }
 }

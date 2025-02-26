@@ -120,12 +120,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
-    if (Constants.SWERVE_DEBUG) {
-      SmartShuffleboard.put("Drive", "FL ABS Pos", frontLeft.getAbsPosition());
-      SmartShuffleboard.put("Drive", "FR ABS Pos", frontRight.getAbsPosition());
-      SmartShuffleboard.put("Drive", "BL ABS Pos", backLeft.getAbsPosition());
-      SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
-    }
     if (Constants.TUNING_MODE) {
       LoggedTunableNumber.ifChanged(
           hashCode(),
@@ -332,7 +326,14 @@ public class SwerveDrivetrain extends SubsystemBase {
       double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
     frontLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     frontRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
-    backRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     backLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+    backRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+  }
+
+  public void applyVolts(double volts) {
+    frontLeft.applyVolts(volts);
+    frontRight.applyVolts(volts);
+    backLeft.applyVolts(volts);
+    backRight.applyVolts(volts);
   }
 }
