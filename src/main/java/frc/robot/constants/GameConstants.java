@@ -30,7 +30,7 @@ public class GameConstants {
   public static final boolean BYEBYE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = false;
   public static final boolean INPUTS_DEBUG = false;
-  public static final boolean TUNING_MODE = false;
+  public static final boolean TUNING_MODE = true;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -126,11 +126,11 @@ public class GameConstants {
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Drive PID
-  public static final double DRIVE_PID_P = 1; // TODO: change later
+  public static final double DRIVE_PID_P = 3; // TODO: change later
   public static final double DRIVE_PID_I = 0; // TODO: change later
   public static final double DRIVE_PID_D = 0; // TODO: change later
-  public static final double DRIVE_PID_FF_S = 1; // TODO: change later
-  public static final double DRIVE_PID_FF_V = 3.12; // TODO: change later
+  public static final double DRIVE_PID_FF_S = 0.19;
+  public static final double DRIVE_PID_FF_V = 3.3;
   public static final double DRIVE_PID_I_ZONE = 0; // TODO: change later
   public static final double DRIVE_PID_ALLOWED_ERROR = 0;
 

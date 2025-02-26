@@ -309,7 +309,7 @@ public class RobotContainer {
           "Drive",
           "RunWithVolts",
           new DriveVoltage(
-              drivetrain, () -> SmartShuffleboard.getDouble("Drive", "VoltsToRunWith", 0), 1));
+              drivetrain, () -> SmartShuffleboard.getDouble("Drive", "VoltsToRunWith", 0), 5));
     }
     if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.putCommand(
