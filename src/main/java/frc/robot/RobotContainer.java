@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -114,11 +113,8 @@ public class RobotContainer {
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
-  private final JoystickButton joyStickButton1 = new JoystickButton(joyleft, 16);
 
-  /** */
   public RobotContainer() {
-
     switch (Constants.currentMode) {
       case REAL -> {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
@@ -206,12 +202,6 @@ public class RobotContainer {
   private void configureBindings() {
     lightStrip.setDefaultCommand(
         new SetLedFromElevatorPosition(elevatorSubsystem::getStoredReefPosition, lightStrip));
-    try {
-      joyStickButton1.onTrue(new PathPlannerAuto("Robot 1 to Post A"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
     drivetrain.setDefaultCommand(
         new Drive(
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
