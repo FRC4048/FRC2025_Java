@@ -45,7 +45,7 @@ public class RealCoralIOFollower implements CoralIOFollower {
   @Override
   public void updateInputs(MotorInputs inputs) {
     inputs.process(inputProvider);
-    if (Constants.COMMAND_DEBUG) {
+    if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.put(
           "coral",
           "ForwardTrippedFollower",

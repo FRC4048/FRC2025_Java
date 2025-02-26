@@ -180,11 +180,8 @@ public class RobotContainer {
     controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
     // climber on Right Trigger
-    if (Constants.COMMAND_DEBUG) {
+    if (Constants.HIHI_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
-      SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
   }
 
