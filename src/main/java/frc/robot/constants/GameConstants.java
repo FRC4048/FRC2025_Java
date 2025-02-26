@@ -55,18 +55,15 @@ public class GameConstants {
 
   // Coral
   public static final double CORAL_INTAKE_MOTOR_SPEED = 0.25;
-  public static final double CORAL_INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.5;
   public static final int SHOOT_CORAL_TIMEOUT = 1;
   public static final int CORAL_FWR_TIMEOUT = 10;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
-  public static final int MAX_VALID_TICKS_CORAL_INTAKE = 15; // TODO: Change Later
 
   // Climber
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
-  public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0.5;
 
   // HiHi PID
@@ -88,16 +85,13 @@ public class GameConstants {
   public static final Rotation2d HIHI_MAX_ANGLE =
       Rotation2d.fromRadians(Math.PI * 5 / 12); // TODO: change later
   public static final double HIHI_EXTEND_POSITION = 15.5; // TODO: change later
-  public static final double HIHI_RETRACT_POSITION = 0.0; // TODO: change later
   public static final double HIHI_LENGTH = 0.5; // TODO: change later
-  public static final boolean HI_HI_SIMULATE_GRAVITY = true;
+  public static final boolean HIHI_SIMULATE_GRAVITY = true;
   public static final double HIHI_GEARING = 45.0; // TODO: change later
   public static final double HIHI_INERTIA = 1.0; // TODO: change later
   public static final double HIHI_RETRACT_TIMEOUT = 10;
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
-  public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
-  public static final double HIHI_EXTEND_SPEED = 0.4;
   public static final double HIHI_RETRACT_SPEED = -0.15;
   public static final double HIHI_INTAKE_SPEED = 0.7;
   public static final double HIHI_SHOOT_SPEED = -0.9;
@@ -115,20 +109,12 @@ public class GameConstants {
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Elevator
-  public static final double ELEVATOR_ENCODER_THRESHHOLD = 1; // TODO: Change Later
   public static final double ELEVATOR_DRUM_RADIUS =
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
   public static final double MAX_ELEVATOR_HEIGHT_METERS = -200; // in m
-  public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
-  public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
-  public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
-  public static final int ELEVATOR_TIMEOUT = 10;
-  public static final int ELEVATOR_RESET_TIMEOUT = 10;
-  public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
-  public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final double ELEVATOR_LOWER_SPEED = -0.5;
+  public static final double ELEVATOR_CARRIAGE_MASS = 25.4; // In Kg, change later
 
   // Drive PID
   public static final double DRIVE_PID_P = 1; // TODO: change later
@@ -157,8 +143,6 @@ public class GameConstants {
   public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.100586; // TODO: change later
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4I; // TODO: change later
-  public static final double MAX_AUTO_ALIGN_SPEED = 0.9; // TODO: change later
-  public static final double AUTO_ALIGN_THRESHOLD = 2.3; // degrees //TODO: change later
 
   // Vision
   public static final boolean ENABLE_VISION = true;

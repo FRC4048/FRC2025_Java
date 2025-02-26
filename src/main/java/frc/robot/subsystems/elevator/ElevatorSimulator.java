@@ -50,7 +50,7 @@ public class ElevatorSimulator {
       new ElevatorSim(
           elevatorGearbox,
           Constants.ELEVATOR_GEARING,
-          Constants.CARRIAGE_MASS,
+          Constants.ELEVATOR_CARRIAGE_MASS,
           Constants.ELEVATOR_DRUM_RADIUS,
           Constants.MIN_ELEVATOR_HEIGHT_METERS,
           Constants.MAX_ELEVATOR_HEIGHT_METERS,
