@@ -48,7 +48,9 @@ public class GameConstants {
     /** Replaying from a log file. */
     REPLAY
   }
-
+  //LightStrip
+  public static final double INTAKE_LED_STRIP_TIME = 1;
+  
   // ByeBye
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
@@ -122,6 +124,9 @@ public class GameConstants {
   public static final double MAX_ELEVATOR_HEIGHT_METERS = -200; // in m
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
   public static final double ELEVATOR_CARRIAGE_MASS = 25.4; // In Kg, change later
+  public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
 
   // Drive PID
   public static final double DRIVE_PID_P = 1; // TODO: change later
