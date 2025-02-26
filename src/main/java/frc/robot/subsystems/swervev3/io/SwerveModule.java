@@ -156,13 +156,15 @@ public class SwerveModule {
         steerSystem.getInputs().getEncoderPosition() - steerOffset);
   }
 
-  public void setDrivePID(double P, double I, double D) {
-    drivePIDController.setPID(P, I, D);
+  public void setDrivePID(double p, double i, double d, double kV, double kS) {
+    drivePIDController.setPID(p, i, d);
+    driveFeedforward.setKv(kV);
+    driveFeedforward.setKs(kS);
   }
 
   public void setSteerPID(
-      double P, double I, double D, double maxAcceleration, double maxVelocity) {
-    turningPIDController.setPID(P, I, D);
+      double p, double i, double d, double maxAcceleration, double maxVelocity) {
+    turningPIDController.setPID(p, i, d);
     turningPIDController.setConstraints(
         new TrapezoidProfile.Constraints(maxAcceleration, maxVelocity));
   }

@@ -49,6 +49,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   private LoggedTunableNumber drivePTunable;
   private LoggedTunableNumber driveITunable;
   private LoggedTunableNumber driveDTunable;
+  private LoggedTunableNumber driveKvTunable;
+  private LoggedTunableNumber driveKsTunable;
   private LoggedTunableNumber steerPTunable;
   private LoggedTunableNumber steerITunable;
   private LoggedTunableNumber steerDTunable;
@@ -82,6 +84,10 @@ public class SwerveDrivetrain extends SubsystemBase {
       drivePTunable = new LoggedTunableNumber("Swerve/drive/P", Constants.DRIVE_PID_P);
       driveITunable = new LoggedTunableNumber("Swerve/drive/I", Constants.DRIVE_PID_I);
       driveDTunable = new LoggedTunableNumber("Swerve/drive/D", Constants.DRIVE_PID_D);
+
+      driveKvTunable = new LoggedTunableNumber("Swerve/drive/Kv", Constants.DRIVE_PID_FF_V);
+      driveKsTunable = new LoggedTunableNumber("Swerve/drive/Ks", Constants.DRIVE_PID_FF_S);
+
       steerPTunable = new LoggedTunableNumber("Swerve/steer/P", Constants.STEER_PID_P);
       steerITunable = new LoggedTunableNumber("Swerve/steer/I", Constants.STEER_PID_I);
       steerDTunable = new LoggedTunableNumber("Swerve/steer/D", Constants.STEER_PID_D);
@@ -135,14 +141,36 @@ public class SwerveDrivetrain extends SubsystemBase {
       LoggedTunableNumber.ifChanged(
           hashCode(),
           () -> {
-            frontLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-            frontRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-            backLeft.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
-            backRight.setDrivePID(drivePTunable.get(), driveITunable.get(), driveDTunable.get());
+            frontLeft.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
+            frontRight.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
+            backLeft.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
+            backRight.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
           },
           drivePTunable,
           driveITunable,
-          driveDTunable);
+          driveDTunable,
+          driveKvTunable,
+          driveKsTunable);
       LoggedTunableNumber.ifChanged(
           hashCode(),
           () -> {
@@ -300,7 +328,8 @@ public class SwerveDrivetrain extends SubsystemBase {
    * @param secondaryCurrentLimit
    * @param smartCurrentLimit
    */
-  public void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+  public void updateConfig(
+      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
     frontLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     frontRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
     backRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);

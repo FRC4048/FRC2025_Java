@@ -130,10 +130,8 @@ public class GameConstants {
   public static final double DRIVE_PID_I = 0; // TODO: change later
   public static final double DRIVE_PID_D = 0; // TODO: change later
   public static final double DRIVE_PID_FF_S = 1; // TODO: change later
-  public static final double DRIVE_PID_FF_V = 2.8; // TODO: change later
+  public static final double DRIVE_PID_FF_V = 3.12; // TODO: change later
   public static final double DRIVE_PID_I_ZONE = 0; // TODO: change later
-  public static final double DRIVE_PID_MAX_VEL = 0;
-  public static final double DRIVE_PID_MAX_ACC = 0;
   public static final double DRIVE_PID_ALLOWED_ERROR = 0;
 
   // Steer PID
