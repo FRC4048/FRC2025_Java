@@ -22,7 +22,7 @@ public class RobotSlide extends LoggableCommand {
   @Override
   public void execute() {
     double horizVal = -horizSupplier.getAsDouble();
-    double str = MathUtil.applyDeadband(horizVal, 0.05) * Constants.MAX_VELOCITY/2;
+    double str = MathUtil.applyDeadband(horizVal, 0.05) * Constants.MAX_VELOCITY / 2;
     ChassisSpeeds speeds = drivetrain.createChassisSpeeds(0, str, 0, DriveMode.ROBOT_CENTRIC);
     drivetrain.drive(speeds);
   }
