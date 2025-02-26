@@ -7,5 +7,5 @@ public class MockLightStripIO implements LightStripIO {
   public void setPattern(BlinkinPattern pattern) {}
 
   @Override
-  public void updateInputs(LightStripInputs inputs) {}
+  public void updateInputs(LightStripInputs2 inputs) {}
 }

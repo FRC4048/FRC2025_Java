@@ -19,7 +19,7 @@ public class RealLightStripIO implements LightStripIO {
   }
 
   @Override
-  public void updateInputs(LightStripInputs inputs) {
+  public void updateInputs(LightStripInputs2 inputs) {
     inputs.pattern = BlinkinPattern.of(colorSensorPort.get());
   }
 }

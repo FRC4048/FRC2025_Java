@@ -4,9 +4,9 @@ import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
-public class LightStripInputs extends FolderLoggableInputs {
+public class LightStripInputs2 extends FolderLoggableInputs {
 
-  public LightStripInputs() {
+  public LightStripInputs2() {
     super("LightStrip");
   }
 

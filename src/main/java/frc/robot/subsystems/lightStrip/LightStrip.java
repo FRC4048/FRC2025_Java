@@ -5,10 +5,10 @@ import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 
 public class LightStrip extends SubsystemBase {
-  private final LoggableSystem<LightStripIO, LightStripInputs> system;
+  private final LoggableSystem<LightStripIO, LightStripInputs2> system;
 
   public LightStrip(LightStripIO io) {
-    this.system = new LoggableSystem<>(io, new LightStripInputs());
+    this.system = new LoggableSystem<>(io, new LightStripInputs2());
   }
 
   public void setPattern(BlinkinPattern pattern) {
