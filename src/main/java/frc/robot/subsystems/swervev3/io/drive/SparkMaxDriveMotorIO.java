@@ -2,7 +2,6 @@ package frc.robot.subsystems.swervev3.io.drive;
 
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.constants.Constants;
@@ -13,14 +12,12 @@ import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
   private final SparkMax driveMotor;
-  private final SparkBaseConfig driveConfig;
   private final SparkMaxInputProvider inputProvider;
 
   public SparkMaxDriveMotorIO(
       int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
     inputProvider = new SparkMaxInputProvider(driveMotor);
-    driveConfig = new SparkMaxConfig();
     setMotorConfig(driveInverted);
     setConversionFactors(conversionConfig);
   }
@@ -31,6 +28,7 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   }
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
+    SparkMaxConfig driveConfig = new SparkMaxConfig();
     double driveVelConvFactor =
         (2 * conversionConfig.getWheelRadius() * Math.PI)
             / (conversionConfig.getProfile().getDriveGearRatio() * 60);
@@ -43,12 +41,12 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
         .velocityConversionFactor(driveVelConvFactor);
     driveMotor.configure(
         driveConfig,
-        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
 
   private void setMotorConfig(boolean driveInverted) {
-    // driveMotor.restoreFactoryDefaults(); //TODO: idk what to do
+    SparkMaxConfig driveConfig = new SparkMaxConfig();
     driveConfig
         .inverted(driveInverted)
         .idleMode(IdleMode.kBrake)
@@ -58,7 +56,7 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
             Constants.DRIVE_SMART_LIMIT); // TODO: change current limiting because its different
     driveMotor.configure(
         driveConfig,
-        SparkBase.ResetMode.kResetSafeParameters,
+        SparkBase.ResetMode.kNoResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
 
@@ -70,5 +68,19 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
   @Override
   public void updateInputs(MotorInputs inputs) {
     inputs.process(inputProvider);
+  }
+
+  @Override
+  public void updateConfig(
+      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+    SparkMaxConfig driveConfig = new SparkMaxConfig();
+    driveConfig
+        .closedLoopRampRate(closedLoopRampRate)
+        .secondaryCurrentLimit(secondaryCurrentLimit)
+        .smartCurrentLimit(smartCurrentLimit);
+    driveMotor.configure(
+        driveConfig,
+        SparkBase.ResetMode.kNoResetSafeParameters,
+        SparkBase.PersistMode.kNoPersistParameters);
   }
 }

@@ -155,4 +155,26 @@ public class SwerveModule {
     return AngleUtils.normalizeSwerveAngle(
         steerSystem.getInputs().getEncoderPosition() - steerOffset);
   }
+
+  public void setDrivePID(double p, double i, double d, double kV, double kS) {
+    drivePIDController.setPID(p, i, d);
+    driveFeedforward.setKv(kV);
+    driveFeedforward.setKs(kS);
+  }
+
+  public void setSteerPID(
+      double p, double i, double d, double maxAcceleration, double maxVelocity) {
+    turningPIDController.setPID(p, i, d);
+    turningPIDController.setConstraints(
+        new TrapezoidProfile.Constraints(maxAcceleration, maxVelocity));
+  }
+
+  public void updateConfig(
+      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+    driveSystem.getIO().updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+  }
+
+  public void applyVolts(double volts) {
+    driveSystem.getIO().setDriveVoltage(volts);
+  }
 }

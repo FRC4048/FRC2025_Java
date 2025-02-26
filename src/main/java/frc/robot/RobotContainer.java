@@ -23,6 +23,7 @@ import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.DriveVoltage;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.elevator.*;
 import frc.robot.commands.hihi.*;
@@ -302,7 +303,14 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-
+    if (Constants.SWERVE_DEBUG) {
+      SmartShuffleboard.put("Drive", "VoltsToRunWith", 0);
+      SmartShuffleboard.putCommand(
+          "Drive",
+          "RunWithVolts",
+          new DriveVoltage(
+              drivetrain, () -> SmartShuffleboard.getDouble("Drive", "VoltsToRunWith", 0), 1));
+    }
     if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.putCommand(
           "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));

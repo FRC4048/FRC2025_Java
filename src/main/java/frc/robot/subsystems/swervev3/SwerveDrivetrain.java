@@ -17,6 +17,7 @@ import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.LoggedTunableNumber;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
@@ -42,6 +43,20 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
 
+  private LoggedTunableNumber closedLoopTunable;
+  private LoggedTunableNumber smartLimitTunable;
+  private LoggedTunableNumber secondaryLimitTunable;
+  private LoggedTunableNumber drivePTunable;
+  private LoggedTunableNumber driveITunable;
+  private LoggedTunableNumber driveDTunable;
+  private LoggedTunableNumber driveKvTunable;
+  private LoggedTunableNumber driveKsTunable;
+  private LoggedTunableNumber steerPTunable;
+  private LoggedTunableNumber steerITunable;
+  private LoggedTunableNumber steerDTunable;
+  private LoggedTunableNumber steerMaxAccelerationTunable;
+  private LoggedTunableNumber steerMaxVelocityTunable;
+
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
       SwerveModule frontRightModule,
@@ -57,6 +72,30 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+    if (Constants.TUNING_MODE) {
+      closedLoopTunable =
+          new LoggedTunableNumber(
+              "Swerve/currentLimiting/ClosedLoop", Constants.DRIVE_RAMP_RATE_LIMIT);
+      smartLimitTunable =
+          new LoggedTunableNumber("Swerve/currentLimiting/SmartLimit", Constants.DRIVE_SMART_LIMIT);
+      secondaryLimitTunable =
+          new LoggedTunableNumber(
+              "Swerve/currentLimiting/SecondaryLimit", Constants.DRIVE_SECONDARY_LIMIT);
+      drivePTunable = new LoggedTunableNumber("Swerve/drive/P", Constants.DRIVE_PID_P);
+      driveITunable = new LoggedTunableNumber("Swerve/drive/I", Constants.DRIVE_PID_I);
+      driveDTunable = new LoggedTunableNumber("Swerve/drive/D", Constants.DRIVE_PID_D);
+
+      driveKvTunable = new LoggedTunableNumber("Swerve/drive/Kv", Constants.DRIVE_PID_FF_V);
+      driveKsTunable = new LoggedTunableNumber("Swerve/drive/Ks", Constants.DRIVE_PID_FF_S);
+
+      steerPTunable = new LoggedTunableNumber("Swerve/steer/P", Constants.STEER_PID_P);
+      steerITunable = new LoggedTunableNumber("Swerve/steer/I", Constants.STEER_PID_I);
+      steerDTunable = new LoggedTunableNumber("Swerve/steer/D", Constants.STEER_PID_D);
+      steerMaxAccelerationTunable =
+          new LoggedTunableNumber("Swerve/steer/maxAccel", Constants.MAX_ANGULAR_SPEED * 150);
+      steerMaxVelocityTunable =
+          new LoggedTunableNumber("Swerve/steer/maxVelocity", 2 * Math.PI * 150);
+    }
   }
 
   @Override
@@ -81,11 +120,84 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
-    if (Constants.SWERVE_DEBUG) {
-      SmartShuffleboard.put("Drive", "FL ABS Pos", frontLeft.getAbsPosition());
-      SmartShuffleboard.put("Drive", "FR ABS Pos", frontRight.getAbsPosition());
-      SmartShuffleboard.put("Drive", "BL ABS Pos", backLeft.getAbsPosition());
-      SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
+    if (Constants.TUNING_MODE) {
+      LoggedTunableNumber.ifChanged(
+          hashCode(),
+          () -> {
+            updateConfig(
+                closedLoopTunable.get(),
+                secondaryLimitTunable.get(),
+                (int) smartLimitTunable.get());
+          },
+          closedLoopTunable,
+          secondaryLimitTunable,
+          smartLimitTunable);
+      LoggedTunableNumber.ifChanged(
+          hashCode(),
+          () -> {
+            frontLeft.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
+            frontRight.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
+            backLeft.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
+            backRight.setDrivePID(
+                drivePTunable.get(),
+                driveITunable.get(),
+                driveDTunable.get(),
+                driveKvTunable.get(),
+                driveKsTunable.get());
+          },
+          drivePTunable,
+          driveITunable,
+          driveDTunable,
+          driveKvTunable,
+          driveKsTunable);
+      LoggedTunableNumber.ifChanged(
+          hashCode(),
+          () -> {
+            frontLeft.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+            frontRight.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+            backLeft.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+            backRight.setSteerPID(
+                steerPTunable.get(),
+                steerITunable.get(),
+                steerDTunable.get(),
+                steerMaxAccelerationTunable.get(),
+                steerMaxVelocityTunable.get());
+          },
+          steerPTunable,
+          steerITunable,
+          steerDTunable,
+          steerMaxAccelerationTunable,
+          steerMaxVelocityTunable);
     }
   }
 
@@ -203,5 +315,25 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public boolean isFacingTarget() {
     return facingTarget;
+  }
+
+  /**
+   * @param closedLoopRampRate
+   * @param secondaryCurrentLimit
+   * @param smartCurrentLimit
+   */
+  public void updateConfig(
+      double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit) {
+    frontLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+    frontRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+    backLeft.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+    backRight.updateConfig(closedLoopRampRate, secondaryCurrentLimit, smartCurrentLimit);
+  }
+
+  public void applyVolts(double volts) {
+    frontLeft.applyVolts(volts);
+    frontRight.applyVolts(volts);
+    backLeft.applyVolts(volts);
+    backRight.applyVolts(volts);
   }
 }

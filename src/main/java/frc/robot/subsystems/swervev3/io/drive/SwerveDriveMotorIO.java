@@ -7,4 +7,6 @@ public interface SwerveDriveMotorIO extends LoggableIO<MotorInputs> {
   void setDriveVoltage(double volts);
 
   void resetEncoder();
+
+  void updateConfig(double closedLoopRampRate, double secondaryCurrentLimit, int smartCurrentLimit);
 }
