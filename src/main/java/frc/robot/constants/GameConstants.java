@@ -140,7 +140,7 @@ public class GameConstants {
   public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
 
   // pathplanner SLOW ROBOT PID CHANGE FOR COMPETITION
-  public static final double PATH_PLANNER_TRANSLATION_PID_P = 1;
+  public static final double PATH_PLANNER_TRANSLATION_PID_P = 5;
   public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
   public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
   public static final double PATH_PLANNER_ROTATION_PID_P = 1;
