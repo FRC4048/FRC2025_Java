@@ -77,7 +77,7 @@ public class RealCoralIOLeader implements CoralIOLeader {
   @Override
   public void updateInputs(MotorInputs inputs) {
     inputs.process(initProvider);
-    if (Constants.COMMAND_DEBUG) {
+    if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.put(
           "coral", "ForwardTrippedLeader", shooterMotorLeader.getForwardLimitSwitch().isPressed());
     }
