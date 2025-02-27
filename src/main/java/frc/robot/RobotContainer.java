@@ -148,6 +148,7 @@ public class RobotContainer {
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
 
     JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
+    JoystickButton joyRight1 = new JoystickButton(joyright, 1);
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX);
     joyLeft2.whileTrue(robotSlide);
 
@@ -179,6 +180,7 @@ public class RobotContainer {
     controller.a().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
     controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
+    joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
