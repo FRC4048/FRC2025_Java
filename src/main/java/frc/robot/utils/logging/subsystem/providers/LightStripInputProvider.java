@@ -17,6 +17,6 @@ public class LightStripInputProvider implements LightStripProvider{
   }
 
     @Override
-    public double getPatternPWM() {
+    public BlinkinPattern getPatternPWM() {
         return BlinkinPattern.of(spark.get());
     }}
