@@ -1,4 +1,3 @@
 package frc.robot.apriltags;
 
-public class SimApriltagIO {
-}
+public class SimApriltagIO {}

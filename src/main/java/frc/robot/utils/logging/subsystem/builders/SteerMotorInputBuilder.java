@@ -1,5 +1,7 @@
 package frc.robot.utils.logging.subsystem.builders;
 
+import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
+
 public class SteerMotorInputBuilder<T extends SteerMotorInputBuilder<T>>
     extends MotorInputBuilder<T> {
   private boolean logSteerConnected;
@@ -16,6 +18,10 @@ public class SteerMotorInputBuilder<T extends SteerMotorInputBuilder<T>>
     logOdometryTimestamps = false;
     logOdometryTurnPositions = false;
     return self();
+  }
+
+  public SteerMotorInputs build() {
+    return new SteerMotorInputs(this);
   }
 
   public T steerConnected() {

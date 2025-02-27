@@ -1,7 +1,8 @@
 package frc.robot.utils.logging.subsystem.builders;
 
-public class DriveMotorInputBuilder<T extends DriveMotorInputBuilder<T>>
-    extends MotorInputBuilder<T> {
+import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
+
+public class DriveMotorInputBuilder<T extends MotorInputBuilder<T>> extends MotorInputBuilder<T> {
   private boolean logDriveConnected;
   private boolean logOdometryTimestamps;
   private boolean logOdometryDrivePositionsRad;
@@ -16,6 +17,10 @@ public class DriveMotorInputBuilder<T extends DriveMotorInputBuilder<T>>
     logOdometryTimestamps = false;
     logOdometryDrivePositionsRad = false;
     return self();
+  }
+
+  public DriveMotorInputs build() {
+    return new DriveMotorInputs(this);
   }
 
   public T driveConnected() {

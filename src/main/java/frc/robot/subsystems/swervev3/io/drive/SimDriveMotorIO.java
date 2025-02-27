@@ -7,35 +7,55 @@ import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 import frc.robot.utils.motor.SparkUtil;
 import java.util.Arrays;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
-public class SimDriveMotorIO implements SwerveDriveMotorIO {
+public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
   private final SparkMax driveMotor;
   private final SparkMaxSim simMotor;
   private final DCMotor driveGearbox = DCMotor.getNEO(1);
   private final SparkBaseConfig driveConfig;
   private final SparkMaxInputProvider inputProvider;
+  private final SwerveModuleSimulation moduleSimulation;
+  private final PIDController drivePIDController;
+  private double driveAppliedVolts = 0;
+  private boolean driveClosedLoop = false;
+  private double driveFFVolts;
 
   public SimDriveMotorIO(
-      int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
+      int driveMotorIO,
+      KinematicsConversionConfig conversionConfig,
+      boolean driveInverted,
+      SwerveModuleSimulation moduleSimulation,
+      PIDController drivePIDController,
+      double driveFFVolts) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
     simMotor = new SparkMaxSim(driveMotor, driveGearbox);
     inputProvider = new SparkMaxInputProvider(driveMotor);
     driveConfig = new SparkMaxConfig();
+    this.moduleSimulation = moduleSimulation;
+    this.drivePIDController = drivePIDController;
+    this.driveFFVolts = driveFFVolts;
     setMotorConfig(driveInverted);
     setConversionFactors(conversionConfig);
   }
 
-  public void updateInputs(
-      DriveMotorInputs inputs, SwerveModuleSimulation moduleSimulation, double driveAppliedVolts) {
+  public void updateInputs(DriveMotorInputs inputs) {
+    if (driveClosedLoop) {
+      driveAppliedVolts =
+          driveFFVolts
+              + drivePIDController.calculate(
+                  moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond));
+    } else {
+      drivePIDController.reset();
+    }
     inputs.setDriveConnected(true);
     inputs.setEncoderPosition(moduleSimulation.getDriveWheelFinalPosition().in(Radians));
     inputs.setEncoderVelocity(moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond));
@@ -85,12 +105,24 @@ public class SimDriveMotorIO implements SwerveDriveMotorIO {
         SparkBase.PersistMode.kPersistParameters);
   }
 
-  @Override
-  public void setDriveVoltage(double volts) {}
+  public void setDriveVoltage(double volts) {
+    driveMotor.setVoltage(volts);
+  }
 
-  @Override
-  public void resetEncoder() {}
+  public void resetEncoder() {
+    driveMotor.getEncoder().setPosition(0);
+  }
 
-  @Override
-  public void updateInputs(MotorInputs inputs) {}
+  public void setDriveOpenLoop(double output) {
+    driveClosedLoop = false;
+    driveAppliedVolts = output;
+  }
+
+  public void setDriveVelocity(double velocityRadPerSec) {
+    driveClosedLoop = true;
+    driveFFVolts =
+        Constants.DRIVE_PID_FF_S * Math.signum(velocityRadPerSec)
+            + Constants.DRIVE_PID_FF_V * velocityRadPerSec;
+    drivePIDController.setSetpoint(velocityRadPerSec);
+  }
 }

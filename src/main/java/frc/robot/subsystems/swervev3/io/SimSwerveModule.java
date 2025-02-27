@@ -17,13 +17,13 @@ import frc.robot.subsystems.swervev3.io.abs.CANCoderAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
 import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
-import frc.robot.subsystems.swervev3.io.drive.SwerveDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
-import frc.robot.subsystems.swervev3.io.steer.SwerveSteerMotorIO;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+import frc.robot.utils.logging.subsystem.builders.DriveMotorInputBuilder;
+import frc.robot.utils.logging.subsystem.builders.SteerMotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
 import frc.robot.utils.math.AngleUtils;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
@@ -31,8 +31,8 @@ import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 public class SimSwerveModule implements ModuleIO {
   private final SwerveModuleSimulation moduleSimulation;
   private final SwerveModuleSimulationConfig simConfig;
-  private final LoggableSystem<SwerveDriveMotorIO, MotorInputs> driveSystem;
-  private final LoggableSystem<SwerveSteerMotorIO, MotorInputs> steerSystem;
+  private final LoggableSystem<SimDriveMotorIO, DriveMotorInputs> driveSystem;
+  private final LoggableSystem<SimSteerMotorIO, SteerMotorInputs> steerSystem;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
   private final PIDController drivePIDController;
   private final ProfiledPIDController turningPIDController;
@@ -49,34 +49,41 @@ public class SimSwerveModule implements ModuleIO {
 
   public SimSwerveModule(
       SwerveModuleSimulation moduleSimulation,
-      SwerveDriveMotorIO driveMotorIO,
-      SwerveSteerMotorIO steerMotorIO,
+      SimDriveMotorIO driveMotorIO,
+      SimSteerMotorIO steerMotorIO,
       SwerveAbsIO absIO,
       SwervePidConfig pidConfig,
       String moduleName,
-      KinematicsConversionConfig kinematicsConfig) {
-    MotorInputs driveInputs =
-        new MotorInputBuilder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
-    MotorInputs steerInputs =
-        new MotorInputBuilder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
+      KinematicsConversionConfig kinematicsConfig,
+      PIDController drivePIDController,
+      ProfiledPIDController turnPIDController,
+      SimpleMotorFeedforward driveFeedforward,
+      LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem) {
+    DriveMotorInputs driveInputs =
+        (DriveMotorInputs)
+            new DriveMotorInputBuilder<>("Drivetrain/" + moduleName)
+                .addEncoder()
+                .addStatus()
+                .build();
+    SteerMotorInputs steerInputs =
+        (SteerMotorInputs)
+            new SteerMotorInputBuilder<>("Drivetrain/" + moduleName)
+                .addEncoder()
+                .addStatus()
+                .build();
+    this.driveFeedforward = driveFeedforward;
+    this.driveFFVolts = driveFeedforward.getKv();
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
-    this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));
-    drivePIDController =
-        new PIDController(
-            pidConfig.getDrivePid().getP(),
-            pidConfig.getDrivePid().getI(),
-            pidConfig.getDrivePid().getD());
+    this.absSystem = absSystem;
+    this.drivePIDController = drivePIDController;
     turningPIDController =
         new ProfiledPIDController(
             pidConfig.getSteerPid().getP(),
             pidConfig.getSteerPid().getI(),
             pidConfig.getSteerPid().getD(),
             pidConfig.getGoalConstraint());
-    driveFeedforward =
-        new SimpleMotorFeedforward(
-            pidConfig.getDriveGain().getS(), pidConfig.getDriveGain().getV());
-    driveFFVolts = driveFeedforward.getKv();
+
     turnFeedforward =
         new SimpleMotorFeedforward(
             pidConfig.getSteerGain().getS(), pidConfig.getSteerGain().getV());
@@ -97,24 +104,9 @@ public class SimSwerveModule implements ModuleIO {
 
   public void updateInputs() {
     // Run closed-loop control
-    if (driveClosedLoop) {
-      driveAppliedVolts =
-          driveFFVolts
-              + drivePIDController.calculate(
-                  moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond));
-    } else {
-      drivePIDController.reset();
-    }
-    if (turnClosedLoop) {
-      turnAppliedVolts =
-          turningPIDController.calculate(moduleSimulation.getSteerAbsoluteFacing().getRadians());
-    } else {
-      turningPIDController.reset(absSystem.getInputs().absEncoderPosition); // TODO: might be wrong
-    }
 
     // Update simulation state
     driveSystem.getIO().setDriveVoltage(driveAppliedVolts);
-    steerSystem.getIO().setSteerVoltage(turnAppliedVolts);
 
     // Update drive inputs
     driveSystem.updateInputs();
@@ -133,7 +125,7 @@ public class SimSwerveModule implements ModuleIO {
 
   public void setTurnOpenLoop(double output) {
     turnClosedLoop = false;
-    turnAppliedVolts = output;
+    steerSystem.getIO().setSteerOpenLoop(output);
   }
 
   public void setDriveVelocity(double velocityRadPerSec) {
@@ -146,7 +138,7 @@ public class SimSwerveModule implements ModuleIO {
 
   public void setTurnPosition(Rotation2d rotation) {
     turnClosedLoop = true;
-    turningPIDController.setGoal(rotation.getRadians());
+    steerSystem.getIO().setTurnPosition(rotation);
   }
 
   public void setState(SwerveModuleState desiredState) {
@@ -197,14 +189,42 @@ public class SimSwerveModule implements ModuleIO {
       SwervePidConfig pidConfig,
       ModulePosition position,
       boolean driveInverted) {
+    PIDController driveController =
+        new PIDController(
+            pidConfig.getDrivePid().getP(),
+            pidConfig.getDrivePid().getI(),
+            pidConfig.getDrivePid().getD());
+    ProfiledPIDController turningController =
+        new ProfiledPIDController(
+            pidConfig.getSteerPid().getP(),
+            pidConfig.getSteerPid().getI(),
+            pidConfig.getSteerPid().getD(),
+            pidConfig.getGoalConstraint());
+    SimpleMotorFeedforward driveFF =
+        new SimpleMotorFeedforward(
+            pidConfig.getDriveGain().getS(), pidConfig.getDriveGain().getV());
+    double driveFFVolt = driveFF.getKv();
+    CANCoderAbsIO frontLeftAbsIO = new CANCoderAbsIO(idConf.getCanCoderId());
+    LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSys =
+        new LoggableSystem<>(
+            frontLeftAbsIO, new SwerveAbsInput("Drivetrain/" + position.getLoggingKey()));
     SimDriveMotorIO frontLeftDriveMotorIO =
-        new SimDriveMotorIO(idConf.getDriveMotorId(), kinematicsConfig, driveInverted);
+        new SimDriveMotorIO(
+            idConf.getDriveMotorId(),
+            kinematicsConfig,
+            driveInverted,
+            moduleSimulation,
+            driveController,
+            driveFFVolt);
     SimSteerMotorIO frontLeftSteerMotorIO =
         new SimSteerMotorIO(
             idConf.getTurnMotorId(),
             kinematicsConfig,
-            kinematicsConfig.getProfile().isSteerInverted());
-    CANCoderAbsIO frontLeftAbsIO = new CANCoderAbsIO(idConf.getCanCoderId());
+            kinematicsConfig.getProfile().isSteerInverted(),
+            moduleSimulation,
+            turningController,
+            absSys);
+
     return new SimSwerveModule(
         moduleSimulation,
         frontLeftDriveMotorIO,
@@ -212,7 +232,11 @@ public class SimSwerveModule implements ModuleIO {
         frontLeftAbsIO,
         pidConfig,
         position.getLoggingKey(),
-        kinematicsConfig);
+        kinematicsConfig,
+        driveController,
+        turningController,
+        driveFF,
+        absSys);
   }
 
   public double getAbsPosition() {
