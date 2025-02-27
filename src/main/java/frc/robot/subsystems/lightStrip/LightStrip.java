@@ -10,11 +10,10 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class LightStrip extends SubsystemBase {
   
-  private final LoggableSystem<LightStripIO, LightStripInputs2> system;
+  private final LoggableSystem<LightStripIO, LightStripInputs> system;
 
   
     public LightStrip(LightStripIO io) {
-    this.system = new LoggableSystem<>(io, new LightStripInputs2());
     LightStripInputs inputs = new LightStripInputsBuilder<>("LightStripSubsystem").addPatternPWM().Build();
     this.system = new LoggableSystem<>(io, inputs);
   }
@@ -24,6 +23,6 @@ public class LightStrip extends SubsystemBase {
   }
 
   public BlinkinPattern getPattern() {
-    return system.getInputs().pattern;
+    return system.getInputs().;
   }
 }

@@ -5,17 +5,18 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
 import frc.robot.utils.logging.subsystem.providers.InputProvider;
+import frc.robot.utils.logging.subsystem.providers.LightStripInputProvider;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 public class RealLightStripIO implements LightStripIO {
 
   private final Spark colorSensorPort;
-  private final SparkMaxInputProvider inputProvider;
+  private final LightStripInputProvider inputProvider;
 
   public RealLightStripIO() {
     colorSensorPort = new Spark(Constants.LIGHTSTRIP_PORT);
     colorSensorPort.set(BlinkinPattern.HOT_PINK.getPwm());
-    this.inputProvider = new SparkMaxInputProvider(colorSensorPort);
+    this.inputProvider = new LightStripInputProvider(colorSensorPort);
   }
 
   @Override

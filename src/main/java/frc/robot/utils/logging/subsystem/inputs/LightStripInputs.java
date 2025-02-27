@@ -7,6 +7,7 @@ package frc.robot.utils.logging.subsystem.inputs;
 import org.littletonrobotics.junction.LogTable;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.subsystem.builders.LightStripInputsBuilder;
 import frc.robot.utils.logging.subsystem.providers.InputProvider;
 import frc.robot.utils.logging.subsystem.providers.LightStripProvider;
@@ -16,11 +17,11 @@ public class LightStripInputs extends FolderInputs{
 
      private final LightStripInputsBuilder<?> builder;
 
-     private double patternPWM;
+     private BlinkinPattern patternPWM;
 
     public LightStripInputs(LightStripInputsBuilder<?> builder){
         super(builder.getFolder());
-        this.patternPWM = builder.islogPatternPWM() ? 0.0 : null; 
+        this.patternPWM = builder.islogPatternPWM() ? BlinkinPattern.BLACK : null; 
         this.builder = builder;
     }
     @Override
