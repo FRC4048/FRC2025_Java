@@ -149,7 +149,7 @@ public class RobotContainer {
 
     JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
     JoystickButton joyRight1 = new JoystickButton(joyright, 1);
-    RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX);
+    RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
 
     controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
