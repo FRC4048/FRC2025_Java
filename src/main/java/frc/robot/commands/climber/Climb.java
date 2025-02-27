@@ -1,0 +1,35 @@
+package frc.robot.commands.climber;
+
+import frc.robot.constants.Constants;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.utils.logging.commands.LoggableCommand;
+import java.util.function.DoubleSupplier;
+
+public class Climb extends LoggableCommand {
+  private final ClimberSubsystem climber;
+  private DoubleSupplier supplier;
+
+  public Climb(ClimberSubsystem climber, DoubleSupplier supplier) {
+    this.climber = climber;
+    this.supplier = supplier;
+    addRequirements(climber);
+  }
+
+  @Override
+  public void initialize() {}
+
+  @Override
+  public void execute() {
+    climber.setClimberSpeed(Constants.CLIMBER_PHASE2_SPEED);
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    climber.stopClimber();
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
+}

@@ -25,6 +25,9 @@ public class Constants2025 extends GameConstants {
   // Climber
   public static final int CLIMBER_MOTOR_ID = 9; // TODO: change later
 
+  // Climber ratchet
+  public static final int RATCHET_ID = 1;
+
   // light strip
   public static final int LIGHTSTRIP_PORT = 0; // TODO: change later
 
