@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
+import frc.robot.constants.GameConstants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
@@ -89,6 +90,9 @@ public class Robot extends LoggedRobot {
     }
     if (counter == 0) {
       actualInit();
+    }
+    if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
+      m_robotContainer.getRobotVisualizer().logMechanism();
     }
     counter++;
   }
