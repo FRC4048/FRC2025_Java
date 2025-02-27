@@ -6,8 +6,6 @@ package frc.robot.utils.logging.subsystem.builders;
 
 import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
 
-;
-
 public class LightStripInputsBuilder<T extends LightStripInputsBuilder<T>> {
 
     private boolean logPatternPWM;
@@ -38,4 +36,11 @@ public T lightstripPatternPWM(){
     logPatternPWM = true;
     return self();
 }
+
+public T addPatternPWM(){
+    return lightstripPatternPWM();
+}
+    public boolean islogPatternPWM(){
+        return logPatternPWM;
+    }
 }

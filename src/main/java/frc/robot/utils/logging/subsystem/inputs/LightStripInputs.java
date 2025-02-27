@@ -6,29 +6,47 @@ package frc.robot.utils.logging.subsystem.inputs;
 
 import org.littletonrobotics.junction.LogTable;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utils.logging.subsystem.builders.LightStripInputsBuilder;
 import frc.robot.utils.logging.subsystem.providers.InputProvider;
+import frc.robot.utils.logging.subsystem.providers.LightStripProvider;
 
 /** Add your docs here. */
 public class LightStripInputs extends FolderInputs{
 
+     private final LightStripInputsBuilder<?> builder;
+
+     private double patternPWM;
+
     public LightStripInputs(LightStripInputsBuilder<?> builder){
         super(builder.getFolder());
+        this.patternPWM = builder.islogPatternPWM() ? 0.0 : null; 
+        this.builder = builder;
     }
     @Override
     public void toLog(LogTable table) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toLog'");
+     if(builder.islogPatternPWM()){
+        table.put("PatternPWM", patternPWM);
+     }
     }
 
     @Override
     public void fromLog(LogTable table) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'fromLog'");
+        if(builder.islogPatternPWM()){
+            patternPWM = table.get("PatternPWM", patternPWM);
+         }
     }
 
     @Override
     protected boolean process(InputProvider inputProvider) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'process'");
+    if (inputProvider instanceof LightStripProvider LightStripProvider){
+        if (builder.islogPatternPWM()) {
+            patternPWM = LightStripProvider.getPatternPWM();
+          }
+        return true;
+    }else{
+            DriverStation.reportError("inputProvider must be of type LightStripProvider", true);
+        return false;
+    }
+    
     }}
