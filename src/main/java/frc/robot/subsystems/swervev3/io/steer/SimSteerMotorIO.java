@@ -1,9 +1,8 @@
-package frc.robot.subsystems.swervev3.io.drive;
+package frc.robot.subsystems.swervev3.io.steer;
 
 import static edu.wpi.first.units.Units.*;
 
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
-import frc.robot.subsystems.swervev3.io.steer.SparkMaxSteerMotorIO;
 import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
 import frc.robot.utils.motor.SparkUtil;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
