@@ -26,11 +26,8 @@ import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
 import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
 import frc.robot.utils.math.AngleUtils;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
-import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 
 public class SimSwerveModule implements ModuleIO {
-  private final SwerveModuleSimulation moduleSimulation;
-  private final SwerveModuleSimulationConfig simConfig;
   private final LoggableSystem<SimDriveMotorIO, DriveMotorInputs> driveSystem;
   private final LoggableSystem<SimSteerMotorIO, SteerMotorInputs> steerSystem;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
@@ -51,10 +48,8 @@ public class SimSwerveModule implements ModuleIO {
       SwerveModuleSimulation moduleSimulation,
       SimDriveMotorIO driveMotorIO,
       SimSteerMotorIO steerMotorIO,
-      SwerveAbsIO absIO,
       SwervePidConfig pidConfig,
       String moduleName,
-      KinematicsConversionConfig kinematicsConfig,
       PIDController drivePIDController,
       ProfiledPIDController turnPIDController,
       SimpleMotorFeedforward driveFeedforward,
@@ -77,29 +72,11 @@ public class SimSwerveModule implements ModuleIO {
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = absSystem;
     this.drivePIDController = drivePIDController;
-    turningPIDController =
-        new ProfiledPIDController(
-            pidConfig.getSteerPid().getP(),
-            pidConfig.getSteerPid().getI(),
-            pidConfig.getSteerPid().getD(),
-            pidConfig.getGoalConstraint());
-
+    this.turningPIDController = turnPIDController;
     turnFeedforward =
         new SimpleMotorFeedforward(
             pidConfig.getSteerGain().getS(), pidConfig.getSteerGain().getV());
     turningPIDController.enableContinuousInput(0, Math.PI * 2);
-    this.simConfig =
-        new SwerveModuleSimulationConfig(
-            driveMotor,
-            steerMotor,
-            kinematicsConfig.getProfile().getDriveGearRatio(),
-            kinematicsConfig.getProfile().getSteerGearRatio(),
-            Volts.of(Constants.DRIVE_PID_FF_S),
-            Volts.of(Constants.STEER_PID_FF_S),
-            Meters.of(kinematicsConfig.getWheelRadius()),
-            KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
-            Constants.COEFFICIENT_OF_FRICTION);
-    this.moduleSimulation = new SwerveModuleSimulation(simConfig);
   }
 
   public void updateInputs() {
@@ -229,10 +206,8 @@ public class SimSwerveModule implements ModuleIO {
         moduleSimulation,
         frontLeftDriveMotorIO,
         frontLeftSteerMotorIO,
-        frontLeftAbsIO,
         pidConfig,
         position.getLoggingKey(),
-        kinematicsConfig,
         driveController,
         turningController,
         driveFF,

@@ -273,7 +273,7 @@ public class RobotContainer {
     } else if (Constants.currentMode == Constants.Mode.SIM) {
       this.driveSimulation =
           new SwerveDriveSimulation(
-              SwerveDrivetrain.mapleSimConfig, new Pose2d(3, 3, new Rotation2d()));
+              SwerveDrivetrain.mapleSimConfig, new Pose2d(0, 0, new Rotation2d()));
       SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
       frontLeft =
           SimSwerveModule.createModule(
