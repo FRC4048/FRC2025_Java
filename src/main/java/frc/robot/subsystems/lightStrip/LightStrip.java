@@ -6,14 +6,13 @@ import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.LightStripInputsBuilder;
 import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
 
-
 public class LightStrip extends SubsystemBase {
-  
+
   private final LoggableSystem<LightStripIO, LightStripInputs> system;
 
-  
-    public LightStrip(LightStripIO io) {
-    LightStripInputs inputs = new LightStripInputsBuilder<>("LightStripSubsystem").addPatternPWM().Build();
+  public LightStrip(LightStripIO io) {
+    LightStripInputs inputs =
+        new LightStripInputsBuilder<>("LightStripSubsystem").addPatternPWM().Build();
     this.system = new LoggableSystem<>(io, inputs);
   }
 

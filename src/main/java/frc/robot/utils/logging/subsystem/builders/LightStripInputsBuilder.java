@@ -8,39 +8,41 @@ import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
 
 public class LightStripInputsBuilder<T extends LightStripInputsBuilder<T>> {
 
-    private boolean logPatternPWM;
+  private boolean logPatternPWM;
 
-    private final String folder;
-public LightStripInputsBuilder(String folder){
+  private final String folder;
+
+  public LightStripInputsBuilder(String folder) {
     this.folder = folder;
-}
+  }
 
-
-T self() {
+  T self() {
     return (T) this;
-}
+  }
 
-public LightStripInputs Build(){
+  public LightStripInputs Build() {
     return new LightStripInputs(this);
-}
+  }
 
-public String getFolder(){
+  public String getFolder() {
     return folder;
-}
-public T reset(){
-    logPatternPWM = false;
-return self();
-}
+  }
 
-public T lightstripPatternPWM(){
+  public T reset() {
+    logPatternPWM = false;
+    return self();
+  }
+
+  public T lightstripPatternPWM() {
     logPatternPWM = true;
     return self();
-}
+  }
 
-public T addPatternPWM(){
+  public T addPatternPWM() {
     return lightstripPatternPWM();
-}
-    public boolean islogPatternPWM(){
-        return logPatternPWM;
-    }
+  }
+
+  public boolean islogPatternPWM() {
+    return logPatternPWM;
+  }
 }

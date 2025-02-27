@@ -8,15 +8,16 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.utils.BlinkinPattern;
 
 /** Add your docs here. */
-public class LightStripInputProvider implements LightStripProvider{
-    
-    private final Spark spark;
+public class LightStripInputProvider implements LightStripProvider {
 
-    public LightStripInputProvider(Spark spark) {
+  private final Spark spark;
+
+  public LightStripInputProvider(Spark spark) {
     this.spark = spark;
   }
 
-    @Override
-    public BlinkinPattern getPatternPWM() {
-        return BlinkinPattern.of(spark.get());
-    }}
+  @Override
+  public BlinkinPattern getPatternPWM() {
+    return BlinkinPattern.of(spark.get());
+  }
+}
