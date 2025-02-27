@@ -21,7 +21,7 @@ public class GameConstants {
   public static final double GYRO_DIAGS_ANGLE = 30;
 
   // Debug
-  public static final boolean SWERVE_DEBUG = false;
+  public static final boolean SWERVE_DEBUG = true;
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
   public static final boolean ELEVATOR_DEBUG = false;
@@ -52,6 +52,10 @@ public class GameConstants {
   public static final double CLIMBER_SPEED = 0.5;
   public static final double CLIMBER_RISE_SPEED = 0.5;
   public static final double HIHI_INTAKE_BASE_VELOCITY = 7000.0;
+
+  // Accelerations
+  public static final double MAX_PATHPLANNER_ACCEL = 11.7;
+  public static final double MAX_PATHPLANNER_ANGULAR_ACCEL = 3797;
 
   // Timeouts
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
@@ -141,6 +145,16 @@ public class GameConstants {
   public static final double STEER_PID_FF_S = 0.2; // TODO: change later
   public static final double STEER_PID_FF_V = 0.8; // TODO: change later
 
+  // PathPlanner Drive PID
+  public static final double PATH_PLANNER_TRANSLATION_PID_P = 1;
+  public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
+  public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
+
+  // PathPlanner Steer PID
+  public static final double PATH_PLANNER_ROTATION_PID_P = 0.3;
+  public static final double PATH_PLANNER_ROTATION_PID_I = 0;
+  public static final double PATH_PLANNER_ROTATION_PID_D = 0.005;
+
   // Lengths
   public static final double ELEVATOR_DRUM_RADIUS =
       Units.inchesToMeters(1); // In M(in), change later
@@ -189,6 +203,7 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+  public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.005; // TODO: change later
 
   // ELEVATOR CONSTANTS
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;

@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -20,6 +24,7 @@ import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.alignment.AlignClosestBranch;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
@@ -79,6 +84,7 @@ import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
+import frc.robot.utils.auto.PathPlannerUtils;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
@@ -103,6 +109,7 @@ public class RobotContainer {
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private SwerveDriveSimulation driveSimulation = null;
+  private RobotConfig config;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -143,6 +150,7 @@ public class RobotContainer {
     setupDriveTrain();
     configureBindings();
     putShuffleboardCommands();
+    setupPathPlanning();
   }
 
   private void configureBindings() {
@@ -357,7 +365,30 @@ public class RobotContainer {
     return drivetrain;
   }
 
+  private void setupPathPlanning() {
+    AutoBuilder.configure(
+        drivetrain::getPose,
+        drivetrain::resetOdometry,
+        drivetrain::speedsFromStates,
+        drivetrain::drive,
+        new PPHolonomicDriveController(
+            new PIDConstants(
+                Constants.PATH_PLANNER_TRANSLATION_PID_P,
+                Constants.PATH_PLANNER_TRANSLATION_PID_I,
+                Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
+            new PIDConstants(
+                Constants.PATH_PLANNER_ROTATION_PID_P,
+                Constants.PATH_PLANNER_ROTATION_PID_I,
+                Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
+            ),
+        PathPlannerUtils.config,
+        RobotContainer::isRedAlliance,
+        drivetrain);
+  }
+
   public void putShuffleboardCommands() {
+
+    SmartShuffleboard.putCommand("Align", "Align to Reef", new AlignClosestBranch(drivetrain));
 
     if (Constants.CORAL_DEBUG) {
       SmartShuffleboard.putCommand(
