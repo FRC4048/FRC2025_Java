@@ -316,7 +316,7 @@ public class RobotContainer {
               gyroIO,
               apriltagIO,
               driveSimulation::setSimulationWorldPose);
-    } else {
+    } else if (Constants.currentMode == Constants.Mode.REPLAY) {
       frontLeft =
           new SwerveModule(
               new MockDriveMotorIO(),
