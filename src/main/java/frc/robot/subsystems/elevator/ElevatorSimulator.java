@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
+import org.littletonrobotics.junction.Logger;
 
 /**
  * A class to encapsulate the behavior of a simulated elevator. Wraps around the motor and the
@@ -107,14 +107,11 @@ public class ElevatorSimulator {
     reverseSwitchSim.setPressed(
         MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
 
-    SmartShuffleboard.put("Elevator", "Motor out voltage", motorOut);
-    SmartShuffleboard.put("Elevator", "Velocity mps", velocityMetersPerSecond);
-    SmartShuffleboard.put("Elevator", "RPM", rpm);
-    SmartShuffleboard.put(
-        "Elevator", "Elevator actual position", m_elevatorSim.getPositionMeters());
-    SmartShuffleboard.put("Elevator", "Mechanism length", elevatorMech2d.getLength());
-    SmartShuffleboard.put("Elevator", "Forward switch", forwardSwitchSim.getPressed());
-    SmartShuffleboard.put("Elevator", "Reverse switch", reverseSwitchSim.getPressed());
+    Logger.recordOutput("ElevatorSubsystem/MotorCommandedVoltage", motorOut);
+    Logger.recordOutput("ElevatorSubsystem/VelocityMPS", velocityMetersPerSecond);
+    Logger.recordOutput(
+        "ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
+    Logger.recordOutput("ElevatorSubsystem/ElevatorMechanismLength", elevatorMech2d.getLength());
   }
 
   /**

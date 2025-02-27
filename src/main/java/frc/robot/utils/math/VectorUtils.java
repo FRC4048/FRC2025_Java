@@ -1,8 +1,8 @@
 package frc.robot.utils.math;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
+import org.littletonrobotics.junction.Logger;
 
 /** Utility class for vectors used in projectile motion */
 public class VectorUtils {
@@ -267,8 +267,8 @@ public class VectorUtils {
             new VelocityVector(
                 velocityVector.getVelocity(), velocityVector.getAngle().minus(angleError)),
             destX);
-    SmartDashboard.putNumber("maxDifY", highY - destZ);
-    SmartDashboard.putNumber("minDifY", destZ - lowY);
+    Logger.recordOutput("VectorUtils/maxDiffY", highY - destZ);
+    Logger.recordOutput("VectorUtils/minDiffY", destZ - lowY);
     return highY < destZ + maxErrorZ && lowY > destZ - maxErrorZ;
   }
 
