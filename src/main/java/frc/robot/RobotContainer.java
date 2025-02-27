@@ -55,10 +55,7 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
 import frc.robot.subsystems.elevator.SimElevatorIO;
-import frc.robot.subsystems.gyro.GyroIO;
-import frc.robot.subsystems.gyro.MockGyroIO;
-import frc.robot.subsystems.gyro.RealGyroIO;
-import frc.robot.subsystems.gyro.ThreadedGyro;
+import frc.robot.subsystems.gyro.*;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
 import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
@@ -236,7 +233,6 @@ public class RobotContainer {
         new KinematicsConversionConfig(Constants.WHEEL_RADIUS, Constants.SWERVE_MODULE_PROFILE);
     SwervePidConfig pidConfig =
         new SwervePidConfig(drivePid, steerPid, driveGain, steerGain, constraints);
-    if (Robot.isSimulation()) {}
 
     GyroIO gyroIO;
     LoggableIO<ApriltagInputs> apriltagIO;
@@ -268,7 +264,7 @@ public class RobotContainer {
       gyroIO = new RealGyroIO(threadedGyro);
       apriltagIO = new TCPApriltag();
       drivetrain =
-          new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
+          new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO, (pose) -> {});
     } else if (Constants.currentMode == Constants.Mode.SIM) {
       SimSwerveModule frontLeft;
       SimSwerveModule frontRight;
@@ -310,8 +306,9 @@ public class RobotContainer {
               pidConfig,
               ModulePosition.BACK_RIGHT,
               true);
+      gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
       drivetrain =
-          new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
+          new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO, driveSimulation::setSimulationWorldPose);
     } else {
       SwerveModule frontLeft;
       SwerveModule frontRight;
@@ -348,7 +345,7 @@ public class RobotContainer {
       gyroIO = new MockGyroIO();
       apriltagIO = new MockApriltag();
       drivetrain =
-          new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
+          new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO, (pose) -> {});
     }
   }
 

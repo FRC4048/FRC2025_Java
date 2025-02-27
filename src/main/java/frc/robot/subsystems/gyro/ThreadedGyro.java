@@ -69,6 +69,7 @@ public class ThreadedGyro {
     shouldReset.set(true);
   }
 
+
   public void setAngleAdjustment(double degrees) {
     gyroOffset.set(Double.doubleToLongBits(degrees));
     shouldOffset.set(true);
