@@ -25,7 +25,8 @@ public class AlignClosestBranch extends LoggableCommand {
     timer.restart();
     targetPosition = AlignmentPositions.getClosest(drivetrain.getPose());
     Logger.recordOutput("TargetReefPose", targetPosition);
-    followTrajectory = LoggableCommandWrapper.wrap(drivetrain.generateTrajectoryCommand(targetPosition));
+    followTrajectory =
+        LoggableCommandWrapper.wrap(drivetrain.generateTrajectoryCommand(targetPosition));
     followTrajectory.setParent(this);
     followTrajectory.schedule();
   }

@@ -26,8 +26,6 @@ import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
-import frc.robot.utils.logging.commands.LoggableCommand;
-import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Collections;
@@ -232,11 +230,11 @@ public class SwerveDrivetrain extends SubsystemBase {
         TrajectoryGenerator.generateTrajectory(
             getPose(), Collections.emptyList(), targetPose, trajectoryConfig);
     return new SwerveControllerCommand(
-            trajectory,
-            this::getPose,
-            kinematics, // Position controllers
-            finePathController,
-            this::setModuleStates,
-            this);
+        trajectory,
+        this::getPose,
+        kinematics, // Position controllers
+        finePathController,
+        this::setModuleStates,
+        this);
   }
 }
