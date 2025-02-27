@@ -25,6 +25,7 @@ public class ClimberSubsystem extends SubsystemBase {
     if (Constants.CLIMBER_DEBUG) {
       SmartShuffleboard.put("Climber", "Forward", isExtendedLimitSwitchPressed());
       SmartShuffleboard.put("Climber", "Backward", isRetractedLimitSwitchPressed());
+      SmartShuffleboard.put("Climber", "EncoderValue", getClimberEncoder());
     }
     climberSystem.updateInputs();
     if (isExtendedLimitSwitchPressed() || isRetractedLimitSwitchPressed()) {
@@ -34,6 +35,10 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void resetClimberEncoder() {
     climberSystem.getIO().resetClimberEncoder();
+  }
+
+  public double getClimberEncoder() {
+    return climberSystem.getInputs().getEncoderPosition();
   }
 
   public void setClimberSpeed(double speed) {

@@ -21,7 +21,7 @@ public class MoveClimber extends LoggableCommand {
 
   @Override
   public void execute() {
-    climber.setClimberSpeed(targetSupplier.getAsDouble()/3);
+    climber.setClimberSpeed(targetSupplier.getAsDouble() / 3);
   }
 
   @Override
