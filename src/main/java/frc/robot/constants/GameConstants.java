@@ -187,4 +187,5 @@ public class GameConstants {
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
+  public static final double ELEVATOR_NO_EXTEND_BYEBYE = -5;
 }
