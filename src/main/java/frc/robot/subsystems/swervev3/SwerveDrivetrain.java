@@ -1,5 +1,7 @@
 package frc.robot.subsystems.swervev3;
 
+import static edu.wpi.first.units.Units.*;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,25 +17,22 @@ import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
-import frc.robot.subsystems.swervev3.io.SwerveModule;
+import frc.robot.subsystems.swervev3.io.ModuleIO;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
+import java.util.function.Consumer;
 import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
 import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 import org.littletonrobotics.junction.Logger;
 
-import java.util.function.Consumer;
-
-import static edu.wpi.first.units.Units.*;
-
 public class SwerveDrivetrain extends SubsystemBase {
-  private final SwerveModule frontLeft;
-  private final SwerveModule frontRight;
-  private final SwerveModule backLeft;
-  private final SwerveModule backRight;
+  private final ModuleIO frontLeft;
+  private final ModuleIO frontRight;
+  private final ModuleIO backLeft;
+  private final ModuleIO backRight;
   private static final Translation2d frontLeftLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
   private static final Translation2d frontRightLocation =
@@ -52,10 +51,10 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final Consumer<Pose2d> resetSimulationPoseCallBack;
 
   public SwerveDrivetrain(
-      SwerveModule frontLeftModule,
-      SwerveModule frontRightModule,
-      SwerveModule backLeftModule,
-      SwerveModule backRightModule,
+      ModuleIO frontLeftModule,
+      ModuleIO frontRightModule,
+      ModuleIO backLeftModule,
+      ModuleIO backRightModule,
       GyroIO gyroIO,
       LoggableIO<ApriltagInputs> apriltagIO,
       Consumer<Pose2d> resetSimulationPoseCallBack) {
@@ -216,23 +215,27 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
+
   private static final DCMotor driveMotor = DCMotor.getNEO(1);
   private static final DCMotor steerMotor = DCMotor.getNEO(1);
-  private static final KinematicsConversionConfig kinematicsConfig = new KinematicsConversionConfig(Constants.WHEEL_RADIUS, Constants.SWERVE_MODULE_PROFILE);
+  private static final KinematicsConversionConfig kinematicsConfig =
+      new KinematicsConversionConfig(Constants.WHEEL_RADIUS, Constants.SWERVE_MODULE_PROFILE);
   public static final DriveTrainSimulationConfig mapleSimConfig =
       DriveTrainSimulationConfig.Default()
           .withCustomModuleTranslations(kinematics.getModules())
           .withRobotMass(Kilograms.of(Constants.ROBOT_MASS))
-          .withBumperSize(Meters.of(Constants.ROBOT_BUMPER_LENGTH), Meters.of(Constants.ROBOT_BUMPER_WIDTH))
-              .withGyro(COTS.ofNav2X())
-              .withSwerveModule(new SwerveModuleSimulationConfig(
-                      driveMotor,
-                      steerMotor,
-                      kinematicsConfig.getProfile().getDriveGearRatio(),
-                      kinematicsConfig.getProfile().getSteerGearRatio(),
-                      Volts.of(Constants.DRIVE_PID_FF_S),
-                      Volts.of(Constants.STEER_PID_FF_S),
-                      Meters.of(kinematicsConfig.getWheelRadius()),
-                      KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
-                      Constants.COEFFICIENT_OF_FRICTION));
+          .withBumperSize(
+              Meters.of(Constants.ROBOT_BUMPER_LENGTH), Meters.of(Constants.ROBOT_BUMPER_WIDTH))
+          .withGyro(COTS.ofNav2X())
+          .withSwerveModule(
+              new SwerveModuleSimulationConfig(
+                  driveMotor,
+                  steerMotor,
+                  kinematicsConfig.getProfile().getDriveGearRatio(),
+                  kinematicsConfig.getProfile().getSteerGearRatio(),
+                  Volts.of(Constants.DRIVE_PID_FF_S),
+                  Volts.of(Constants.STEER_PID_FF_S),
+                  Meters.of(kinematicsConfig.getWheelRadius()),
+                  KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
+                  Constants.COEFFICIENT_OF_FRICTION));
 }

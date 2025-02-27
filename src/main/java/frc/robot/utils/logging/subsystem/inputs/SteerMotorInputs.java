@@ -44,11 +44,11 @@ public class SteerMotorInputs extends MotorInputs {
 
   public boolean process(InputProvider inputProvider) {
     if (inputProvider instanceof SteerMotorInputProvider motorinputProvider) {
-      if (logDriveConnected) {
+      if (logSteerConnected) {
         steerConnected = motorinputProvider.isSteerConnected();
       }
     }
-    return super.process(inputProvider) && logDriveConnected;
+    return super.process(inputProvider) && logSteerConnected;
   }
 
   public boolean isSteerConnected() {

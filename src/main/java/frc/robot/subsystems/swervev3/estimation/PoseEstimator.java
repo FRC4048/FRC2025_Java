@@ -18,7 +18,7 @@ import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
-import frc.robot.subsystems.swervev3.io.SwerveModule;
+import frc.robot.subsystems.swervev3.io.ModuleIO;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
 import frc.robot.subsystems.swervev3.vision.LinearVisionTruster;
 import frc.robot.utils.RobotMode;
@@ -34,10 +34,10 @@ import org.littletonrobotics.junction.Logger;
  */
 public class PoseEstimator {
   private final Field2d field = new Field2d();
-  private final SwerveModule frontLeft;
-  private final SwerveModule frontRight;
-  private final SwerveModule backLeft;
-  private final SwerveModule backRight;
+  private final ModuleIO frontLeft;
+  private final ModuleIO frontRight;
+  private final ModuleIO backLeft;
+  private final ModuleIO backRight;
   private final LoggableSystem<LoggableIO<ApriltagInputs>, ApriltagInputs> apriltagSystem;
   private int invalidCounter = 0;
 
@@ -55,10 +55,10 @@ public class PoseEstimator {
   private final PoseManager poseManager;
 
   public PoseEstimator(
-      SwerveModule frontLeftMotor,
-      SwerveModule frontRightMotor,
-      SwerveModule backLeftMotor,
-      SwerveModule backRightMotor,
+      ModuleIO frontLeftMotor,
+      ModuleIO frontRightMotor,
+      ModuleIO backLeftMotor,
+      ModuleIO backRightMotor,
       LoggableIO<ApriltagInputs> apriltagIO,
       SwerveDriveKinematics kinematics,
       double initGyroValueDeg) {

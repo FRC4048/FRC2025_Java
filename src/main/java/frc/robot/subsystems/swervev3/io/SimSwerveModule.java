@@ -28,7 +28,7 @@ import frc.robot.utils.math.AngleUtils;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 
-public class SimSwerveModule {
+public class SimSwerveModule implements ModuleIO {
   private final SwerveModuleSimulation moduleSimulation;
   private final SwerveModuleSimulationConfig simConfig;
   private final LoggableSystem<SwerveDriveMotorIO, MotorInputs> driveSystem;

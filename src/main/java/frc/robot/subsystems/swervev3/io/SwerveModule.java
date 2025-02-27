@@ -25,7 +25,7 @@ import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 
-public class SwerveModule {
+public class SwerveModule implements ModuleIO {
   private final LoggableSystem<SwerveDriveMotorIO, MotorInputs> driveSystem;
   private final LoggableSystem<SwerveSteerMotorIO, MotorInputs> steerSystem;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
