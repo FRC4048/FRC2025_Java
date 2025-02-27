@@ -1,5 +1,6 @@
 package frc.robot.utils.logging.subsystem.inputs;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.utils.logging.subsystem.builders.SteerMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.providers.InputProvider;
 import frc.robot.utils.logging.subsystem.providers.SteerMotorInputProvider;
@@ -15,6 +16,10 @@ public class SteerMotorInputs extends MotorInputs {
   private Boolean fwdLimit;
   private Boolean revLimit;
   private boolean logSteerConnected;
+  private boolean logOdometryTimestamps;
+  private boolean logOdometryTurnPositions;
+  private double[] odometryTimestamps;
+  private Rotation2d[] odometryTurnPositions;
 
   public SteerMotorInputs(SteerMotorInputBuilder<?> builder) {
     super(builder);
@@ -26,19 +31,29 @@ public class SteerMotorInputs extends MotorInputs {
     this.revLimit = builder.isLogRevLimit() ? false : null;
     this.appliedOutput = builder.isLogAppliedOutput() ? 0.0 : null;
     this.logSteerConnected = builder.isLogSteerConnected();
+    this.logOdometryTimestamps = builder.isLogOdometryTimestamps();
+    this.logOdometryTurnPositions = builder.isLogOdometryTurnPositions();
+    this.odometryTimestamps = builder.isLogOdometryTimestamps() ? new double[] {} : null;
+    this.odometryTurnPositions = builder.isLogOdometryTurnPositions() ? new Rotation2d[] {} : null;
   }
 
   public void toLog(LogTable table) {
     super.toLog(table);
     if (logSteerConnected) {
-      table.put("driveConnected", steerConnected);
+      table.put("steerConnected", steerConnected);
+    }
+    if (logOdometryTimestamps) {
+      table.put("odometryTimestamps", odometryTimestamps);
+    }
+    if (logOdometryTimestamps) {
+      table.put("odometryTurnPositions", odometryTurnPositions);
     }
   }
 
   public void fromLog(LogTable table) {
     super.fromLog(table);
     if (logSteerConnected) {
-      steerConnected = table.get("driveConnected", steerConnected);
+      steerConnected = table.get("steerConnected", steerConnected);
     }
   }
 
@@ -85,5 +100,13 @@ public class SteerMotorInputs extends MotorInputs {
 
   public void setRevLimit(boolean revLimit) {
     this.revLimit = revLimit;
+  }
+
+  public void setOdometryTimestamps(double[] odometryTimestamps) {
+    this.odometryTimestamps = odometryTimestamps;
+  }
+
+  public void setOdometryTurnPositions(Rotation2d[] odometryTurnPositions) {
+    this.odometryTurnPositions = odometryTurnPositions;
   }
 }

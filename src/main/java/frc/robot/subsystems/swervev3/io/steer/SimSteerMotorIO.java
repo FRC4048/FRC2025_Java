@@ -5,6 +5,7 @@ import static edu.wpi.first.units.Units.*;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.io.steer.SparkMaxSteerMotorIO;
 import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
+import frc.robot.utils.motor.SparkUtil;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class SimSteerMotorIO extends SparkMaxSteerMotorIO {
@@ -21,6 +22,8 @@ public class SimSteerMotorIO extends SparkMaxSteerMotorIO {
     inputs.setEncoderVelocity(moduleSimulation.getSteerAbsoluteEncoderSpeed().in(RadiansPerSecond));
     inputs.setAppliedOutput(steerAppliedVolts);
     inputs.setMotorCurrent(Math.abs(moduleSimulation.getSteerMotorStatorCurrent().in(Amps)));
+    inputs.setOdometryTimestamps(SparkUtil.getSimulationOdometryTimeStamps());
+    inputs.setOdometryTurnPositions(moduleSimulation.getCachedSteerAbsolutePositions());
     super.updateInputs(inputs);
   }
 }

@@ -124,15 +124,6 @@ public class SimSwerveModule implements ModuleIO {
 
     // Update abs inputs
     absSystem.updateInputs();
-
-    //        // Update odometry inputs
-    //        inputs.odometryTimestamps = SparkUtil.getSimulationOdometryTimeStamps();
-    //        inputs.odometryDrivePositionsRad =
-    // Arrays.stream(moduleSimulation.getCachedDriveWheelFinalPositions())
-    //                .mapToDouble(angle -> angle.in(Radians))
-    //                .toArray();
-    //        inputs.odometryTurnPositions = moduleSimulation.getCachedSteerAbsolutePositions(); //
-    // TODO: UNCOMMENT
   }
 
   public void setDriveOpenLoop(double output) {

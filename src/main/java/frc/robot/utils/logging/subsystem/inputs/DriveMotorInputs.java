@@ -15,6 +15,10 @@ public class DriveMotorInputs extends MotorInputs {
   private Boolean fwdLimit;
   private Boolean revLimit;
   private boolean logDriveConnected;
+  private double[] odometryTimestamps;
+  private double[] odometryDrivePositionsRad;
+  private boolean logOdometryTimestamps;
+  private boolean logOdometryDrivePositionsRad;
 
   public DriveMotorInputs(DriveMotorInputBuilder<?> builder) {
     super(builder);
@@ -25,6 +29,11 @@ public class DriveMotorInputs extends MotorInputs {
     this.fwdLimit = builder.isLogFwdLimit() ? false : null;
     this.revLimit = builder.isLogRevLimit() ? false : null;
     this.appliedOutput = builder.isLogAppliedOutput() ? 0.0 : null;
+    this.logOdometryTimestamps = builder.isLogOdometryTimestamps();
+    this.logOdometryDrivePositionsRad = builder.isLogOdometryDrivePositionsRad();
+    this.odometryTimestamps = builder.isLogOdometryTimestamps() ? new double[] {} : null;
+    this.odometryDrivePositionsRad =
+        builder.isLogOdometryDrivePositionsRad() ? new double[] {} : null;
   }
 
   public void toLog(LogTable table) {
@@ -32,12 +41,24 @@ public class DriveMotorInputs extends MotorInputs {
     if (logDriveConnected) {
       table.put("driveConnected", driveConnected);
     }
+    if (logOdometryTimestamps) {
+      table.put("odometryTimestamps", odometryTimestamps);
+    }
+    if (logOdometryDrivePositionsRad) {
+      table.put("odometryDrivePositionsRad", odometryDrivePositionsRad);
+    }
   }
 
   public void fromLog(LogTable table) {
     super.fromLog(table);
     if (logDriveConnected) {
       driveConnected = table.get("driveConnected", driveConnected);
+    }
+    if (logOdometryTimestamps) {
+      odometryTimestamps = table.get("odometryTimestamps", odometryTimestamps);
+    }
+    if (logOdometryDrivePositionsRad) {
+      odometryDrivePositionsRad = table.get("odometryDrivePositionsRad", odometryDrivePositionsRad);
     }
   }
 
@@ -84,5 +105,13 @@ public class DriveMotorInputs extends MotorInputs {
 
   public void setRevLimit(boolean revLimit) {
     this.revLimit = revLimit;
+  }
+
+  public void setOdometryTimestamps(double[] odometryTimestamps) {
+    this.odometryTimestamps = odometryTimestamps;
+  }
+
+  public void setOdometryDrivePositionsRad(double[] odometryDrivePositionsRad) {
+    this.odometryDrivePositionsRad = odometryDrivePositionsRad;
   }
 }

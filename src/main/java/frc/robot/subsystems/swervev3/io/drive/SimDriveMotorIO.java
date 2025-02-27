@@ -12,6 +12,8 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
+import frc.robot.utils.motor.SparkUtil;
+import java.util.Arrays;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class SimDriveMotorIO extends SparkMaxDriveMotorIO {
@@ -39,6 +41,11 @@ public class SimDriveMotorIO extends SparkMaxDriveMotorIO {
     inputs.setEncoderVelocity(moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond));
     inputs.setAppliedOutput(driveAppliedVolts);
     inputs.setMotorCurrent(Math.abs(moduleSimulation.getDriveMotorStatorCurrent().in(Amps)));
+    inputs.setOdometryTimestamps(SparkUtil.getSimulationOdometryTimeStamps());
+    inputs.setOdometryDrivePositionsRad(
+        Arrays.stream(moduleSimulation.getCachedDriveWheelFinalPositions())
+            .mapToDouble(angle -> angle.in(Radians))
+            .toArray());
     super.updateInputs(inputs);
   }
 
