@@ -11,19 +11,21 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 import frc.robot.utils.motor.SparkUtil;
 import java.util.Arrays;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
-public class SimDriveMotorIO {
+public class SimDriveMotorIO implements SwerveDriveMotorIO {
   private final SparkMax driveMotor;
   private final SparkMaxSim simMotor;
   private final DCMotor driveGearbox = DCMotor.getNEO(1);
   private final SparkBaseConfig driveConfig;
   private final SparkMaxInputProvider inputProvider;
 
-  public SimDriveMotorIO(int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
+  public SimDriveMotorIO(
+      int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
     simMotor = new SparkMaxSim(driveMotor, driveGearbox);
     inputProvider = new SparkMaxInputProvider(driveMotor);
@@ -82,4 +84,13 @@ public class SimDriveMotorIO {
         SparkBase.ResetMode.kResetSafeParameters,
         SparkBase.PersistMode.kPersistParameters);
   }
+
+  @Override
+  public void setDriveVoltage(double volts) {}
+
+  @Override
+  public void resetEncoder() {}
+
+  @Override
+  public void updateInputs(MotorInputs inputs) {}
 }
