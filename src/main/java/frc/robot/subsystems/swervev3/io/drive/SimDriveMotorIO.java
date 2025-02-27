@@ -16,16 +16,14 @@ import frc.robot.utils.motor.SparkUtil;
 import java.util.Arrays;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
-public class SimDriveMotorIO extends SparkMaxDriveMotorIO {
+public class SimDriveMotorIO {
   private final SparkMax driveMotor;
   private final SparkMaxSim simMotor;
   private final DCMotor driveGearbox = DCMotor.getNEO(1);
   private final SparkBaseConfig driveConfig;
   private final SparkMaxInputProvider inputProvider;
 
-  public SimDriveMotorIO(
-      int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
-    super(driveMotorIO, conversionConfig, driveInverted);
+  public SimDriveMotorIO(int driveMotorIO, KinematicsConversionConfig conversionConfig, boolean driveInverted) {
     driveMotor = new SparkMax(driveMotorIO, SparkMax.MotorType.kBrushless);
     simMotor = new SparkMaxSim(driveMotor, driveGearbox);
     inputProvider = new SparkMaxInputProvider(driveMotor);
@@ -46,7 +44,7 @@ public class SimDriveMotorIO extends SparkMaxDriveMotorIO {
         Arrays.stream(moduleSimulation.getCachedDriveWheelFinalPositions())
             .mapToDouble(angle -> angle.in(Radians))
             .toArray());
-    super.updateInputs(inputs);
+    inputs.process(inputProvider);
   }
 
   public SparkMax getDriveMotor() {
