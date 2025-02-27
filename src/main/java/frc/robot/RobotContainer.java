@@ -86,6 +86,7 @@ import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
+import org.littletonrobotics.junction.Logger;
 
 public class RobotContainer {
   private SwerveDrivetrain drivetrain;
@@ -447,5 +448,17 @@ public class RobotContainer {
         "DEBUG",
         "LightStripPatternViolet",
         new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
+  }
+
+  public void updateSimulation() {
+    if (Constants.currentMode != Constants.Mode.SIM) return;
+
+    SimulatedArena.getInstance().simulationPeriodic();
+    Logger.recordOutput(
+        "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
+    Logger.recordOutput(
+        "FieldSimulation/Coral", SimulatedArena.getInstance().getGamePiecesArrayByType("Coral"));
+    Logger.recordOutput(
+        "FieldSimulation/Algae", SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
   }
 }

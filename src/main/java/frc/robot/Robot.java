@@ -168,4 +168,10 @@ public class Robot extends LoggedRobot {
   public static Diagnostics getDiagnostics() {
     return diagnostics;
   }
+
+  /** This function is called periodically whilst in simulation. */
+  @Override
+  public void simulationPeriodic() {
+    m_robotContainer.updateSimulation();
+  }
 }
