@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 public enum FieldLocation {
   ZERO(0, 0, 0, "Zero", "Zero"),
   INVALID(-1, -1, -1, "INVALID", "INVALID"),
-  LEFT(7.306, 7.057, 180, "Left", "Left"),
+  LEFT(7.150, 6.000, 180, "Left", "Left"),
   MIDDLE(7.128, 4.173, 180, "Middle", "Middle"),
-  RIGHT(7.225, 1.048, 180, "Right", "Right");
+  RIGHT(7.150, 2.000, 180, "Right", "Right");
 
   private static final double RED_X_POS = 2.3876; // meters
   private final double yPos;
