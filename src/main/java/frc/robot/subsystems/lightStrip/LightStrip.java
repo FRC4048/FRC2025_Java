@@ -4,9 +4,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.LightStripInputsBuilder;
-import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
-import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
+
 
 public class LightStrip extends SubsystemBase {
   
@@ -23,6 +22,6 @@ public class LightStrip extends SubsystemBase {
   }
 
   public BlinkinPattern getPattern() {
-    return system.getInputs().;
+    return system.getInputs().getPattern();
   }
 }

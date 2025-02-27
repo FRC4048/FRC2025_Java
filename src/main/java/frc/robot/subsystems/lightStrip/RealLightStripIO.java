@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.constants.Constants;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.subsystem.inputs.LightStripInputs;
-import frc.robot.utils.logging.subsystem.providers.InputProvider;
 import frc.robot.utils.logging.subsystem.providers.LightStripInputProvider;
-import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
 
 public class RealLightStripIO implements LightStripIO {
 

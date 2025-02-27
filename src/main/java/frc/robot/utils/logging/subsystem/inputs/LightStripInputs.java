@@ -39,7 +39,7 @@ public class LightStripInputs extends FolderInputs{
     }
 
     @Override
-    protected boolean process(InputProvider inputProvider) {
+    public boolean process(InputProvider inputProvider) {
     if (inputProvider instanceof LightStripProvider LightStripProvider){
         if (builder.islogPatternPWM()) {
             patternPWM = LightStripProvider.getPatternPWM();
@@ -50,4 +50,9 @@ public class LightStripInputs extends FolderInputs{
         return false;
     }
     
-    }}
+    }
+    public BlinkinPattern getPattern() {
+        return patternPWM;
+      }
+
+}
