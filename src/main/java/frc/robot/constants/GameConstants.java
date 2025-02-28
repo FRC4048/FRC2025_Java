@@ -126,18 +126,20 @@ public class GameConstants {
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Drive PID
-  public static final double DRIVE_PID_P = 1; // TODO: change later
+  public static final double DRIVE_PID_P = 2; // TODO: change later
   public static final double DRIVE_PID_I = 0; // TODO: change later
   public static final double DRIVE_PID_D = 0; // TODO: change later
-  public static final double DRIVE_PID_FF_S = 1; // TODO: change later
-  public static final double DRIVE_PID_FF_V = 2.8; // TODO: change later
+  public static final double DRIVE_PID_FF_S = 0.19;
+  public static final double DRIVE_PID_FF_V = 3.3;
+  public static final double DRIVE_PID_I_ZONE = 0; // TODO: change later
+  public static final double DRIVE_PID_ALLOWED_ERROR = 0;
 
   // Steer PID
   public static final double STEER_PID_P = 0.3; // TODO: change later
   public static final double STEER_PID_I = 0; // TODO: change later
   public static final double STEER_PID_D = 0.005; // TODO: change later
-  public static final double STEER_PID_FF_S = 0; // 0.2; //TODO: change later
-  public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
+  public static final double STEER_PID_FF_S = 0.2; // TODO: change later
+  public static final double STEER_PID_FF_V = 0.8; // TODO: change later
 
   // Lengths
   public static final double ELEVATOR_DRUM_RADIUS =
@@ -165,6 +167,8 @@ public class GameConstants {
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
   public static final double MAX_VELOCITY = 3.81; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
+  public static final double STEER_ROTATIONAL_INERTIA = 0.0325; // TODO: change later
+  public static final double COEFFICIENT_OF_FRICTION = 1.542;
 
   // Other
   public static final double GRAVITY = -9.81;
@@ -175,6 +179,9 @@ public class GameConstants {
   public static final long POSE_BUFFER_STORAGE_TIME = 2;
   public static final double ELEVATOR_GEARING = 10; // TODO: change later
   public static final double CARRIAGE_MASS = 25.4; // In Kg, change later
+  public static final double ROBOT_MASS = 58.967; // In Kg, change later
+  public static final double ROBOT_BUMPER_WIDTH = 0.914;
+  public static final double ROBOT_BUMPER_LENGTH = 0.914;
   public static final SwerveModuleProfileV2 SWERVE_MODULE_PROFILE =
       SwerveModuleProfileV2.MK4I; // TODO: change later
   public static final double HIHI_GEARING = 45.0; // TODO: change later
@@ -187,4 +194,8 @@ public class GameConstants {
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
+
+  // Move Distance
+  public static final double DRIVE_THRESHHOLD_METERS = 0.01;
+  public static final double MOVE_DISTANCE_TIMEOUT = 5;
 }
