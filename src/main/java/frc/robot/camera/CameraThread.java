@@ -57,6 +57,7 @@ public class CameraThread {
       Mat rotatedMat = Mat.zeros(HEIGHT, WIDTH, 0);
 
       while (true) {
+
         long startTime = System.currentTimeMillis();
         // Tell the CvSink to grab a frame from the camera and put it
         // in the source mat.  If there is an error notify the output.
@@ -69,11 +70,22 @@ public class CameraThread {
           continue;
         }
 
+        long mark1 = System.currentTimeMillis();
+        Logger.recordOutput(LOGGING_PREFIX + "/mark1", (mark1 - startTime));
+
         try {
           double alpha = 0.4; // Transparency of the overlay
           Core.addWeighted(overlayMat, alpha, cameraMat, 1 - alpha, 0, finalMat);
 
+          long mark2 = System.currentTimeMillis();
+
+          Logger.recordOutput(LOGGING_PREFIX + "/mark2", (mark2 - mark1));
+
           Core.transpose(finalMat, rotatedMat);
+
+          long mark3 = System.currentTimeMillis();
+
+          Logger.recordOutput(LOGGING_PREFIX + "/mark3", (mark3 - mark2));
           // Core.flip(rotatedMat, rotatedMat, 0);
         } catch (Exception e) {
           e.printStackTrace();
