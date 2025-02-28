@@ -9,12 +9,7 @@ import frc.robot.autochooser.event.AutoEvent;
 import frc.robot.autochooser.event.AutoEventProvider;
 import frc.robot.autochooser.event.AutoEventProviderIO;
 import frc.robot.commands.autos.LeftCrossTheLine;
-import frc.robot.commands.autos.LeftFourPieceFork;
-import frc.robot.commands.autos.LeftFourPieceLine;
 import frc.robot.commands.autos.MiddleCrossTheLine;
-import frc.robot.commands.autos.MiddleFourPieceFork;
-import frc.robot.commands.autos.MiddleFourPieceLine;
-import frc.robot.commands.autos.MiddleOnePiece;
 import frc.robot.commands.autos.RightCrossTheLine;
 import frc.robot.commands.autos.RightFourPieceFork;
 import frc.robot.commands.autos.RightFourPieceLine;
@@ -22,11 +17,11 @@ import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.lightStrip.LightStrip;
-import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
+import frc.robot.utils.logging.commands.DoNothingCommand;
 import java.util.Map;
 
 public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
-  private final Map<AutoEvent, LoggableSequentialCommandGroup> commandMap;
+  private final Map<AutoEvent, Command> commandMap;
   private final AutoEventProvider provider;
 
   public AutoChooser2025(
@@ -39,26 +34,17 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
     commandMap =
         Map.ofEntries(
             Map.entry(
+                new AutoEvent(AutoAction.DO_NOTHING, FieldLocation.LEFT), new DoNothingCommand()),
+            Map.entry(
+                new AutoEvent(AutoAction.DO_NOTHING, FieldLocation.MIDDLE), new DoNothingCommand()),
+            Map.entry(
+                new AutoEvent(AutoAction.DO_NOTHING, FieldLocation.RIGHT), new DoNothingCommand()),
+            Map.entry(
                 new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.LEFT),
                 new LeftCrossTheLine(elevator, coral)),
             Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.LEFT),
-                new LeftFourPieceFork(elevator, coral, lightStrip)),
-            Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.LEFT),
-                new LeftFourPieceLine(elevator, coral, lightStrip)),
-            Map.entry(
                 new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.MIDDLE),
                 new MiddleCrossTheLine(elevator, coral)),
-            Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.MIDDLE),
-                new MiddleFourPieceFork(elevator, coral, lightStrip)),
-            Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_LINE, FieldLocation.MIDDLE),
-                new MiddleFourPieceLine(elevator, coral, lightStrip)),
-            Map.entry(
-                new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
-                new MiddleOnePiece(elevator, coral, byeBye)),
             Map.entry(
                 new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.RIGHT),
                 new RightCrossTheLine(elevator, coral)),
