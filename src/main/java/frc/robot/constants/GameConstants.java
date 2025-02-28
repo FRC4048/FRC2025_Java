@@ -194,4 +194,8 @@ public class GameConstants {
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
+
+  // Move Distance
+  public static final double DRIVE_THRESHHOLD_METERS = 0.01;
+  public static final double MOVE_DISTANCE_TIMEOUT = 5;
 }

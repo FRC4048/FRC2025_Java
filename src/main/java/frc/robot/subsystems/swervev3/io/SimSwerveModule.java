@@ -83,7 +83,7 @@ public class SimSwerveModule implements ModuleIO {
     // Run closed-loop control
 
     // Update simulation state
-    driveSystem.getIO().setDriveVoltage(driveAppliedVolts);
+    // driveSystem.getIO().setDriveVoltage(driveAppliedVolts);
 
     // Update drive inputs
     driveSystem.updateInputs();
@@ -129,8 +129,8 @@ public class SimSwerveModule implements ModuleIO {
     double turnSpeed =
         turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
             + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
-    driveSystem.getIO().setDriveVoltage(driveSpeed);
-    steerSystem.getIO().setSteerVoltage(turnSpeed * 12);
+    driveSystem.getIO().setDriveVelocity(driveSpeed);
+    steerSystem.getIO().setSteerVelocity(turnSpeed);
   }
 
   public SwerveModuleState getLatestState() {
@@ -139,8 +139,8 @@ public class SimSwerveModule implements ModuleIO {
   }
 
   public void stop() {
-    driveSystem.getIO().setDriveVoltage(0);
-    steerSystem.getIO().setSteerVoltage(0);
+    driveSystem.getIO().setDriveVelocity(0);
+    steerSystem.getIO().setSteerVelocity(0);
   }
 
   public void resetRelativeEnc() {
@@ -180,7 +180,6 @@ public class SimSwerveModule implements ModuleIO {
     SimpleMotorFeedforward driveFF =
         new SimpleMotorFeedforward(
             pidConfig.getDriveGain().getS(), pidConfig.getDriveGain().getV());
-    double driveFFVolt = driveFF.getKv();
     CANCoderAbsIO frontLeftAbsIO = new CANCoderAbsIO(idConf.getCanCoderId());
     LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSys =
         new LoggableSystem<>(
@@ -192,7 +191,7 @@ public class SimSwerveModule implements ModuleIO {
             driveInverted,
             moduleSimulation,
             driveController,
-            driveFFVolt);
+            position.getLoggingKey());
     SimSteerMotorIO frontLeftSteerMotorIO =
         new SimSteerMotorIO(
             idConf.getTurnMotorId(),
@@ -200,7 +199,8 @@ public class SimSwerveModule implements ModuleIO {
             kinematicsConfig.getProfile().isSteerInverted(),
             moduleSimulation,
             turningController,
-            absSys);
+            absSys,
+            position.getLoggingKey());
 
     return new SimSwerveModule(
         moduleSimulation,
