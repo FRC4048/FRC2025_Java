@@ -18,7 +18,7 @@
     "Robot 3 to Reefs (12)",
     "Robot 4 to Reefs (12)"
   ],
-  "defaultMaxVel": 1.5,
+  "defaultMaxVel": 1.0,
   "defaultMaxAccel": 4.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
