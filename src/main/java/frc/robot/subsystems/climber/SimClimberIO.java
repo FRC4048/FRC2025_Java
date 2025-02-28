@@ -7,7 +7,6 @@ package frc.robot.subsystems.climber;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 /** Add your docs here. */
 public class SimClimberIO extends RealClimberIO {
@@ -24,7 +23,5 @@ public class SimClimberIO extends RealClimberIO {
     if (Constants.currentMode == Constants.Mode.SIM) {
       motorSimulator.stepSimulation();
     }
-    SmartShuffleboard.put("Climber", "Location", motorSimulator.getEncoder().getPosition());
-    SmartShuffleboard.put("Climber", "speed", motorSimulator.getEncoder().getVelocity());
   }
 }

@@ -12,17 +12,25 @@ public class GameConstants {
   public static final int RIGHT_JOYSTICK_ID = 1;
   public static final int XBOX_CONTROLLER_ID = 2;
 
+  // Diags
+  public static final double BYEBYE_ROLLER_DIAGS_ENCODER = 1;
+  public static final double HIHI_ROLLER_DIAGS_ENCODER = 0.3;
+  public static final double ELEVATOR_DIAGS_ENCODER = 1;
+  public static final double HIHI_EXTENDER_DIAGS_ENCODER = 1;
+  public static final double CORAL_DIAGS_ENCODER = 1;
+  public static final double GYRO_DIAGS_ANGLE = 30;
+
   // Debug
-  public static final boolean SWERVE_DEBUG = true;
-  public static final boolean INTAKE_DEBUG = true;
-  public static final boolean CLIMBER_DEBUG = true;
-  public static final boolean ELEVATOR_DEBUG = true;
-  public static final boolean CORAL_DEBUG = true;
-  public static final boolean HIHI_DEBUG = true;
-  public static final boolean BYEBYE_DEBUG = true;
-  public static final boolean COMMAND_DEBUG = true;
-  public static final boolean INPUTS_DEBUG = true;
-  public static final boolean TUNING_MODE = true;
+  public static final boolean SWERVE_DEBUG = false;
+  public static final boolean INTAKE_DEBUG = false;
+  public static final boolean CLIMBER_DEBUG = false;
+  public static final boolean ELEVATOR_DEBUG = false;
+  public static final boolean CORAL_DEBUG = false;
+  public static final boolean HIHI_DEBUG = false;
+  public static final boolean BYEBYE_DEBUG = false;
+  public static final boolean COMMAND_DEBUG = false;
+  public static final boolean INPUTS_DEBUG = false;
+  public static final boolean TUNING_MODE = false;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -36,7 +44,7 @@ public class GameConstants {
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
   public static final double INTAKE_MOTOR_SPEED = 0.25;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
-  public static final double CORAL_SHOOTER_SPEED = 0.5;
+  public static final double CORAL_SHOOTER_SPEED = 0.8;
   public static final double HIHI_EXTEND_SPEED = 0.4;
   public static final double HIHI_RETRACT_SPEED = -0.15;
   public static final double HIHI_INTAKE_SPEED = 0.7;
@@ -63,6 +71,7 @@ public class GameConstants {
   public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
+  public static final double INTAKE_LED_STRIP_TIME = 1;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -179,4 +188,9 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = false;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+
+  // ELEVATOR CONSTANTS
+  public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
+  public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
 }
