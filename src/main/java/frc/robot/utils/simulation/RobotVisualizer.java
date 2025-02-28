@@ -16,6 +16,7 @@ public class RobotVisualizer {
   private final LoggedMechanismLigament2d algaeByeByeRollerLigament;
   private final LoggedMechanismLigament2d algaeHiHiTiltLigament;
   private final LoggedMechanismLigament2d algaeHiHiRollerLigament;
+  private final LoggedMechanismLigament2d coralRollerLigament;
 
   private static final RobotVisualizer instance = new RobotVisualizer();
 
@@ -37,8 +38,12 @@ public class RobotVisualizer {
                 90,
                 4,
                 new Color8Bit(Color.kDarkGray)));
+    LoggedMechanismLigament2d byeByeRiser =
+        elevatorLigament.append(
+            new LoggedMechanismLigament2d(
+                "CoralRiser", 0.15, 0, 5, new Color8Bit(Color.kDarkGray)));
     this.algaeByeByeTiltLigament =
-        this.elevatorLigament.append(
+        byeByeRiser.append(
             new LoggedMechanismLigament2d(
                 "AlgaeByeByeTilt",
                 Constants.BYEBYE_TILT_LENGTH,
@@ -57,6 +62,18 @@ public class RobotVisualizer {
         algaeHiHiTiltLigament.append(
             new LoggedMechanismLigament2d(
                 "AlgaeHiHiRoller", 0.05, 0, 5, new Color8Bit(Color.kGreen)));
+    LoggedMechanismLigament2d coralRiser =
+        byeByeRiser.append(
+            new LoggedMechanismLigament2d(
+                "CoralRiser", 0.15, 0, 5, new Color8Bit(Color.kDarkGray)));
+    LoggedMechanismLigament2d coralExtension =
+        coralRiser.append(
+            new LoggedMechanismLigament2d(
+                "CoralExtension", 0.05, -80, 5, new Color8Bit(Color.kDarkGray)));
+    this.coralRollerLigament =
+        coralExtension.append(
+            new LoggedMechanismLigament2d(
+                "CoralRoller", 0.05, 180, 5, new Color8Bit(Color.kGreen)));
   }
 
   public LoggedMechanismLigament2d getElevatorLigament() {
@@ -79,27 +96,8 @@ public class RobotVisualizer {
     return algaeHiHiRollerLigament;
   }
 
-  public void updateElevator(double length) {
-    elevatorLigament.setLength(length);
-  }
-
-  /**
-   * @param degrees ranging from 0 to 360
-   */
-  public void setAlgaeByeByeTiltAngle(double degrees) {
-    algaeByeByeTiltLigament.setAngle(degrees);
-  }
-
-  public void spinAlgaeByeByeRollerAngle() {
-    algaeByeByeRollerLigament.setAngle(algaeByeByeRollerLigament.getAngle() + 5);
-  }
-
-  public void spinAlgaeHiHiRollerAngle() {
-    algaeHiHiRollerLigament.setAngle(algaeHiHiRollerLigament.getAngle() + 5);
-  }
-
-  public void setAlgaeHiHiTiltAngle(double degrees) {
-    algaeHiHiTiltLigament.setAngle(degrees);
+  public LoggedMechanismLigament2d getCoralRollerLigament() {
+    return coralRollerLigament;
   }
 
   public void logMechanism() {

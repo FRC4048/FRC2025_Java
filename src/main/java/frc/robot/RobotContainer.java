@@ -132,7 +132,10 @@ public class RobotContainer {
                 new SimHihiExtenderIO(robotVisualizer.getAlgaeHiHiTiltLigament()));
         elevatorSubsystem =
             new ElevatorSubsystem(new SimElevatorIO(robotVisualizer.getElevatorLigament()));
-        coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
+        coralSubsystem =
+            new CoralSubsystem(
+                new SimCoralIOFollower(),
+                new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()));
         //        climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt =
             new AlgaeByeByeTiltSubsystem(
@@ -175,9 +178,9 @@ public class RobotContainer {
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
-    SetElevatorTargetPosition setElevatorTargetPosition =
-        new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
-    elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
+    //    SetElevatorTargetPosition setElevatorTargetPosition =
+    //        new SetElevatorTargetPosition(() -> (controller.getLeftY()), elevatorSubsystem);
+    //    elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.x().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
     controller.y().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
     controller.a().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));

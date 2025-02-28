@@ -63,17 +63,13 @@ public class ElevatorSimulator {
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
-
-    encoderSim.setPositionConversionFactor(1.0);
-    encoderSim.setPosition(0.0);
-    encoderSim.setInverted(false);
   }
 
   /** Advance the simulation. */
   public void stepSimulation() {
     // In this method, we update our simulation of what our elevator is doing
     // First, we set our "inputs" (voltages)
-    double motorOut = motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
+    double motorOut = -1 * motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
     m_elevatorSim.setInput(motorOut);
     // Next, we update it. The standard loop time is 20ms.
     m_elevatorSim.update(0.020);
@@ -82,7 +78,7 @@ public class ElevatorSimulator {
     double velocityMetersPerSecond = m_elevatorSim.getVelocityMetersPerSecond();
     double rpm = convertDistanceToRotations(Meters.of(velocityMetersPerSecond)).per(Second).in(RPM);
     motorSim.iterate(
-        rpm, 12, // RoboRioSim.getVInVoltage(),
+        -1 * rpm, 12, // RoboRioSim.getVInVoltage(),
         0.020);
     // SimBattery estimates loaded battery voltages
     RoboRioSim.setVInVoltage(
@@ -90,21 +86,24 @@ public class ElevatorSimulator {
 
     // Update elevator visualization with position
     double positionMeters = m_elevatorSim.getPositionMeters();
-    elevatorLigament.setLength(positionMeters);
 
     forwardSwitchSim.setPressed(
-        MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
-    reverseSwitchSim.setPressed(
         MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+    reverseSwitchSim.setPressed(
+        MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
 
+    SmartShuffleboard.put(
+        "Elevator", "Encoder location", motorSim.getRelativeEncoderSim().getPosition());
     SmartShuffleboard.put("Elevator", "Motor out voltage", motorOut);
     SmartShuffleboard.put("Elevator", "Velocity mps", velocityMetersPerSecond);
     SmartShuffleboard.put("Elevator", "RPM", rpm);
-    SmartShuffleboard.put(
-        "Elevator", "Elevator actual position", m_elevatorSim.getPositionMeters());
     SmartShuffleboard.put("Elevator", "Mechanism length", positionMeters);
     SmartShuffleboard.put("Elevator", "Forward switch", forwardSwitchSim.getPressed());
     SmartShuffleboard.put("Elevator", "Reverse switch", reverseSwitchSim.getPressed());
+
+    if (elevatorLigament != null) {
+      elevatorLigament.setLength(positionMeters);
+    }
   }
 
   /**
