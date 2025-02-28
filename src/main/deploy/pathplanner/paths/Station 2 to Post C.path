@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.785078127917128,
-        "y": 0.8720286253727493
+        "x": 2.3179245283018868,
+        "y": 1.2872473045822097
       },
       "isLocked": false,
       "linkedName": null
@@ -20,12 +20,12 @@
         "y": 2.88
       },
       "prevControl": {
-        "x": 3.6389970908995672,
-        "y": 2.7186993840211024
+        "x": 3.4768867924528304,
+        "y": 2.4107311320754707
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "PostCLeftScore"
     }
   ],
   "rotationTargets": [],
@@ -56,7 +56,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.15040558674607
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": "Station 2 to Posts (12)",
