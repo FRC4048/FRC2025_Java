@@ -6,6 +6,7 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import java.util.ArrayList;
 import java.util.List;
+import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -20,6 +21,8 @@ public class CameraThread {
   private static final int WIDTH = 640;
   private static final int HEIGHT = 480;
 
+  private static final String LOGGING_PREFIX = "DriverCam";
+
   public CameraThread() {
     CameraRunner runner = new CameraRunner();
     Thread cameraThread = new Thread(runner, "CameraThread");
@@ -33,15 +36,17 @@ public class CameraThread {
 
       UsbCamera camera = CameraServer.startAutomaticCapture();
       // Get the USB Camera from the camera server
-      camera.setResolution(640, 480);
+      camera.setResolution(WIDTH, HEIGHT);
 
       // Get a CvSink. This will capture Mats from the Camera
-      CvSink cvSink = CameraServer.getVideo();
       // Setup a CvSource. This will send images back to the dashboard
-      CvSource outputStream = CameraServer.putVideo("TestStream", WIDTH, HEIGHT);
+      CvSink cvSink = CameraServer.getVideo();
+      CvSource outputStream = CameraServer.putVideo(LOGGING_PREFIX, WIDTH / 2, HEIGHT / 2);
 
       // Mats are very expensive. Let's reuse this Mat.
       Mat cameraMat = new Mat();
+
+      int errorCount = 0;
 
       // CvType.CV_8UC3;
       Mat overlayMat = new Mat(new Size(WIDTH, HEIGHT), CvType.CV_8UC3);
@@ -49,13 +54,15 @@ public class CameraThread {
 
       Mat finalMat = Mat.zeros(WIDTH, HEIGHT, 0);
 
-      Mat rotatedMat = Mat.ones(HEIGHT, WIDTH, 0);
+      Mat rotatedMat = Mat.zeros(HEIGHT, WIDTH, 0);
 
       while (true) {
+        long startTime = System.currentTimeMillis();
         // Tell the CvSink to grab a frame from the camera and put it
         // in the source mat.  If there is an error notify the output.
         if (cvSink.grabFrame(cameraMat) == 0) {
-          System.err.println("ERROR GRABBING FRAME");
+          errorCount++;
+          Logger.recordOutput(LOGGING_PREFIX + "/errorCount", errorCount);
           // Send the output the error.
           outputStream.notifyError(cvSink.getError());
           // skip the rest of the current iteration
@@ -67,13 +74,15 @@ public class CameraThread {
           Core.addWeighted(overlayMat, alpha, cameraMat, 1 - alpha, 0, finalMat);
 
           Core.transpose(finalMat, rotatedMat);
-          Core.flip(rotatedMat, rotatedMat, 1);
+          // Core.flip(rotatedMat, rotatedMat, 0);
         } catch (Exception e) {
           e.printStackTrace();
         }
 
         // Give the output stream a new image to display
         outputStream.putFrame(rotatedMat);
+        long endTime = System.currentTimeMillis();
+        Logger.recordOutput(LOGGING_PREFIX + "/frameProcessingTimeMS", (endTime - startTime));
       }
     }
 
@@ -103,6 +112,8 @@ public class CameraThread {
       // Imgproc.fillPoly(overlayMat, baseList, new Scalar(255, 255, 255));
       Imgproc.fillPoly(overlayMat, rectBlockList, new Scalar(0, 0, 150));
       Imgproc.fillPoly(overlayMat, secondRectBlockList, new Scalar(0, 0, 150));
+
+      Core.flip(overlayMat, overlayMat, 0);
     }
   }
 }
