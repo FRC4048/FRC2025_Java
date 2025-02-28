@@ -19,6 +19,7 @@ public class Paths {
   private final Command postEToStationOneCommand;
   private final Command postBToStationTwoCommand;
   private final Command postCToStationTwoCommand;
+  private final Command postDToStationTwoCommand;
   // Station to Post
   private final Command stationOneToPostKCommand;
   private final Command stationOneToPostLCommand;
@@ -64,6 +65,8 @@ public class Paths {
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post B to Station 2"));
       postCToStationTwoCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post C to Station 2"));
+      postDToStationTwoCommand =
+          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post D to Station 2"));
       // Station to Post
       stationOneToPostKCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 1 to Post K"));
@@ -168,5 +171,9 @@ public class Paths {
 
   public Command getPostHToStationeOneCommand() {
     return postHToStationOneCommand;
+  }
+
+  public Command getPostDToStationTwoCommand() {
+    return postDToStationTwoCommand;
   }
 }

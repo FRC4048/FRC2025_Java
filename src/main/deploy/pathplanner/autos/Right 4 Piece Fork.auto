@@ -83,77 +83,6 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "Station 2 to Post B"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "SetElevatorStoredPosition"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShootCoral"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Post B to Station 2"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ResetElevator"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "IntakeCoral"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
                               "pathName": "Station 2 to Post C"
                             }
                           },
@@ -244,6 +173,58 @@
                 "type": "named",
                 "data": {
                   "name": "ShootCoral"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Post D to Station 2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Station 2 to Post B"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "SetElevatorStoredPosition"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShootCoral"
+                      }
+                    }
+                  ]
                 }
               }
             ]
