@@ -26,7 +26,6 @@ import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -126,12 +125,6 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
-    if (Constants.SWERVE_DEBUG) {
-      SmartShuffleboard.put("Drive", "FL ABS Pos", frontLeft.getAbsPosition());
-      SmartShuffleboard.put("Drive", "FR ABS Pos", frontRight.getAbsPosition());
-      SmartShuffleboard.put("Drive", "BL ABS Pos", backLeft.getAbsPosition());
-      SmartShuffleboard.put("Drive", "BR ABS Pos", backRight.getAbsPosition());
-    }
   }
 
   private void processInputs() {
