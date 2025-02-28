@@ -82,23 +82,23 @@ public class Robot extends LoggedRobot {
     return mode.get();
   }
 
-  @Override
-  public void robotPeriodic() {
-    if (getMode() != RobotMode.TEST) {
-      CommandScheduler.getInstance().run();
-      if (counter == 0) {
-        actualInit();
-      }
-      if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
-      m_robotContainer.getRobotVisualizer().logMechanism();
-    }
-    counter++;
-  }
+    @Override
+    public void robotPeriodic() {
+        if (getMode() != RobotMode.TEST) {
+            CommandScheduler.getInstance().run();
+            if (counter == 0) {
+                actualInit();
+            }
+            if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
+                m_robotContainer.getRobotVisualizer().logMechanism();
+            }
+            counter++;
+        }
 
-    if (Constants.ENABLE_LOGGING) {
-      CommandLogger.get().log();
+        if (Constants.ENABLE_LOGGING) {
+            CommandLogger.get().log();
+        }
     }
-  }
 
   /** Use this instead of robot init. */
   private void actualInit() {

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.constants.Constants;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 /**
@@ -84,18 +85,22 @@ public class ArmSimulator {
         BatterySim.calculateDefaultBatteryLoadedVoltage(armSim.getCurrentDrawAmps()));
     // Update elevator visualization with position
     Rotation2d positionRadians = Rotation2d.fromRadians(armSim.getAngleRads());
-    ligament.setAngle(positionRadians);
     forwardSwitchSim.setPressed(armSim.hasHitUpperLimit());
     reverseSwitchSim.setPressed(armSim.hasHitLowerLimit());
+    if (ligament != null) {
+      ligament.setAngle(positionRadians);
+    }
 
-    SmartDashboard.putNumber(name + "/Arm Motor out voltage", motorOut);
-    SmartDashboard.putNumber(name + "/Arm Velocity rads per s", velocityRadsPerSecond.getRadians());
-    SmartDashboard.putNumber(name + "/Arm RPM", rpm);
-    SmartDashboard.putNumber(name + "/Arm actual position", armSim.getAngleRads());
-    SmartDashboard.putNumber(name + "/Arm Mechanism angle", armSim.getAngleRads());
-    SmartDashboard.putBoolean(name + "/Arm Forward switch", forwardSwitchSim.getPressed());
-    SmartDashboard.putBoolean(name + "/Arm Reverse switch", reverseSwitchSim.getPressed());
-    SmartDashboard.putNumber(name + "/Arm Encoder", encoderSim.getPosition());
+    if (Constants.HIHI_DEBUG) {
+      SmartDashboard.putNumber(name + "/Arm Motor out voltage", motorOut);
+      SmartDashboard.putNumber(name + "/Arm Velocity rads per s", velocityRadsPerSecond.getRadians());
+      SmartDashboard.putNumber(name + "/Arm RPM", rpm);
+      SmartDashboard.putNumber(name + "/Arm actual position", armSim.getAngleRads());
+      SmartDashboard.putNumber(name + "/Arm Mechanism angle", armSim.getAngleRads());
+      SmartDashboard.putBoolean(name + "/Arm Forward switch", forwardSwitchSim.getPressed());
+      SmartDashboard.putBoolean(name + "/Arm Reverse switch", reverseSwitchSim.getPressed());
+      SmartDashboard.putNumber(name + "/Arm Encoder", encoderSim.getPosition());
+    }
   }
 
   public void close() {

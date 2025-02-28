@@ -190,9 +190,9 @@ public class RobotContainer {
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
-    //    SetElevatorTargetPosition setElevatorTargetPosition =
-    //        new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
-    //    elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
+    SetElevatorTargetPosition setElevatorTargetPosition =
+        new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
+    elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.x().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
     controller.y().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
     controller.a().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
@@ -352,9 +352,9 @@ public class RobotContainer {
     if (Constants.BYEBYE_DEBUG) {
       // ByeBye Commands
 
-      SmartDashboard.putData( "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
-      SmartDashboard.putData( "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
-      SmartShuffleboard.putCommand("ByeBye", "ByeBye Roller", new SpinByeByeRoller(byebyeRoller));
+      SmartDashboard.putData("ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
+
+      SmartDashboard.putData("ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
     }
 
     if (Constants.ELEVATOR_DEBUG) {

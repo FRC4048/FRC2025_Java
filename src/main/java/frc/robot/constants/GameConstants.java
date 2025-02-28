@@ -102,7 +102,7 @@ public class GameConstants {
   public static final int DRIVE_SECONDARY_LIMIT = 48; // TODO: change later
   public static final double DRIVE_RAMP_RATE_LIMIT = 0.1; // TODO: change later
   public static final int NEO_CURRENT_LIMIT = 20;
-  public static final int HIHI_CURRENT_LIMIT = 30;
+  public static final int HIHI_CURRENT_LIMIT = 10;
 
   // HiHi PID
   public static final double HIHI_PID_P = 0.02; // 0.08 with max motion
@@ -144,17 +144,15 @@ public class GameConstants {
       Units.inchesToMeters(1); // In M(in), change later
   public static final double MIN_ELEVATOR_HEIGHT_METERS = 0; // in m
   public static final double MAX_ELEVATOR_HEIGHT_METERS = 1; // in m
-  public static final double INITIAL_ELEVATOR_HEIGHT = 0.1; // TODO: change later
+  public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.2; // TODO: change later
   public static final double BYEBYE_TILT_LENGTH = 0.2; // TODO: change later
 
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE = Rotation2d.fromDegrees(0);
   public static final Rotation2d HIHI_MAX_ANGLE = Rotation2d.fromDegrees(90);
-  public static final Rotation2d BYEBYE_TILT_MIN_ANGLE =
-      Rotation2d.fromDegrees(45); // TODO: change later
-  public static final Rotation2d BYEBYE_TILT_MAX_ANGLE =
-      Rotation2d.fromDegrees(90); // TODO: change later
+  public static final Rotation2d BYEBYE_TILT_MIN_ANGLE = Rotation2d.fromDegrees(45); // TODO: change later
+  public static final Rotation2d BYEBYE_TILT_MAX_ANGLE = Rotation2d.fromDegrees(90); // TODO: change later
   public static final double BYEBYE_TILT_INERTIA = 0.5; // TODO: change later
   public static final double BYEBYE_TILT_GEARING = 45.0; // TODO: change later
   public static final boolean BYEBYE_TILT_SIMULATE_GRAVITY = true;
