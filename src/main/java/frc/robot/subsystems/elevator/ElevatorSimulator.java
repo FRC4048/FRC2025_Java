@@ -92,15 +92,18 @@ public class ElevatorSimulator {
     reverseSwitchSim.setPressed(
         MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
 
-    Logger.recordOutput("ElevatorSubsystem/MotorCommandedVoltage", motorOut);
-    Logger.recordOutput("ElevatorSubsystem/VelocityMPS", velocityMetersPerSecond);
-    Logger.recordOutput(
-        "ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
-    Logger.recordOutput("ElevatorSubsystem/ElevatorMechanismLength", elevatorMech2d.getLength());
+    if (Constants.ELEVATOR_DEBUG) {
+      Logger.recordOutput("ElevatorSubsystem/MotorCommandedVoltage", motorOut);
+      Logger.recordOutput("ElevatorSubsystem/VelocityMPS", velocityMetersPerSecond);
+      Logger.recordOutput(
+          "ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
+      Logger.recordOutput(
+          "ElevatorSubsystem/ElevatorMechanismLength", elevatorLigament.getLength());
+    }
 
-      if (elevatorLigament != null) {
-          elevatorLigament.setLength(positionMeters);
-      }
+    if (elevatorLigament != null) {
+      elevatorLigament.setLength(positionMeters);
+    }
   }
 
   /**
