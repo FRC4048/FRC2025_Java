@@ -4,24 +4,22 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
-import java.util.ArrayList;
-import java.util.List;
 import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 public class CameraThread {
 
-  private static final int WIDTH = 640;
-  private static final int HEIGHT = 480;
+  private static final int WIDTH = 640 / 4;
+  private static final int HEIGHT = 480 / 4;
 
   private static final String LOGGING_PREFIX = "DriverCam";
+
+  private static final double TOP_Y = HEIGHT / 3;
+  private static final double BOTTOM_Y = (HEIGHT / 3) * 2;
 
   public CameraThread() {
     CameraRunner runner = new CameraRunner();
@@ -33,7 +31,15 @@ public class CameraThread {
   private class CameraRunner implements Runnable {
     @Override
     public void run() {
+      try {
+        processImage();
+      } catch (Exception e) {
+        e.printStackTrace();
+        return;
+      }
+    }
 
+    private void processImage() {
       UsbCamera camera = CameraServer.startAutomaticCapture();
       // Get the USB Camera from the camera server
       camera.setResolution(WIDTH, HEIGHT);
@@ -41,18 +47,12 @@ public class CameraThread {
       // Get a CvSink. This will capture Mats from the Camera
       // Setup a CvSource. This will send images back to the dashboard
       CvSink cvSink = CameraServer.getVideo();
-      CvSource outputStream = CameraServer.putVideo(LOGGING_PREFIX, WIDTH / 2, HEIGHT / 2);
+      CvSource outputStream = CameraServer.putVideo(LOGGING_PREFIX, WIDTH, HEIGHT);
 
       // Mats are very expensive. Let's reuse this Mat.
       Mat cameraMat = new Mat();
 
       int errorCount = 0;
-
-      // CvType.CV_8UC3;
-      Mat overlayMat = new Mat(new Size(WIDTH, HEIGHT), CvType.CV_8UC3);
-      addOverlay(overlayMat);
-
-      Mat finalMat = Mat.zeros(WIDTH, HEIGHT, 0);
 
       Mat rotatedMat = Mat.zeros(HEIGHT, WIDTH, 0);
 
@@ -73,23 +73,9 @@ public class CameraThread {
         long mark1 = System.currentTimeMillis();
         Logger.recordOutput(LOGGING_PREFIX + "/mark1", (mark1 - startTime));
 
-        try {
-          double alpha = 0.4; // Transparency of the overlay
-          Core.addWeighted(overlayMat, alpha, cameraMat, 1 - alpha, 0, finalMat);
+        drawLines(cameraMat);
 
-          long mark2 = System.currentTimeMillis();
-
-          Logger.recordOutput(LOGGING_PREFIX + "/mark2", (mark2 - mark1));
-
-          Core.transpose(finalMat, rotatedMat);
-
-          long mark3 = System.currentTimeMillis();
-
-          Logger.recordOutput(LOGGING_PREFIX + "/mark3", (mark3 - mark2));
-          // Core.flip(rotatedMat, rotatedMat, 0);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+        Core.transpose(cameraMat, rotatedMat);
 
         // Give the output stream a new image to display
         outputStream.putFrame(rotatedMat);
@@ -98,34 +84,10 @@ public class CameraThread {
       }
     }
 
-    private void addOverlay(Mat overlayMat) {
-      // "Top" rect polygon
-      Point[] points = new Point[4];
-      points[0] = new Point(0, 0);
-      points[1] = new Point(WIDTH, 0);
-      points[2] = new Point(WIDTH, 100);
-      points[3] = new Point(0, 150);
-      MatOfPoint pointMat = new MatOfPoint();
-      pointMat.fromArray(points);
-      List<MatOfPoint> rectBlockList = new ArrayList<MatOfPoint>();
-      rectBlockList.add(pointMat);
+    private void drawLines(Mat mat) {
 
-      // "Bottom" rect polygon
-      Point[] secondPoints = new Point[4];
-      secondPoints[0] = new Point(0, 350);
-      secondPoints[1] = new Point(WIDTH, 380);
-      secondPoints[2] = new Point(WIDTH, HEIGHT);
-      secondPoints[3] = new Point(0, HEIGHT);
-      MatOfPoint secondPointMat = new MatOfPoint();
-      secondPointMat.fromArray(secondPoints);
-      List<MatOfPoint> secondRectBlockList = new ArrayList<MatOfPoint>();
-      secondRectBlockList.add(secondPointMat);
-
-      // Imgproc.fillPoly(overlayMat, baseList, new Scalar(255, 255, 255));
-      Imgproc.fillPoly(overlayMat, rectBlockList, new Scalar(0, 0, 150));
-      Imgproc.fillPoly(overlayMat, secondRectBlockList, new Scalar(0, 0, 150));
-
-      Core.flip(overlayMat, overlayMat, 0);
+      Imgproc.line(mat, new Point(0, TOP_Y), new Point(WIDTH, TOP_Y), new Scalar(0, 255, 0));
+      Imgproc.line(mat, new Point(0, BOTTOM_Y), new Point(WIDTH, BOTTOM_Y), new Scalar(0, 255, 0));
     }
   }
 }
