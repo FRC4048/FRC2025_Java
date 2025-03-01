@@ -48,7 +48,7 @@
   "folder": "Cross",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 179.721
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

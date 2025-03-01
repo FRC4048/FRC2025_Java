@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.83,
-        "y": 2.88
+        "x": 3.760714285714286,
+        "y": 2.9192553908355787
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.264016172506739,
-        "y": 2.20968665768194
+        "x": 3.194730458221025,
+        "y": 2.248942048517519
       },
       "isLocked": false,
       "linkedName": "PostCLeftScore"
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 0.5,
     "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

@@ -1,7 +1,6 @@
 package frc.robot.commands.autos;
 
 import frc.robot.commands.coral.ShootCoral;
-import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
@@ -20,37 +19,45 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(Paths.getInstance().getRobotFourToPostECommand()),
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip)),
         new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
-        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getPostEToStationOneCommand()), // Post E to Station One
-            new LightlessPickup(elevator, coral)),
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to Post B
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip)),
-        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
-        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(Paths.getInstance().getPostCToStationTwoCommand()),
-            new LightlessPickup(elevator, coral)),
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(Paths.getInstance().getStationTwoToPostDCommand()),
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip)),
-        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
-        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getPostDToStationTwoCommand()), // Post C to Station 2
-            new LightlessPickup(elevator, coral)),
-        new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(
-                Paths.getInstance().getStationTwoToPostBCommand()), // Station 2 to Post D
-            new SetElevatorStoredPosition(
-                ElevatorPosition.LEVEL4, elevator, lightStrip) // Elevator to L4
-            ),
-        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
-        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
-        new ResetElevator(elevator));
+        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED)
+        //        new LoggableParallelCommandGroup(
+        //            new LoggableCommandWrapper(
+        //                Paths.getInstance().getPostEToStationOneCommand()) // Post E to Station
+        // One
+        //            //            new LightlessPickup(elevator, coral)
+        //            ),
+        //        new LoggableParallelCommandGroup(
+        //            new LoggableCommandWrapper(
+        //                Paths.getInstance().getStationTwoToPostCCommand()) // Station 2 to Post B
+        //            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator,
+        // lightStrip)
+        //            ),
+        //        //        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
+        //        //        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
+        //        new LoggableParallelCommandGroup(
+        //            new LoggableCommandWrapper(Paths.getInstance().getPostCToStationTwoCommand())
+        //            //            new LightlessPickup(elevator, coral)
+        //            ),
+        //        new LoggableParallelCommandGroup(
+        //            new LoggableCommandWrapper(Paths.getInstance().getStationTwoToPostDCommand())
+        //            //            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator,
+        //            // lightStrip)
+        //            ),
+        //        //        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
+        //        //        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
+        //        new LoggableParallelCommandGroup(
+        //            new LoggableCommandWrapper(
+        //                Paths.getInstance().getPostDToStationTwoCommand()) // Post C to Station 2
+        //            //            new LightlessPickup(elevator, coral)),
+        //            ),
+        //        new LoggableParallelCommandGroup(
+        //            new LoggableCommandWrapper(
+        //                Paths.getInstance().getStationTwoToPostBCommand()) // Station 2 to Post D
+        //            new SetElevatorStoredPosition(
+        //                ElevatorPosition.LEVEL4, elevator, lightStrip) // Elevator to L4
+        );
+    //        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
+    //        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
+    //        new ResetElevator(elevator));
   }
 }

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.1,
-        "y": 2.73
+        "x": 4.032715633423181,
+        "y": 2.789167789757412
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.449002093471755,
-        "y": 2.961858876802965
+        "x": 4.3817177268949346,
+        "y": 3.0210266665603767
       },
       "isLocked": false,
       "linkedName": "PostDScope"
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 0.5,
     "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
