@@ -11,7 +11,6 @@ import frc.robot.utils.diag.DiagSparkMaxEncoder;
 import frc.robot.utils.diag.DiagSparkMaxSwitch;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SparkMaxInputProvider;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class RealCoralIOLeader implements CoralIOLeader {
   protected final SparkMax shooterMotorLeader;
@@ -77,9 +76,5 @@ public class RealCoralIOLeader implements CoralIOLeader {
   @Override
   public void updateInputs(MotorInputs inputs) {
     inputs.process(initProvider);
-    if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.put(
-          "coral", "ForwardTrippedLeader", shooterMotorLeader.getForwardLimitSwitch().isPressed());
-    }
   }
 }
