@@ -17,12 +17,9 @@ import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
-import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
-import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
-import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 /**
  * A class to encapsulate the behavior of a simulated elevator. Wraps around the motor and the
@@ -38,6 +35,7 @@ public class ElevatorSimulator {
 
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
+  private final LoggedMechanismLigament2d elevatorLigament;
   // The encoder simulator from the simulated motor
   private final SparkRelativeEncoderSim encoderSim;
   // The forward switch simulator
@@ -56,34 +54,22 @@ public class ElevatorSimulator {
           Constants.MAX_ELEVATOR_HEIGHT_METERS,
           true,
           0);
-  // The mechanism simulation used for visualization
-  private final Mechanism2d mech2d = new Mechanism2d(3, 5);
-  private final MechanismRoot2d mech2dRoot = mech2d.getRoot("Elevator Root", 1, 0);
-  private final MechanismLigament2d elevatorMech2d =
-      mech2dRoot.append(new MechanismLigament2d("Elevator", m_elevatorSim.getPositionMeters(), 90));
 
   /** Constructor. */
-  public ElevatorSimulator(SparkMax motor) {
+  public ElevatorSimulator(SparkMax motor, LoggedMechanismLigament2d elevatorLigament) {
     this.motor = motor;
     motorSim = new SparkMaxSim(motor, elevatorGearbox);
+    this.elevatorLigament = elevatorLigament;
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
-
-    encoderSim.setPositionConversionFactor(1.0);
-    encoderSim.setPosition(0.0);
-    encoderSim.setInverted(false);
-
-    // Publish Mechanism2d to SmartDashboard
-    // To view the Elevator visualization, select Network Tables -> SmartDashboard -> Elevator Sim
-    SmartDashboard.putData("Elevator Sim", mech2d);
   }
 
   /** Advance the simulation. */
   public void stepSimulation() {
     // In this method, we update our simulation of what our elevator is doing
     // First, we set our "inputs" (voltages)
-    double motorOut = motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
+    double motorOut = -1 * motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
     m_elevatorSim.setInput(motorOut);
     // Next, we update it. The standard loop time is 20ms.
     m_elevatorSim.update(0.020);
@@ -92,7 +78,7 @@ public class ElevatorSimulator {
     double velocityMetersPerSecond = m_elevatorSim.getVelocityMetersPerSecond();
     double rpm = convertDistanceToRotations(Meters.of(velocityMetersPerSecond)).per(Second).in(RPM);
     motorSim.iterate(
-        rpm, 12, // RoboRioSim.getVInVoltage(),
+        -1 * rpm, 12, // RoboRioSim.getVInVoltage(),
         0.020);
     // SimBattery estimates loaded battery voltages
     RoboRioSim.setVInVoltage(
@@ -100,18 +86,24 @@ public class ElevatorSimulator {
 
     // Update elevator visualization with position
     double positionMeters = m_elevatorSim.getPositionMeters();
-    elevatorMech2d.setLength(positionMeters);
 
     forwardSwitchSim.setPressed(
-        MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
-    reverseSwitchSim.setPressed(
         MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+    reverseSwitchSim.setPressed(
+        MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
 
-    Logger.recordOutput("ElevatorSubsystem/MotorCommandedVoltage", motorOut);
-    Logger.recordOutput("ElevatorSubsystem/VelocityMPS", velocityMetersPerSecond);
-    Logger.recordOutput(
-        "ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
-    Logger.recordOutput("ElevatorSubsystem/ElevatorMechanismLength", elevatorMech2d.getLength());
+    if (Constants.ELEVATOR_DEBUG) {
+      Logger.recordOutput("ElevatorSubsystem/MotorCommandedVoltage", motorOut);
+      Logger.recordOutput("ElevatorSubsystem/VelocityMPS", velocityMetersPerSecond);
+      Logger.recordOutput(
+          "ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
+      Logger.recordOutput(
+          "ElevatorSubsystem/ElevatorMechanismLength", elevatorLigament.getLength());
+    }
+
+    if (elevatorLigament != null) {
+      elevatorLigament.setLength(positionMeters);
+    }
   }
 
   /**
@@ -130,6 +122,5 @@ public class ElevatorSimulator {
   public void close() {
     // m_encoder.close();
     motor.close();
-    mech2d.close();
   }
 }

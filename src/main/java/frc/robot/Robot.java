@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
+import frc.robot.constants.GameConstants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
@@ -81,20 +82,23 @@ public class Robot extends LoggedRobot {
     return mode.get();
   }
 
-  @Override
-  public void robotPeriodic() {
-    if (getMode() != RobotMode.TEST) {
-      CommandScheduler.getInstance().run();
-      if (counter == 0) {
-        actualInit();
-      }
-      counter++;
-    }
+    @Override
+    public void robotPeriodic() {
+        if (getMode() != RobotMode.TEST) {
+            CommandScheduler.getInstance().run();
+            if (counter == 0) {
+                actualInit();
+            }
+            if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
+                m_robotContainer.getRobotVisualizer().logMechanism();
+            }
+            counter++;
+        }
 
-    if (Constants.ENABLE_LOGGING) {
-      CommandLogger.get().log();
+        if (Constants.ENABLE_LOGGING) {
+            CommandLogger.get().log();
+        }
     }
-  }
 
   /** Use this instead of robot init. */
   private void actualInit() {
