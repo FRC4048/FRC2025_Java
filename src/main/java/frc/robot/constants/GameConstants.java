@@ -25,7 +25,7 @@ public class GameConstants {
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
   public static final boolean ELEVATOR_DEBUG = false;
-  public static final boolean CORAL_DEBUG = true;
+  public static final boolean CORAL_DEBUG = false;
   public static final boolean HIHI_DEBUG = false;
   public static final boolean BYEBYE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = false;
@@ -43,6 +43,7 @@ public class GameConstants {
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.5; // TODO: change later
   public static final double INTAKE_MOTOR_SPEED = 0.25;
+  public static final double INTAKE_ALIGNER_SPEED = 0.3;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.8;
   public static final double HIHI_EXTEND_SPEED = 0.4;

@@ -23,7 +23,6 @@ import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
-import frc.robot.commands.coral.StartAligner;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.elevator.*;
@@ -312,8 +311,6 @@ public class RobotContainer {
 
       SmartDashboard.putData(
           "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
-      SmartDashboard.putData("Start Aligner", new StartAligner(coralSubsystem, 0.3));
-      SmartDashboard.putData("Stop Aligner", new StartAligner(coralSubsystem, 0));
     }
 
     if (Constants.HIHI_DEBUG) {
