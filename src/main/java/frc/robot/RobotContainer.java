@@ -8,17 +8,20 @@ import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.SetRumble;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
@@ -151,7 +154,7 @@ public class RobotContainer {
     JoystickButton joyRight1 = new JoystickButton(joyright, 1);
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
-
+    new Trigger(()->drivetrain.isInBarge()).whileTrue(new SetRumble(controller, true)).onFalse(new SetRumble(controller, false));
     controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
     controller
         .povUp()

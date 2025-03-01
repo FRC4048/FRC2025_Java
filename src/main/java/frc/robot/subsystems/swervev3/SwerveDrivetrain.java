@@ -197,4 +197,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
+
+  public boolean isInBarge() {
+    return getPose().getTranslation()
+  }
 }
