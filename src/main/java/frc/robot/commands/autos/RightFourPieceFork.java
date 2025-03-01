@@ -19,13 +19,11 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(Paths.getInstance().getRobotFourToPostECommand()),
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip)),
         new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
-        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED)
-        //        new LoggableParallelCommandGroup(
-        //            new LoggableCommandWrapper(
-        //                Paths.getInstance().getPostEToStationOneCommand()) // Post E to Station
-        // One
-        //            //            new LightlessPickup(elevator, coral)
-        //            ),
+        new ShootCoral(coral, Constants.CORAL_SHOOTER_SPEED),
+        new LoggableParallelCommandGroup(
+            new LoggableCommandWrapper(
+                Paths.getInstance().getPostEToStationOneCommand()), // Post E to Station
+            new LightlessPickup(elevator, coral))
         //        new LoggableParallelCommandGroup(
         //            new LoggableCommandWrapper(
         //                Paths.getInstance().getStationTwoToPostCCommand()) // Station 2 to Post B
