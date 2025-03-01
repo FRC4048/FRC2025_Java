@@ -36,12 +36,13 @@ public class CameraThread {
 
       UsbCamera camera = CameraServer.startAutomaticCapture();
       // Get the USB Camera from the camera server
-      camera.setResolution(WIDTH, HEIGHT);
+      camera.setResolution(WIDTH / 4, HEIGHT / 4);
+      camera.setFPS(60);
 
       // Get a CvSink. This will capture Mats from the Camera
       // Setup a CvSource. This will send images back to the dashboard
       CvSink cvSink = CameraServer.getVideo();
-      CvSource outputStream = CameraServer.putVideo(LOGGING_PREFIX, WIDTH / 2, HEIGHT / 2);
+      CvSource outputStream = CameraServer.putVideo(LOGGING_PREFIX, WIDTH / 4, HEIGHT / 4);
 
       // Mats are very expensive. Let's reuse this Mat.
       Mat cameraMat = new Mat();
@@ -50,7 +51,7 @@ public class CameraThread {
 
       // CvType.CV_8UC3;
       Mat overlayMat = new Mat(new Size(WIDTH, HEIGHT), CvType.CV_8UC3);
-      addOverlay(overlayMat);
+      // addOverlay(overlayMat);
 
       Mat finalMat = Mat.zeros(WIDTH, HEIGHT, 0);
 
@@ -86,7 +87,8 @@ public class CameraThread {
           long mark3 = System.currentTimeMillis();
 
           Logger.recordOutput(LOGGING_PREFIX + "/mark3", (mark3 - mark2));
-          // Core.flip(rotatedMat, rotatedMat, 0);
+
+          Core.flip(rotatedMat, rotatedMat, 0);
         } catch (Exception e) {
           e.printStackTrace();
         }
