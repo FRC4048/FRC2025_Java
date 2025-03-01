@@ -9,6 +9,7 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -81,7 +82,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
@@ -148,7 +148,8 @@ public class RobotContainer {
             drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
 
     JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
-    RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX);
+    JoystickButton joyRight1 = new JoystickButton(joyright, 1);
+    RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
 
     controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
@@ -179,10 +180,12 @@ public class RobotContainer {
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
-
+    joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
-      SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
+      SmartDashboard.putData("Roll Algae", new RollAlgae(hihiRoller, 0.5));
+      //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
+      //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
     }
   }
 
@@ -302,74 +305,61 @@ public class RobotContainer {
   public void putShuffleboardCommands() {
 
     if (Constants.CORAL_DEBUG) {
-      SmartShuffleboard.putCommand(
-          "Commands", "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
-      SmartShuffleboard.putCommand("Commands", "Intake Coral", new IntakeCoral(coralSubsystem));
+      SmartDashboard.putData(
+          "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+      SmartDashboard.putData("Intake Coral", new IntakeCoral(coralSubsystem));
 
-      SmartShuffleboard.putCommand(
-          "Coral", "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+      SmartDashboard.putData(
+          "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
     }
 
     if (Constants.HIHI_DEBUG) {
       // HiHi Commads
 
-      SmartShuffleboard.putCommand("HiHi", "Extend HiHi", new ExtendHiHi(hihiExtender));
+      SmartDashboard.putData("Extend HiHi", new ExtendHiHi(hihiExtender));
 
-      SmartShuffleboard.putCommand("HiHi", "Retract HiHi", new RetractHiHi(hihiExtender));
+      SmartDashboard.putData("Retract HiHi", new RetractHiHi(hihiExtender));
 
-      SmartShuffleboard.putCommand("HiHi", "Roll HiHi Roller In", new RollHiHiRollerIn(hihiRoller));
+      SmartDashboard.putData("Roll HiHi Roller In", new RollHiHiRollerIn(hihiRoller));
 
-      SmartShuffleboard.putCommand(
-          "HiHi", "Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
+      SmartDashboard.putData("Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
 
-      SmartShuffleboard.putCommand(
-          "HiHi", "Intake Algae", new IntakeAlgae(hihiExtender, hihiRoller));
+      SmartDashboard.putData("Intake Algae", new IntakeAlgae(hihiExtender, hihiRoller));
     }
 
     if (Constants.BYEBYE_DEBUG) {
       // ByeBye Commands
 
-      SmartShuffleboard.putCommand(
-          "ByeBye", "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
+      SmartDashboard.putData("ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
 
-      SmartShuffleboard.putCommand(
-          "ByeBye", "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
+      SmartDashboard.putData("ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
     }
 
     if (Constants.ELEVATOR_DEBUG) {
       // Elevator Commands
-      SmartShuffleboard.putCommand(
-          "Elevator",
-          "SetElevatorSetpointTo0",
-          new SetElevatorTargetPosition(() -> 0, elevatorSubsystem));
-      SmartShuffleboard.putCommand(
-          "Elevator", "RestElevatorEncoder", new ResetElevatorEncoder(elevatorSubsystem));
+      SmartDashboard.putData(
+          "SetElevatorSetpointTo0", new SetElevatorTargetPosition(() -> 0, elevatorSubsystem));
+      SmartDashboard.putData("RestElevatorEncoder", new ResetElevatorEncoder(elevatorSubsystem));
 
-      SmartShuffleboard.putCommand(
-          "Elevator", "Reset Elevator", new ResetElevator(elevatorSubsystem));
+      SmartDashboard.putData("Reset Elevator", new ResetElevator(elevatorSubsystem));
 
-      SmartShuffleboard.putCommand(
-          "Elevator", "Elevator To Position", new ElevatorToStoredPosition(elevatorSubsystem));
+      SmartDashboard.putData(
+          "Elevator To Position", new ElevatorToStoredPosition(elevatorSubsystem));
 
-      SmartShuffleboard.putCommand(
-          "Elevator",
+      SmartDashboard.putData(
           "Store L0",
           new SetElevatorStoredPosition(
               ElevatorPosition.CORAL_INTAKE, elevatorSubsystem, lightStrip));
-      SmartShuffleboard.putCommand(
-          "Elevator",
+      SmartDashboard.putData(
           "Store L1",
           new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
-      SmartShuffleboard.putCommand(
-          "Elevator",
+      SmartDashboard.putData(
           "Store L2",
           new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
-      SmartShuffleboard.putCommand(
-          "Elevator",
+      SmartDashboard.putData(
           "Store L3",
           new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
-      SmartShuffleboard.putCommand(
-          "Elevator",
+      SmartDashboard.putData(
           "Store L4",
           new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevatorSubsystem, lightStrip));
     }
@@ -377,18 +367,14 @@ public class RobotContainer {
     if (Constants.CLIMBER_DEBUG) {
       // Climber Commands
 
-      //      SmartShuffleboard.putCommand("Climber", "Reset Climber", new ResetClimber(climber));
+      //      SmartDashboard.putData( "Reset Climber", new ResetClimber(climber));
       //
-      //      SmartShuffleboard.putCommand("Climber", "Close Climber", new CloseClimber(climber));
+      //      SmartDashboard.putData( "Close Climber", new CloseClimber(climber));
     }
 
-    SmartShuffleboard.putCommand(
-        "DEBUG",
-        "LightStripPatternGreen",
-        new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
-    SmartShuffleboard.putCommand(
-        "DEBUG",
-        "LightStripPatternViolet",
-        new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
+    SmartDashboard.putData(
+        "LightStripPatternGreen", new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
+    SmartDashboard.putData(
+        "LightStripPatternViolet", new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
   }
 }
