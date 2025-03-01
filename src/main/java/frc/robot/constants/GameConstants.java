@@ -25,7 +25,7 @@ public class GameConstants {
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
   public static final boolean ELEVATOR_DEBUG = false;
-  public static final boolean CORAL_DEBUG = false;
+  public static final boolean CORAL_DEBUG = true;
   public static final boolean HIHI_DEBUG = false;
   public static final boolean BYEBYE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = false;

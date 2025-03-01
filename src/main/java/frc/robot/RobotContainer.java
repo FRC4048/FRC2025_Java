@@ -23,6 +23,7 @@ import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
+import frc.robot.commands.coral.StartAligner;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.elevator.*;
@@ -43,13 +44,7 @@ import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
-import frc.robot.subsystems.coral.CoralSubsystem;
-import frc.robot.subsystems.coral.MockCoralIOFollower;
-import frc.robot.subsystems.coral.MockCoralIOLeader;
-import frc.robot.subsystems.coral.RealCoralIOFollower;
-import frc.robot.subsystems.coral.RealCoralIOLeader;
-import frc.robot.subsystems.coral.SimCoralIOFollower;
-import frc.robot.subsystems.coral.SimCoralIOLeader;
+import frc.robot.subsystems.coral.*;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -105,7 +100,9 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
-        coralSubsystem = new CoralSubsystem(new RealCoralIOFollower(), new RealCoralIOLeader());
+        coralSubsystem =
+            new CoralSubsystem(
+                new RealCoralIOFollower(), new RealCoralIOLeader(), new RealCoralIOAligner());
         //                climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
@@ -115,7 +112,9 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
-        coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
+        coralSubsystem =
+            new CoralSubsystem(
+                new MockCoralIOFollower(), new MockCoralIOLeader(), new MockCoralIOAligner());
         //                climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
@@ -125,7 +124,9 @@ public class RobotContainer {
         hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
         hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
         elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
-        coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
+        coralSubsystem =
+            new CoralSubsystem(
+                new SimCoralIOFollower(), new SimCoralIOLeader(), new SimCoralIOAligner());
         //        climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
@@ -311,6 +312,8 @@ public class RobotContainer {
 
       SmartDashboard.putData(
           "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+      SmartDashboard.putData("Start Aligner", new StartAligner(coralSubsystem, 0.3));
+      SmartDashboard.putData("Stop Aligner", new StartAligner(coralSubsystem, 0));
     }
 
     if (Constants.HIHI_DEBUG) {
