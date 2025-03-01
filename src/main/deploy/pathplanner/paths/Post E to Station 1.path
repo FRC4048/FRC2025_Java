@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.321719302771227,
-        "y": 1.3345518867924522
+        "x": 5.321746232842197,
+        "y": 1.334424249317343
       },
       "isLocked": false,
       "linkedName": "PostELeftScore"
@@ -20,8 +20,8 @@
         "y": 0.679
       },
       "prevControl": {
-        "x": 2.0813554213696093,
-        "y": 1.168985849056603
+        "x": 2.0813551003861903,
+        "y": 1.168986147353879
       },
       "nextControl": null,
       "isLocked": false,

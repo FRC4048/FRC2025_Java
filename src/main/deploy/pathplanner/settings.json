@@ -18,8 +18,8 @@
     "Robot 3 to Reefs (12)",
     "Robot 4 to Reefs (12)"
   ],
-  "defaultMaxVel": 0.5,
-  "defaultMaxAccel": 1.0,
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,

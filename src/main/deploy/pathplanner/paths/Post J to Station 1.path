@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.000628030711207,
-        "y": 5.2139328529094815
+        "x": 5.05,
+        "y": 5.13
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.3334910425646544,
-        "y": 5.738185277478448
+        "x": 5.357243935309973,
+        "y": 6.277880727762803
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ScorePostJ"
     },
     {
       "anchor": {
         "x": 1.626,
-        "y": 7.361012804085067
+        "y": 7.361
       },
       "prevControl": {
-        "x": 1.817578068946302,
-        "y": 7.200395733078259
+        "x": 2.1050539083557953,
+        "y": 6.810057277628032
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -50,5 +50,5 @@
     "velocity": 0.0,
     "rotation": -120.13299999999998
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
