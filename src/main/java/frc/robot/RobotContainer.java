@@ -159,11 +159,11 @@ public class RobotContainer {
     controller
         .povDown()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
     controller
         .povLeft()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
     controller
         .povRight()
         .onTrue(
@@ -174,16 +174,14 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.x().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
-    controller.y().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
-    controller.a().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
-    controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
+    controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
+    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
+    controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
+    controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
-    // climber on Right Trigger
+
     if (Constants.COMMAND_DEBUG) {
       SmartShuffleboard.putCommand("DEBUG", "Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber reset", new ResetClimber(climber));
-      //      SmartShuffleboard.putCommand("DEBUG", "Climber stop", new CloseClimber(climber));
       SmartShuffleboard.put("DEBUG", "CID", Constants.ALGAE_ROLLER_CAN_ID);
     }
   }
