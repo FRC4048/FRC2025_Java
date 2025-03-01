@@ -219,11 +219,11 @@ public class RobotContainer {
     controller
         .povDown()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
     controller
         .povLeft()
         .onTrue(
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
+            new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
     controller
         .povRight()
         .onTrue(
@@ -234,10 +234,10 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.x().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
-    controller.y().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
-    controller.a().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
-    controller.b().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
+    controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
+    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
+    controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
+    controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
