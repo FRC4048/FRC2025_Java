@@ -46,7 +46,7 @@ public class GameConstants {
   public static final double INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.8;
   public static final double HIHI_EXTEND_SPEED = 0.4;
-  public static final double HIHI_RETRACT_SPEED = -0.15;
+  public static final double HIHI_RETRACT_SPEED = -0.20;
   public static final double HIHI_INTAKE_SPEED = 0.7;
   public static final double HIHI_SHOOT_SPEED = -0.9;
   public static final double CLIMBER_SPEED = 0.5;
