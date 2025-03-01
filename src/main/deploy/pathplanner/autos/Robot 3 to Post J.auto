@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Robot 3 to Post G"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post G to Station 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 2 to Post J"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Robot 3 to Reefs (12)",
+  "choreoAuto": false
+}

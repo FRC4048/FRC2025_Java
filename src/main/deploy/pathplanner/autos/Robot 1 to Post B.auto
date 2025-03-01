@@ -1,0 +1,38 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Robot 1 to Post I "
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Post I to Station 1"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Station 1 to Post B"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Robot 1 to Posts (12)",
+  "choreoAuto": false
+}

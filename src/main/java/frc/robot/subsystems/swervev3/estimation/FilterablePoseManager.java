@@ -73,4 +73,8 @@ public class FilterablePoseManager extends PoseManager {
     }
     Logger.recordOutput("rejectedMeasurementsCount", numRejected);
   }
+
+  public VisionTruster getVisionTruster() {
+    return visionTruster;
+  }
 }

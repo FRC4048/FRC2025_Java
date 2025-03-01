@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -11,12 +12,15 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
+import frc.robot.autochooser.AutoAction;
+import frc.robot.autochooser.FieldLocation;
+import frc.robot.autochooser.chooser.AutoChooser2025;
+import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
@@ -25,8 +29,18 @@ import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.RobotSlide;
+import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.elevator.*;
+import frc.robot.commands.elevator.ElevatorToStoredPosition;
+import frc.robot.commands.elevator.ResetElevator;
+import frc.robot.commands.elevator.ResetElevatorEncoder;
+import frc.robot.commands.elevator.SetElevatorStoredPosition;
+import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.hihi.*;
+import frc.robot.commands.hihi.ExtendHiHi;
+import frc.robot.commands.hihi.RetractHiHi;
+import frc.robot.commands.hihi.RollHiHiRollerIn;
+import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
@@ -85,6 +99,7 @@ import frc.robot.utils.motor.PID;
 import java.util.Optional;
 
 public class RobotContainer {
+  private AutoChooser2025 autoChooser;
   private SwerveDrivetrain drivetrain;
   private final AlgaeByeByeRollerSubsystem byebyeRoller;
   private final AlgaeByeByeTiltSubsystem byebyeTilt;
@@ -137,7 +152,51 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
+    setupAutoChooser();
     putShuffleboardCommands();
+    pathPlannerCommands();
+  }
+
+  private void setupAutoChooser() {
+    autoChooser =
+        new AutoChooser2025(
+            new RealAutoEventProvider(AutoAction.DO_NOTHING, FieldLocation.ZERO),
+            elevatorSubsystem,
+            coralSubsystem,
+            lightStrip,
+            byebyeTilt);
+
+    autoChooser
+        .getProvider()
+        .addOnValidationCommand(() -> new SetInitOdom(drivetrain, autoChooser).initialize());
+    autoChooser.getProvider().forceRefresh();
+  }
+
+  public AutoChooser2025 getAutoChooser() {
+    return autoChooser;
+  }
+
+  private void pathPlannerCommands() {
+    // COMMANDS REGISTERED FOR PATHPLANNER
+    NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
+    NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt));
+    NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL0",
+        new SetElevatorStoredPosition(
+            ElevatorPosition.CORAL_INTAKE, elevatorSubsystem, lightStrip));
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL1",
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL1, elevatorSubsystem, lightStrip));
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL2",
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevatorSubsystem, lightStrip));
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL3",
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
+    NamedCommands.registerCommand(
+        "ElevatorToPositionL4",
+        new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevatorSubsystem, lightStrip));
   }
 
   private void configureBindings() {
@@ -190,7 +249,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return autoChooser.getAutoCommand();
   }
 
   public static boolean isRedAlliance() {

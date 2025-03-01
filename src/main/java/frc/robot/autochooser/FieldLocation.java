@@ -2,6 +2,7 @@ package frc.robot.autochooser;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import frc.robot.RobotContainer;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,8 +11,12 @@ import java.util.stream.Collectors;
 
 public enum FieldLocation {
   ZERO(0, 0, 0, "Zero", "Zero"),
-  INVALID(-1, -1, -1, "INVALID", "INVALID");
-  private static final double RED_X_POS = 16.5; // meters
+  INVALID(-1, -1, -1, "INVALID", "INVALID"),
+  LEFT(7.150, 6.000, 180, "Left", "Left"),
+  MIDDLE(7.128, 4.173, 180, "Middle", "Middle"),
+  RIGHT(7.150, 2.000, 180, "Right", "Right");
+
+  private static final double RED_X_POS = 2.3876; // meters
   private final double yPos;
   private final double xPose;
   private final double angle;
@@ -31,12 +36,14 @@ public enum FieldLocation {
   }
 
   public static FieldLocation fromName(String string) {
-    return null;
+    return nameMap.get(string);
   }
 
   public Pose2d getLocation() {
-    double x = RobotContainer.isRedAlliance() ? RED_X_POS - xPose : xPose;
-    double radian = RobotContainer.isRedAlliance() ? Math.PI - angle : angle;
+    double x =
+        RobotContainer.isRedAlliance() ? xPose + RED_X_POS + Units.inchesToMeters(36) : xPose;
+    double radian =
+        RobotContainer.isRedAlliance() ? Math.toRadians(180 - angle) : Math.toRadians(angle);
     return new Pose2d(x, yPos, Rotation2d.fromRadians(radian));
   }
 

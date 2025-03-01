@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Do Nothing"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post F to Station 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 2 to Post H"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Robot 4 to Reefs (12)",
+  "choreoAuto": false
+}

@@ -40,8 +40,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setElevatorPosition(double encoderPos) {
     if (encoderPos > 0) {
       encoderPos = 0;
-    } else if (encoderPos < Constants.MAX_ELEVATOR_ENCODER_POSITION) {
-      encoderPos = Constants.MAX_ELEVATOR_ENCODER_POSITION;
+    } else if (encoderPos < ElevatorPosition.LEVEL4.getElevatorHeight()) {
+      encoderPos = ElevatorPosition.LEVEL4.getElevatorHeight();
     }
     // TODO: This can be moved to input-based logging once that framework switches to composition
     Logger.recordOutput("ElevatorSubsystem/targetPosition", encoderPos);

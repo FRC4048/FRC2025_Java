@@ -70,10 +70,17 @@ public abstract class BasicVisionFilter implements VisionFilter, VisionTransform
     if (odomPoseAtVis1.isEmpty() || odomPoseAtVis2.isEmpty()) {
       return false;
     }
+    if (!inBounds(m1Pose) || !inBounds(m2Pose)) {
+      return false;
+    }
     double odomDiff1To2 =
         odomPoseAtVis1.get().getTranslation().getDistance(odomPoseAtVis2.get().getTranslation());
     double visionDiff1To2 = m1Pose.getTranslation().getDistance(m2Pose.getTranslation());
     double diff = Math.abs(odomDiff1To2 - visionDiff1To2);
     return Math.abs(diff) <= Constants.VISION_CONSISTANCY_THRESHOLD;
+  }
+
+  private boolean inBounds(Pose2d pose2d) {
+    return pose2d.getX() > 0 && pose2d.getX() < 20 && pose2d.getY() > 0 && pose2d.getY() < 20;
   }
 }

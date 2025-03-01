@@ -36,7 +36,8 @@ public class RealAutoEventProvider implements AutoEventProviderIO {
     Arrays.stream(FieldLocation.values())
         .forEach(l -> locationChooser.addOption(l.getShuffleboardName(), l));
     actionChooser.setDefaultOption(defaultAutoAction.getName(), defaultAutoAction);
-    locationChooser.setDefaultOption(defaultFieldLocation.name(), defaultFieldLocation);
+    locationChooser.setDefaultOption(
+        defaultFieldLocation.getShuffleboardName(), defaultFieldLocation);
     ShuffleboardTab autoTab = Shuffleboard.getTab(AUTO_TAB_NAME);
     autoTab
         .add(ACTION_FIELD_NAME, actionChooser)
