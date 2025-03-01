@@ -24,7 +24,7 @@ public class GameConstants {
   public static final boolean SWERVE_DEBUG = false;
   public static final boolean INTAKE_DEBUG = false;
   public static final boolean CLIMBER_DEBUG = false;
-  public static final boolean ELEVATOR_DEBUG = false;
+  public static final boolean ELEVATOR_DEBUG = true;
   public static final boolean CORAL_DEBUG = false;
   public static final boolean HIHI_DEBUG = false;
   public static final boolean BYEBYE_DEBUG = false;
@@ -120,6 +120,11 @@ public class GameConstants {
   public static final double ELEVATOR_PID_I = 0;
   public static final double ELEVATOR_PID_D = 0;
   public static final double ELEVATOR_PID_FF = 0.001;
+  public static final double ELEVATOR_PID_DOWN_P = 0.0005;
+  public static final double ELEVATOR_PID_DOWN_I = 0;
+  public static final double ELEVATOR_PID_DOWN_D = 0;
+  public static final double ELEVATOR_PID_DOWN_FF = 0.001;
+
   public static final double ELEVATOR_PID_IZONE = 0;
   public static final double ELEVATOR_PID_MAX_VELOCITY = 3000;
   public static final double ELEVATOR_PID_MAX_ACCELERATION = 30000;

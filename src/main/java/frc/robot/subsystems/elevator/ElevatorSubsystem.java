@@ -81,6 +81,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorSystem.getIO().resetEncoder();
   }
 
+  public void configurePID(NeoPidConfig neoPidConfig) {
+    elevatorSystem.getIO().configurePID(neoPidConfig);
+  }
+
   @Override
   public void periodic() {
     elevatorSystem.updateInputs();
