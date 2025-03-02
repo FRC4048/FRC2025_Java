@@ -180,7 +180,7 @@ public class RobotContainer {
     // COMMANDS REGISTERED FOR PATHPLANNER
     NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
     NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt));
-    NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
+    NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, elevatorSubsystem));
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
         new SetElevatorStoredPosition(
@@ -230,7 +230,7 @@ public class RobotContainer {
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
-    controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, elevatorSubsystem));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
@@ -239,7 +239,7 @@ public class RobotContainer {
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
     controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
-    joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    joyRight1.onTrue(new ShootCoral(coralSubsystem, elevatorSubsystem));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartDashboard.putData("Roll Algae", new RollAlgae(hihiRoller, 0.5));
@@ -365,7 +365,7 @@ public class RobotContainer {
 
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
-          "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+          "Shoot Coral", new ShootCoral(coralSubsystem, elevatorSubsystem));
       SmartDashboard.putData("Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartDashboard.putData(

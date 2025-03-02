@@ -6,19 +6,20 @@ package frc.robot.commands.coral;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.coral.CoralSubsystem;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ShootCoral extends LoggableCommand {
   /** Creates a new ShootCoral. */
   private final CoralSubsystem shooter;
-
-  private final double speedMotors;
+  private final ElevatorSubsystem elevatorSubsystem;
   private final Timer timer;
 
-  public ShootCoral(CoralSubsystem shooter, double speedMotors) {
-    this.speedMotors = speedMotors;
+  public ShootCoral(CoralSubsystem shooter, ElevatorSubsystem elevatorSubsystem) {
     this.timer = new Timer();
+    this.elevatorSubsystem = elevatorSubsystem;
     this.shooter = shooter;
     addRequirements(shooter);
   }
@@ -26,7 +27,7 @@ public class ShootCoral extends LoggableCommand {
   @Override
   public void initialize() {
     shooter.setLimitSwitchState(false);
-    shooter.setShooterSpeed(speedMotors);
+    shooter.setShooterSpeed(elevatorSubsystem.getStoredReefPosition().getShootSpeed());
     timer.restart();
   }
 
