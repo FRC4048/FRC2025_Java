@@ -8,7 +8,6 @@ import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.camera.CameraThread;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.SetBaseVisionStd;
@@ -18,6 +17,7 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
+import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
@@ -104,7 +104,7 @@ public class Robot extends LoggedRobot {
 
   /** Use this instead of robot init. */
   private void actualInit() {
-    new SequentialCommandGroup(
+    new LoggableSequentialCommandGroup(
             new WheelAlign(robotContainer.getDrivetrain()),
             new ResetGyro(robotContainer.getDrivetrain()))
         .schedule();
