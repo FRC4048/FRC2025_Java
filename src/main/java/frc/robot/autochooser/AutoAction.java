@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 public enum AutoAction {
   DO_NOTHING("Do Nothing"),
-  TWO_PIECE_FORK("4 Piece Auto - Fork"),
-  TWO_PIECE_LINE("4 Piece Auto - Line"),
+  TWO_PIECE_FORK("2 Piece Auto - Fork"),
+  TWO_PIECE_LINE("2 Piece Auto - Line"),
   ONE_PIECE("1 Piece"),
   CROSS_THE_LINE("Cross The Line"),
   INVALID("INVALID");
