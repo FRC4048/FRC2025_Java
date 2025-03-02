@@ -66,7 +66,9 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
     inputs.setEncoderPosition(
         moduleSimulation.getSteerAbsoluteFacing().getRadians() * steerPosConvFactor);
     inputs.setEncoderVelocity(
-        moduleSimulation.getSteerAbsoluteEncoderSpeed().in(RadiansPerSecond) * steerPosConvFactor);
+        moduleSimulation.getSteerAbsoluteEncoderSpeed().in(RadiansPerSecond)
+            * steerPosConvFactor
+            / 60);
     inputs.setAppliedOutput(turnAppliedVolts);
     inputs.setMotorCurrent(Math.abs(moduleSimulation.getSteerMotorStatorCurrent().in(Amps)));
     inputs.setOdometryTimestamps(SparkUtil.getSimulationOdometryTimeStamps());
