@@ -5,8 +5,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.pathfinding.Pathfinding;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraThread;
@@ -18,8 +18,8 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
-import java.util.Optional;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
@@ -95,9 +95,9 @@ public class Robot extends LoggedRobot {
     if (getMode() != RobotMode.TEST) {
       CommandScheduler.getInstance().run();
       if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
-      allianceColor = DriverStation.getAlliance();
-    }
-    if (counter == 0) {
+        allianceColor = DriverStation.getAlliance();
+      }
+      if (counter == 0) {
         actualInit();
       }
       counter++;

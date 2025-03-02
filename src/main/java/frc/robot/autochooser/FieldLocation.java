@@ -4,8 +4,8 @@ import static edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.Robot;
 import edu.wpi.first.math.util.Units;
+import frc.robot.Robot;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -48,11 +48,10 @@ public enum FieldLocation {
       return new Pose2d(0.0, 0.0, Rotation2d.kZero);
     }
 
-    double x =
-        (alliance == Alliance.Red) ? xPose + RED_X_POS + Units.inchesToMeters(36) : xPose;
+    double x = (alliance == Alliance.Red) ? xPose + RED_X_POS + Units.inchesToMeters(36) : xPose;
     double y = (alliance == Alliance.Red) ? yPose - 2 * (yPose - (HEIGHT_OF_FIELD / 2)) : yPose;
     double radian =
-    (alliance == Alliance.Red) ? Math.toRadians(180 - angle) : Math.toRadians(angle);
+        (alliance == Alliance.Red) ? Math.toRadians(180 - angle) : Math.toRadians(angle);
     return new Pose2d(x, y, Rotation2d.fromRadians(radian));
   }
 
