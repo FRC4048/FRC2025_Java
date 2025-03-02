@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Robot 4 to Post E"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post E to Station 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 2 to Post C"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post C to Station 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 2 to Post D"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post D to Station 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 2 to Post B"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "RAINBOW AUTO",
+  "choreoAuto": false
+}

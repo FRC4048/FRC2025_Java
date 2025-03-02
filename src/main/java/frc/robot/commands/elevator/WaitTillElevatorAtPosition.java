@@ -25,7 +25,7 @@ public class WaitTillElevatorAtPosition extends LoggableCommand {
 
   @Override
   public void execute() {
-    if (Math.abs(elevatorSubsystem.getElevatorTargetPosition() - position) < 1) {
+    if (Math.abs(elevatorSubsystem.getEncoderValue() - position) < 1) {
       counter++;
     }
   }
