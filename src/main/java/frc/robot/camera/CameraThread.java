@@ -95,7 +95,7 @@ public class CameraThread {
       Imgproc.line(
           mat, new Point(0, HEIGHT / 2), new Point(WIDTH, HEIGHT / 2), new Scalar(20, 97, 255));
 
-      // Leaving this commented out right now, may bring back two lines          
+      // Leaving this commented out right now, may bring back two lines
       // Imgproc.line(mat, new Point(0, TOP_Y), new Point(WIDTH, TOP_Y), new Scalar(0, 255, 0));
       // Imgproc.line(mat, new Point(0, BOTTOM_Y), new Point(WIDTH, BOTTOM_Y), new Scalar(0, 255,
       // 0));

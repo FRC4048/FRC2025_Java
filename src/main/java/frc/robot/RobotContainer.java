@@ -7,6 +7,8 @@ package frc.robot;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,7 +29,7 @@ import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
-import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.MoveDistance;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.elevator.*;
@@ -68,10 +70,7 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
 import frc.robot.subsystems.elevator.SimElevatorIO;
-import frc.robot.subsystems.gyro.GyroIO;
-import frc.robot.subsystems.gyro.MockGyroIO;
-import frc.robot.subsystems.gyro.RealGyroIO;
-import frc.robot.subsystems.gyro.ThreadedGyro;
+import frc.robot.subsystems.gyro.*;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
 import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
@@ -87,6 +86,8 @@ import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
 import frc.robot.subsystems.swervev3.SwervePidConfig;
+import frc.robot.subsystems.swervev3.io.ModuleIO;
+import frc.robot.subsystems.swervev3.io.SimSwerveModule;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
@@ -97,6 +98,9 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
+import org.ironmaple.simulation.SimulatedArena;
+import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
+import org.littletonrobotics.junction.Logger;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -113,6 +117,7 @@ public class RobotContainer {
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
+  private SwerveDriveSimulation driveSimulation = null;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -202,9 +207,9 @@ public class RobotContainer {
   private void configureBindings() {
     lightStrip.setDefaultCommand(
         new SetLedFromElevatorPosition(elevatorSubsystem::getStoredReefPosition, lightStrip));
-    drivetrain.setDefaultCommand(
-        new Drive(
-            drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
+    // drivetrain.setDefaultCommand(
+    //     new Drive(
+    //         drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
 
     JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
     JoystickButton joyRight1 = new JoystickButton(joyright, 1);
@@ -291,13 +296,12 @@ public class RobotContainer {
     SwervePidConfig pidConfig =
         new SwervePidConfig(drivePid, steerPid, driveGain, steerGain, constraints);
 
-    SwerveModule frontLeft;
-    SwerveModule frontRight;
-    SwerveModule backLeft;
-    SwerveModule backRight;
-
     GyroIO gyroIO;
     LoggableIO<ApriltagInputs> apriltagIO;
+    ModuleIO frontLeft;
+    ModuleIO frontRight;
+    ModuleIO backLeft;
+    ModuleIO backRight;
     if (Robot.isReal()) {
       frontLeft =
           SwerveModule.createModule(
@@ -321,7 +325,58 @@ public class RobotContainer {
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       apriltagIO = new TCPApriltag();
-    } else {
+      drivetrain =
+          new SwerveDrivetrain(
+              frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO, (pose) -> {});
+    } else if (Constants.currentMode == Constants.Mode.SIM) {
+      this.driveSimulation =
+          new SwerveDriveSimulation(
+              SwerveDrivetrain.mapleSimConfig, new Pose2d(0, 0, new Rotation2d()));
+      SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
+      frontLeft =
+          SimSwerveModule.createModule(
+              driveSimulation.getModules()[0],
+              frontLeftIdConf,
+              kConfig,
+              pidConfig,
+              ModulePosition.FRONT_LEFT,
+              false);
+      frontRight =
+          SimSwerveModule.createModule(
+              driveSimulation.getModules()[1],
+              frontRightIdConf,
+              kConfig,
+              pidConfig,
+              ModulePosition.FRONT_RIGHT,
+              true);
+      backLeft =
+          SimSwerveModule.createModule(
+              driveSimulation.getModules()[2],
+              backLeftIdConf,
+              kConfig,
+              pidConfig,
+              ModulePosition.BACK_LEFT,
+              false);
+      backRight =
+          SimSwerveModule.createModule(
+              driveSimulation.getModules()[3],
+              backRightIdConf,
+              kConfig,
+              pidConfig,
+              ModulePosition.BACK_RIGHT,
+              true);
+      gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
+      apriltagIO = new MockApriltag();
+      drivetrain =
+          new SwerveDrivetrain(
+              frontLeft,
+              frontRight,
+              backLeft,
+              backRight,
+              gyroIO,
+              apriltagIO,
+              driveSimulation::setSimulationWorldPose);
+    } else if (Constants.currentMode == Constants.Mode.REPLAY) {
       frontLeft =
           new SwerveModule(
               new MockDriveMotorIO(),
@@ -352,9 +407,10 @@ public class RobotContainer {
               "backRight");
       gyroIO = new MockGyroIO();
       apriltagIO = new MockApriltag();
+      drivetrain =
+          new SwerveDrivetrain(
+              frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO, (pose) -> {});
     }
-    drivetrain =
-        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
   }
 
   public SwerveDrivetrain getDrivetrain() {
@@ -362,7 +418,7 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-
+    SmartDashboard.putData("Move Forward 1 ft", new MoveDistance(drivetrain, 0.3048, 0, 0.4));
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
           "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
@@ -435,5 +491,17 @@ public class RobotContainer {
         "LightStripPatternGreen", new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
     SmartDashboard.putData(
         "LightStripPatternViolet", new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
+  }
+
+  public void updateSimulation() {
+    if (Constants.currentMode != Constants.Mode.SIM) return;
+
+    SimulatedArena.getInstance().simulationPeriodic();
+    Logger.recordOutput(
+        "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
+    Logger.recordOutput(
+        "FieldSimulation/Coral", SimulatedArena.getInstance().getGamePiecesArrayByType("Coral"));
+    Logger.recordOutput(
+        "FieldSimulation/Algae", SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
   }
 }
