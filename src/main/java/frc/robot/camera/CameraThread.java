@@ -18,10 +18,11 @@ public class CameraThread {
 
   private static final String LOGGING_PREFIX = "DriverCam";
 
-  private static final double TOP_Y = 45;
-  private static final double BOTTOM_Y = 72;
+  // Leaving this commented out now, may bring back double lines
+  // private static final double TOP_Y = 45;
+  // private static final double BOTTOM_Y = 72;
 
-  private static final double HORIZ_LINE = 98.0;
+  private static final double HORIZ_LINE = 85.0;
 
   public CameraThread() {
     CameraRunner runner = new CameraRunner();
@@ -77,7 +78,7 @@ public class CameraThread {
 
         drawLines(cameraMat);
 
-        Core.flip(cameraMat, cameraMat, 1);
+        Core.flip(cameraMat, cameraMat, 0);
         Core.transpose(cameraMat, rotatedMat);
 
         // Give the output stream a new image to display
@@ -90,9 +91,14 @@ public class CameraThread {
     private void drawLines(Mat mat) {
 
       Imgproc.line(
-          mat, new Point(HORIZ_LINE, 0), new Point(HORIZ_LINE, HEIGHT), new Scalar(0, 255, 0));
-      Imgproc.line(mat, new Point(0, TOP_Y), new Point(WIDTH, TOP_Y), new Scalar(0, 255, 0));
-      Imgproc.line(mat, new Point(0, BOTTOM_Y), new Point(WIDTH, BOTTOM_Y), new Scalar(0, 255, 0));
+          mat, new Point(HORIZ_LINE, 0), new Point(HORIZ_LINE, HEIGHT), new Scalar(20, 97, 255));
+      Imgproc.line(
+          mat, new Point(0, HEIGHT / 2), new Point(WIDTH, HEIGHT / 2), new Scalar(20, 97, 255));
+
+      // Leaving this commented out right now, may bring back two lines          
+      // Imgproc.line(mat, new Point(0, TOP_Y), new Point(WIDTH, TOP_Y), new Scalar(0, 255, 0));
+      // Imgproc.line(mat, new Point(0, BOTTOM_Y), new Point(WIDTH, BOTTOM_Y), new Scalar(0, 255,
+      // 0));
     }
   }
 }
