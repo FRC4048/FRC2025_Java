@@ -9,6 +9,7 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.camera.CameraThread;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.SetBaseVisionStd;
 import frc.robot.commands.drivetrain.SetInitOdom;
@@ -78,6 +79,8 @@ public class Robot extends LoggedRobot {
     Logger.start();
     CommandLogger.get().init();
     robotContainer = new RobotContainer();
+
+    new CameraThread();
   }
 
   public static RobotMode getMode() {
