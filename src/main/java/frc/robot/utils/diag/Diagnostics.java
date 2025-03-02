@@ -3,6 +3,8 @@ package frc.robot.utils.diag;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.utils.RobotMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class Diagnostics extends SubsystemBase {
    * periodically (e.g. in test mode) to ensure the components are all tested
    */
   public void refresh() {
-    diagnosables.forEach(Diagnosable::refresh);
+    if (Robot.getMode() == RobotMode.TEST) diagnosables.forEach(Diagnosable::refresh);
   }
 
   /**

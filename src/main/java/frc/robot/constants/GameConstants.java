@@ -21,16 +21,16 @@ public class GameConstants {
   public static final double GYRO_DIAGS_ANGLE = 30;
 
   // Debug
-  public static final boolean SWERVE_DEBUG = true;
-  public static final boolean INTAKE_DEBUG = true;
-  public static final boolean CLIMBER_DEBUG = true;
-  public static final boolean ELEVATOR_DEBUG = true;
-  public static final boolean CORAL_DEBUG = true;
-  public static final boolean HIHI_DEBUG = true;
-  public static final boolean BYEBYE_DEBUG = true;
-  public static final boolean COMMAND_DEBUG = true;
-  public static final boolean INPUTS_DEBUG = true;
-  public static final boolean TUNING_MODE = true;
+  public static final boolean SWERVE_DEBUG = false;
+  public static final boolean INTAKE_DEBUG = false;
+  public static final boolean CLIMBER_DEBUG = false;
+  public static final boolean ELEVATOR_DEBUG = false;
+  public static final boolean CORAL_DEBUG = false;
+  public static final boolean HIHI_DEBUG = false;
+  public static final boolean BYEBYE_DEBUG = false;
+  public static final boolean COMMAND_DEBUG = false;
+  public static final boolean INPUTS_DEBUG = false;
+  public static final boolean TUNING_MODE = false;
 
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
@@ -61,7 +61,7 @@ public class GameConstants {
   public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
-  public static final int SHOOT_CORAL_TIMEOUT = 1;
+  public static final double SHOOT_CORAL_TIMEOUT = 1;
   public static final int CORAL_FWR_TIMEOUT = 10;
   public static final int ROLL_ALGAE_TIMEOUT = 10;
   public static final double HIHI_RETRACT_TIMEOUT = 10;
@@ -126,11 +126,13 @@ public class GameConstants {
   public static final boolean ELEVATOR_USE_MAX_MOTION = true;
 
   // Drive PID
-  public static final double DRIVE_PID_P = 1; // TODO: change later
+  public static final double DRIVE_PID_P = 2; // TODO: change later
   public static final double DRIVE_PID_I = 0; // TODO: change later
   public static final double DRIVE_PID_D = 0; // TODO: change later
-  public static final double DRIVE_PID_FF_S = 1; // TODO: change later
-  public static final double DRIVE_PID_FF_V = 2.8; // TODO: change later
+  public static final double DRIVE_PID_FF_S = 0.19;
+  public static final double DRIVE_PID_FF_V = 3.3;
+  public static final double DRIVE_PID_I_ZONE = 0; // TODO: change later
+  public static final double DRIVE_PID_ALLOWED_ERROR = 0;
 
   // Steer PID
   public static final double STEER_PID_P = 0.3; // TODO: change later
@@ -140,7 +142,7 @@ public class GameConstants {
   public static final double STEER_PID_FF_V = 0; // 0.8; //TODO: change later
 
   // pathplanner SLOW ROBOT PID CHANGE FOR COMPETITION
-  public static final double PATH_PLANNER_TRANSLATION_PID_P = 1;
+  public static final double PATH_PLANNER_TRANSLATION_PID_P = 5;
   public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
   public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
   public static final double PATH_PLANNER_ROTATION_PID_P = 1;

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import java.util.Set;
 
 public class LoggableCommandWrapper extends LoggableCommand {
-  public final Command wrap;
+  private final Command wrap;
 
   public LoggableCommandWrapper(Command toWrap) {
     this.wrap = toWrap;

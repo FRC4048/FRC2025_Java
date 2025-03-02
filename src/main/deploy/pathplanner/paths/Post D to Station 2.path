@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.982,
-        "y": 2.835
+        "x": 4.068194070080863,
+        "y": 2.812866276743597
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.3310020934717555,
-        "y": 3.0668588768029648
+        "x": 4.4171961635526165,
+        "y": 3.044725153546562
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "PostDScope"
     },
     {
       "anchor": {
-        "x": 1.22,
-        "y": 0.978
+        "x": 1.626,
+        "y": 0.679
       },
       "prevControl": {
-        "x": 0.9305774623312927,
-        "y": 0.8562190709125369
+        "x": 1.3365774623312925,
+        "y": 0.557219070912537
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Station2"
     }
   ],
   "rotationTargets": [],
@@ -33,22 +33,22 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.53,
-    "maxAcceleration": 4.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 100.0,
+    "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 55.07187463361758
+    "rotation": 53.627
   },
   "reversed": false,
   "folder": "Station 2 to Posts (12)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 56.79758250671962
+    "rotation": 59.03285869288902
   },
   "useDefaultConstraints": true
 }

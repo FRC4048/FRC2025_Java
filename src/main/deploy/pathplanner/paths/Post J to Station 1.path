@@ -3,52 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.000628030711207,
-        "y": 5.2139328529094815
+        "x": 5.1443733153638815,
+        "y": 5.0597877358490555
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.3334910425646544,
-        "y": 5.738185277478448
+        "x": 5.451617250673855,
+        "y": 6.207668463611858
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ScorePostJ"
     },
     {
       "anchor": {
         "x": 1.626,
-        "y": 7.361012804085067
+        "y": 7.361
       },
       "prevControl": {
-        "x": 1.817578068946302,
-        "y": 7.200395733078259
+        "x": 2.660882749326146,
+        "y": 6.206923854447439
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5039682539682538,
+      "rotationDegrees": -70.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.53,
-    "maxAcceleration": 4.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
+    "velocity": 0.0,
     "rotation": -54.77
   },
   "reversed": false,
   "folder": "Posts to Station (4)",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -120.13299999999998
+    "rotation": -119.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

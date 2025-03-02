@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3925908231786843,
-        "y": 0.5894446753364387
+        "x": 2.164184636118599,
+        "y": 1.0034198113207538
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.981875880880638,
-        "y": 2.8352083434583983
+        "x": 4.07,
+        "y": 2.815
       },
       "prevControl": {
-        "x": 3.6329518631723388,
-        "y": 2.6033985113768248
+        "x": 3.517843665768195,
+        "y": 2.235555929919136
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "PostDScope"
     }
   ],
   "rotationTargets": [],
@@ -33,10 +33,10 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.53,
-    "maxAcceleration": 4.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 100.0,
+    "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },

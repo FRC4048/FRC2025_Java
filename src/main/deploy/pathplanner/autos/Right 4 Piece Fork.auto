@@ -5,248 +5,45 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "parallel",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Robot 4 to Post E"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SetElevatorStoredPosition"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShootCoral"
-                }
-              }
-            ]
+            "pathName": "Robot 4 to Post E"
           }
         },
         {
-          "type": "sequential",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "parallel",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Post E to Station 1"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ResetElevator"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeCoral"
-                }
-              }
-            ]
+            "pathName": "Post E to Station 1"
           }
         },
         {
-          "type": "sequential",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Station 2 to Post B"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "SetElevatorStoredPosition"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShootCoral"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Post B to Station 2"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ResetElevator"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "IntakeCoral"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "pathName": "Station 2 to Post C"
           }
         },
         {
-          "type": "sequential",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Station 2 to Post C"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "SetElevatorStoredPosition"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShootCoral"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Post C to Station 2"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ResetElevator"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeCoral"
-                }
-              }
-            ]
+            "pathName": "Post C to Station 2"
           }
         },
         {
-          "type": "sequential",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "Station 2 to Post D"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "SetElevatorStoredPosition"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShootCoral"
-                }
-              }
-            ]
+            "pathName": "Station 2 to Post D"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post D to Station 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Station 2 to Post B"
           }
         }
       ]
