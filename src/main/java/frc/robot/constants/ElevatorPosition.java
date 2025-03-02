@@ -1,11 +1,11 @@
 package frc.robot.constants;
 
 public enum ElevatorPosition {
-  CORAL_INTAKE(-1, 0.0),//shoot speed for intake is not used
+  CORAL_INTAKE(-1, 0.0), // shoot speed for intake is not used
   LEVEL1(-3.0, .8),
-  LEVEL2(-9.0 , .8),
+  LEVEL2(-9.0, .8),
   LEVEL3(-24, .8),
-  LEVEL4(-47, .6);
+  LEVEL4(-47, .1);
 
   private final double heightElevator;
   private final double shootSpeed;
@@ -18,6 +18,7 @@ public enum ElevatorPosition {
   public double getElevatorHeight() {
     return heightElevator;
   }
+
   public double getShootSpeed() {
     return shootSpeed;
   }

@@ -364,8 +364,7 @@ public class RobotContainer {
   public void putShuffleboardCommands() {
 
     if (Constants.CORAL_DEBUG) {
-      SmartDashboard.putData(
-          "Shoot Coral", new ShootCoral(coralSubsystem, elevatorSubsystem));
+      SmartDashboard.putData("Shoot Coral", new ShootCoral(coralSubsystem, elevatorSubsystem));
       SmartDashboard.putData("Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartDashboard.putData(

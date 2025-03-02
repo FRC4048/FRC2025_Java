@@ -6,7 +6,6 @@ package frc.robot.commands.coral;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
-import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
@@ -14,6 +13,7 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 public class ShootCoral extends LoggableCommand {
   /** Creates a new ShootCoral. */
   private final CoralSubsystem shooter;
+
   private final ElevatorSubsystem elevatorSubsystem;
   private final Timer timer;
 
