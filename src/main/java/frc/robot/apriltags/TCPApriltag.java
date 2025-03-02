@@ -1,5 +1,7 @@
 package frc.robot.apriltags;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.LoggableIO;
 import java.util.Queue;
@@ -24,6 +26,7 @@ public class TCPApriltag implements LoggableIO<ApriltagInputs> {
     inputs.apriltagNumber = new int[queue.size()];
     inputs.serverTime = new double[queue.size()];
     inputs.timestamp = new double[queue.size()];
+
     for (int i = 0; i < queue.size(); i++) {
       ApriltagReading measurement = queue.poll();
       inputs.posX[i] = measurement.posX();
@@ -33,6 +36,13 @@ public class TCPApriltag implements LoggableIO<ApriltagInputs> {
       inputs.apriltagNumber[i] = measurement.apriltagNumber();
       inputs.timestamp[i] = measurement.latency();
       inputs.serverTime[i] = measurement.measurementTime();
+    }
+    if (!queue.isEmpty()) {
+      Logger.recordOutput(
+          "VisionPose",
+          new Pose2d(inputs.posX[0], inputs.posY[0], Rotation2d.fromDegrees(inputs.poseYaw[0])));
+    } else {
+      Logger.recordOutput("VisionPose", new Pose2d(0, 0, Rotation2d.fromDegrees(0)));
     }
   }
 }
