@@ -61,7 +61,7 @@ public class GameConstants {
   public static final int ELEVATOR_TO_POSITION_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_FORWARD_TIMEOUT = 10; // TODO: change later
   public static final int BYEBYE_REVERSE_TIMEOUT = 10; // TODO: change later
-  public static final int SHOOT_CORAL_TIMEOUT = 1;
+  public static final double SHOOT_CORAL_TIMEOUT = 1;
   public static final int CORAL_FWR_TIMEOUT = 10;
   public static final int ROLL_ALGAE_TIMEOUT = 10;
   public static final double HIHI_RETRACT_TIMEOUT = 10;
@@ -140,6 +140,14 @@ public class GameConstants {
   public static final double STEER_PID_D = 0.005; // TODO: change later
   public static final double STEER_PID_FF_S = 0.2; // TODO: change later
   public static final double STEER_PID_FF_V = 0.8; // TODO: change later
+
+  // pathplanner SLOW ROBOT PID CHANGE FOR COMPETITION
+  public static final double PATH_PLANNER_TRANSLATION_PID_P = 5;
+  public static final double PATH_PLANNER_TRANSLATION_PID_I = 0;
+  public static final double PATH_PLANNER_TRANSLATION_PID_D = 0;
+  public static final double PATH_PLANNER_ROTATION_PID_P = 1;
+  public static final double PATH_PLANNER_ROTATION_PID_I = 0;
+  public static final double PATH_PLANNER_ROTATION_PID_D = 0;
 
   // Lengths
   public static final double ELEVATOR_DRUM_RADIUS =

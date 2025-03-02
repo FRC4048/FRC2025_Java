@@ -2,6 +2,11 @@ package frc.robot.subsystems.swervev3;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -10,6 +15,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
@@ -18,6 +25,8 @@ import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.ModuleIO;
+import frc.robot.subsystems.swervev3.io.SwerveModule;
+import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
@@ -66,6 +75,43 @@ public class SwerveDrivetrain extends SubsystemBase {
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
     this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
+
+    RobotConfig config = null;
+    try {
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      // Handle exception as needed
+      e.printStackTrace();
+    }
+
+    AutoBuilder.configure(
+        this::getPose,
+        this::resetOdometry,
+        this::getChassisSpeeds,
+        this::drive,
+        new PPHolonomicDriveController(
+            new PIDConstants(
+                Constants.PATH_PLANNER_TRANSLATION_PID_P,
+                Constants.PATH_PLANNER_TRANSLATION_PID_I,
+                Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
+            new PIDConstants(
+                Constants.PATH_PLANNER_ROTATION_PID_P,
+                Constants.PATH_PLANNER_ROTATION_PID_I,
+                Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
+            ),
+        config,
+        () -> {
+          // Boolean supplier that controls when the path will be mirrored for the red alliance
+          // This will flip the path being followed to the red side of the field.
+          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this);
   }
 
   @Override
@@ -90,6 +136,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
+    Logger.recordOutput("EstimatedX", getPose().getX());
+    Logger.recordOutput("EstimatedY", getPose().getY());
+    Logger.recordOutput("EstimatedYaw", getPose().getRotation().getDegrees());
   }
 
   private void processInputs() {
@@ -231,4 +280,8 @@ public class SwerveDrivetrain extends SubsystemBase {
                   Meters.of(kinematicsConfig.getWheelRadius()),
                   KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
                   Constants.COEFFICIENT_OF_FRICTION));
+
+  public void setVisionBaseSTD(Vector<N3> std) {
+    ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);
+  }
 }
