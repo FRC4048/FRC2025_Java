@@ -4,7 +4,6 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.numbers.N3;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
-import org.littletonrobotics.junction.AutoLogOutput;
 
 public class SquareVisionTruster extends DistanceVisionTruster {
 
@@ -17,7 +16,6 @@ public class SquareVisionTruster extends DistanceVisionTruster {
   }
 
   @Override
-  @AutoLogOutput
   public Vector<N3> calculateTrust(VisionMeasurement measurement) {
     double std = Math.pow(measurement.distanceFromTag(), 2) * constant;
     return initialSTD.plus(VecBuilder.fill(std, std, std));

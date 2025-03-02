@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.05,
-        "y": 5.13
+        "x": 5.1443733153638815,
+        "y": 5.0597877358490555
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.357243935309973,
-        "y": 6.277880727762803
+        "x": 5.451617250673855,
+        "y": 6.207668463611858
       },
       "isLocked": false,
       "linkedName": "ScorePostJ"
@@ -20,15 +20,20 @@
         "y": 7.361
       },
       "prevControl": {
-        "x": 2.1050539083557953,
-        "y": 6.810057277628032
+        "x": 2.660882749326146,
+        "y": 6.206923854447439
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5039682539682538,
+      "rotationDegrees": -70.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -41,14 +46,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
+    "velocity": 0.0,
     "rotation": -54.77
   },
   "reversed": false,
   "folder": "Posts to Station (4)",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -120.13299999999998
+    "rotation": -119.99999999999999
   },
   "useDefaultConstraints": false
 }

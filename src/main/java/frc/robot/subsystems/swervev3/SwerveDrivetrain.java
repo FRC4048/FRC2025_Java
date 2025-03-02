@@ -125,6 +125,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
+    Logger.recordOutput("EstimatedX", getPose().getX());
+    Logger.recordOutput("EstimatedY", getPose().getY());
+    Logger.recordOutput("EstimatedYaw", getPose().getRotation().getDegrees());
   }
 
   private void processInputs() {

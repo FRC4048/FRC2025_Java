@@ -13,6 +13,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
@@ -20,6 +21,7 @@ import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
 import frc.robot.subsystems.swervev3.vision.SquareVisionTruster;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.math.ArrayUtils;
@@ -46,7 +48,7 @@ public class PoseEstimator {
   //  private static final Vector<N3> visionMeasurementStdDevs1 = VecBuilder.fill(0.5, 0.5, 0.5);
 
   /* the rate at which variance of vision measurements increases as distance from the tag increases*/
-  private static final double visionStdRateOfChange = 0.1;
+  private static final double visionStdRateOfChange = 1;
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.01);
@@ -118,7 +120,7 @@ public class PoseEstimator {
    * are sent to the {@link PoseManager} for further processing
    */
   public void updateVision() {
-    if (Constants.ENABLE_VISION) {
+    if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
       for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
         double[] pos =
             new double[] {

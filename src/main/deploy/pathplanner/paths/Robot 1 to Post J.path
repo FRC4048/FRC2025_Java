@@ -8,31 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.344000000000001,
-        "y": 6.0
+        "x": 5.723808251558289,
+        "y": 6.005879380053907
       },
       "isLocked": false,
       "linkedName": "LeftStart"
     },
     {
       "anchor": {
-        "x": 5.05,
-        "y": 5.13
+        "x": 5.1443733153638815,
+        "y": 5.0597877358490555
       },
       "prevControl": {
-        "x": 5.298203069419564,
-        "y": 5.3037936602143665
+        "x": 5.4991576819407015,
+        "y": 5.473702830188678
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "ScorePostJ"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": -119.99999999999999
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.55,
+      "minWaypointRelativePos": 0.49881433823529436,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 0.75,
@@ -48,15 +53,15 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
-    "maxAcceleration": 2.5,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 100.0,
+    "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -120.13299999999998
+    "rotation": -119.99999999999999
   },
   "reversed": false,
   "folder": "Robot to Post (4)",

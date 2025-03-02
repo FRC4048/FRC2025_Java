@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.81,
-        "y": 5.08
+        "x": 3.618800539083558,
+        "y": 5.000703203967317
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6449756050685704,
-        "y": 5.267794965527608
+        "x": 3.4537761441521284,
+        "y": 5.188498169494926
       },
       "isLocked": false,
       "linkedName": "ScorePostL"
@@ -35,13 +35,13 @@
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAngularVelocity": 100.0,
+    "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
+    "velocity": 0.0,
     "rotation": -53.828118619143915
   },
   "reversed": false,
