@@ -21,7 +21,6 @@ import frc.robot.subsystems.swervev3.io.ModuleIO;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.function.Consumer;
 import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;

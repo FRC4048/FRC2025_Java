@@ -359,8 +359,7 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-    SmartShuffleboard.putCommand(
-        "Commands", "Move Forward 1", new MoveDistance(drivetrain, 0.3048, 0, 0.4));
+    SmartDashboard.putData("Move Forward 1 ft", new MoveDistance(drivetrain, 0.3048, 0, 0.4));
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
           "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
