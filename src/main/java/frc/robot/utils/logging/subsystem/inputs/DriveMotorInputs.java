@@ -1,11 +1,12 @@
 package frc.robot.utils.logging.subsystem.inputs;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utils.logging.subsystem.builders.DriveMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.providers.DriveMotorInputProvider;
 import frc.robot.utils.logging.subsystem.providers.InputProvider;
 import org.littletonrobotics.junction.LogTable;
 
-public class DriveMotorInputs extends MotorInputs {
+public class DriveMotorInputs extends FolderInputs {
   private boolean driveConnected;
   private Double encoderPosition;
   private Double encoderVelocity;
@@ -19,9 +20,11 @@ public class DriveMotorInputs extends MotorInputs {
   private double[] odometryDrivePositionsRad;
   private boolean logOdometryTimestamps;
   private boolean logOdometryDrivePositionsRad;
+  private final DriveMotorInputBuilder<?> builder;
 
   public DriveMotorInputs(DriveMotorInputBuilder<?> builder) {
-    super(builder);
+    super(builder.getFolder());
+    this.builder = builder;
     this.encoderPosition = builder.isLogEncoderPosition() ? 0.0 : null;
     this.encoderVelocity = builder.isLogEncoderVelocity() ? 0.0 : null;
     this.motorCurrent = builder.isLogMotorCurrent() ? 0.0 : null;
@@ -37,20 +40,39 @@ public class DriveMotorInputs extends MotorInputs {
   }
 
   public void toLog(LogTable table) {
-    super.toLog(table);
-    if (logDriveConnected) {
+    if (builder.isLogDriveConnected()) {
       table.put("driveConnected", driveConnected);
     }
-    if (logOdometryTimestamps) {
+    if (builder.isLogOdometryTimestamps()) {
       table.put("odometryTimestamps", odometryTimestamps);
     }
-    if (logOdometryDrivePositionsRad) {
+    if (builder.isLogOdometryDrivePositionsRad()) {
       table.put("odometryDrivePositionsRad", odometryDrivePositionsRad);
+    }
+    if (builder.isLogEncoderPosition()) {
+      table.put("encoderPosition", encoderPosition);
+    }
+    if (builder.isLogEncoderVelocity()) {
+      table.put("encoderVelocity", encoderVelocity);
+    }
+    if (builder.isLogMotorCurrent()) {
+      table.put("motorCurrent", motorCurrent);
+    }
+    if (builder.isLogMotorTemperature()) {
+      table.put("motorTemperature", motorTemperature);
+    }
+    if (builder.isLogFwdLimit()) {
+      table.put("fwdLimit", fwdLimit);
+    }
+    if (builder.isLogRevLimit()) {
+      table.put("revLimit", revLimit);
+    }
+    if (builder.isLogAppliedOutput()) {
+      table.put("appliedOutput", appliedOutput);
     }
   }
 
   public void fromLog(LogTable table) {
-    super.fromLog(table);
     if (logDriveConnected) {
       driveConnected = table.get("driveConnected", driveConnected);
     }
@@ -60,6 +82,27 @@ public class DriveMotorInputs extends MotorInputs {
     if (logOdometryDrivePositionsRad) {
       odometryDrivePositionsRad = table.get("odometryDrivePositionsRad", odometryDrivePositionsRad);
     }
+    if (builder.isLogEncoderPosition()) {
+      encoderPosition = table.get("encoderPosition", encoderPosition);
+    }
+    if (builder.isLogEncoderVelocity()) {
+      encoderVelocity = table.get("encoderVelocity", encoderVelocity);
+    }
+    if (builder.isLogMotorCurrent()) {
+      motorCurrent = table.get("motorCurrent", motorCurrent);
+    }
+    if (builder.isLogMotorTemperature()) {
+      motorTemperature = table.get("motorTemperature", motorTemperature);
+    }
+    if (builder.isLogFwdLimit()) {
+      fwdLimit = table.get("fwdLimit", fwdLimit);
+    }
+    if (builder.isLogRevLimit()) {
+      revLimit = table.get("revLimit", revLimit);
+    }
+    if (builder.isLogAppliedOutput()) {
+      appliedOutput = table.get("appliedOutput", appliedOutput);
+    }
   }
 
   public boolean process(InputProvider inputProvider) {
@@ -67,8 +110,32 @@ public class DriveMotorInputs extends MotorInputs {
       if (logDriveConnected) {
         driveConnected = motorinputProvider.isDriveConnected();
       }
+      if (builder.isLogEncoderPosition()) {
+        encoderPosition = motorinputProvider.getEncoderPosition();
+      }
+      if (builder.isLogEncoderVelocity()) {
+        encoderVelocity = motorinputProvider.getEncoderVelocity();
+      }
+      if (builder.isLogMotorCurrent()) {
+        motorCurrent = motorinputProvider.getMotorCurrent();
+      }
+      if (builder.isLogMotorTemperature()) {
+        motorTemperature = motorinputProvider.getMotorTemperature();
+      }
+      if (builder.isLogFwdLimit()) {
+        fwdLimit = motorinputProvider.getFwdLimit();
+      }
+      if (builder.isLogRevLimit()) {
+        revLimit = motorinputProvider.getRevLimit();
+      }
+      if (builder.isLogAppliedOutput()) {
+        appliedOutput = motorinputProvider.getAppliedOutput();
+      }
+      return true;
+    } else {
+      DriverStation.reportError("inputProvider must be of type MotorinputProvider", true);
+      return false;
     }
-    return super.process(inputProvider) && logDriveConnected;
   }
 
   public boolean isDriveConnected() {
@@ -113,5 +180,33 @@ public class DriveMotorInputs extends MotorInputs {
 
   public void setOdometryDrivePositionsRad(double[] odometryDrivePositionsRad) {
     this.odometryDrivePositionsRad = odometryDrivePositionsRad;
+  }
+
+  public Double getEncoderPosition() {
+    return encoderPosition;
+  }
+
+  public Double getEncoderVelocity() {
+    return encoderVelocity;
+  }
+
+  public Double getMotorCurrent() {
+    return motorCurrent;
+  }
+
+  public Double getMotorTemperature() {
+    return motorTemperature;
+  }
+
+  public Boolean getFwdLimit() {
+    return fwdLimit;
+  }
+
+  public Boolean getRevLimit() {
+    return revLimit;
+  }
+
+  public Double getAppliedOutput() {
+    return appliedOutput;
   }
 }
