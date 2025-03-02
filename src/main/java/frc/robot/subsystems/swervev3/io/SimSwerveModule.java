@@ -123,8 +123,11 @@ public class SimSwerveModule implements ModuleIO {
 
   public void setState(SwerveModuleState desiredState) {
     double steerEncoderPosition = getSteerPosition();
+
     SwerveModuleState state =
         SwerveModuleState.optimize(desiredState, new Rotation2d(steerEncoderPosition));
+    SmartDashboard.putNumber(moduleName + " Desired Speed", state.speedMetersPerSecond);
+    SmartDashboard.putNumber(moduleName + " Desired Angle", state.angle.getRadians());
     double driveSpeed =
         drivePIDController.calculate(
                 driveSystem.getInputs().getEncoderVelocity(), (state.speedMetersPerSecond))
@@ -132,6 +135,12 @@ public class SimSwerveModule implements ModuleIO {
     double turnSpeed =
         turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
             + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
+    SmartDashboard.putNumber(
+        moduleName + " Steer PID Controller",
+        turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians()));
+    SmartDashboard.putNumber(
+        moduleName + " Steer FF",
+        turnFeedforward.calculate(turningPIDController.getSetpoint().velocity));
     SmartDashboard.putNumber(moduleName + " Turn Speed", turnSpeed);
     SmartDashboard.putNumber(moduleName + " Drive Speed", driveSpeed);
     driveSystem.getIO().setDriveVelocity(driveSpeed);
