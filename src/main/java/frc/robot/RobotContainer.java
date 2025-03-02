@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
-import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
@@ -30,7 +29,9 @@ import frc.robot.commands.hihi.*;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
+import frc.robot.commands.sequences.CancelAll;
 import frc.robot.commands.sequences.IntakeAlgae;
+import frc.robot.commands.sequences.LowerElevator;
 import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
@@ -170,16 +171,18 @@ public class RobotContainer {
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
-    controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
+    controller.leftBumper().onTrue(new LowerElevator(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
     controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
-    controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
+    controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
-    controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
+    controller
+        .back()
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
@@ -330,7 +333,8 @@ public class RobotContainer {
     if (Constants.BYEBYE_DEBUG) {
       // ByeBye Commands
 
-      SmartDashboard.putData("ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
+      SmartDashboard.putData(
+          "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt, elevatorSubsystem));
 
       SmartDashboard.putData("ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
     }
