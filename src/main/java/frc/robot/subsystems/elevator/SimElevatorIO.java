@@ -9,7 +9,7 @@ public class SimElevatorIO extends RealElevatorIO {
 
   public SimElevatorIO(LoggedMechanismLigament2d elevatorLigament) {
     super();
-    this.elevatorSimulator = new ElevatorSimulator(elevatorMotor.getNeoMotor(), elevatorLigament);
+    this.elevatorSimulator = new ElevatorSimulator(elevatorMotor.getNeoMotor(), elevatorLigament, true);
   }
 
   @Override

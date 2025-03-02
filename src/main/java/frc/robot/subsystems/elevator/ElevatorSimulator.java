@@ -36,6 +36,8 @@ public class ElevatorSimulator {
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
   private final LoggedMechanismLigament2d elevatorLigament;
+  // Whether the elevator is "inverted" - going down onn positives motor
+  private final boolean inverted;
   // The encoder simulator from the simulated motor
   private final SparkRelativeEncoderSim encoderSim;
   // The forward switch simulator
@@ -57,9 +59,13 @@ public class ElevatorSimulator {
 
   /** Constructor. */
   public ElevatorSimulator(SparkMax motor, LoggedMechanismLigament2d elevatorLigament) {
+    this(motor, elevatorLigament, false);
+  }
+  public ElevatorSimulator(SparkMax motor, LoggedMechanismLigament2d elevatorLigament, boolean inverted) {
     this.motor = motor;
     motorSim = new SparkMaxSim(motor, elevatorGearbox);
     this.elevatorLigament = elevatorLigament;
+    this.inverted = inverted;
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
@@ -67,9 +73,10 @@ public class ElevatorSimulator {
 
   /** Advance the simulation. */
   public void stepSimulation() {
+    final double direction = inverted ? -1.0 : 1.0;
     // In this method, we update our simulation of what our elevator is doing
     // First, we set our "inputs" (voltages)
-    double motorOut = -1 * motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
+    double motorOut = direction * motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
     m_elevatorSim.setInput(motorOut);
     // Next, we update it. The standard loop time is 20ms.
     m_elevatorSim.update(0.020);
@@ -77,28 +84,26 @@ public class ElevatorSimulator {
     // Finally, we set our simulated encoder's readings and simulated battery voltage
     double velocityMetersPerSecond = m_elevatorSim.getVelocityMetersPerSecond();
     double rpm = convertDistanceToRotations(Meters.of(velocityMetersPerSecond)).per(Second).in(RPM);
-    motorSim.iterate(
-        -1 * rpm, 12, // RoboRioSim.getVInVoltage(),
-        0.020);
+    motorSim.iterate(direction * rpm, 12,0.020);
     // SimBattery estimates loaded battery voltages
-    RoboRioSim.setVInVoltage(
-        BatterySim.calculateDefaultBatteryLoadedVoltage(m_elevatorSim.getCurrentDrawAmps()));
+    RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(m_elevatorSim.getCurrentDrawAmps()));
 
     // Update elevator visualization with position
     double positionMeters = m_elevatorSim.getPositionMeters();
 
-    forwardSwitchSim.setPressed(
-        MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
-    reverseSwitchSim.setPressed(
-        MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+    if (inverted) {
+      forwardSwitchSim.setPressed(MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+      reverseSwitchSim.setPressed(MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+    } else {
+      forwardSwitchSim.setPressed(MathUtil.isNear(Constants.MAX_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+      reverseSwitchSim.setPressed(MathUtil.isNear(Constants.MIN_ELEVATOR_HEIGHT_METERS, positionMeters, 0.1));
+    }
 
     if (Constants.ELEVATOR_DEBUG) {
       Logger.recordOutput("ElevatorSubsystem/MotorCommandedVoltage", motorOut);
       Logger.recordOutput("ElevatorSubsystem/VelocityMPS", velocityMetersPerSecond);
-      Logger.recordOutput(
-          "ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
-      Logger.recordOutput(
-          "ElevatorSubsystem/ElevatorMechanismLength", elevatorLigament.getLength());
+      Logger.recordOutput("ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
+      Logger.recordOutput("ElevatorSubsystem/ElevatorMechanismLength", elevatorLigament.getLength());
     }
 
     if (elevatorLigament != null) {

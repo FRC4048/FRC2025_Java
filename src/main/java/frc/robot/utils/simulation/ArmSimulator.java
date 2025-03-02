@@ -91,7 +91,7 @@ public class ArmSimulator {
       ligament.setAngle(positionRadians);
     }
 
-    if (Constants.HIHI_DEBUG) {
+    if (Constants.ARM_DEBUG) {
       SmartDashboard.putNumber(name + "/Arm Motor out voltage", motorOut);
       SmartDashboard.putNumber(name + "/Arm Velocity rads per s", velocityRadsPerSecond.getRadians());
       SmartDashboard.putNumber(name + "/Arm RPM", rpm);

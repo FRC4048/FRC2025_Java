@@ -30,6 +30,7 @@ public class GameConstants {
   public static final boolean BYEBYE_DEBUG = false;
   public static final boolean COMMAND_DEBUG = false;
   public static final boolean INPUTS_DEBUG = false;
+  public static final boolean ARM_DEBUG = false;
   public static final boolean TUNING_MODE = false;
 
   // Speeds
