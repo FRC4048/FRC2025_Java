@@ -16,6 +16,6 @@ public class MiddleOnePiece extends LoggableSequentialCommandGroup {
     super(
         new LoggableCommandWrapper(Paths.getInstance().getRobotTwoToPostHCommand()),
         new LoggableCommandWrapper(new WaitCommand(11.79)),
-        new ByeByeToFwrLimit(algaeByeByeTiltSubsystem));
+        new ByeByeToFwrLimit(algaeByeByeTiltSubsystem, elevatorSubsystem));
   }
 }
