@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.21856310614224,
+        "y": 7.041588092672413
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.019508541286909,
+        "y": 6.890335720095139
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.591031786421655,
+        "y": 5.54901415327905
+      },
+      "prevControl": {
+        "x": 4.832275237251276,
+        "y": 5.614600717694457
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 100.0,
+    "maxAngularAcceleration": 100.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -97.08523222416746
+  },
+  "reversed": false,
+  "folder": "Robot to Post (4)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -179.995
+  },
+  "useDefaultConstraints": true
+}
