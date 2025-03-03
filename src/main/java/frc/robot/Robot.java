@@ -104,10 +104,12 @@ public class Robot extends LoggedRobot {
 
   /** Use this instead of robot init. */
   private void actualInit() {
-    new LoggableSequentialCommandGroup(
-            new WheelAlign(robotContainer.getDrivetrain()),
-            new ResetGyro(robotContainer.getDrivetrain()))
-        .schedule();
+    if (Robot.isReal()) {
+      new LoggableSequentialCommandGroup(
+              new WheelAlign(robotContainer.getDrivetrain()),
+              new ResetGyro(robotContainer.getDrivetrain()))
+          .schedule();
+    }
   }
 
   @Override
