@@ -8,7 +8,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,13 +29,11 @@ import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.drivetrain.SetInitOdom;
-import frc.robot.commands.elevator.*;
 import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.ResetElevatorEncoder;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
-import frc.robot.commands.hihi.*;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
@@ -96,7 +93,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import java.util.Optional;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -250,11 +246,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return autoChooser.getAutoCommand();
-  }
-
-  public static boolean isRedAlliance() {
-    Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
-    return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
   }
 
   private void setupDriveTrain() {
