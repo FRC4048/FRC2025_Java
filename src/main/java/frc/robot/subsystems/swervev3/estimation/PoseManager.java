@@ -75,7 +75,7 @@ public class PoseManager {
 
   protected void setVisionSTD(Vector<N3> visionMeasurementStdDevs) {
     Logger.recordOutput(
-        "VisionAppliedCovariance",
+        "Apriltag/VisionAppliedCovariance",
         new double[] {visionMeasurementStdDevs.get(0), visionMeasurementStdDevs.get(1)});
     poseEstimator.setVisionMeasurementStdDevs(visionMeasurementStdDevs);
   }

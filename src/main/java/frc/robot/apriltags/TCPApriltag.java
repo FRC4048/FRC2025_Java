@@ -1,8 +1,8 @@
 package frc.robot.apriltags;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.*;
 import frc.robot.constants.Constants;
+import frc.robot.utils.Apriltag;
 import frc.robot.utils.logging.LoggableIO;
 import java.util.Queue;
 import org.littletonrobotics.junction.Logger;
@@ -18,16 +18,20 @@ public class TCPApriltag implements LoggableIO<ApriltagInputs> {
   @Override
   public void updateInputs(ApriltagInputs inputs) {
     Queue<ApriltagReading> queue = server.flush();
-    Logger.recordOutput("VisionMeasurementsThisTick", queue.size());
-    inputs.posX = new double[queue.size()];
-    inputs.posY = new double[queue.size()];
-    inputs.poseYaw = new double[queue.size()];
-    inputs.distanceToTag = new double[queue.size()];
-    inputs.apriltagNumber = new int[queue.size()];
-    inputs.serverTime = new double[queue.size()];
-    inputs.timestamp = new double[queue.size()];
+    int queueSize = queue.size();
+    Logger.recordOutput("VisionMeasurementsThisTick", queueSize);
+    inputs.posX = new double[queueSize];
+    inputs.posY = new double[queueSize];
+    inputs.poseYaw = new double[queueSize];
+    inputs.distanceToTag = new double[queueSize];
+    inputs.apriltagNumber = new int[queueSize];
+    inputs.serverTime = new double[queueSize];
+    inputs.timestamp = new double[queueSize];
 
-    for (int i = 0; i < queue.size(); i++) {
+    Translation3d[] apriltagPoseArray = new Translation3d[queueSize];
+    Pose2d[] visionPoseArray = new Pose2d[queueSize];
+
+    for (int i = 0; i < queueSize; i++) {
       ApriltagReading measurement = queue.poll();
       inputs.posX[i] = measurement.posX();
       inputs.posY[i] = measurement.posY();
@@ -36,13 +40,17 @@ public class TCPApriltag implements LoggableIO<ApriltagInputs> {
       inputs.apriltagNumber[i] = measurement.apriltagNumber();
       inputs.timestamp[i] = measurement.latency();
       inputs.serverTime[i] = measurement.measurementTime();
+
+      Apriltag apriltag = Apriltag.of(measurement.apriltagNumber());
+      apriltagPoseArray[i] =
+          apriltag == null ? new Translation3d(0, 0, 0) : apriltag.getTranslation();
+      visionPoseArray[i] =
+          new Pose2d(
+              measurement.posX(),
+              measurement.posY(),
+              Rotation2d.fromDegrees(measurement.poseYaw()));
     }
-    if (!queue.isEmpty()) {
-      Logger.recordOutput(
-          "VisionPose",
-          new Pose2d(inputs.posX[0], inputs.posY[0], Rotation2d.fromDegrees(inputs.poseYaw[0])));
-    } else {
-      Logger.recordOutput("VisionPose", new Pose2d(0, 0, Rotation2d.fromDegrees(0)));
-    }
+    Logger.recordOutput("Apriltag/TagPoses", apriltagPoseArray);
+    Logger.recordOutput("Apriltag/VisionPoses", visionPoseArray);
   }
 }
