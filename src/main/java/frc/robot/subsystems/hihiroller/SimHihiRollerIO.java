@@ -3,13 +3,14 @@ package frc.robot.subsystems.hihiroller;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 public class SimHihiRollerIO extends RealHihiRollerIO {
   private final MotorSimulator hihiRollerSimulator;
 
-  public SimHihiRollerIO() {
+  public SimHihiRollerIO(LoggedMechanismLigament2d ligament) {
     super();
-    hihiRollerSimulator = new MotorSimulator(hihiRollerMotor);
+    hihiRollerSimulator = new MotorSimulator(hihiRollerMotor, ligament);
   }
 
   @Override
