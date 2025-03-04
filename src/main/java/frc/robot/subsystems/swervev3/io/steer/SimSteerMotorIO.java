@@ -4,19 +4,17 @@ import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SteerModuleSimInputProvider;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
-import org.littletonrobotics.junction.Logger;
 
-public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
+public class SimSteerMotorIO implements SwerveSteerMotorIO {
   private final SimulatedMotorController.GenericMotorController steerMotor;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
   private double steerPosConvFactor;
@@ -43,12 +41,12 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
     this.steerInvertedFactor = steerInverted ? -1 : 1;
     this.turningController = turningController;
     this.absSystem = absSystem;
-    steerInputProvider = new SteerModuleSimInputProvider(moduleSimulation, conversionConfig);
+    steerInputProvider = new SteerModuleSimInputProvider(moduleSimulation);
     setConversionFactors(conversionConfig);
     resetEncoder();
   }
 
-  public void updateInputs(SteerMotorInputs inputs) {
+  public void updateInputs(MotorInputs inputs) {
     if (steerClosedLoop) {
       turnAppliedVolts =
           steerFFVolts
@@ -62,11 +60,9 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
     steerPosConvFactor = 1 / conversionConfig.getProfile().getSteerGearRatio();
-    SmartDashboard.putNumber("steerPosConvFactor", steerPosConvFactor);
   }
 
   public void setSteerVoltage(double volts) {
-    Logger.recordOutput("steerAppliedVolts", volts);
     steerMotor.requestVoltage(Volts.of(volts));
   }
 

@@ -4,15 +4,14 @@ import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
-import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.logging.subsystem.providers.DriveModuleSimInputProvider;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
 
-public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
+public class SimDriveMotorIO implements SwerveDriveMotorIO {
   private final SimulatedMotorController.GenericMotorController driveMotor;
   private final DCMotor driveGearbox = DCMotor.getNEO(1);
   private final SwerveModuleSimulation moduleSimulation;
@@ -42,10 +41,9 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
     this.moduleName = moduleName;
 
     this.driveInverted = driveInverted ? -1 : 1;
-    setConversionFactors(conversionConfig);
   }
 
-  public void updateInputs(DriveMotorInputs inputs) {
+  public void updateInputs(MotorInputs inputs) {
     if (driveClosedLoop) {
       driveAppliedVolts =
           driveFFVolts
@@ -59,13 +57,6 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
 
   public SimulatedMotorController.GenericMotorController getDriveMotor() {
     return driveMotor;
-  }
-
-  private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
-    double driveVelConvFactor = (conversionConfig.getWheelRadius());
-    SmartDashboard.putNumber(moduleName + " driveVelConvFactor", driveVelConvFactor);
-    double drivePosConvFactor = (conversionConfig.getWheelRadius());
-    SmartDashboard.putNumber(moduleName + " drivePosConvFactor", drivePosConvFactor);
   }
 
   public void setDriveVoltage(double volts) {

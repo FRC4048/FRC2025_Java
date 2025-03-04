@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -20,17 +19,14 @@ import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.logging.subsystem.builders.DriveMotorInputBuilder;
-import frc.robot.utils.logging.subsystem.builders.SteerMotorInputBuilder;
-import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
-import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
+import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
+import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.math.AngleUtils;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
-import org.littletonrobotics.junction.Logger;
 
 public class SimSwerveModule implements ModuleIO {
-  private final LoggableSystem<SimDriveMotorIO, DriveMotorInputs> driveSystem;
-  private final LoggableSystem<SimSteerMotorIO, SteerMotorInputs> steerSystem;
+  private final LoggableSystem<SimDriveMotorIO, MotorInputs> driveSystem;
+  private final LoggableSystem<SimSteerMotorIO, MotorInputs> steerSystem;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
   private final PIDController drivePIDController;
   private final ProfiledPIDController turningPIDController;
@@ -40,33 +36,22 @@ public class SimSwerveModule implements ModuleIO {
   private boolean turnClosedLoop = false;
   private double steerOffset;
   private double driveFFVolts = 0.0;
-  private final DCMotor driveMotor = DCMotor.getNEO(1);
-  private final DCMotor steerMotor = DCMotor.getNEO(1);
   private String moduleName;
 
   public SimSwerveModule(
       SwerveModuleSimulation moduleSimulation,
       SimDriveMotorIO driveMotorIO,
       SimSteerMotorIO steerMotorIO,
-      SwervePidConfig pidConfig,
       String moduleName,
       PIDController drivePIDController,
       ProfiledPIDController turnPIDController,
       SimpleMotorFeedforward driveFeedforward,
       SimpleMotorFeedforward turnFeedforward,
       LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem) {
-    DriveMotorInputs driveInputs =
-        (DriveMotorInputs)
-            new DriveMotorInputBuilder<>("Drivetrain/" + moduleName)
-                .addEncoder()
-                .addStatus()
-                .build();
-    SteerMotorInputs steerInputs =
-        (SteerMotorInputs)
-            new SteerMotorInputBuilder<>("Drivetrain/" + moduleName)
-                .addEncoder()
-                .addStatus()
-                .build();
+    MotorInputs driveInputs =
+        new MotorInputBuilder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
+    MotorInputs steerInputs =
+        new MotorInputBuilder<>("Drivetrain/" + moduleName).addEncoder().addStatus().build();
     this.driveFeedforward = driveFeedforward;
     this.driveFFVolts = driveFeedforward.getKv();
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
@@ -80,10 +65,6 @@ public class SimSwerveModule implements ModuleIO {
   }
 
   public void updateInputs() {
-    // Run closed-loop control
-
-    // Update simulation state
-    // driveSystem.getIO().setDriveVoltage(driveAppliedVolts);
 
     // Update drive inputs
     driveSystem.updateInputs();
@@ -126,21 +107,6 @@ public class SimSwerveModule implements ModuleIO {
         drivePIDController.calculate(
                 driveSystem.getInputs().getEncoderVelocity(), (state.speedMetersPerSecond))
             + driveFeedforward.calculate(state.speedMetersPerSecond);
-    double turnSpeed =
-        turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
-            + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
-    Logger.recordOutput(moduleName + "/driveSpeed", driveSpeed);
-    Logger.recordOutput(
-        moduleName + "/turnSpeed",
-        (turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
-                + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity))
-            * 12);
-    Logger.recordOutput(moduleName + "/turnSpeed2", turnSpeed * 12);
-    Logger.recordOutput(moduleName + "/Desiredstate Angle", state.angle.getRadians());
-    Logger.recordOutput(moduleName + "/SteerEncoder", steerEncoderPosition);
-    Logger.recordOutput(
-        moduleName + "/PIDOutput",
-        turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians()));
     driveSystem.getIO().setDriveVoltage(driveSpeed);
     steerSystem
         .getIO()
@@ -225,7 +191,6 @@ public class SimSwerveModule implements ModuleIO {
         moduleSimulation,
         frontLeftDriveMotorIO,
         frontLeftSteerMotorIO,
-        pidConfig,
         position.getLoggingKey(),
         driveController,
         turningController,

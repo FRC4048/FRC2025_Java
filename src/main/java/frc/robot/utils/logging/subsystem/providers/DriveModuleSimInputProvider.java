@@ -6,8 +6,6 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
-import frc.robot.utils.motor.SparkUtil;
-import java.util.Arrays;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class DriveModuleSimInputProvider implements MotorInputProvider {
@@ -55,19 +53,5 @@ public class DriveModuleSimInputProvider implements MotorInputProvider {
   @Override
   public double getAppliedOutput() {
     return moduleSimulation.getDriveMotorAppliedVoltage().in(Volts);
-  }
-
-  public boolean isDriveConnected() {
-    return true;
-  }
-
-  public double[] getOdometryTimestamps() {
-    return SparkUtil.getSimulationOdometryTimeStamps();
-  }
-
-  public double[] getOdometryDrivePositionsRad() {
-    return Arrays.stream(moduleSimulation.getCachedDriveWheelFinalPositions())
-        .mapToDouble(angle -> angle.in(Radians))
-        .toArray();
   }
 }

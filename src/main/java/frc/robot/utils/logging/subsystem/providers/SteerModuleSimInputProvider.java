@@ -4,19 +4,13 @@ import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
-import frc.robot.utils.motor.SparkUtil;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class SteerModuleSimInputProvider implements MotorInputProvider {
   private final SwerveModuleSimulation moduleSimulation;
-  private final KinematicsConversionConfig conversionConfig;
 
-  public SteerModuleSimInputProvider(
-      SwerveModuleSimulation moduleSimulation, KinematicsConversionConfig conversionConfig) {
+  public SteerModuleSimInputProvider(SwerveModuleSimulation moduleSimulation) {
     this.moduleSimulation = moduleSimulation;
-    this.conversionConfig = conversionConfig;
   }
 
   @Override
@@ -32,10 +26,6 @@ public class SteerModuleSimInputProvider implements MotorInputProvider {
   @Override
   public boolean getRevLimit() {
     return false;
-  }
-
-  public boolean isSteerConnected() {
-    return true;
   }
 
   @Override
@@ -56,13 +46,5 @@ public class SteerModuleSimInputProvider implements MotorInputProvider {
   @Override
   public double getAppliedOutput() {
     return moduleSimulation.getSteerMotorAppliedVoltage().in(Volts);
-  }
-
-  public double[] getOdometryTimestamps() {
-    return SparkUtil.getSimulationOdometryTimeStamps();
-  }
-
-  public Rotation2d[] getOdometryTurnPositions() {
-    return moduleSimulation.getCachedSteerAbsolutePositions();
   }
 }
