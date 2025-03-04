@@ -39,11 +39,8 @@ public class SimSwerveModule implements ModuleIO {
   private boolean turnClosedLoop = false;
   private double steerOffset;
   private double driveFFVolts = 0.0;
-  private double driveAppliedVolts = 0.0;
-  private double turnAppliedVolts = 0.0;
   private final DCMotor driveMotor = DCMotor.getNEO(1);
   private final DCMotor steerMotor = DCMotor.getNEO(1);
-  private String moduleName;
 
   public SimSwerveModule(
       SwerveModuleSimulation moduleSimulation,
@@ -55,7 +52,6 @@ public class SimSwerveModule implements ModuleIO {
       ProfiledPIDController turnPIDController,
       SimpleMotorFeedforward driveFeedforward,
       LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem) {
-    this.moduleName = moduleName;
     DriveMotorInputs driveInputs =
         (DriveMotorInputs)
             new DriveMotorInputBuilder<>("Drivetrain/" + moduleName)
@@ -99,7 +95,6 @@ public class SimSwerveModule implements ModuleIO {
 
   public void setDriveOpenLoop(double output) {
     driveClosedLoop = false;
-    driveAppliedVolts = output;
   }
 
   public void setTurnOpenLoop(double output) {
@@ -202,8 +197,7 @@ public class SimSwerveModule implements ModuleIO {
             kinematicsConfig.getProfile().isSteerInverted(),
             moduleSimulation,
             turningController,
-            absSys,
-            position.getLoggingKey());
+            absSys);
 
     return new SimSwerveModule(
         moduleSimulation,

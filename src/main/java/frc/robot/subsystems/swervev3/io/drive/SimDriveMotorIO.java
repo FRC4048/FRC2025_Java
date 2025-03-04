@@ -17,15 +17,12 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
   private final DCMotor driveGearbox = DCMotor.getNEO(1);
   private final SwerveModuleSimulation moduleSimulation;
   private final PIDController drivePIDController;
-  private double driveVelConvFactor;
-  private double drivePosConvFactor;
   private double driveAppliedVolts = 0;
   private boolean driveClosedLoop = false;
   private double driveFFVolts;
-  private int driveInverted;
-  private String moduleName;
+  private final int driveInverted;
+  private final String moduleName;
   private final DriveModuleSimInputProvider driveInputProvider;
-  ;
 
   public SimDriveMotorIO(
       int driveMotorIO,
@@ -65,11 +62,11 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
   }
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
-    driveVelConvFactor =
+    double driveVelConvFactor =
         (2 * conversionConfig.getWheelRadius() * Math.PI)
             / (conversionConfig.getProfile().getDriveGearRatio() * 60);
     SmartDashboard.putNumber(moduleName + " driveVelConvFactor", driveVelConvFactor);
-    drivePosConvFactor =
+    double drivePosConvFactor =
         (2 * conversionConfig.getWheelRadius() * Math.PI)
             / (conversionConfig.getProfile().getDriveGearRatio());
     SmartDashboard.putNumber(moduleName + " drivePosConvFactor", drivePosConvFactor);

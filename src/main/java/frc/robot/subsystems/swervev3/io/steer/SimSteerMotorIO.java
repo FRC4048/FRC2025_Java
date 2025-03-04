@@ -4,7 +4,6 @@ import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
@@ -18,16 +17,13 @@ import org.ironmaple.simulation.motorsims.SimulatedMotorController;
 public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
   private final SimulatedMotorController.GenericMotorController steerMotor;
   private final LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem;
-  private final DCMotor steerGearbox = DCMotor.getNEO(1);
   private double steerPosConvFactor;
   private final SwerveModuleSimulation moduleSimulation;
   private final ProfiledPIDController turningController;
   private double turnAppliedVolts = 0;
   private boolean steerClosedLoop = false;
   private double steerFFVolts;
-  private boolean steerInverted;
-  private double steerInvertedFactor;
-  private String moduleName;
+  private final double steerInvertedFactor;
 
   public SimSteerMotorIO(
       int steerMotorId,
@@ -35,15 +31,12 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
       boolean steerInverted,
       SwerveModuleSimulation moduleSimulation,
       ProfiledPIDController turningController,
-      LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem,
-      String moduleName) {
+      LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem) {
     steerMotor =
         moduleSimulation
             .useGenericControllerForSteer()
             .withCurrentLimit(Amps.of(Constants.DRIVE_SMART_LIMIT));
-    this.moduleName = moduleName;
     this.moduleSimulation = moduleSimulation;
-    this.steerInverted = steerInverted;
     this.steerInvertedFactor = steerInverted ? -1 : 1;
     this.turningController = turningController;
     this.absSystem = absSystem;

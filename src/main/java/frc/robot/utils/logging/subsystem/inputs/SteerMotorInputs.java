@@ -16,9 +16,6 @@ public class SteerMotorInputs extends FolderInputs {
   private Double appliedOutput;
   private Boolean fwdLimit;
   private Boolean revLimit;
-  private boolean logSteerConnected;
-  private boolean logOdometryTimestamps;
-  private boolean logOdometryTurnPositions;
   private double[] odometryTimestamps;
   private Rotation2d[] odometryTurnPositions;
   private final SteerMotorInputBuilder<?> builder;
@@ -33,9 +30,6 @@ public class SteerMotorInputs extends FolderInputs {
     this.fwdLimit = builder.isLogFwdLimit() ? false : null;
     this.revLimit = builder.isLogRevLimit() ? false : null;
     this.appliedOutput = builder.isLogAppliedOutput() ? 0.0 : null;
-    this.logSteerConnected = builder.isLogSteerConnected();
-    this.logOdometryTimestamps = builder.isLogOdometryTimestamps();
-    this.logOdometryTurnPositions = builder.isLogOdometryTurnPositions();
     this.odometryTimestamps = builder.isLogOdometryTimestamps() ? new double[] {} : null;
     this.odometryTurnPositions = builder.isLogOdometryTurnPositions() ? new Rotation2d[] {} : null;
   }

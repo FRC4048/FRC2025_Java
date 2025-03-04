@@ -15,11 +15,8 @@ public class DriveMotorInputs extends FolderInputs {
   private Double appliedOutput;
   private Boolean fwdLimit;
   private Boolean revLimit;
-  private boolean logDriveConnected;
   private double[] odometryTimestamps;
   private double[] odometryDrivePositionsRad;
-  private boolean logOdometryTimestamps;
-  private boolean logOdometryDrivePositionsRad;
   private final DriveMotorInputBuilder<?> builder;
 
   public DriveMotorInputs(DriveMotorInputBuilder<?> builder) {
@@ -32,8 +29,6 @@ public class DriveMotorInputs extends FolderInputs {
     this.fwdLimit = builder.isLogFwdLimit() ? false : null;
     this.revLimit = builder.isLogRevLimit() ? false : null;
     this.appliedOutput = builder.isLogAppliedOutput() ? 0.0 : null;
-    this.logOdometryTimestamps = builder.isLogOdometryTimestamps();
-    this.logOdometryDrivePositionsRad = builder.isLogOdometryDrivePositionsRad();
     this.odometryTimestamps = builder.isLogOdometryTimestamps() ? new double[] {} : null;
     this.odometryDrivePositionsRad =
         builder.isLogOdometryDrivePositionsRad() ? new double[] {} : null;
@@ -73,13 +68,13 @@ public class DriveMotorInputs extends FolderInputs {
   }
 
   public void fromLog(LogTable table) {
-    if (logDriveConnected) {
+    if (builder.isLogDriveConnected()) {
       driveConnected = table.get("driveConnected", driveConnected);
     }
-    if (logOdometryTimestamps) {
+    if (builder.isLogOdometryTimestamps()) {
       odometryTimestamps = table.get("odometryTimestamps", odometryTimestamps);
     }
-    if (logOdometryDrivePositionsRad) {
+    if (builder.isLogOdometryDrivePositionsRad()) {
       odometryDrivePositionsRad = table.get("odometryDrivePositionsRad", odometryDrivePositionsRad);
     }
     if (builder.isLogEncoderPosition()) {
@@ -107,7 +102,7 @@ public class DriveMotorInputs extends FolderInputs {
 
   public boolean process(InputProvider inputProvider) {
     if (inputProvider instanceof DriveModuleSimInputProvider motorinputProvider) {
-      if (logDriveConnected) {
+      if (builder.isLogDriveConnected()) {
         driveConnected = motorinputProvider.isDriveConnected();
       }
       if (builder.isLogEncoderPosition()) {

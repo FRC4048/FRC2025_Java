@@ -69,9 +69,6 @@ public class MoveDistance extends LoggableCommand {
         && targetYDistance <= Constants.DRIVE_THRESHHOLD_METERS) {
       return true;
     }
-    if ((Timer.getFPGATimestamp() - startTime) >= Constants.MOVE_DISTANCE_TIMEOUT) {
-      return true;
-    }
-    return false;
+    return (Timer.getFPGATimestamp() - startTime) >= Constants.MOVE_DISTANCE_TIMEOUT;
   }
 }
