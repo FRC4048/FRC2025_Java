@@ -28,10 +28,10 @@ public class SetLedFromElevatorPosition extends LoggableCommand {
         lightStrip.setPattern(BlinkinPattern.WHITE);
         break;
       case LEVEL2:
-        lightStrip.setPattern(BlinkinPattern.YELLOW);
+        lightStrip.setPattern(BlinkinPattern.BLUE);
         break;
       case LEVEL3:
-        lightStrip.setPattern(BlinkinPattern.BLUE);
+        lightStrip.setPattern(BlinkinPattern.HOT_PINK);
         break;
       case LEVEL4:
         lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
