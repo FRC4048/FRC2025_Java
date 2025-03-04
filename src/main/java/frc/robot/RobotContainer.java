@@ -29,6 +29,7 @@ import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
+import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.MoveDistance;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.drivetrain.SetInitOdom;
@@ -207,9 +208,9 @@ public class RobotContainer {
   private void configureBindings() {
     lightStrip.setDefaultCommand(
         new SetLedFromElevatorPosition(elevatorSubsystem::getStoredReefPosition, lightStrip));
-    // drivetrain.setDefaultCommand(
-    //     new Drive(
-    //         drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
+    drivetrain.setDefaultCommand(
+        new Drive(
+            drivetrain, joyleft::getY, joyleft::getX, joyright::getX, drivetrain::getDriveMode));
 
     JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
     JoystickButton joyRight1 = new JoystickButton(joyright, 1);
@@ -418,7 +419,7 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-    SmartDashboard.putData("Move Forward 1 ft", new MoveDistance(drivetrain, 0.3048, 0, 0.4));
+    SmartDashboard.putData("Move Forward 1 ft", new MoveDistance(drivetrain, 0.3048, 0.3048, 0.4));
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
           "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));

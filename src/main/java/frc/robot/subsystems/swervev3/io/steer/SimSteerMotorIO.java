@@ -33,7 +33,7 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
       boolean steerInverted,
       SwerveModuleSimulation moduleSimulation,
       ProfiledPIDController turningController,
-      LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem,) {
+      LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem) {
     steerMotor =
         moduleSimulation
             .useGenericControllerForSteer()

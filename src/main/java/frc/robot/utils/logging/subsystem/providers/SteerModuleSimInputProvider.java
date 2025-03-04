@@ -45,14 +45,12 @@ public class SteerModuleSimInputProvider implements MotorInputProvider {
 
   @Override
   public double getEncoderPosition() {
-    return moduleSimulation.getSteerAbsoluteFacing().getRadians()
-        / conversionConfig.getProfile().getSteerGearRatio();
+    return moduleSimulation.getSteerAbsoluteFacing().getRadians();
   }
 
   @Override
   public double getEncoderVelocity() {
-    return moduleSimulation.getSteerAbsoluteEncoderSpeed().in(RadiansPerSecond)
-        / conversionConfig.getProfile().getSteerGearRatio();
+    return moduleSimulation.getSteerAbsoluteEncoderSpeed().in(RadiansPerSecond);
   }
 
   @Override
