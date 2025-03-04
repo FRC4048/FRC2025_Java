@@ -63,11 +63,11 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
     double driveVelConvFactor =
-        (2 * conversionConfig.getWheelRadius() * Math.PI)
+        (conversionConfig.getWheelRadius())
             / (conversionConfig.getProfile().getDriveGearRatio() * 60);
     SmartDashboard.putNumber(moduleName + " driveVelConvFactor", driveVelConvFactor);
     double drivePosConvFactor =
-        (2 * conversionConfig.getWheelRadius() * Math.PI)
+        (conversionConfig.getWheelRadius())
             / (conversionConfig.getProfile().getDriveGearRatio());
     SmartDashboard.putNumber(moduleName + " drivePosConvFactor", drivePosConvFactor);
   }

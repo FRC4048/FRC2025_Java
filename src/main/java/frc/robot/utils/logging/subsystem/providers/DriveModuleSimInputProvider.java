@@ -43,13 +43,14 @@ public class DriveModuleSimInputProvider implements MotorInputProvider {
   @Override
   public double getEncoderVelocity() {
     return moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond)
-        * (2 * conversionConfig.getWheelRadius() * Math.PI)
+        * (conversionConfig.getWheelRadius())
         / (conversionConfig.getProfile().getDriveGearRatio() * 60);
   }
 
   @Override
   public double getEncoderPosition() {
-    return moduleSimulation.getDriveWheelFinalPosition().in(Radians);
+    return moduleSimulation.getDriveWheelFinalPosition().in(Radians)*(conversionConfig.getWheelRadius())
+            / (conversionConfig.getProfile().getDriveGearRatio());
   }
 
   @Override
