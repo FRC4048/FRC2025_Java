@@ -10,7 +10,7 @@ import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.logging.subsystem.providers.SteerModuleSimInputProvider;
+import frc.robot.utils.logging.subsystem.providers.SimSteerMotorInputProvider;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
 
@@ -24,7 +24,7 @@ public class SimSteerMotorIO implements SwerveSteerMotorIO {
   private boolean steerClosedLoop = false;
   private double steerFFVolts;
   private final double steerInvertedFactor;
-  private final SteerModuleSimInputProvider steerInputProvider;
+  private final SimSteerMotorInputProvider steerInputProvider;
 
   public SimSteerMotorIO(
       int steerMotorId,
@@ -41,7 +41,7 @@ public class SimSteerMotorIO implements SwerveSteerMotorIO {
     this.steerInvertedFactor = steerInverted ? -1 : 1;
     this.turningController = turningController;
     this.absSystem = absSystem;
-    steerInputProvider = new SteerModuleSimInputProvider(moduleSimulation);
+    steerInputProvider = new SimSteerMotorInputProvider(moduleSimulation);
     setConversionFactors(conversionConfig);
     resetEncoder();
   }

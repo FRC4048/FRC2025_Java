@@ -7,7 +7,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.logging.subsystem.providers.DriveModuleSimInputProvider;
+import frc.robot.utils.logging.subsystem.providers.SimDriveMotorInputProvider;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
 
@@ -21,7 +21,7 @@ public class SimDriveMotorIO implements SwerveDriveMotorIO {
   private double driveFFVolts;
   private final int driveInverted;
   private final String moduleName;
-  private final DriveModuleSimInputProvider driveInputProvider;
+  private final SimDriveMotorInputProvider driveInputProvider;
 
   public SimDriveMotorIO(
       int driveMotorIO,
@@ -35,7 +35,7 @@ public class SimDriveMotorIO implements SwerveDriveMotorIO {
             .useGenericMotorControllerForDrive()
             .withCurrentLimit(Amps.of(Constants.DRIVE_SMART_LIMIT));
 
-    driveInputProvider = new DriveModuleSimInputProvider(moduleSimulation, conversionConfig);
+    driveInputProvider = new SimDriveMotorInputProvider(moduleSimulation, conversionConfig);
     this.moduleSimulation = moduleSimulation;
     this.drivePIDController = drivePIDController;
     this.moduleName = moduleName;

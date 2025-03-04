@@ -6,10 +6,10 @@ import static edu.wpi.first.units.Units.Volts;
 
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
-public class SteerModuleSimInputProvider implements MotorInputProvider {
+public class SimSteerMotorInputProvider implements MotorInputProvider {
   private final SwerveModuleSimulation moduleSimulation;
 
-  public SteerModuleSimInputProvider(SwerveModuleSimulation moduleSimulation) {
+  public SimSteerMotorInputProvider(SwerveModuleSimulation moduleSimulation) {
     this.moduleSimulation = moduleSimulation;
   }
 

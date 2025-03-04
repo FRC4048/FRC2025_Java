@@ -8,11 +8,11 @@ import static edu.wpi.first.units.Units.Volts;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
-public class DriveModuleSimInputProvider implements MotorInputProvider {
+public class SimDriveMotorInputProvider implements MotorInputProvider {
   private final SwerveModuleSimulation moduleSimulation;
   private final KinematicsConversionConfig conversionConfig;
 
-  public DriveModuleSimInputProvider(
+  public SimDriveMotorInputProvider(
       SwerveModuleSimulation moduleSimulation, KinematicsConversionConfig conversionConfig) {
     this.moduleSimulation = moduleSimulation;
     this.conversionConfig = conversionConfig;
