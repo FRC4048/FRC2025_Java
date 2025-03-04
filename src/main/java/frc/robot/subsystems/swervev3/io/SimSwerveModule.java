@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -132,8 +133,10 @@ public class SimSwerveModule implements ModuleIO {
     double turnSpeed =
         turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
             + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
-    driveSystem.getIO().setDriveVelocity(driveSpeed);
-    steerSystem.getIO().setSteerVelocity(turnSpeed);
+    SmartDashboard.putNumber(moduleName + "Turn Speed", turnSpeed * 12);
+    SmartDashboard.putNumber(moduleName + "Drive Speed", driveSpeed);
+    driveSystem.getIO().setDriveVoltage(driveSpeed);
+    steerSystem.getIO().setSteerVoltage(turnSpeed * 12);
   }
 
   public SwerveModuleState getLatestState() {
@@ -142,8 +145,8 @@ public class SimSwerveModule implements ModuleIO {
   }
 
   public void stop() {
-    driveSystem.getIO().setDriveVelocity(0);
-    steerSystem.getIO().setSteerVelocity(0);
+    driveSystem.getIO().setDriveVoltage(0);
+    steerSystem.getIO().setSteerVoltage(0);
   }
 
   public void resetRelativeEnc() {

@@ -60,7 +60,7 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
     } else {
       turningController.reset(absSystem.getInputs().absEncoderPosition); // TODO: might be wrong
     }
-    steerMotor.requestVoltage(Volts.of(turnAppliedVolts));
+    // steerMotor.requestVoltage(Volts.of(turnAppliedVolts));
     inputs.setSteerConnected(true);
     inputs.setEncoderPosition(
         moduleSimulation.getSteerAbsoluteFacing().getRadians() * steerPosConvFactor);
