@@ -20,6 +20,6 @@ public class ByeByeAllDone extends LoggableSequentialCommandGroup {
       ElevatorSubsystem elevatorSubsystem) {
     super(
         new StopByeByeMotors(algaeByeByeRollerSubsystem),
-        new ByeByeToFwrLimit(algaeByeByeTiltSubsystem, elevatorSubsystem));
+        new ByeByeToFwrLimit(algaeByeByeTiltSubsystem));
   }
 }

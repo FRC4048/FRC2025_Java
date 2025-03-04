@@ -19,11 +19,9 @@ public class ByeByeToFwrLimit extends LoggableCommand {
 
   private final TimeoutLogger timeoutCounter;
   private final Timer timer;
-  private final ElevatorSubsystem elevatorSubsystem;
 
-  public ByeByeToFwrLimit(AlgaeByeByeTiltSubsystem tiltMotor, ElevatorSubsystem elevatorSubsystem) {
+  public ByeByeToFwrLimit(AlgaeByeByeTiltSubsystem tiltMotor) {
     this.tiltMotor = tiltMotor;
-    this.elevatorSubsystem = elevatorSubsystem;
     this.timer = new Timer();
     timeoutCounter = new TimeoutLogger("ByeBye to fwr limit");
     addRequirements(tiltMotor);
@@ -32,9 +30,7 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (elevatorSubsystem.getEncoderValue() <= ElevatorPosition.LEVEL2.getElevatorHeight()) {
       tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
-    }
     timer.restart();
   }
 
@@ -55,7 +51,6 @@ public class ByeByeToFwrLimit extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (tiltMotor.getForwardSwitchState()
-        || elevatorSubsystem.getEncoderValue() >= ElevatorPosition.LEVEL2.getElevatorHeight());
+    return (tiltMotor.getForwardSwitchState());
   }
 }
