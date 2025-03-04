@@ -205,5 +205,5 @@ public class GameConstants {
 
   // Move Distance
   public static final double DRIVE_THRESHHOLD_METERS = 0.01;
-  public static final double MOVE_DISTANCE_TIMEOUT = 5;
+  public static final double MOVE_DISTANCE_TIMEOUT = 50;
 }

@@ -12,7 +12,6 @@ import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
 import frc.robot.utils.motor.SparkUtil;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
 
@@ -81,7 +80,6 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
 
   public void setSteerVoltage(double volts) {
     steerMotor.requestVoltage(Volts.of(volts));
-    SmartShuffleboard.put("Commands", "Steer Voltage", volts);
   }
 
   public void resetEncoder() {
@@ -105,6 +103,5 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
         Constants.DRIVE_PID_FF_S * Math.signum(trueVelocityRadPerSec)
             + Constants.DRIVE_PID_FF_V * trueVelocityRadPerSec;
     turningController.setGoal(trueVelocityRadPerSec);
-    SmartShuffleboard.put("Commands", "Steer Velocity", trueVelocityRadPerSec);
   }
 }

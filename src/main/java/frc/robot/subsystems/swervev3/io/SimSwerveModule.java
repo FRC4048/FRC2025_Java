@@ -9,7 +9,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -126,8 +125,6 @@ public class SimSwerveModule implements ModuleIO {
 
     SwerveModuleState state =
         SwerveModuleState.optimize(desiredState, new Rotation2d(steerEncoderPosition));
-    SmartDashboard.putNumber(moduleName + " Desired Speed", state.speedMetersPerSecond);
-    SmartDashboard.putNumber(moduleName + " Desired Angle", state.angle.getRadians());
     double driveSpeed =
         drivePIDController.calculate(
                 driveSystem.getInputs().getEncoderVelocity(), (state.speedMetersPerSecond))
@@ -135,14 +132,6 @@ public class SimSwerveModule implements ModuleIO {
     double turnSpeed =
         turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
             + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
-    SmartDashboard.putNumber(
-        moduleName + " Steer PID Controller",
-        turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians()));
-    SmartDashboard.putNumber(
-        moduleName + " Steer FF",
-        turnFeedforward.calculate(turningPIDController.getSetpoint().velocity));
-    SmartDashboard.putNumber(moduleName + " Turn Speed", turnSpeed);
-    SmartDashboard.putNumber(moduleName + " Drive Speed", driveSpeed);
     driveSystem.getIO().setDriveVelocity(driveSpeed);
     steerSystem.getIO().setSteerVelocity(turnSpeed);
   }
