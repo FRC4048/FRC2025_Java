@@ -14,6 +14,7 @@ import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
 import frc.robot.utils.logging.subsystem.providers.SteerModuleSimInputProvider;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
+import org.littletonrobotics.junction.Logger;
 
 public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
   private final SimulatedMotorController.GenericMotorController steerMotor;
@@ -65,6 +66,7 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
   }
 
   public void setSteerVoltage(double volts) {
+    Logger.recordOutput("steerAppliedVolts", volts);
     steerMotor.requestVoltage(Volts.of(volts));
   }
 
