@@ -4,11 +4,11 @@ import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.utils.logging.subsystem.inputs.DriveMotorInputs;
-import frc.robot.utils.motor.SparkUtil;
-import java.util.Arrays;
+import frc.robot.utils.logging.subsystem.providers.DriveModuleSimInputProvider;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
 
@@ -24,6 +24,8 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
   private double driveFFVolts;
   private int driveInverted;
   private String moduleName;
+  private final DriveModuleSimInputProvider driveInputProvider;
+  ;
 
   public SimDriveMotorIO(
       int driveMotorIO,
@@ -37,6 +39,7 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
             .useGenericMotorControllerForDrive()
             .withCurrentLimit(Amps.of(Constants.DRIVE_SMART_LIMIT));
 
+    driveInputProvider = new DriveModuleSimInputProvider(moduleSimulation, conversionConfig);
     this.moduleSimulation = moduleSimulation;
     this.drivePIDController = drivePIDController;
     this.moduleName = moduleName;
@@ -54,20 +57,7 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
     } else {
       drivePIDController.reset();
     }
-
-    // driveMotor.requestVoltage(Volts.of(driveAppliedVolts));
-    inputs.setDriveConnected(true);
-    inputs.setEncoderPosition(
-        moduleSimulation.getDriveWheelFinalPosition().in(Radians) * drivePosConvFactor);
-    inputs.setEncoderVelocity(
-        moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond) * driveVelConvFactor);
-    inputs.setAppliedOutput(driveAppliedVolts);
-    inputs.setMotorCurrent(Math.abs(moduleSimulation.getDriveMotorStatorCurrent().in(Amps)));
-    inputs.setOdometryTimestamps(SparkUtil.getSimulationOdometryTimeStamps());
-    inputs.setOdometryDrivePositionsRad(
-        Arrays.stream(moduleSimulation.getCachedDriveWheelFinalPositions())
-            .mapToDouble(angle -> angle.in(Radians))
-            .toArray());
+    inputs.process(driveInputProvider);
   }
 
   public SimulatedMotorController.GenericMotorController getDriveMotor() {
@@ -78,9 +68,11 @@ public class SimDriveMotorIO implements SimSwerveDriveMotorIO {
     driveVelConvFactor =
         (2 * conversionConfig.getWheelRadius() * Math.PI)
             / (conversionConfig.getProfile().getDriveGearRatio() * 60);
+    SmartDashboard.putNumber(moduleName + " driveVelConvFactor", driveVelConvFactor);
     drivePosConvFactor =
         (2 * conversionConfig.getWheelRadius() * Math.PI)
             / (conversionConfig.getProfile().getDriveGearRatio());
+    SmartDashboard.putNumber(moduleName + " drivePosConvFactor", drivePosConvFactor);
   }
 
   public void setDriveVoltage(double volts) {

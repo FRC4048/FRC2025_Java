@@ -2,7 +2,7 @@ package frc.robot.utils.logging.subsystem.inputs;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utils.logging.subsystem.builders.DriveMotorInputBuilder;
-import frc.robot.utils.logging.subsystem.providers.DriveMotorInputProvider;
+import frc.robot.utils.logging.subsystem.providers.DriveModuleSimInputProvider;
 import frc.robot.utils.logging.subsystem.providers.InputProvider;
 import org.littletonrobotics.junction.LogTable;
 
@@ -106,7 +106,7 @@ public class DriveMotorInputs extends FolderInputs {
   }
 
   public boolean process(InputProvider inputProvider) {
-    if (inputProvider instanceof DriveMotorInputProvider motorinputProvider) {
+    if (inputProvider instanceof DriveModuleSimInputProvider motorinputProvider) {
       if (logDriveConnected) {
         driveConnected = motorinputProvider.isDriveConnected();
       }

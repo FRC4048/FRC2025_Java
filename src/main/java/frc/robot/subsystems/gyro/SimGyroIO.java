@@ -49,7 +49,7 @@ public class SimGyroIO implements GyroIO {
   @Override
   public void updateInputs(GyroInputs inputs) {
     inputs.connected = true;
-    inputs.anglesInDeg = (gyroSimulation.getGyroReading().getDegrees() % 360) * -1;
+    inputs.anglesInDeg = (gyroSimulation.getGyroReading().getDegrees() % 360);
     inputs.angularVelocityInDeg =
         Units.degreesToRadians(gyroSimulation.getMeasuredAngularVelocity().in(DegreesPerSecond));
     inputs.odometryYawTimestamps = SparkUtil.getSimulationOdometryTimeStamps();
