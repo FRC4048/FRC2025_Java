@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
@@ -32,7 +33,7 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
       boolean steerInverted,
       SwerveModuleSimulation moduleSimulation,
       ProfiledPIDController turningController,
-      LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem) {
+      LoggableSystem<SwerveAbsIO, SwerveAbsInput> absSystem,) {
     steerMotor =
         moduleSimulation
             .useGenericControllerForSteer()
@@ -60,6 +61,7 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
     steerPosConvFactor = 1 / conversionConfig.getProfile().getSteerGearRatio();
+    SmartDashboard.putNumber("steerPosConvFactor", steerPosConvFactor);
   }
 
   public void setSteerVoltage(double volts) {
