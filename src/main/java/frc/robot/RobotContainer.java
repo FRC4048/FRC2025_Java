@@ -177,8 +177,10 @@ public class RobotContainer {
 
   private void pathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
-    NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt, elevatorSubsystem));
-    NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt));
+    NamedCommands.registerCommand(
+        "ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt, elevatorSubsystem));
+    NamedCommands.registerCommand(
+        "ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
@@ -236,7 +238,7 @@ public class RobotContainer {
     controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
     controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
-    controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
+    controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller
         .back()
         .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
@@ -393,7 +395,8 @@ public class RobotContainer {
       SmartDashboard.putData(
           "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt, elevatorSubsystem));
 
-      SmartDashboard.putData("ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
+      SmartDashboard.putData(
+          "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
     }
 
     if (Constants.ELEVATOR_DEBUG) {

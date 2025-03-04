@@ -8,6 +8,7 @@ import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.byebye.SpinByeByeRoller;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 /** Add your docs here. */
@@ -15,9 +16,10 @@ public class RemoveAlgaeFromReef extends LoggableSequentialCommandGroup {
 
   public RemoveAlgaeFromReef(
       AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem,
-      AlgaeByeByeRollerSubsystem algaeByeByeRollerSubsystem) {
+      AlgaeByeByeRollerSubsystem algaeByeByeRollerSubsystem,
+      ElevatorSubsystem elevatorSubsystem) {
     super(
-        new ByeByeToRevLimit(algaeByeByeTiltSubsystem),
+        new ByeByeToRevLimit(algaeByeByeTiltSubsystem, elevatorSubsystem),
         new SpinByeByeRoller(algaeByeByeRollerSubsystem));
   }
 }
