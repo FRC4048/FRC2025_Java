@@ -4,7 +4,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utils.logging.subsystem.builders.SteerMotorInputBuilder;
 import frc.robot.utils.logging.subsystem.providers.InputProvider;
-import frc.robot.utils.logging.subsystem.providers.SteerMotorInputProvider;
+import frc.robot.utils.logging.subsystem.providers.SteerModuleSimInputProvider;
 import org.littletonrobotics.junction.LogTable;
 
 public class SteerMotorInputs extends FolderInputs {
@@ -102,7 +102,7 @@ public class SteerMotorInputs extends FolderInputs {
   }
 
   public boolean process(InputProvider inputProvider) {
-    if (inputProvider instanceof SteerMotorInputProvider motorinputProvider) {
+    if (inputProvider instanceof SteerModuleSimInputProvider motorinputProvider) {
       if (builder.isLogSteerConnected()) {
         steerConnected = motorinputProvider.isSteerConnected();
       }

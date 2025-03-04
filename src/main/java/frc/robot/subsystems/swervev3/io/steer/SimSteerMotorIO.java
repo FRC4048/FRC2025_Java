@@ -10,7 +10,7 @@ import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.inputs.SteerMotorInputs;
-import frc.robot.utils.motor.SparkUtil;
+import frc.robot.utils.logging.subsystem.providers.SteerModuleSimInputProvider;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.ironmaple.simulation.motorsims.SimulatedMotorController;
 
@@ -24,6 +24,7 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
   private boolean steerClosedLoop = false;
   private double steerFFVolts;
   private final double steerInvertedFactor;
+  private final SteerModuleSimInputProvider steerInputProvider;
 
   public SimSteerMotorIO(
       int steerMotorId,
@@ -40,6 +41,7 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
     this.steerInvertedFactor = steerInverted ? -1 : 1;
     this.turningController = turningController;
     this.absSystem = absSystem;
+    steerInputProvider = new SteerModuleSimInputProvider(moduleSimulation, conversionConfig);
     setConversionFactors(conversionConfig);
     resetEncoder();
   }
@@ -53,22 +55,11 @@ public class SimSteerMotorIO implements SimSwerveSteerMotorIO {
     } else {
       turningController.reset(absSystem.getInputs().absEncoderPosition); // TODO: might be wrong
     }
-    // steerMotor.requestVoltage(Volts.of(turnAppliedVolts));
-    inputs.setSteerConnected(true);
-    inputs.setEncoderPosition(
-        moduleSimulation.getSteerAbsoluteFacing().getRadians() * steerPosConvFactor);
-    inputs.setEncoderVelocity(
-        moduleSimulation.getSteerAbsoluteEncoderSpeed().in(RadiansPerSecond)
-            * steerPosConvFactor
-            / 60);
-    inputs.setAppliedOutput(turnAppliedVolts);
-    inputs.setMotorCurrent(Math.abs(moduleSimulation.getSteerMotorStatorCurrent().in(Amps)));
-    inputs.setOdometryTimestamps(SparkUtil.getSimulationOdometryTimeStamps());
-    inputs.setOdometryTurnPositions(moduleSimulation.getCachedSteerAbsolutePositions());
+    inputs.process(steerInputProvider);
   }
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
-    steerPosConvFactor = 2 * Math.PI / conversionConfig.getProfile().getSteerGearRatio();
+    steerPosConvFactor = 1 / conversionConfig.getProfile().getSteerGearRatio();
   }
 
   public void setSteerVoltage(double volts) {
