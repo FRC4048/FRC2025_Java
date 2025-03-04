@@ -6,9 +6,7 @@ package frc.robot.commands.byebye;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
-import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
-import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
@@ -30,7 +28,7 @@ public class ByeByeToFwrLimit extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
+    tiltMotor.setSpeed(Constants.BYEBYE_FORWARD_SPEED);
     timer.restart();
   }
 

@@ -177,8 +177,7 @@ public class RobotContainer {
 
   private void pathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
-    NamedCommands.registerCommand(
-        "ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
+    NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
     NamedCommands.registerCommand(
         "ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
@@ -392,8 +391,7 @@ public class RobotContainer {
     if (Constants.BYEBYE_DEBUG) {
       // ByeBye Commands
 
-      SmartDashboard.putData(
-          "ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
+      SmartDashboard.putData("ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
 
       SmartDashboard.putData(
           "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
