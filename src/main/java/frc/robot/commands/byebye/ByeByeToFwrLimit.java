@@ -55,6 +55,7 @@ public class ByeByeToFwrLimit extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (tiltMotor.getForwardSwitchState() || elevatorSubsystem.getEncoderValue() >= ElevatorPosition.LEVEL2.getElevatorHeight());
+    return (tiltMotor.getForwardSwitchState()
+        || elevatorSubsystem.getEncoderValue() >= ElevatorPosition.LEVEL2.getElevatorHeight());
   }
 }

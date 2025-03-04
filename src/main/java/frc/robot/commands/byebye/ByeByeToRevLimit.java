@@ -55,6 +55,7 @@ public class ByeByeToRevLimit extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (tiltMotor.getReverseSwitchState() || elevatorSubsystem.getEncoderValue() >= ElevatorPosition.LEVEL2.getElevatorHeight());
+    return (tiltMotor.getReverseSwitchState()
+        || elevatorSubsystem.getEncoderValue() >= ElevatorPosition.LEVEL2.getElevatorHeight());
   }
 }

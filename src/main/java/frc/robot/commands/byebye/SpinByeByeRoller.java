@@ -11,7 +11,8 @@ public class SpinByeByeRoller extends LoggableCommand {
   private final Timer timer;
   private final AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem;
 
-  public SpinByeByeRoller(AlgaeByeByeRollerSubsystem byebyeRoller, AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem) {
+  public SpinByeByeRoller(
+      AlgaeByeByeRollerSubsystem byebyeRoller, AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem) {
     timer = new Timer();
     this.byebyeRoller = byebyeRoller;
     this.algaeByeByeTiltSubsystem = algaeByeByeTiltSubsystem;
@@ -21,8 +22,8 @@ public class SpinByeByeRoller extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    if(algaeByeByeTiltSubsystem.getForwardSwitchState()){
-    byebyeRoller.setSpeed(Constants.BYEBYE_ROLLER_SPEED);
+    if (algaeByeByeTiltSubsystem.getForwardSwitchState()) {
+      byebyeRoller.setSpeed(Constants.BYEBYE_ROLLER_SPEED);
     }
   }
 
