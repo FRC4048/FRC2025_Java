@@ -20,6 +20,6 @@ public class RemoveAlgaeFromReef extends LoggableSequentialCommandGroup {
       ElevatorSubsystem elevatorSubsystem) {
     super(
         new ByeByeToRevLimit(algaeByeByeTiltSubsystem, elevatorSubsystem),
-        new SpinByeByeRoller(algaeByeByeRollerSubsystem));
+        new SpinByeByeRoller(algaeByeByeRollerSubsystem, algaeByeByeTiltSubsystem));
   }
 }
