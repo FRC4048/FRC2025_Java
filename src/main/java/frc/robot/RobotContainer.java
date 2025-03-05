@@ -87,8 +87,6 @@ import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
 import frc.robot.subsystems.swervev3.SwervePidConfig;
-import frc.robot.subsystems.swervev3.io.ModuleIO;
-import frc.robot.subsystems.swervev3.io.SimSwerveModule;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
@@ -299,27 +297,29 @@ public class RobotContainer {
 
     GyroIO gyroIO;
     LoggableIO<ApriltagInputs> apriltagIO;
-    ModuleIO frontLeft;
-    ModuleIO frontRight;
-    ModuleIO backLeft;
-    ModuleIO backRight;
+    SwerveModule frontLeft;
+    SwerveModule frontRight;
+    SwerveModule backLeft;
+    SwerveModule backRight;
     if (Robot.isReal()) {
       frontLeft =
           SwerveModule.createModule(
-              frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false);
+              null, frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false, false);
       frontRight =
           SwerveModule.createModule(
-              frontRightIdConf, kConfig, pidConfig, ModulePosition.FRONT_RIGHT, true);
+              null, frontRightIdConf, kConfig, pidConfig, ModulePosition.FRONT_RIGHT, true, false);
       backLeft =
           SwerveModule.createModule(
-              backLeftIdConf, kConfig, pidConfig, ModulePosition.BACK_LEFT, false);
+              null, backLeftIdConf, kConfig, pidConfig, ModulePosition.BACK_LEFT, false, false);
       backRight =
           SwerveModule.createModule(
+              null,
               backRightIdConf,
               kConfig,
               pidConfig,
               ModulePosition.BACK_RIGHT,
-              true); // TODO: put these in the right SwerveModuleProfiles later
+              true,
+              false); // TODO: put these in the right SwerveModuleProfiles later
 
       ThreadedGyro threadedGyro =
           new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
@@ -335,36 +335,40 @@ public class RobotContainer {
               SwerveDrivetrain.mapleSimConfig, new Pose2d(0, 0, new Rotation2d()));
       SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
       frontLeft =
-          SimSwerveModule.createModule(
+          SwerveModule.createModule(
               driveSimulation.getModules()[0],
               frontLeftIdConf,
               kConfig,
               pidConfig,
               ModulePosition.FRONT_LEFT,
-              false);
+              false,
+              true);
       frontRight =
-          SimSwerveModule.createModule(
+          SwerveModule.createModule(
               driveSimulation.getModules()[1],
               frontRightIdConf,
               kConfig,
               pidConfig,
               ModulePosition.FRONT_RIGHT,
+              true,
               true);
       backLeft =
-          SimSwerveModule.createModule(
+          SwerveModule.createModule(
               driveSimulation.getModules()[2],
               backLeftIdConf,
               kConfig,
               pidConfig,
               ModulePosition.BACK_LEFT,
-              false);
+              false,
+              true);
       backRight =
-          SimSwerveModule.createModule(
+          SwerveModule.createModule(
               driveSimulation.getModules()[3],
               backRightIdConf,
               kConfig,
               pidConfig,
               ModulePosition.BACK_RIGHT,
+              true,
               true);
       gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
       apriltagIO = new MockApriltag();
@@ -383,6 +387,8 @@ public class RobotContainer {
               new MockDriveMotorIO(),
               new MockSteerMotorIO(),
               new MockAbsIO(),
+              null,
+              null,
               pidConfig,
               "frontLeft");
       frontRight =
@@ -390,6 +396,8 @@ public class RobotContainer {
               new MockDriveMotorIO(),
               new MockSteerMotorIO(),
               new MockAbsIO(),
+              null,
+              null,
               pidConfig,
               "frontRight");
       backLeft =
@@ -397,6 +405,8 @@ public class RobotContainer {
               new MockDriveMotorIO(),
               new MockSteerMotorIO(),
               new MockAbsIO(),
+              null,
+              null,
               pidConfig,
               "backLeft");
       backRight =
@@ -404,6 +414,8 @@ public class RobotContainer {
               new MockDriveMotorIO(),
               new MockSteerMotorIO(),
               new MockAbsIO(),
+              null,
+              null,
               pidConfig,
               "backRight");
       gyroIO = new MockGyroIO();

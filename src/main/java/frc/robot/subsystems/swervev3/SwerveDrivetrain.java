@@ -24,7 +24,7 @@ import frc.robot.subsystems.gyro.GyroIO;
 import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
-import frc.robot.subsystems.swervev3.io.ModuleIO;
+import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
@@ -36,10 +36,10 @@ import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
-  private final ModuleIO frontLeft;
-  private final ModuleIO frontRight;
-  private final ModuleIO backLeft;
-  private final ModuleIO backRight;
+  private final SwerveModule frontLeft;
+  private final SwerveModule frontRight;
+  private final SwerveModule backLeft;
+  private final SwerveModule backRight;
   private static final Translation2d frontLeftLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
   private static final Translation2d frontRightLocation =
@@ -58,10 +58,10 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final Consumer<Pose2d> resetSimulationPoseCallBack;
 
   public SwerveDrivetrain(
-      ModuleIO frontLeftModule,
-      ModuleIO frontRightModule,
-      ModuleIO backLeftModule,
-      ModuleIO backRightModule,
+      SwerveModule frontLeftModule,
+      SwerveModule frontRightModule,
+      SwerveModule backLeftModule,
+      SwerveModule backRightModule,
       GyroIO gyroIO,
       LoggableIO<ApriltagInputs> apriltagIO,
       Consumer<Pose2d> resetSimulationPoseCallBack) {
