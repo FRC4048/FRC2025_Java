@@ -96,6 +96,9 @@ public class Robot extends LoggedRobot {
       CommandScheduler.getInstance().run();
       if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
         allianceColor = DriverStation.getAlliance();
+        if (allianceColor.isPresent()){
+          robotContainer.getAutoChooser().getProvider().forceRefresh();
+        }
       }
       if (counter == 0) {
         actualInit();
