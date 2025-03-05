@@ -3,11 +3,10 @@ package frc.robot.apriltags;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.constants.Constants;
-import frc.robot.utils.logging.LoggableIO;
 import java.util.Queue;
 import org.littletonrobotics.junction.Logger;
 
-public class TCPApriltag implements LoggableIO<ApriltagInputs> {
+public class TCPApriltag implements ApriltagIO {
   private final TCPApriltagServer server;
 
   public TCPApriltag() {
