@@ -23,7 +23,6 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
-import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
@@ -45,7 +44,9 @@ import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
+import frc.robot.commands.sequences.CancelAll;
 import frc.robot.commands.sequences.IntakeAlgae;
+import frc.robot.commands.sequences.LowerElevator;
 import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
@@ -183,7 +184,8 @@ public class RobotContainer {
   private void pathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
     NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
-    NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt));
+    NamedCommands.registerCommand(
+        "ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
     NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
@@ -215,7 +217,11 @@ public class RobotContainer {
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
 
-    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+    controller
+        .leftTrigger()
+        .onTrue(
+            new PickUpCoral(
+                elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     controller
         .povUp()
         .onTrue(
@@ -233,16 +239,18 @@ public class RobotContainer {
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
-    controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
+    controller.leftBumper().onTrue(new LowerElevator(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
     controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
-    controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller));
-    controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller));
-    controller.back().onTrue(new CancelAll(elevatorSubsystem, hihiExtender));
+    controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
+    controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
+    controller
+        .back()
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
@@ -428,7 +436,8 @@ public class RobotContainer {
       SmartDashboard.putData("Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartDashboard.putData(
-          "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+          "Pick Up Coral",
+          new PickUpCoral(elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     }
 
     if (Constants.HIHI_DEBUG) {
@@ -450,7 +459,8 @@ public class RobotContainer {
 
       SmartDashboard.putData("ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
 
-      SmartDashboard.putData("ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
+      SmartDashboard.putData(
+          "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
     }
 
     if (Constants.ELEVATOR_DEBUG) {
