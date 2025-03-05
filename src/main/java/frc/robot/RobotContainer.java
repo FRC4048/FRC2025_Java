@@ -208,6 +208,7 @@ public class RobotContainer {
 
     JoystickButton joyLeft2 = new JoystickButton(joyleft, 2);
     JoystickButton joyRight1 = new JoystickButton(joyright, 1);
+    JoystickButton joyLeft8 = new JoystickButton(joyleft, 8);
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
 
@@ -246,6 +247,7 @@ public class RobotContainer {
         .back()
         .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    joyLeft8.onTrue(new AlignClosestBranch(drivetrain));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartDashboard.putData("Roll Algae", new RollAlgae(hihiRoller, 0.5));
