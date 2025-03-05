@@ -11,7 +11,6 @@ import frc.robot.subsystems.swervev3.vision.FilterResult;
 import frc.robot.subsystems.swervev3.vision.PoseDeviation;
 import frc.robot.subsystems.swervev3.vision.VisionFilter;
 import frc.robot.subsystems.swervev3.vision.VisionTruster;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -78,7 +77,8 @@ public class FilterablePoseManager extends PoseManager {
       }
     }
     Logger.recordOutput("Apriltag/acceptedMeasurements", validMeasurements.toArray(Pose2d[]::new));
-    Logger.recordOutput("Apriltag/rejectedMeasurements", invalidMeasurements.toArray(Pose2d[]::new));
+    Logger.recordOutput(
+        "Apriltag/rejectedMeasurements", invalidMeasurements.toArray(Pose2d[]::new));
   }
 
   public VisionTruster getVisionTruster() {

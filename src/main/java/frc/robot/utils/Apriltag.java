@@ -40,7 +40,7 @@ public enum Apriltag {
     if (number > values().length || number <= 0) {
       return null;
     }
-    return Apriltag.values()[number];
+    return Apriltag.values()[number - 1];
   }
 
   public double getX() {
