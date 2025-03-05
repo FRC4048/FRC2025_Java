@@ -5,10 +5,10 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -45,13 +45,7 @@ import frc.robot.commands.hihi.RollHiHiRollerIn;
 import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
-import frc.robot.commands.sequences.ByeByeAllDone;
-import frc.robot.commands.sequences.CancelAll;
-import frc.robot.commands.sequences.IntakeAlgae;
-import frc.robot.commands.sequences.LowerElevator;
-import frc.robot.commands.sequences.PickUpCoral;
-import frc.robot.commands.sequences.RemoveAlgaeFromReef;
-import frc.robot.commands.sequences.ShootAlgae;
+import frc.robot.commands.sequences.*;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -101,6 +95,7 @@ import frc.robot.utils.auto.PathPlannerUtils;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.Optional;
 
 public class RobotContainer {
