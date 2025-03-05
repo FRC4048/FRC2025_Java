@@ -4,6 +4,8 @@ import static edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
@@ -37,7 +39,8 @@ public class Drive extends LoggableCommand {
   public void execute() {
     Alliance alliance = Robot.getAllianceColor().orElse(null);
     if (alliance == null) {
-      return;
+      DriverStation.reportError("THIS IS BAD!!!, ALLIANCE COLOR IS NULL SO DEFAULTING TO BLUE", true);
+      alliance = Alliance.Blue;
     }
     boolean shouldFlip = alliance == Alliance.Red;
     double fwd = MathUtil.applyDeadband(fwdSupplier.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
