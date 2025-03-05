@@ -22,7 +22,7 @@ public class SpinByeByeRoller extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    if (algaeByeByeTiltSubsystem.getForwardSwitchState()) {
+    if (algaeByeByeTiltSubsystem.getReverseSwitchState()) {
       byebyeRoller.setSpeed(Constants.BYEBYE_ROLLER_SPEED);
     }
   }

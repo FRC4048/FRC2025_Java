@@ -211,7 +211,11 @@ public class RobotContainer {
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
 
-    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+    controller
+        .leftTrigger()
+        .onTrue(
+            new PickUpCoral(
+                elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     controller
         .povUp()
         .onTrue(
@@ -371,7 +375,8 @@ public class RobotContainer {
       SmartDashboard.putData("Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartDashboard.putData(
-          "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+          "Pick Up Coral",
+          new PickUpCoral(elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     }
 
     if (Constants.HIHI_DEBUG) {
