@@ -6,7 +6,9 @@ package frc.robot.commands.byebye;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
@@ -17,9 +19,11 @@ public class ByeByeToRevLimit extends LoggableCommand {
 
   private final TimeoutLogger timeoutCounter;
   private final Timer timer;
+  private final ElevatorSubsystem elevatorSubsystem;
 
-  public ByeByeToRevLimit(AlgaeByeByeTiltSubsystem tiltMotor) {
+  public ByeByeToRevLimit(AlgaeByeByeTiltSubsystem tiltMotor, ElevatorSubsystem elevatorSubsystem) {
     this.tiltMotor = tiltMotor;
+    this.elevatorSubsystem = elevatorSubsystem;
     timer = new Timer();
     timeoutCounter = new TimeoutLogger("ByeBye to rev limit");
     addRequirements(tiltMotor);
@@ -28,7 +32,9 @@ public class ByeByeToRevLimit extends LoggableCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tiltMotor.setSpeed(Constants.BYEBYE_REVERSE_SPEED);
+    if (elevatorSubsystem.getEncoderValue() <= ElevatorPosition.LEVEL2.getElevatorHeight()) {
+      tiltMotor.setSpeed(Constants.BYEBYE_REVERSE_SPEED);
+    }
     timer.restart();
   }
 
@@ -49,6 +55,7 @@ public class ByeByeToRevLimit extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return (tiltMotor.getReverseSwitchState());
+    return (tiltMotor.getReverseSwitchState()
+        || elevatorSubsystem.getEncoderValue() >= ElevatorPosition.LEVEL2.getElevatorHeight());
   }
 }
