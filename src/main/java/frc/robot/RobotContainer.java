@@ -7,13 +7,12 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -96,7 +95,6 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
-import java.util.Optional;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -113,7 +111,6 @@ public class RobotContainer {
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
-  private RobotConfig config;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -261,11 +258,6 @@ public class RobotContainer {
     return autoChooser.getAutoCommand();
   }
 
-  public static boolean isRedAlliance() {
-    Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
-    return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
-  }
-
   private void setupDriveTrain() {
     SwerveIdConfig frontLeftIdConf =
         new SwerveIdConfig(
@@ -387,7 +379,7 @@ public class RobotContainer {
                 Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
             ),
         PathPlannerUtils.config,
-        RobotContainer::isRedAlliance,
+        () -> Robot.getAllianceColor().orElse(null) == Alliance.Red,
         drivetrain);
   }
 
