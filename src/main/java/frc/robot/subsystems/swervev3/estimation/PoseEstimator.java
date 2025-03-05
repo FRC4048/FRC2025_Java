@@ -139,7 +139,7 @@ public class PoseEstimator {
           poseManager.registerVisionMeasurement(measurement);
         } else {
           invalidCounter++;
-          Logger.recordOutput("ApriltagValidationFailureCount", invalidCounter);
+          Logger.recordOutput("Apriltag/ValidationFailureCount", invalidCounter);
         }
       }
     }
