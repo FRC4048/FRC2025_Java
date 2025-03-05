@@ -1,11 +1,8 @@
 package frc.robot.subsystems.gyro;
 
-import static edu.wpi.first.units.Units.DegreesPerSecond;
-
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.constants.Constants;
-import frc.robot.utils.motor.SparkUtil;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import org.ironmaple.simulation.drivesims.GyroSimulation;
 
-public class SimGyroIO implements GyroIO {
+public class SimThreadedGyro implements ThreadedGyroIO {
   private final GyroSimulation gyroSimulation;
   private final AtomicBoolean shouldReset = new AtomicBoolean(false);
   private final AtomicBoolean shouldOffset = new AtomicBoolean(false);
@@ -21,12 +18,13 @@ public class SimGyroIO implements GyroIO {
   private final AtomicLong gyroOffset = new AtomicLong();
   private final ScheduledExecutorService executor;
 
-  public SimGyroIO(GyroSimulation gyroSimulation) {
+  public SimThreadedGyro(GyroSimulation gyroSimulation) {
     this.gyroSimulation = gyroSimulation;
     this.lastGyro = new AtomicLong((Double.doubleToLongBits(0)));
     this.executor = Executors.newScheduledThreadPool(1);
   }
 
+  @Override
   public void start() {
     updateGyro();
     executor.scheduleAtFixedRate(
@@ -47,33 +45,45 @@ public class SimGyroIO implements GyroIO {
   }
 
   @Override
-  public void updateInputs(GyroInputs inputs) {
-    inputs.connected = true;
-    inputs.anglesInDeg = (gyroSimulation.getGyroReading().getDegrees() % 360);
-    inputs.angularVelocityInDeg =
-        Units.degreesToRadians(gyroSimulation.getMeasuredAngularVelocity().in(DegreesPerSecond));
-    inputs.odometryYawTimestamps = SparkUtil.getSimulationOdometryTimeStamps();
-    inputs.odometryYawPositions = gyroSimulation.getCachedGyroReadings();
+  public void stop() {
+    executor.shutdownNow();
   }
 
-  private void updateGyro() {
+  @Override
+  public boolean stopAndWait(long maxTime, TimeUnit timeUnit) {
+    executor.shutdownNow();
+    try {
+      return executor.awaitTermination(maxTime, timeUnit);
+    } catch (InterruptedException e) {
+      DriverStation.reportError(
+          "ThreadedGyro thread termination was interrupted: " + e.getMessage(), true);
+      return false;
+    }
+  }
+
+  @Override
+  public void updateGyro() {
     lastGyro.set(
         Double.doubleToLongBits(((gyroSimulation.getGyroReading().getDegrees()) % 360) * -1));
   }
 
+  @Override
   public double getGyroValue() {
     return Double.longBitsToDouble(lastGyro.get());
   }
 
+  @Override
   public void resetGyro() {
     shouldReset.set(true);
   }
 
-  public void setAngleOffset(double degrees) {
+  @Override
+  public void setAngleAdjustment(double degrees) {
     gyroOffset.set(Double.doubleToLongBits(degrees));
     shouldOffset.set(true);
   }
 
+  @Override
   public double getAngleOffset() {
     return Double.longBitsToDouble(gyroOffset.get());
   }

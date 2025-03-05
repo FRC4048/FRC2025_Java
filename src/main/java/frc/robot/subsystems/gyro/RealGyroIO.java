@@ -5,9 +5,9 @@ import frc.robot.constants.Constants;
 import frc.robot.utils.diag.DiagGyro;
 
 public class RealGyroIO implements GyroIO {
-  private final ThreadedGyro gyro;
+  private final ThreadedGyroIO gyro;
 
-  public RealGyroIO(ThreadedGyro gyro) {
+  public RealGyroIO(ThreadedGyroIO gyro) {
     this.gyro = gyro;
     Robot.getDiagnostics()
         .addDiagnosable(new DiagGyro("Gyro", "Gyro Angle", Constants.GYRO_DIAGS_ANGLE, gyro));
@@ -23,7 +23,6 @@ public class RealGyroIO implements GyroIO {
     gyro.resetGyro();
   }
 
-  @Override
   public void updateInputs(GyroInputs inputs) {
     inputs.anglesInDeg = gyro.getGyroValue();
     inputs.angleOffset = gyro.getAngleOffset();

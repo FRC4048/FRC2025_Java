@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class ThreadedGyro {
+public class ThreadedGyro implements ThreadedGyroIO {
   private final AHRS gyro;
   private final AtomicBoolean shouldReset = new AtomicBoolean(false);
   private final AtomicBoolean shouldOffset = new AtomicBoolean(false);
@@ -23,6 +23,7 @@ public class ThreadedGyro {
     this.executor = Executors.newScheduledThreadPool(1);
   }
 
+  @Override
   public void start() {
     updateGyro();
     executor.scheduleAtFixedRate(
@@ -42,10 +43,12 @@ public class ThreadedGyro {
         TimeUnit.MILLISECONDS);
   }
 
+  @Override
   public void stop() {
     executor.shutdownNow();
   }
 
+  @Override
   public boolean stopAndWait(long maxTime, TimeUnit timeUnit) {
     executor.shutdownNow();
     try {
@@ -57,23 +60,28 @@ public class ThreadedGyro {
     }
   }
 
-  private void updateGyro() {
+  @Override
+  public void updateGyro() {
     lastGyro.set(Double.doubleToLongBits(((gyro.getAngle()) % 360) * -1));
   }
 
+  @Override
   public double getGyroValue() {
     return Double.longBitsToDouble(lastGyro.get());
   }
 
+  @Override
   public void resetGyro() {
     shouldReset.set(true);
   }
 
+  @Override
   public void setAngleAdjustment(double degrees) {
     gyroOffset.set(Double.doubleToLongBits(degrees));
     shouldOffset.set(true);
   }
 
+  @Override
   public double getAngleOffset() {
     return Double.longBitsToDouble(gyroOffset.get());
   }

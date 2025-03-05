@@ -33,13 +33,11 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.MoveDistance;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.drivetrain.SetInitOdom;
-import frc.robot.commands.elevator.*;
 import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.ResetElevatorEncoder;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
-import frc.robot.commands.hihi.*;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
@@ -97,8 +95,10 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import java.util.Optional;
+import java.util.function.Consumer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
+import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 import org.littletonrobotics.junction.Logger;
 
 public class RobotContainer {
@@ -301,87 +301,70 @@ public class RobotContainer {
     SwerveModule frontRight;
     SwerveModule backLeft;
     SwerveModule backRight;
-    if (Robot.isReal()) {
-      frontLeft =
-          SwerveModule.createModule(
-              null, frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false, false);
-      frontRight =
-          SwerveModule.createModule(
-              null, frontRightIdConf, kConfig, pidConfig, ModulePosition.FRONT_RIGHT, true, false);
-      backLeft =
-          SwerveModule.createModule(
-              null, backLeftIdConf, kConfig, pidConfig, ModulePosition.BACK_LEFT, false, false);
-      backRight =
-          SwerveModule.createModule(
-              null,
-              backRightIdConf,
-              kConfig,
-              pidConfig,
-              ModulePosition.BACK_RIGHT,
-              true,
-              false); // TODO: put these in the right SwerveModuleProfiles later
+    ThreadedGyroIO threadedGyro;
+    Consumer<Pose2d> resetSimulationPoseCallBack;
+    SwerveModuleSimulation[] driveModules;
+    boolean simulate;
+    if (Constants.currentMode != Constants.Mode.REPLAY) {
+      if (Constants.currentMode == Constants.Mode.SIM) {
+        this.driveSimulation =
+            new SwerveDriveSimulation(
+                SwerveDrivetrain.mapleSimConfig, new Pose2d(0, 0, new Rotation2d()));
+        SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
+        threadedGyro = new SimThreadedGyro(driveSimulation.getGyroSimulation());
+        resetSimulationPoseCallBack = driveSimulation::setSimulationWorldPose;
+        driveModules = driveSimulation.getModules();
+        apriltagIO = new MockApriltag();
+        simulate = true;
 
-      ThreadedGyro threadedGyro =
-          new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
-      threadedGyro.start();
-      gyroIO = new RealGyroIO(threadedGyro);
-      apriltagIO = new TCPApriltag();
-      drivetrain =
-          new SwerveDrivetrain(
-              frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO, (pose) -> {});
-    } else if (Constants.currentMode == Constants.Mode.SIM) {
-      this.driveSimulation =
-          new SwerveDriveSimulation(
-              SwerveDrivetrain.mapleSimConfig, new Pose2d(0, 0, new Rotation2d()));
-      SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
+      } else {
+        threadedGyro =
+            new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
+        resetSimulationPoseCallBack = (pose) -> {};
+        driveModules = null;
+        apriltagIO = new TCPApriltag();
+        simulate = false;
+      }
       frontLeft =
           SwerveModule.createModule(
-              driveSimulation.getModules()[0],
+              driveModules[0],
               frontLeftIdConf,
               kConfig,
               pidConfig,
               ModulePosition.FRONT_LEFT,
               false,
-              true);
+              simulate);
       frontRight =
           SwerveModule.createModule(
-              driveSimulation.getModules()[1],
+              driveModules[1],
               frontRightIdConf,
               kConfig,
               pidConfig,
               ModulePosition.FRONT_RIGHT,
               true,
-              true);
+              simulate);
       backLeft =
           SwerveModule.createModule(
-              driveSimulation.getModules()[2],
+              driveModules[2],
               backLeftIdConf,
               kConfig,
               pidConfig,
               ModulePosition.BACK_LEFT,
               false,
-              true);
+              simulate);
       backRight =
           SwerveModule.createModule(
-              driveSimulation.getModules()[3],
+              driveModules[3],
               backRightIdConf,
               kConfig,
               pidConfig,
               ModulePosition.BACK_RIGHT,
               true,
-              true);
-      gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
-      apriltagIO = new MockApriltag();
-      drivetrain =
-          new SwerveDrivetrain(
-              frontLeft,
-              frontRight,
-              backLeft,
-              backRight,
-              gyroIO,
-              apriltagIO,
-              driveSimulation::setSimulationWorldPose);
-    } else if (Constants.currentMode == Constants.Mode.REPLAY) {
+              simulate);
+      threadedGyro.start();
+      gyroIO = new RealGyroIO(threadedGyro);
+
+    } else {
       frontLeft =
           new SwerveModule(
               new MockDriveMotorIO(),
@@ -420,10 +403,17 @@ public class RobotContainer {
               "backRight");
       gyroIO = new MockGyroIO();
       apriltagIO = new MockApriltag();
-      drivetrain =
-          new SwerveDrivetrain(
-              frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO, (pose) -> {});
+      resetSimulationPoseCallBack = (pose) -> {};
     }
+    drivetrain =
+        new SwerveDrivetrain(
+            frontLeft,
+            frontRight,
+            backLeft,
+            backRight,
+            gyroIO,
+            apriltagIO,
+            resetSimulationPoseCallBack);
   }
 
   public SwerveDrivetrain getDrivetrain() {
