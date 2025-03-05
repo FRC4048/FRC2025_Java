@@ -63,8 +63,7 @@ public class SimThreadedGyro implements ThreadedGyroIO {
 
   @Override
   public void updateGyro() {
-    lastGyro.set(
-        Double.doubleToLongBits(((gyroSimulation.getGyroReading().getDegrees()) % 360) * -1));
+    lastGyro.set(Double.doubleToLongBits((gyroSimulation.getGyroReading().getDegrees()) % 360));
   }
 
   @Override
