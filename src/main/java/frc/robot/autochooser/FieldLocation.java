@@ -2,6 +2,7 @@ package frc.robot.autochooser;
 
 import static edu.wpi.first.wpilibj.DriverStation.Alliance;
 
+import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
@@ -15,7 +16,7 @@ public enum FieldLocation {
   ZERO(0, 0, 0, "Zero", "Zero"),
   INVALID(-1, -1, -1, "INVALID", "INVALID"),
   LEFT(7.150, 6.000, 180, "NON Processor Side", "NON Processor Side"),
-  MIDDLE(7.128, 4.173, 180, "Middle", "Middle"),
+  MIDDLE(7.150, 4.516, 180, "Middle", "Middle"),
   RIGHT(7.150, 2.000, 180, "Processor Side", "Processor Side");
 
   private static final double RED_X_POS = 2.3876; // meters
