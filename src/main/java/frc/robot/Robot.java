@@ -13,6 +13,7 @@ import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.SetBaseVisionStd;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.drivetrain.WheelAlign;
+import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.constants.Constants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
@@ -92,6 +93,7 @@ public class Robot extends LoggedRobot {
     if (getMode() != RobotMode.TEST) {
       CommandScheduler.getInstance().run();
       if (counter == 0) {
+        m_robotContainer.getHihiExtenderSubsystem().setExtenderPosition(0.0);
         actualInit();
       }
       counter++;

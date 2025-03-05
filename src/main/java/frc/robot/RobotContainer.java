@@ -367,6 +367,10 @@ public class RobotContainer {
     return drivetrain;
   }
 
+  public HihiExtenderSubsystem getHihiExtenderSubsystem() {
+    return hihiExtender;
+  }
+
   public void putShuffleboardCommands() {
 
     if (Constants.CORAL_DEBUG) {
