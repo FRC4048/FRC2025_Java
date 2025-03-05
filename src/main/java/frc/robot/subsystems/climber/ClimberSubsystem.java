@@ -5,11 +5,9 @@
 package frc.robot.subsystems.climber;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
@@ -22,10 +20,6 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (Constants.CLIMBER_DEBUG) {
-      SmartShuffleboard.put("Climber", "Forward", isExtendedLimitSwitchPressed());
-      SmartShuffleboard.put("Climber", "Backward", isRetractedLimitSwitchPressed());
-    }
     climberSystem.updateInputs();
     if (isExtendedLimitSwitchPressed() || isRetractedLimitSwitchPressed()) {
       stopClimber();
