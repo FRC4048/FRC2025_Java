@@ -11,7 +11,9 @@ import frc.robot.subsystems.swervev3.vision.FilterResult;
 import frc.robot.subsystems.swervev3.vision.PoseDeviation;
 import frc.robot.subsystems.swervev3.vision.VisionFilter;
 import frc.robot.subsystems.swervev3.vision.VisionTruster;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.littletonrobotics.junction.Logger;
 
@@ -57,20 +59,29 @@ public class FilterablePoseManager extends PoseManager {
     LinkedHashMap<VisionMeasurement, FilterResult> filteredData =
         filter.filter(visionMeasurementQueue);
     visionMeasurementQueue.clear();
-    int numRejected = 0;
+    List<Pose2d> validMeasurements = new ArrayList<>();
+    List<Pose2d> invalidMeasurements = new ArrayList<>();
     for (Map.Entry<VisionMeasurement, FilterResult> entry : filteredData.entrySet()) {
       VisionMeasurement v = entry.getKey();
       FilterResult r = entry.getValue();
-
       switch (r) {
         case ACCEPTED -> {
           setVisionSTD(visionTruster.calculateTrust(v));
+          validMeasurements.add(v.measurement());
           addVisionMeasurement(v);
         }
         case NOT_PROCESSED -> visionMeasurementQueue.add(v);
-        case REJECTED -> numRejected++;
+        case REJECTED -> {
+          invalidMeasurements.add(v.measurement());
+        }
       }
     }
-    Logger.recordOutput("rejectedMeasurementsCount", numRejected);
+    Logger.recordOutput("Apriltag/acceptedMeasurements", validMeasurements.toArray(Pose2d[]::new));
+    Logger.recordOutput(
+        "Apriltag/rejectedMeasurements", invalidMeasurements.toArray(Pose2d[]::new));
+  }
+
+  public VisionTruster getVisionTruster() {
+    return visionTruster;
   }
 }
