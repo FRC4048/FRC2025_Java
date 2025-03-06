@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public enum FieldLocation {
   ZERO(0, 0, 0, "Zero"),
   INVALID(-1, -1, -1, "INVALID"),
-  LEFT(7.150, 6.000, 180, "NON Processor Side"),
+  LEFT(7.150, 7.000, 180, "NON Processor Side"),
   MIDDLE(7.150, 4.500, 180, "Middle"),
   RIGHT(7.150, 2.000, 180, "Processor Side");
 
