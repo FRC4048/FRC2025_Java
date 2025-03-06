@@ -10,7 +10,6 @@ import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -262,11 +261,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return autoChooser.getAutoCommand();
-  }
-
-  public static boolean isRedAlliance() {
-    Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
-    return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
   }
 
   private void setupDriveTrain() {
