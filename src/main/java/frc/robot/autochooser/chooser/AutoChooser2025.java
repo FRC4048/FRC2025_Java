@@ -45,11 +45,8 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
                 new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.RIGHT),
                 new RightCrossTheLine(elevator, coral)),
             Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.RIGHT),
+                new AutoEvent(AutoAction.TWO_PIECE, FieldLocation.RIGHT),
                 new RightFourPieceFork(elevator, coral, lightStrip)),
-            Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.LEFT),
-                new LeftFourPieceFork(elevator, coral, lightStrip)),
             Map.entry(
                 new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
                 new MiddleOnePiece(elevator, coral, lightStrip)));
