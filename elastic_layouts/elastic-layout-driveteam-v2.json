@@ -3,13 +3,6 @@
   "grid_size": 128,
   "tabs": [
     {
-      "name": "Autonomous Chooser",
-      "grid_layout": {
-        "layouts": [],
-        "containers": []
-      }
-    },
-    {
       "name": "Diagnostics",
       "grid_layout": {
         "layouts": [
@@ -259,10 +252,10 @@
         "containers": [
           {
             "title": "Field",
-            "x": 0.0,
+            "x": 768.0,
             "y": 0.0,
-            "width": 896.0,
-            "height": 512.0,
+            "width": 384.0,
+            "height": 640.0,
             "type": "Field",
             "properties": {
               "topic": "/SmartDashboard/Field",
@@ -272,7 +265,7 @@
               "robot_length": 0.85,
               "show_other_objects": true,
               "show_trajectories": true,
-              "field_rotation": 0.0,
+              "field_rotation": 90.0,
               "robot_color": 4294198070,
               "trajectory_color": 4294967295
             }
@@ -359,6 +352,81 @@
               "time_display_mode": "Minutes and Seconds",
               "red_start_time": 15,
               "yellow_start_time": 30
+            }
+          },
+          {
+            "title": "DriverCam",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 768.0,
+            "height": 512.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/DriverCam",
+              "period": 0.06,
+              "rotation_turns": 3,
+              "resolution": [
+                0.0,
+                0.0
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Autonomous Chooser",
+      "grid_layout": {
+        "layouts": [],
+        "containers": [
+          {
+            "title": "AutoActionFeedback",
+            "x": 768.0,
+            "y": 0.0,
+            "width": 384.0,
+            "height": 128.0,
+            "type": "Large Text Display",
+            "properties": {
+              "topic": "/Shuffleboard/Auto/AutoActionFeedback",
+              "period": 0.06,
+              "data_type": "string"
+            }
+          },
+          {
+            "title": "FieldLocationFeedback",
+            "x": 768.0,
+            "y": 128.0,
+            "width": 384.0,
+            "height": 128.0,
+            "type": "Large Text Display",
+            "properties": {
+              "topic": "/Shuffleboard/Auto/FieldLocationFeedback",
+              "period": 0.06,
+              "data_type": "string"
+            }
+          },
+          {
+            "title": "Auto Action",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 768.0,
+            "height": 128.0,
+            "type": "Split Button Chooser",
+            "properties": {
+              "topic": "/Shuffleboard/Auto/Auto Action",
+              "period": 0.06
+            }
+          },
+          {
+            "title": "Location Chooser",
+            "x": 0.0,
+            "y": 128.0,
+            "width": 768.0,
+            "height": 128.0,
+            "type": "Split Button Chooser",
+            "properties": {
+              "topic": "/Shuffleboard/Auto/Location Chooser",
+              "period": 0.06
             }
           }
         ]
