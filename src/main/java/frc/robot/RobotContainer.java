@@ -348,7 +348,6 @@ public class RobotContainer {
         driveModules = null;
         apriltagIO = new TCPApriltag();
         simulate = false;
-        apriltagIO = new TCPApriltag();
       }
       frontLeft =
           SwerveModule.createModule(

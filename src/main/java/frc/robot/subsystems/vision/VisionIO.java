@@ -21,7 +21,6 @@ import org.littletonrobotics.junction.LogTable;
 
 public interface VisionIO extends LoggableIO<VisionIO.VisionIOInputs> {
   class VisionIOInputs extends FolderLoggableInputs {
-
     public VisionIOInputs(String folder) {
       super(folder);
     }
