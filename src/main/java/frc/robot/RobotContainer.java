@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static frc.robot.subsystems.vision.VisionConstants.*;
+
 import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
+import frc.robot.apriltags.SimApriltagIO;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
@@ -89,12 +92,12 @@ import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
+import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import java.util.Optional;
 import java.util.function.Consumer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
@@ -316,8 +319,11 @@ public class RobotContainer {
         threadedGyro = new SimThreadedGyro(driveSimulation.getGyroSimulation());
         resetSimulationPoseCallBack = driveSimulation::setSimulationWorldPose;
         driveModules = driveSimulation.getModules();
-        apriltagIO = new MockApriltag();
         simulate = true;
+        apriltagIO =
+            new SimApriltagIO(
+                new VisionIOPhotonVisionSim(
+                    camera0Name, robotToCamera0, driveSimulation::getSimulatedDriveTrainPose));
 
       } else {
         threadedGyro =
@@ -326,6 +332,7 @@ public class RobotContainer {
         driveModules = null;
         apriltagIO = new TCPApriltag();
         simulate = false;
+        apriltagIO = new TCPApriltag();
       }
       frontLeft =
           SwerveModule.createModule(
@@ -365,7 +372,6 @@ public class RobotContainer {
               simulate);
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
-
     } else {
       frontLeft =
           new SwerveModule(

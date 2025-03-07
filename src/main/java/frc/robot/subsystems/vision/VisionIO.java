@@ -15,16 +15,38 @@ package frc.robot.subsystems.vision;
 
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import org.littletonrobotics.junction.AutoLog;
+import frc.robot.utils.logging.LoggableIO;
+import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
+import org.littletonrobotics.junction.LogTable;
 
-public interface VisionIO {
-  @AutoLog
-  class VisionIOInputs {
+public interface VisionIO extends LoggableIO<VisionIO.VisionIOInputs> {
+  class VisionIOInputs extends FolderLoggableInputs {
+
+    public VisionIOInputs(String folder) {
+      super(folder);
+    }
+
     public boolean connected = false;
     public TargetObservation latestTargetObservation =
         new TargetObservation(new Rotation2d(), new Rotation2d());
     public PoseObservation[] poseObservations = new PoseObservation[0];
     public int[] tagIds = new int[0];
+
+    @Override
+    public void toLog(LogTable table) {
+      table.put("connected", connected);
+      table.put("latestTargetObservation", latestTargetObservation);
+      table.put("tagIds.length", tagIds.length);
+      table.put("poseObservations", poseObservations);
+    }
+
+    @Override
+    public void fromLog(LogTable table) {
+      connected = table.get("connected", connected);
+      latestTargetObservation = table.get("latestTargetObservation", latestTargetObservation);
+      tagIds = table.get("tagIds", tagIds);
+      poseObservations = table.get("poseObservations", poseObservations);
+    }
   }
 
   /** Represents the angle to a simple target, not used for pose estimation. */
@@ -44,6 +66,4 @@ public interface VisionIO {
     MEGATAG_2,
     PHOTONVISION
   }
-
-  default void updateInputs(VisionIOInputs inputs) {}
 }
