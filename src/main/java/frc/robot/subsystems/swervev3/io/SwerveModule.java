@@ -13,8 +13,10 @@ import frc.robot.subsystems.swervev3.SwervePidConfig;
 import frc.robot.subsystems.swervev3.io.abs.CANCoderAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsIO;
 import frc.robot.subsystems.swervev3.io.abs.SwerveAbsInput;
+import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.drive.SparkMaxDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.drive.SwerveDriveMotorIO;
+import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SparkMaxSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SwerveSteerMotorIO;
 import frc.robot.utils.ModulePosition;
@@ -23,7 +25,7 @@ import frc.robot.utils.logging.subsystem.builders.MotorInputBuilder;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
-import frc.robot.utils.motor.PID;
+import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class SwerveModule {
   private final LoggableSystem<SwerveDriveMotorIO, MotorInputs> driveSystem;
@@ -39,8 +41,8 @@ public class SwerveModule {
       SwerveDriveMotorIO driveMotorIO,
       SwerveSteerMotorIO steerMotorIO,
       SwerveAbsIO absIO,
-      PID drivePid,
-      PID turnPid,
+      PIDController driveController,
+      ProfiledPIDController turnController,
       Gain driveGain,
       Gain turnGain,
       TrapezoidProfile.Constraints goalConstraint,
@@ -52,9 +54,8 @@ public class SwerveModule {
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));
-    drivePIDController = new PIDController(drivePid.getP(), drivePid.getI(), drivePid.getD());
-    turningPIDController =
-        new ProfiledPIDController(turnPid.getP(), turnPid.getI(), turnPid.getD(), goalConstraint);
+    drivePIDController = driveController;
+    turningPIDController = turnController;
     driveFeedforward = new SimpleMotorFeedforward(driveGain.getS(), driveGain.getV());
     turnFeedforward = new SimpleMotorFeedforward(turnGain.getS(), turnGain.getV());
     turningPIDController.enableContinuousInput(0, Math.PI * 2);
@@ -64,14 +65,16 @@ public class SwerveModule {
       SwerveDriveMotorIO driveMotorIO,
       SwerveSteerMotorIO steerMotorIO,
       SwerveAbsIO absIO,
+      PIDController driveController,
+      ProfiledPIDController turnController,
       SwervePidConfig pidConfig,
       String moduleName) {
     this(
         driveMotorIO,
         steerMotorIO,
         absIO,
-        pidConfig.getDrivePid(),
-        pidConfig.getSteerPid(),
+        driveController,
+        turnController,
         pidConfig.getDriveGain(),
         pidConfig.getSteerGain(),
         pidConfig.getGoalConstraint(),
@@ -86,11 +89,12 @@ public class SwerveModule {
         drivePIDController.calculate(
                 driveSystem.getInputs().getEncoderVelocity(), (state.speedMetersPerSecond))
             + driveFeedforward.calculate(state.speedMetersPerSecond);
-    double turnSpeed =
-        turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
-            + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity);
     driveSystem.getIO().setDriveVoltage(driveSpeed);
-    steerSystem.getIO().setSteerVoltage(turnSpeed * 12);
+    steerSystem
+        .getIO()
+        .setSteerVoltage(
+            turningPIDController.calculate(steerEncoderPosition, state.angle.getRadians())
+                + turnFeedforward.calculate(turningPIDController.getSetpoint().velocity) * 12);
   }
 
   public SwerveModuleState getLatestState() {
@@ -126,23 +130,47 @@ public class SwerveModule {
   }
 
   public static SwerveModule createModule(
+      SwerveModuleSimulation moduleSimulation,
       SwerveIdConfig idConf,
       KinematicsConversionConfig kinematicsConfig,
       SwervePidConfig pidConfig,
       ModulePosition position,
-      boolean driveInverted) {
-    SparkMaxDriveMotorIO frontLeftDriveMotorIO =
-        new SparkMaxDriveMotorIO(idConf.getDriveMotorId(), kinematicsConfig, driveInverted);
-    SparkMaxSteerMotorIO frontLeftSteerMotorIO =
-        new SparkMaxSteerMotorIO(
-            idConf.getTurnMotorId(),
-            kinematicsConfig,
-            kinematicsConfig.getProfile().isSteerInverted());
+      boolean driveInverted,
+      boolean simulate) {
+    PIDController driveController =
+        new PIDController(
+            pidConfig.getDrivePid().getP(),
+            pidConfig.getDrivePid().getI(),
+            pidConfig.getDrivePid().getD());
+    ProfiledPIDController turningController =
+        new ProfiledPIDController(
+            pidConfig.getSteerPid().getP(),
+            pidConfig.getSteerPid().getI(),
+            pidConfig.getSteerPid().getD(),
+            pidConfig.getGoalConstraint());
+    SwerveDriveMotorIO frontLeftDriveMotorIO;
+    SwerveSteerMotorIO frontLeftSteerMotorIO;
+    if (simulate) {
+      frontLeftDriveMotorIO =
+          new SimDriveMotorIO(kinematicsConfig, moduleSimulation, driveController);
+      frontLeftSteerMotorIO = new SimSteerMotorIO(moduleSimulation, turningController);
+    } else {
+      frontLeftDriveMotorIO =
+          new SparkMaxDriveMotorIO(idConf.getDriveMotorId(), kinematicsConfig, driveInverted);
+      frontLeftSteerMotorIO =
+          new SparkMaxSteerMotorIO(
+              idConf.getTurnMotorId(),
+              kinematicsConfig,
+              kinematicsConfig.getProfile().isSteerInverted());
+    }
     CANCoderAbsIO frontLeftAbsIO = new CANCoderAbsIO(idConf.getCanCoderId());
+
     return new SwerveModule(
         frontLeftDriveMotorIO,
         frontLeftSteerMotorIO,
         frontLeftAbsIO,
+        driveController,
+        turningController,
         pidConfig,
         position.getLoggingKey());
   }

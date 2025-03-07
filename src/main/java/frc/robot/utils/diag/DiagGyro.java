@@ -1,11 +1,11 @@
 package frc.robot.utils.diag;
 
-import frc.robot.subsystems.gyro.ThreadedGyro;
+import frc.robot.subsystems.gyro.ThreadedGyroIO;
 
 public class DiagGyro extends DiagDistanceTraveled {
-  private final ThreadedGyro gyro;
+  private final ThreadedGyroIO gyro;
 
-  public DiagGyro(String title, String name, double requiredTravel, ThreadedGyro gyro) {
+  public DiagGyro(String title, String name, double requiredTravel, ThreadedGyroIO gyro) {
     super(title, name, requiredTravel);
     this.gyro = gyro;
   }

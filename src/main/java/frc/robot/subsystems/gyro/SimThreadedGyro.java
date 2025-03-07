@@ -1,6 +1,6 @@
 package frc.robot.subsystems.gyro;
 
-import com.studica.frc.AHRS;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.constants.Constants;
 import java.util.concurrent.Executors;
@@ -8,17 +8,18 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import org.ironmaple.simulation.drivesims.GyroSimulation;
 
-public class ThreadedGyro implements ThreadedGyroIO {
-  private final AHRS gyro;
+public class SimThreadedGyro implements ThreadedGyroIO {
+  private final GyroSimulation gyroSimulation;
   private final AtomicBoolean shouldReset = new AtomicBoolean(false);
   private final AtomicBoolean shouldOffset = new AtomicBoolean(false);
   private final AtomicLong lastGyro;
   private final AtomicLong gyroOffset = new AtomicLong();
   private final ScheduledExecutorService executor;
 
-  public ThreadedGyro(AHRS gyro) {
-    this.gyro = gyro;
+  public SimThreadedGyro(GyroSimulation gyroSimulation) {
+    this.gyroSimulation = gyroSimulation;
     this.lastGyro = new AtomicLong((Double.doubleToLongBits(0)));
     this.executor = Executors.newScheduledThreadPool(1);
   }
@@ -29,11 +30,11 @@ public class ThreadedGyro implements ThreadedGyroIO {
     executor.scheduleAtFixedRate(
         () -> {
           if (shouldReset.get()) {
-            gyro.reset();
+            gyroSimulation.setRotation(new Rotation2d(0));
             shouldReset.set(false);
           }
           if (shouldOffset.get()) {
-            gyro.setAngleAdjustment(Double.longBitsToDouble(gyroOffset.get()));
+            // TODO: Doesn't do anything for now, but metho is never used
             shouldOffset.set(false);
           }
           updateGyro();
@@ -62,7 +63,7 @@ public class ThreadedGyro implements ThreadedGyroIO {
 
   @Override
   public void updateGyro() {
-    lastGyro.set(Double.doubleToLongBits(((gyro.getAngle()) % 360) * -1));
+    lastGyro.set(Double.doubleToLongBits((gyroSimulation.getGyroReading().getDegrees()) % 360));
   }
 
   @Override

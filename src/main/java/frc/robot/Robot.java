@@ -117,10 +117,12 @@ public class Robot extends LoggedRobot {
 
   /** Use this instead of robot init. */
   private void actualInit() {
-    new LoggableSequentialCommandGroup(
-            new WheelAlign(robotContainer.getDrivetrain()),
-            new ResetGyro(robotContainer.getDrivetrain()))
-        .schedule();
+    if (Robot.isReal()) {
+      new LoggableSequentialCommandGroup(
+              new WheelAlign(robotContainer.getDrivetrain()),
+              new ResetGyro(robotContainer.getDrivetrain()))
+          .schedule();
+    }
   }
 
   @Override
@@ -187,6 +189,12 @@ public class Robot extends LoggedRobot {
 
   public static Diagnostics getDiagnostics() {
     return diagnostics;
+  }
+
+  /** This function is called periodically whilst in simulation. */
+  @Override
+  public void simulationPeriodic() {
+    robotContainer.updateSimulation();
   }
 
   public static Optional<DriverStation.Alliance> getAllianceColor() {
