@@ -1,5 +1,7 @@
 package frc.robot.subsystems.swervev3;
 
+import static edu.wpi.first.units.Units.*;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -13,6 +15,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.apriltags.ApriltagInputs;
@@ -26,6 +29,10 @@ import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import java.util.function.Consumer;
+import org.ironmaple.simulation.drivesims.COTS;
+import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
+import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -33,21 +40,22 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
-  private final Translation2d frontLeftLocation =
+  private static final Translation2d frontLeftLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d frontRightLocation =
+  private static final Translation2d frontRightLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, -Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d backLeftLocation =
+  private static final Translation2d backLeftLocation =
       new Translation2d(-Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d backRightLocation =
+  private static final Translation2d backRightLocation =
       new Translation2d(-Constants.DRIVE_BASE_WIDTH / 2, -Constants.DRIVE_BASE_LENGTH / 2);
-  private final SwerveDriveKinematics kinematics =
+  private static final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
   private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
+  private final Consumer<Pose2d> resetSimulationPoseCallBack;
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
@@ -55,7 +63,8 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule backLeftModule,
       SwerveModule backRightModule,
       GyroIO gyroIO,
-      LoggableIO<ApriltagInputs> apriltagIO) {
+      LoggableIO<ApriltagInputs> apriltagIO,
+      Consumer<Pose2d> resetSimulationPoseCallBack) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
@@ -64,6 +73,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+    this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
 
     RobotConfig config = null;
     try {
@@ -218,6 +228,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void resetOdometry(Pose2d startingPosition) {
+    resetSimulationPoseCallBack.accept(startingPosition);
     poseEstimator.resetOdometry(
         startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
   }
@@ -245,6 +256,29 @@ public class SwerveDrivetrain extends SubsystemBase {
   public boolean isFacingTarget() {
     return facingTarget;
   }
+
+  private static final DCMotor driveMotor = DCMotor.getNEO(1);
+  private static final DCMotor steerMotor = DCMotor.getNEO(1);
+  private static final KinematicsConversionConfig kinematicsConfig =
+      new KinematicsConversionConfig(Constants.WHEEL_RADIUS, Constants.SWERVE_MODULE_PROFILE);
+  public static final DriveTrainSimulationConfig mapleSimConfig =
+      DriveTrainSimulationConfig.Default()
+          .withCustomModuleTranslations(kinematics.getModules())
+          .withRobotMass(Kilograms.of(Constants.ROBOT_MASS))
+          .withBumperSize(
+              Meters.of(Constants.ROBOT_BUMPER_LENGTH), Meters.of(Constants.ROBOT_BUMPER_WIDTH))
+          .withGyro(COTS.ofNav2X())
+          .withSwerveModule(
+              new SwerveModuleSimulationConfig(
+                  driveMotor,
+                  steerMotor,
+                  kinematicsConfig.getProfile().getDriveGearRatio(),
+                  kinematicsConfig.getProfile().getSteerGearRatio(),
+                  Volts.of(Constants.DRIVE_PID_FF_S),
+                  Volts.of(Constants.STEER_PID_FF_S),
+                  Meters.of(kinematicsConfig.getWheelRadius()),
+                  KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
+                  Constants.COEFFICIENT_OF_FRICTION));
 
   public void setVisionBaseSTD(Vector<N3> std) {
     ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);
