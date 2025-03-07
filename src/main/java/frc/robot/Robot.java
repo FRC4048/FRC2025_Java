@@ -5,16 +5,22 @@
 package frc.robot;
 
 import com.pathplanner.lib.pathfinding.Pathfinding;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.camera.CameraThread;
 import frc.robot.commands.drivetrain.ResetGyro;
+import frc.robot.commands.drivetrain.SetBaseVisionStd;
+import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.constants.GameConstants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
+import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
@@ -24,12 +30,13 @@ import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
 public class Robot extends LoggedRobot {
-  private Command m_autonomousCommand;
+  private Command autoCommand;
   private static final Diagnostics diagnostics = new Diagnostics();
 
-  private final RobotContainer m_robotContainer;
+  private final RobotContainer robotContainer;
   private static final AtomicReference<RobotMode> mode = new AtomicReference<>(RobotMode.DISABLED);
   public double counter = 0;
+  private static Optional<DriverStation.Alliance> allianceColor = Optional.empty();
 
   public Robot() {
     Pathfinding.setPathfinder(new LocalADStarAK());
@@ -75,36 +82,44 @@ public class Robot extends LoggedRobot {
     // Start AdvantageKit logger
     Logger.start();
     CommandLogger.get().init();
-    m_robotContainer = new RobotContainer();
+    robotContainer = new RobotContainer();
+
+    new CameraThread();
   }
 
   public static RobotMode getMode() {
     return mode.get();
   }
 
-    @Override
-    public void robotPeriodic() {
-        if (getMode() != RobotMode.TEST) {
-            CommandScheduler.getInstance().run();
-            if (counter == 0) {
-                actualInit();
-            }
-            if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
-                m_robotContainer.getRobotVisualizer().logMechanism();
-            }
-            counter++;
+  @Override
+  public void robotPeriodic() {
+    if (getMode() != RobotMode.TEST) {
+      CommandScheduler.getInstance().run();
+      if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
+        allianceColor = DriverStation.getAlliance();
+        if (allianceColor.isPresent()) {
+          robotContainer.getAutoChooser().getProvider().forceRefresh();
         }
-
-        if (Constants.ENABLE_LOGGING) {
-            CommandLogger.get().log();
+      }
+      if (counter == 0) {
+        actualInit();
+      }
+        if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
+            robotContainer.getRobotVisualizer().logMechanism();
         }
+      counter++;
     }
+
+    if (Constants.ENABLE_LOGGING) {
+      CommandLogger.get().log();
+    }
+  }
 
   /** Use this instead of robot init. */
   private void actualInit() {
-    new SequentialCommandGroup(
-            new WheelAlign(m_robotContainer.getDrivetrain()),
-            new ResetGyro(m_robotContainer.getDrivetrain()))
+    new LoggableSequentialCommandGroup(
+            new WheelAlign(robotContainer.getDrivetrain()),
+            new ResetGyro(robotContainer.getDrivetrain()))
         .schedule();
   }
 
@@ -121,12 +136,13 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
     mode.set(RobotMode.AUTONOMOUS);
+    new SetInitOdom(robotContainer.getDrivetrain(), robotContainer.getAutoChooser()).schedule();
+    new SetBaseVisionStd(robotContainer.getDrivetrain(), VecBuilder.fill(0.45, 0.45, 0.1));
+    autoCommand = robotContainer.getAutonomousCommand();
+    if (autoCommand != null) {
+      autoCommand.schedule();
+    }
   }
 
   @Override
@@ -137,11 +153,11 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
-    diagnostics.reset();
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
     mode.set(RobotMode.TELEOP);
+    diagnostics.reset();
+    if (autoCommand != null) {
+      autoCommand.cancel();
+    }
   }
 
   @Override
@@ -152,9 +168,9 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void testInit() {
+    mode.set(RobotMode.TEST);
     diagnostics.reset();
     CommandScheduler.getInstance().cancelAll();
-    mode.set(RobotMode.TEST);
   }
 
   @Override
@@ -171,5 +187,9 @@ public class Robot extends LoggedRobot {
 
   public static Diagnostics getDiagnostics() {
     return diagnostics;
+  }
+
+  public static Optional<DriverStation.Alliance> getAllianceColor() {
+    return allianceColor;
   }
 }
