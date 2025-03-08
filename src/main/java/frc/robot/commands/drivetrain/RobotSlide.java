@@ -26,8 +26,8 @@ public class RobotSlide extends LoggableCommand {
   public void execute() {
     double horizVal = -horizSupplier.getAsDouble();
     double vertVal = -vertSupplier.getAsDouble();
-    double y = MathUtil.applyDeadband(horizVal, 0.05) * Constants.MAX_VELOCITY / 8;
-    double x = MathUtil.applyDeadband(vertVal, 0.05) * Constants.MAX_VELOCITY / 8;
+    double y = MathUtil.applyDeadband(horizVal, 0.05) * Constants.MAX_VELOCITY / 10;
+    double x = MathUtil.applyDeadband(vertVal, 0.05) * Constants.MAX_VELOCITY / 10;
     ChassisSpeeds speeds = drivetrain.createChassisSpeeds(x, y, 0, DriveMode.ROBOT_CENTRIC);
     drivetrain.drive(speeds);
   }
