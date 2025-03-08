@@ -45,7 +45,7 @@ public class Paths {
     try {
       // Robot to Post Paths
       robotOneToPostJCommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 1 to Post J"));
+          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post E").mirrorPath());
       robotFourToPostECommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post E"));
       robotTwoToPostHCommand =
