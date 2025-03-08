@@ -130,7 +130,7 @@ public class PoseEstimator {
         if (validAprilTagPose(pos)
             && apriltagSystem.getInputs().apriltagNumber[i] != 15
             && apriltagSystem.getInputs().apriltagNumber[i] != 4
-            && apriltagSystem.getInputs().apriltagNumber[i] != 12
+            && apriltagSystem.getInputs().apriltagNumber[i] != 14
             && apriltagSystem.getInputs().apriltagNumber[i] != 5) {
           double serverTime = apriltagSystem.getInputs().serverTime[i];
           double timestamp = 0; // latency is not right we are assuming zero
