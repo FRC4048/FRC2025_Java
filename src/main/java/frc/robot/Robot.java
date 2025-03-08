@@ -172,6 +172,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void testPeriodic() {
     diagnostics.refresh();
+    robotContainer.getDrivetrain().periodic();
   }
 
   @Override
