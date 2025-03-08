@@ -105,7 +105,7 @@ public class PoseEstimator {
    * @see SwerveDrivePoseEstimator#update(Rotation2d, SwerveModulePosition[])
    */
   public void updatePosition(OdometryMeasurement m) {
-    if (DriverStation.isEnabled()) {
+    if (!Robot.getMode().equals(RobotMode.DISABLED)) {
       poseManager.addOdomMeasurement(m, Logger.getTimestamp());
     }
     field.setRobotPose(poseManager.getEstimatedPosition());
