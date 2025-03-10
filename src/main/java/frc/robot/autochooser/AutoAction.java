@@ -6,7 +6,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public enum AutoAction {
-  DoNothing("Do Nothing"),
+  DO_NOTHING("Do Nothing"),
+  TWO_PIECE("2 Piece"),
+  ONE_PIECE("1 Piece"),
+  CROSS_THE_LINE("Cross The Line"),
   INVALID("INVALID");
   private final String name;
   private static final HashMap<String, AutoAction> nameMap =
