@@ -13,6 +13,7 @@ import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.vision.PoseDeviation;
 import java.util.LinkedList;
 import java.util.Queue;
+import org.littletonrobotics.junction.Logger;
 
 /**
  * Processes swerve odometry. Feeds odometry measurements and vision measurements into a Kalman
@@ -73,6 +74,9 @@ public class PoseManager {
   }
 
   protected void setVisionSTD(Vector<N3> visionMeasurementStdDevs) {
+    Logger.recordOutput(
+        "Apriltag/VisionAppliedCovariance",
+        new double[] {visionMeasurementStdDevs.get(0), visionMeasurementStdDevs.get(1)});
     poseEstimator.setVisionMeasurementStdDevs(visionMeasurementStdDevs);
   }
 
