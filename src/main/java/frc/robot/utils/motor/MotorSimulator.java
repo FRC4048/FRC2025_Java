@@ -20,7 +20,7 @@ public class MotorSimulator {
     motorSim = new SparkMaxSim(motor, gearbox);
     encoderSim = motorSim.getRelativeEncoderSim();
 
-    encoderSim.setPositionConversionFactor(1.0);
+    // method no longer exists
     encoderSim.setPosition(0.0);
     encoderSim.setInverted(false);
   }
