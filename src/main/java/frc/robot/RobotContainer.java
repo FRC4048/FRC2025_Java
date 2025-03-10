@@ -21,7 +21,6 @@ import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.byebye.SpinByeByeRoller;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -84,7 +83,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import frc.robot.utils.simulation.RobotVisualizer;
 import java.util.Optional;
 
