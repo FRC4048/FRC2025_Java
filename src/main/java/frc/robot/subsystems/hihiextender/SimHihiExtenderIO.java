@@ -8,10 +8,10 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 public class SimHihiExtenderIO extends RealHihiExtenderIO {
   private final ArmSimulator hihiExtenderSimulator;
-  private ArmParameters params = new ArmParameters();
 
   public SimHihiExtenderIO(LoggedMechanismLigament2d hiHiExtenderLigament) {
     super();
+    ArmParameters params = new ArmParameters();
     params.name = "HiHi Extender";
     params.armGearing = Constants.HIHI_GEARING;
     params.armInertia = Constants.HIHI_INERTIA;

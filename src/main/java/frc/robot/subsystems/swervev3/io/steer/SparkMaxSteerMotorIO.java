@@ -25,7 +25,7 @@ public class SparkMaxSteerMotorIO implements SwerveSteerMotorIO {
   }
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
-    double steerPosConvFactor = 2 * Math.PI / conversionConfig.getProfile().getSteerGearRatio();
+    double steerPosConvFactor = 2 * Math.PI / conversionConfig.profile().getSteerGearRatio();
     steerConfig
         .encoder
         .positionConversionFactor(steerPosConvFactor)

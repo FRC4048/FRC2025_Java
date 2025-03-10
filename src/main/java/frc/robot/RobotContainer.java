@@ -169,9 +169,7 @@ public class RobotContainer {
                 new SimAlgaeByeByeRollerIO(robotVisualizer.getAlgaeByeByeRollerLigament()));
         lightStrip = new LightStrip(new MockLightStripIO());
       }
-      default -> {
-        throw new RuntimeException("Did not specify Robot Mode");
-      }
+      default -> throw new RuntimeException("Did not specify Robot Mode");
     }
     setupDriveTrain();
     configureBindings();
@@ -273,8 +271,6 @@ public class RobotContainer {
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartDashboard.putData("Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
-      //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
     }
   }
 
@@ -346,10 +342,10 @@ public class RobotContainer {
             new ThreadedGyro(new AHRS(NavXComType.kMXP_SPI)); // TODO: change comtype later
         resetSimulationPoseCallBack = (pose) -> {};
         driveModules = null;
-        apriltagIO = new TCPApriltag();
         simulate = false;
         apriltagIO = new TCPApriltag();
       }
+      assert driveModules != null;
       frontLeft =
           SwerveModule.createModule(
               driveModules[0],
@@ -512,13 +508,7 @@ public class RobotContainer {
           new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevatorSubsystem, lightStrip));
     }
 
-    if (Constants.CLIMBER_DEBUG) {
-      // Climber Commands
-
-      //      SmartDashboard.putData( "Reset Climber", new ResetClimber(climber));
-      //
-      //      SmartDashboard.putData( "Close Climber", new CloseClimber(climber));
-    }
+    // Climber Commands
 
     SmartDashboard.putData(
         "LightStripPatternGreen", new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));

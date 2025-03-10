@@ -1,6 +1,6 @@
 package frc.robot.utils.diag;
 
-import com.ctre.phoenix.sensors.WPI_CANCoder;
+import com.ctre.phoenix6.hardware.CANcoder;
 
 /**
  * A diagnostics class for digital encoder. The diagnostics will turn green once the encoder has
@@ -9,7 +9,7 @@ import com.ctre.phoenix.sensors.WPI_CANCoder;
  */
 public class DiagSparkMaxAbsEncoder extends DiagDistanceTraveled {
 
-  private WPI_CANCoder canCoder;
+  private final CANcoder canCoder;
 
   /**
    * Constructor
@@ -20,7 +20,7 @@ public class DiagSparkMaxAbsEncoder extends DiagDistanceTraveled {
    * @param canSparkMax - the encoder instance to test
    */
   public DiagSparkMaxAbsEncoder(
-      String title, String name, double requiredTravel, WPI_CANCoder canCoder) {
+      String title, String name, double requiredTravel, CANcoder canCoder) {
     super(title, name, requiredTravel);
     this.canCoder = canCoder;
     reset();
@@ -28,6 +28,6 @@ public class DiagSparkMaxAbsEncoder extends DiagDistanceTraveled {
 
   @Override
   protected double getCurrentValue() {
-    return canCoder.getAbsolutePosition();
+    return canCoder.getAbsolutePosition().getValueAsDouble();
   }
 }

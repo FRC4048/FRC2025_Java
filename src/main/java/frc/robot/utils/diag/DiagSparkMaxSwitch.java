@@ -14,7 +14,7 @@ public class DiagSparkMaxSwitch extends DiagBoolean {
   public enum Direction {
     FORWARD,
     REVERSE
-  };
+  }
 
   private SparkMax canSparkMax;
   private Direction direction;
@@ -34,13 +34,10 @@ public class DiagSparkMaxSwitch extends DiagBoolean {
 
   @Override
   protected boolean getValue() {
-    switch (direction) {
-      case FORWARD:
-        return canSparkMax.getForwardLimitSwitch().isPressed();
-      case REVERSE:
-        return canSparkMax.getReverseLimitSwitch().isPressed();
-      default:
-        return false;
-    }
+    return switch (direction) {
+      case FORWARD -> canSparkMax.getForwardLimitSwitch().isPressed();
+      case REVERSE -> canSparkMax.getReverseLimitSwitch().isPressed();
+      default -> false;
+    };
   }
 }

@@ -32,6 +32,7 @@ public class TCPApriltag implements ApriltagIO {
 
     for (int i = 0; i < queueSize; i++) {
       ApriltagReading measurement = queue.poll();
+      assert measurement != null;
       inputs.posX[i] = measurement.posX();
       inputs.posY[i] = measurement.posY();
       inputs.poseYaw[i] = measurement.poseYaw();

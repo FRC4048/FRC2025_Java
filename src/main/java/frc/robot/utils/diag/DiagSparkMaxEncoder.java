@@ -9,7 +9,7 @@ import com.revrobotics.spark.SparkMax;
  */
 public class DiagSparkMaxEncoder extends DiagDistanceTraveled {
 
-  private SparkMax canSparkMax;
+  private final SparkMax canSparkMax;
 
   /**
    * Constructor

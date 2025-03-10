@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 /** Diagnostics class for digital switch; it is a DiagBoolean object. */
 public class DiagSwitch extends DiagBoolean {
 
-  private DigitalInput digitalInput;
+  private final DigitalInput digitalInput;
 
   /**
    * Constructor

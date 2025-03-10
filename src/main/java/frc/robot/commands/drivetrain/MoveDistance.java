@@ -14,12 +14,12 @@ public class MoveDistance extends LoggableCommand {
   /** Creates a new MoveDistance. */
   private double startTime;
 
-  private double changeXMeters;
-  private double changeYMeters;
-  private double maxSpeed;
+  private final double changeXMeters;
+  private final double changeYMeters;
+  private final double maxSpeed;
   private double desiredPoseX;
   private double desiredPoseY;
-  private SwerveDrivetrain drivetrain;
+  private final SwerveDrivetrain drivetrain;
 
   public MoveDistance(
       SwerveDrivetrain drivetrain, double changeXMeters, double changeYMeters, double maxSpeed) {

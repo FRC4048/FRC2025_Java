@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Encoder;
  */
 public class DiagEncoder extends DiagDistanceTraveled {
 
-  private Encoder encoder;
+  private final Encoder encoder;
 
   /**
    * Constructor

@@ -83,6 +83,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       e.printStackTrace();
     }
 
+    assert config != null;
     AutoBuilder.configure(
         this::getPose,
         this::resetOdometry,
@@ -105,10 +106,7 @@ public class SwerveDrivetrain extends SubsystemBase {
           // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
           var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-            return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
+          return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
         },
         this);
   }
@@ -272,11 +270,11 @@ public class SwerveDrivetrain extends SubsystemBase {
               new SwerveModuleSimulationConfig(
                   driveMotor,
                   steerMotor,
-                  kinematicsConfig.getProfile().getDriveGearRatio(),
-                  kinematicsConfig.getProfile().getSteerGearRatio(),
+                  kinematicsConfig.profile().getDriveGearRatio(),
+                  kinematicsConfig.profile().getSteerGearRatio(),
                   Volts.of(Constants.DRIVE_PID_FF_S),
                   Volts.of(Constants.STEER_PID_FF_S),
-                  Meters.of(kinematicsConfig.getWheelRadius()),
+                  Meters.of(kinematicsConfig.wheelRadius()),
                   KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
                   Constants.COEFFICIENT_OF_FRICTION));
 

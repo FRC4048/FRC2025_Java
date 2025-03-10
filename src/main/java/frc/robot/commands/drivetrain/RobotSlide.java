@@ -10,8 +10,8 @@ import java.util.function.DoubleSupplier;
 
 public class RobotSlide extends LoggableCommand {
 
-  private SwerveDrivetrain drivetrain;
-  private DoubleSupplier horizSupplier;
+  private final SwerveDrivetrain drivetrain;
+  private final DoubleSupplier horizSupplier;
   private final DoubleSupplier vertSupplier;
 
   public RobotSlide(

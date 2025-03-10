@@ -6,7 +6,7 @@ import frc.robot.utils.motor.NeoPidConfig;
 public interface ElevatorIO extends PIDLoggableIO {
   void setSpeed(double spd);
 
-  public void setElevatorPosition(double encoderPos);
+  void setElevatorPosition(double encoderPos);
 
   void stopMotor();
 

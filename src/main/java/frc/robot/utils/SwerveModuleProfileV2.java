@@ -71,9 +71,7 @@ public enum SwerveModuleProfileV2 {
       case BACK_RIGHT -> {
         return isBackRightInverted();
       }
-      default -> {
-        throw new IllegalArgumentException("Invalid Module Position" + modulePosition);
-      }
+      default -> throw new IllegalArgumentException("Invalid Module Position" + modulePosition);
     }
   }
 }

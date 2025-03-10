@@ -6,7 +6,6 @@ import frc.robot.utils.logging.PIDLoggableIO;
 public class TunablePIDManager {
   private final PIDLoggableIO io;
   private final NeoPidConfig initConfig;
-  private final String prefix;
   private final LoggedTunableNumber kPTunable;
   private final LoggedTunableNumber kITunable;
   private final LoggedTunableNumber kDTunable;
@@ -19,7 +18,6 @@ public class TunablePIDManager {
   public TunablePIDManager(String prefix, PIDLoggableIO io, NeoPidConfig initConfig) {
     this.io = io;
     this.initConfig = initConfig;
-    this.prefix = prefix;
     kPTunable = new LoggedTunableNumber(prefix + "/PID_P", initConfig.getP());
     kITunable = new LoggedTunableNumber(prefix + "/PID_I", initConfig.getI());
     kDTunable = new LoggedTunableNumber(prefix + "/PID_D", initConfig.getD());

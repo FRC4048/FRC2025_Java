@@ -12,8 +12,8 @@ public interface Diagnosable {
   void setShuffleBoardTab(ShuffleboardTab shuffleBoardTab, int width, int height);
 
   /** A method called periodically that will test the diagnosable value and update the display */
-  public void refresh();
+  void refresh();
 
   /** A method to reset the "tested" state of the diagnosable component to its initial state */
-  public void reset();
+  void reset();
 }

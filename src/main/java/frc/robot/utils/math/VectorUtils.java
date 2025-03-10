@@ -175,62 +175,6 @@ public class VectorUtils {
    * This function will approximate to a specified certainty by assuming a shot of 45 degrees and
    * splitting the velocity into its components. Then the function adds the drivetrains x velocity
    * to the x component and returns a new shooting angle based the combined vectors. <br>
-   * This process repeats until max iterations is reached (returns the current angle) or the degree
-   * threshold between iterations is less than the threshold provided
-   *
-   * @param speed the initial velocity of the projectile
-   * @param startX the x cord of the base of the ramp
-   * @param startY the y cord of the base of the ramp
-   * @param startZ the z cord of the base of the ramp
-   * @param driveSpeedX the drivetrain velocity in meters per second
-   * @param destX the destination x position
-   * @param destY the destination y position
-   * @param destZ the destination z position
-   * @param degreeThreshold the degree threshold between iteration before function is considered
-   *     done
-   * @param maxIterations the max iteration before iteration is considered done. Note it does not
-   *     require that max iterations was reached if degree threshold predicate is met.
-   * @param maxFractionalRange double representing what fraction of range of the parabola is
-   *     acceptable for hitting your target. <br>
-   *     For example if you have to hit your target from bottom, you can constrain the parabola to
-   *     only be acceptable in the first third of the parabola.
-   * @return a {@link VelocityVector} with the calculated target angle between 0 and 90 degrees.<br>
-   *     <b>Impossible parameters will produce a null result</b>
-   */
-  // public static VelocityVector fromDestAndCompoundVel(double speed, double startX, double startY,
-  // double startZ, double driveSpeedX, double destX, double destY, double destZ,double distOffset
-  // ,double degreeThreshold, int maxIterations, double maxFractionalRange) {
-  //     double xDist = destX - startX;
-  //     double yDist = destY - startY;
-  //     double xyDist = Math.hypot(xDist, yDist) + distOffset;
-  //     double deltaZ = Math.abs(destZ - startZ);
-  //     VelocityVector lastVel = null;
-  //     VelocityVector currVel = null;
-  //     int i = 0;
-  //     do {
-  //         i++;
-  //         lastVel = currVel;
-  //         double theta = lastVel == null ? Math.PI / 4 : lastVel.getAngle().getRadians();
-  //         double xySpeed = (Math.cos(theta) * speed) + driveSpeedX;
-  //         double zSpeed = Math.sin(theta) * speed;
-  //         double appliedSpeed = Math.hypot(xySpeed, zSpeed);
-  //         currVel = fromVelAndDist(appliedSpeed, xyDist, deltaZ, maxFractionalRange);
-  //     } while (i < maxIterations && (lastVel == null || currVel == null ||
-  // Math.abs(lastVel.getAngle().getDegrees() - currVel.getAngle().getDegrees()) >
-  // degreeThreshold));
-  //     return currVel == null ? new VelocityVector(Constants.SHOOTER_VELOCITY, new Rotation2d()) :
-  // currVel;
-  // }
-
-  /**
-   * The projectile motion converts the given coords to 2d and after applying the drivetrain x
-   * velocity, to the x component of the projectile's initial velocity. <br>
-   * Because shooter component velocities depends on the angle we shoot at, and the angle we shoot
-   * depends on the composition of the component velocities. if we want to incorporate the
-   * drivetrains velocity we must use an iterative approach. <br>
-   * This function will approximate to a specified certainty by assuming a shot of 45 degrees and
-   * splitting the velocity into its components. Then the function adds the drivetrains x velocity
-   * to the x component and returns a new shooting angle based the combined vectors. <br>
    * This process repeats until the 10 iterations is reached (returns the current angle) or the
    * degree threshold of 0.01 between iterations is less than the threshold provided
    *

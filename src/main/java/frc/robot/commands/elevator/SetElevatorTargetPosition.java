@@ -42,7 +42,7 @@ public class SetElevatorTargetPosition extends LoggableCommand {
     if (Math.abs(postDeadbandValue) > 0) {
       elevatorSubsystem.setElevatorMotorSpeed(postDeadbandValue);
       pidLocked = false;
-    } else if (pidLocked == false) {
+    } else if (!pidLocked) {
       elevatorSubsystem.setElevatorPosition(elevatorSubsystem.getEncoderValue());
       pidLocked = true;
     }

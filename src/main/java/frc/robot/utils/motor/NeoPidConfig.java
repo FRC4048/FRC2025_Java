@@ -19,7 +19,7 @@ public class NeoPidConfig {
   private double maxVelocity = MAX_VELOCITY;
   private double maxAccel = MAX_ACCELERATION;
   private double allowedError = ALLOWED_ERROR;
-  private boolean usesMaxMotion;
+  private final boolean usesMaxMotion;
 
   public NeoPidConfig(boolean usesMaxMotion) {
     this.usesMaxMotion = usesMaxMotion;
