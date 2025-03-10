@@ -106,14 +106,14 @@ public class Robot extends LoggedRobot {
       }
       if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
         robotContainer.getRobotVisualizer().logMechanism();
-    }
+      }
       counter++;
     }
 
-        if (Constants.ENABLE_LOGGING) {
-            CommandLogger.get().log();
-        }
+    if (Constants.ENABLE_LOGGING) {
+      CommandLogger.get().log();
     }
+  }
 
   /** Use this instead of robot init. */
   private void actualInit() {
