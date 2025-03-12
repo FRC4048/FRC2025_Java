@@ -232,7 +232,11 @@ public class RobotContainer {
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
-    // controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, elevatorSubsystem));
+    controller
+        .rightTrigger()
+        .onTrue(
+            new ShootCoral(
+                coralSubsystem, elevatorSubsystem.getStoredReefPosition()::getShootSpeed));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
