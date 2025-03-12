@@ -4,30 +4,31 @@
 
 package frc.robot.commands.coral;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
-import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ShootCoral extends LoggableCommand {
   /** Creates a new ShootCoral. */
   private final CoralSubsystem shooter;
 
-  private final ElevatorSubsystem elevatorSubsystem;
+  private final DoubleSupplier speed;
   private final Timer timer;
 
-  public ShootCoral(CoralSubsystem shooter, ElevatorSubsystem elevatorSubsystem) {
+  public ShootCoral(CoralSubsystem shooter, DoubleSupplier speed) {
     this.timer = new Timer();
-    this.elevatorSubsystem = elevatorSubsystem;
     this.shooter = shooter;
+    this.speed = speed;
     addRequirements(shooter);
   }
 
   @Override
   public void initialize() {
     shooter.setLimitSwitchState(false);
-    shooter.setShooterSpeed(elevatorSubsystem.getStoredReefPosition().getShootSpeed());
+    shooter.setShooterSpeed(speed.getAsDouble());
     timer.restart();
   }
 
