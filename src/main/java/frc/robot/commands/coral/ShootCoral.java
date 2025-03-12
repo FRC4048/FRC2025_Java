@@ -4,12 +4,11 @@
 
 package frc.robot.commands.coral;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
+import java.util.function.DoubleSupplier;
 
 public class ShootCoral extends LoggableCommand {
   /** Creates a new ShootCoral. */
