@@ -15,6 +15,8 @@ import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
+import frc.robot.utils.Barge;
+import frc.robot.utils.BargePoints;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
@@ -199,6 +201,14 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public boolean isInBarge() {
-    return getPose().getTranslation()
+    if(BargePoints.BLUEHIGHER.getx() > getPose().getTranslation().getX() && getPose().getTranslation().getX() > BargePoints.REDLOWER.getx()){//switch to Just in barge
+      if (){//switch to red/blue
+        return true;
+        } else if(true){
+          return true;
+        }
+      
+    }
+    return false;
   }
 }
