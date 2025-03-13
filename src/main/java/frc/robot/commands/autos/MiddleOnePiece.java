@@ -17,6 +17,6 @@ public class MiddleOnePiece extends LoggableSequentialCommandGroup {
             new LoggableCommandWrapper(Paths.getInstance().getRobotTwoToPostHCommand()),
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip)),
         new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
-        new ShootCoral(coral, 0.5));
+        new ShootCoral(coral, elevator::getStoredReefPosition));
   }
 }
