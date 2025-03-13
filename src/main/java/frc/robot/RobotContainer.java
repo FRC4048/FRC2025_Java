@@ -8,7 +8,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,7 +20,6 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
-import frc.robot.commands.CancelAll;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
@@ -30,13 +28,11 @@ import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.drivetrain.SetInitOdom;
-import frc.robot.commands.elevator.*;
 import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.ResetElevatorEncoder;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
-import frc.robot.commands.hihi.*;
 import frc.robot.commands.hihi.ExtendHiHi;
 import frc.robot.commands.hihi.RetractHiHi;
 import frc.robot.commands.hihi.RollHiHiRollerIn;
@@ -44,7 +40,9 @@ import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
+import frc.robot.commands.sequences.CancelAll;
 import frc.robot.commands.sequences.IntakeAlgae;
+import frc.robot.commands.sequences.LowerElevator;
 import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
@@ -96,7 +94,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import java.util.Optional;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -212,7 +209,11 @@ public class RobotContainer {
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
 
-    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+    controller
+        .leftTrigger()
+        .onTrue(
+            new PickUpCoral(
+                elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     controller
         .povUp()
         .onTrue(
@@ -253,11 +254,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return autoChooser.getAutoCommand();
-  }
-
-  public static boolean isRedAlliance() {
-    Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
-    return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
   }
 
   private void setupDriveTrain() {
@@ -372,7 +368,8 @@ public class RobotContainer {
       SmartDashboard.putData("Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartDashboard.putData(
-          "Pick Up Coral", new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+          "Pick Up Coral",
+          new PickUpCoral(elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     }
 
     if (Constants.HIHI_DEBUG) {
@@ -394,7 +391,8 @@ public class RobotContainer {
 
       SmartDashboard.putData("ByeBye To FWD Limit", new ByeByeToFwrLimit(byebyeTilt));
 
-      SmartDashboard.putData("ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt));
+      SmartDashboard.putData(
+          "ByeBye To REV Limit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
     }
 
     if (Constants.ELEVATOR_DEBUG) {

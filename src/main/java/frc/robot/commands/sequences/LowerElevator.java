@@ -4,22 +4,21 @@
 
 package frc.robot.commands.sequences;
 
-import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.byebye.SpinByeByeRoller;
+import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 /** Add your docs here. */
-public class RemoveAlgaeFromReef extends LoggableSequentialCommandGroup {
+public class LowerElevator extends LoggableSequentialCommandGroup {
 
-  public RemoveAlgaeFromReef(
+  public LowerElevator(
       AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem,
-      AlgaeByeByeRollerSubsystem algaeByeByeRollerSubsystem,
+      AlgaeByeByeRollerSubsystem algaebyebyeroller,
       ElevatorSubsystem elevatorSubsystem) {
     super(
-        new ByeByeToRevLimit(algaeByeByeTiltSubsystem, elevatorSubsystem),
-        new SpinByeByeRoller(algaeByeByeRollerSubsystem, algaeByeByeTiltSubsystem));
+        new ByeByeAllDone(algaeByeByeTiltSubsystem, algaebyebyeroller, elevatorSubsystem),
+        new ResetElevator(elevatorSubsystem));
   }
 }

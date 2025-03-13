@@ -3,33 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.808018867924529,
-        "y": 2.972473045822101
+        "x": 3.8227726889761073,
+        "y": 2.9882510225454006
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2420350404312677,
-        "y": 2.3021597035040413
+        "x": 3.256788861482846,
+        "y": 2.317937680227341
       },
       "isLocked": false,
       "linkedName": "PostCLeftScore"
     },
     {
       "anchor": {
-        "x": 1.626,
-        "y": 0.679
+        "x": 0.8041778975741241,
+        "y": 1.1453335579514816
       },
       "prevControl": {
-        "x": 2.1405323450134772,
-        "y": 1.168985849056603
+        "x": 1.3187102425876014,
+        "y": 1.6353194070080845
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Station2"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.6635294117647059,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 100.0,
+        "maxAngularAcceleration": 100.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {

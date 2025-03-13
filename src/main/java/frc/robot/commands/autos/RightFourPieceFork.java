@@ -31,7 +31,7 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
                 Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to Post B
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip),
             new LoggableSequentialCommandGroup(
-                new LoggableWaitCommand(1.8),
+                new LoggableWaitCommand(1.3),
                 new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4))),
         new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
         new ShootCoral(coral, elevator::getStoredReefPosition)
