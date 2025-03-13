@@ -213,7 +213,7 @@ public class RobotContainer {
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
 
-    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, coralSubsystem, lightStrip));
+    controller.leftTrigger().onTrue(new PickUpCoral(elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     controller
         .povUp()
         .onTrue(
