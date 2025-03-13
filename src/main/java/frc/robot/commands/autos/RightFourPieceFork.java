@@ -21,7 +21,7 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
             new LoggableSequentialCommandGroup(
                 new LoggableWaitCommand(1.25),
                 new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4))),
-        new ShootCoral(coral, elevator.getStoredReefPosition()::getShootSpeed),
+        new ShootCoral(coral, elevator::getStoredReefPosition),
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
                 Paths.getInstance().getPostEToStationOneCommand()), // Post E to Station
@@ -34,7 +34,7 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
                 new LoggableWaitCommand(1.8),
                 new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4))),
         new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
-        new ShootCoral(coral, elevator.getStoredReefPosition()::getShootSpeed)
+        new ShootCoral(coral, elevator::getStoredReefPosition)
         //        new LoggableParallelCommandGroup(
         //            new LoggableCommandWrapper(Paths.getInstance().getPostCToStationTwoCommand())
         //            //            new LightlessPickup(elevator, coral)
