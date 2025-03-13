@@ -10,7 +10,6 @@ import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -20,7 +19,7 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
-import frc.robot.subsystems.swervev3.vision.LinearVisionTruster;
+import frc.robot.subsystems.swervev3.vision.SquareVisionTruster;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
@@ -45,14 +44,14 @@ public class PoseEstimator {
   private static final Vector<N3> stateStdDevs1 = VecBuilder.fill(0.075, 0.075, 0.001);
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
-  private static final Vector<N3> visionMeasurementStdDevs1 = VecBuilder.fill(0.5, 0.5, 0.5);
+  //  private static final Vector<N3> visionMeasurementStdDevs1 = VecBuilder.fill(0.5, 0.5, 0.5);
 
   /* the rate at which variance of vision measurements increases as distance from the tag increases*/
-  private static final double visionStdRateOfChange = 0.1;
+  private static final double visionStdRateOfChange = 1;
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
-  private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.001);
-  private final PoseManager poseManager;
+  private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.01);
+  private final FilterablePoseManager poseManager;
 
   public PoseEstimator(
       SwerveModule frontLeftMotor,
@@ -81,7 +80,7 @@ public class PoseEstimator {
     this.poseManager =
         new FilterablePoseManager(
             stateStdDevs1,
-            visionMeasurementStdDevs1,
+            visionMeasurementStdDevs2,
             kinematics,
             initMeasurement,
             m1Buffer,
@@ -91,7 +90,7 @@ public class PoseEstimator {
                 return measurement.measurement();
               }
             },
-            new LinearVisionTruster(visionMeasurementStdDevs1, visionStdRateOfChange));
+            new SquareVisionTruster(visionMeasurementStdDevs2, visionStdRateOfChange));
     SmartDashboard.putData(field);
   }
 
@@ -105,7 +104,7 @@ public class PoseEstimator {
    * @see SwerveDrivePoseEstimator#update(Rotation2d, SwerveModulePosition[])
    */
   public void updatePosition(OdometryMeasurement m) {
-    if (DriverStation.isEnabled()) {
+    if (!Robot.getMode().equals(RobotMode.DISABLED)) {
       poseManager.addOdomMeasurement(m, Logger.getTimestamp());
     }
     field.setRobotPose(poseManager.getEstimatedPosition());
@@ -120,7 +119,7 @@ public class PoseEstimator {
    * are sent to the {@link PoseManager} for further processing
    */
   public void updateVision() {
-    if (Robot.getMode().equals(RobotMode.TELEOP) && Constants.ENABLE_VISION) {
+    if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
       for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
         double[] pos =
             new double[] {
@@ -130,7 +129,7 @@ public class PoseEstimator {
             };
         if (validAprilTagPose(pos)) {
           double serverTime = apriltagSystem.getInputs().serverTime[i];
-          double timestamp = apriltagSystem.getInputs().timestamp[i];
+          double timestamp = 0; // latency is not right we are assuming zero
           double latencyInSec = (serverTime - timestamp) / 1000;
           Pose2d visionPose = new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation());
           double distanceFromTag = apriltagSystem.getInputs().distanceToTag[i];
@@ -139,7 +138,7 @@ public class PoseEstimator {
           poseManager.registerVisionMeasurement(measurement);
         } else {
           invalidCounter++;
-          Logger.recordOutput("ApriltagValidationFailureCount", invalidCounter);
+          Logger.recordOutput("Apriltag/ValidationFailureCount", invalidCounter);
         }
       }
     }
@@ -171,5 +170,9 @@ public class PoseEstimator {
 
   public Field2d getField() {
     return field;
+  }
+
+  public FilterablePoseManager getPoseManager() {
+    return poseManager;
   }
 }

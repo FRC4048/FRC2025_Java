@@ -1,5 +1,10 @@
 package frc.robot.subsystems.swervev3;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -7,6 +12,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
@@ -58,6 +65,43 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+
+    RobotConfig config = null;
+    try {
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      // Handle exception as needed
+      e.printStackTrace();
+    }
+
+    AutoBuilder.configure(
+        this::getPose,
+        this::resetOdometry,
+        this::getChassisSpeeds,
+        this::drive,
+        new PPHolonomicDriveController(
+            new PIDConstants(
+                Constants.PATH_PLANNER_TRANSLATION_PID_P,
+                Constants.PATH_PLANNER_TRANSLATION_PID_I,
+                Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
+            new PIDConstants(
+                Constants.PATH_PLANNER_ROTATION_PID_P,
+                Constants.PATH_PLANNER_ROTATION_PID_I,
+                Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
+            ),
+        config,
+        () -> {
+          // Boolean supplier that controls when the path will be mirrored for the red alliance
+          // This will flip the path being followed to the red side of the field.
+          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+          var alliance = DriverStation.getAlliance();
+          if (alliance.isPresent()) {
+            return alliance.get() == DriverStation.Alliance.Red;
+          }
+          return false;
+        },
+        this);
   }
 
   @Override
@@ -82,6 +126,9 @@ public class SwerveDrivetrain extends SubsystemBase {
         frontRight.getLatestState(),
         backLeft.getLatestState(),
         backRight.getLatestState());
+    Logger.recordOutput("EstimatedX", getPose().getX());
+    Logger.recordOutput("EstimatedY", getPose().getY());
+    Logger.recordOutput("EstimatedYaw", getPose().getRotation().getDegrees());
   }
 
   private void processInputs() {
@@ -210,5 +257,9 @@ public class SwerveDrivetrain extends SubsystemBase {
       
     }
     return false;
+  }
+
+  public void setVisionBaseSTD(Vector<N3> std) {
+    ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);
   }
 }
