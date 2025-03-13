@@ -42,7 +42,6 @@ import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
 import frc.robot.commands.sequences.CancelAll;
 import frc.robot.commands.sequences.IntakeAlgae;
-import frc.robot.commands.sequences.LowerElevator;
 import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
@@ -176,7 +175,8 @@ public class RobotContainer {
   private void pathPlannerCommands() {
     // COMMANDS REGISTERED FOR PATHPLANNER
     NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
-    NamedCommands.registerCommand("ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
+    NamedCommands.registerCommand(
+        "ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
     NamedCommands.registerCommand(
         "ShootCoral", new ShootCoral(coralSubsystem, elevatorSubsystem::getStoredReefPosition));
     NamedCommands.registerCommand(
@@ -242,7 +242,9 @@ public class RobotContainer {
     controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
-    controller.back().onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
+    controller
+        .back()
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, elevatorSubsystem::getStoredReefPosition));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
