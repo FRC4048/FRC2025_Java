@@ -1,17 +1,16 @@
 package frc.robot.utils.advanced.trackers;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.ElevatorPosition;
 import frc.robot.utils.advanced.*;
 import frc.robot.utils.advanced.cleaners.StampedMapAgeClearner;
 import frc.robot.utils.advanced.cleaners.StampedMapCleaner;
 import frc.robot.utils.advanced.cleaners.StampedMapDirtyClearner;
-
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ReefScoreTracker {
+public class ReefScoreTracker extends SubsystemBase {
   private final StampedTrackerHashMap<CoralPosition, BranchStatus> coralTracker;
   private ReefScoringStrategy strategy;
   private StampedMapCleaner<CoralPosition, BranchStatus> cleaner;
@@ -43,7 +42,8 @@ public class ReefScoreTracker {
     mapAgeClearner.setObjectLifetime(objectLifetime);
   }
 
-  public void update() {
+  @Override
+  public void periodic() {
     coralTracker.updateCollection(cleaner);
   }
 
