@@ -42,7 +42,6 @@ import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
 import frc.robot.commands.sequences.CancelAll;
 import frc.robot.commands.sequences.IntakeAlgae;
-import frc.robot.commands.sequences.LowerElevator;
 import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
@@ -178,7 +177,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("ByeByeToFwrLimit", new ByeByeToFwrLimit(byebyeTilt));
     NamedCommands.registerCommand(
         "ByeByeToRevLimit", new ByeByeToRevLimit(byebyeTilt, elevatorSubsystem));
-    NamedCommands.registerCommand("ShootCoral", new ShootCoral(coralSubsystem, 0.4));
+    NamedCommands.registerCommand(
+        "ShootCoral", new ShootCoral(coralSubsystem, elevatorSubsystem::getStoredReefPosition));
     NamedCommands.registerCommand(
         "ElevatorToPositionL0",
         new SetElevatorStoredPosition(
@@ -231,8 +231,10 @@ public class RobotContainer {
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
-    controller.leftBumper().onTrue(new LowerElevator(byebyeTilt, byebyeRoller, elevatorSubsystem));
-    controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    controller.leftBumper().onTrue(new ResetElevator(elevatorSubsystem));
+    controller
+        .rightTrigger()
+        .onTrue(new ShootCoral(coralSubsystem, elevatorSubsystem::getStoredReefPosition));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
@@ -243,7 +245,7 @@ public class RobotContainer {
     controller
         .back()
         .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
-    joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    joyRight1.onTrue(new ShootCoral(coralSubsystem, elevatorSubsystem::getStoredReefPosition));
     // climber on Right Trigger
     if (Constants.COMMAND_DEBUG) {
       SmartDashboard.putData("Roll Algae", new RollAlgae(hihiRoller, 0.5));
@@ -364,7 +366,7 @@ public class RobotContainer {
 
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
-          "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+          "Shoot Coral", new ShootCoral(coralSubsystem, elevatorSubsystem::getStoredReefPosition));
       SmartDashboard.putData("Intake Coral", new IntakeCoral(coralSubsystem));
 
       SmartDashboard.putData(
