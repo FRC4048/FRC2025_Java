@@ -250,19 +250,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     return facingTarget;
   }
 
-  public boolean isInBarge(double Y, double X) {
-    Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
-    if (BargePoints.BLUE_HIGHER.getX() > X && X > BargePoints.RED_LOWER.getX()) {
-      if (al.isPresent()) {
-        if (al.get().equals(Alliance.Red)) {
-          return (BargePoints.BLUE_HIGHER.getY() > Y && BargePoints.BLUE_LOWER.getY() < Y);
-        } else {
-          return BargePoints.RED_HIGHER.getY() > Y && BargePoints.RED_LOWER.getY() < Y;
-        }
-      }
-    }
-    return false;
-  }
+  
 
   public void setVisionBaseSTD(Vector<N3> std) {
     ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);

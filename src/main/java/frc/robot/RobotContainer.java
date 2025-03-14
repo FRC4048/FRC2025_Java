@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
+
 import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
@@ -13,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
@@ -21,6 +25,7 @@ import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.RumbleController;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
@@ -91,6 +96,7 @@ import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
@@ -250,7 +256,12 @@ public class RobotContainer {
       //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
       //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
     }
-  }
+    BooleanSupplier suplier = new BooleanSupplier(){
+        public boolean getAsBoolean(){
+            return Robot.getMode() == RobotMode.TELEOP;
+        }
+    };
+    new Trigger(suplier).onTrue(new  RumbleController(drivetrain::getPose, controller));
 
   public Command getAutonomousCommand() {
     return autoChooser.getAutoCommand();
