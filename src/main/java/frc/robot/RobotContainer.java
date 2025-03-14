@@ -254,13 +254,8 @@ public class RobotContainer {
       //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
       //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
     }
-    BooleanSupplier suplier =
-        new BooleanSupplier() {
-          public boolean getAsBoolean() {
-            return Robot.getMode() == RobotMode.TELEOP;
-          }
-        };
-    new Trigger(suplier).onTrue(new RumbleController(drivetrain::getPose, controller));
+
+    new Trigger(() -> Robot.getMode() == RobotMode.TELEOP).onTrue(new RumbleController(drivetrain::getPose, controller));
   }
 
   public Command getAutonomousCommand() {
