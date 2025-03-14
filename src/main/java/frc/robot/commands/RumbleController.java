@@ -4,16 +4,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
 import frc.robot.utils.BargePoints;
 import frc.robot.utils.logging.commands.LoggableCommand;
-
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -27,7 +25,8 @@ public class RumbleController extends LoggableCommand {
     this.pose2D = pose2D;
     this.controller = controller;
   }
-public boolean isInBarge(double Y, double X) {
+
+  public boolean isInBarge(double Y, double X) {
     Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
     if (BargePoints.BLUE_HIGHER.getX() > X && X > BargePoints.RED_LOWER.getX()) {
       if (al.isPresent()) {
@@ -40,14 +39,16 @@ public boolean isInBarge(double Y, double X) {
     }
     return false;
   }
+
   @Override
   public void initialize() {}
 
   @Override
   public void execute() {
-    if(isInBarge(pose2D.get().getX(),pose2D.get().getY())){
-controller.setRumble(RumbleType.kBothRumble, 2);
-    };
+    if (isInBarge(pose2D.get().getX(), pose2D.get().getY())) {
+      controller.setRumble(RumbleType.kBothRumble, 2);
+    }
+    ;
   }
 
   @Override

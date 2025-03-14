@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
-
 import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
@@ -100,6 +97,7 @@ import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import java.util.function.BooleanSupplier;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -256,12 +254,14 @@ public class RobotContainer {
       //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
       //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
     }
-    BooleanSupplier suplier = new BooleanSupplier(){
-        public boolean getAsBoolean(){
+    BooleanSupplier suplier =
+        new BooleanSupplier() {
+          public boolean getAsBoolean() {
             return Robot.getMode() == RobotMode.TELEOP;
-        }
-    };
-    new Trigger(suplier).onTrue(new  RumbleController(drivetrain::getPose, controller));
+          }
+        };
+    new Trigger(suplier).onTrue(new RumbleController(drivetrain::getPose, controller));
+  }
 
   public Command getAutonomousCommand() {
     return autoChooser.getAutoCommand();

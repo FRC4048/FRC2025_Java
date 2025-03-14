@@ -189,5 +189,4 @@ public class Robot extends LoggedRobot {
   public static Optional<DriverStation.Alliance> getAllianceColor() {
     return allianceColor;
   }
-
 }
