@@ -14,7 +14,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
@@ -22,11 +24,12 @@ import frc.robot.subsystems.gyro.GyroInputs;
 import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
-import frc.robot.utils.Barge;
+import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.BargePoints;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -247,14 +250,16 @@ public class SwerveDrivetrain extends SubsystemBase {
     return facingTarget;
   }
 
-  public boolean isInBarge() {
-    if(BargePoints.BLUEHIGHER.getx() > getPose().getTranslation().getX() && getPose().getTranslation().getX() > BargePoints.REDLOWER.getx()){//switch to Just in barge
-      if (){//switch to red/blue
-        return true;
-        } else if(true){
-          return true;
+  public boolean isInBarge(double Y, double X) {
+    Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
+    if (BargePoints.BLUE_HIGHER.getX() > X && X > BargePoints.RED_LOWER.getX()) {
+      if (al.isPresent()) {
+        if (al.get().equals(Alliance.Red)) {
+          return (BargePoints.BLUE_HIGHER.getY() > Y && BargePoints.BLUE_LOWER.getY() < Y);
+        } else {
+          return BargePoints.RED_HIGHER.getY() > Y && BargePoints.RED_LOWER.getY() < Y;
         }
-      
+      }
     }
     return false;
   }

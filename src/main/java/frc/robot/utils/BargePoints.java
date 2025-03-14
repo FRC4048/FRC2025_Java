@@ -6,23 +6,24 @@ package frc.robot.utils;
 
 /** Add your docs here. */
 public enum BargePoints {
-    BLUELOWER(8.9246,0),
-    BLUEHIGHER(8.9246,4),
-    REDLOWER(7.56,4),
-    REDHIGHER(7.56,8)
-    ;
+  BLUE_LOWER(8.9246, 0),
+  BLUE_HIGHER(8.9246, 4),
+  RED_LOWER(7.56, 4),
+  RED_HIGHER(7.56, 8);
 
+  private final double x;
+  private final double y;
 
-    private final double x;
-    private final double y;
-    BargePoints(double x, double y){
-        this.x = x;
-        this.y = y;
-    }
-    public double getY(){
-        return y;
-    }
-    public double getx(){
-        return x;
-    }
+  BargePoints(double x, double y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  public double getY() {
+    return y;
+  }
+
+  public double getX() {
+    return x;
+  }
 }
