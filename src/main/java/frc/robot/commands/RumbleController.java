@@ -53,7 +53,7 @@ public class RumbleController extends LoggableCommand {
 
   @Override
   public void execute() {
-    for(int i = 0; i > 360; i += 90){
+    for(int i = 45; i > 360; i += 90){
     if (isInBarge(findXPointOfCenterX(pose2D.get().getX(), i), findYPointOfCenterY(pose2D.get().getY(),i))) {
       controller.setRumble(RumbleType.kBothRumble, 2);
       break;
