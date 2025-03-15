@@ -192,6 +192,7 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = true;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+  public static final double TIME_UNTILL_IN_BARGE = 0.5;
 
   // ELEVATOR CONSTANTS
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -21,27 +22,37 @@ public class RumbleController extends LoggableCommand {
 
   private final Supplier<Pose2d> pose2D;
   private final CommandXboxController controller;
+  private final Supplier<ChassisSpeeds> speeds;
 
-  public RumbleController(Supplier<Pose2d> pose2D, CommandXboxController controller) {
+  public RumbleController(
+      Supplier<Pose2d> pose2D, CommandXboxController controller, Supplier<ChassisSpeeds> speeds) {
     this.pose2D = pose2D;
     this.controller = controller;
+    this.speeds = speeds;
   }
 
-  public double findXPointOfCenterX(double x,double degreesFromBaseDegrees){
-    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)*Constants.DRIVE_BASE_LENGTH)+x);
-  }
-  public double findYPointOfCenterY(double y, double degreesFromBaseDegrees){
-    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)*Constants.DRIVE_BASE_WIDTH)+y);
+  public static double findXPointOfCenterX(double x, double degreesFromBaseDegrees, Pose2d pose2D) {
+    return (Math.cos(
+            (pose2D.getTranslation().getAngle().getDegrees() + degreesFromBaseDegrees)
+                * Constants.DRIVE_BASE_LENGTH)
+        + x);
   }
 
-  public boolean isInBarge(double Y, double X) {
+  public static double findYPointOfCenterY(double y, double degreesFromBaseDegrees, Pose2d pose2D) {
+    return (Math.cos(
+            (pose2D.getTranslation().getAngle().getDegrees() + degreesFromBaseDegrees)
+                * Constants.DRIVE_BASE_WIDTH)
+        + y);
+  }
+
+  public static boolean isInOpponentsBarge(double y, double x) {
     Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
-    if (BargePoints.BLUE_HIGHER.getX() > X && X > BargePoints.RED_LOWER.getX()) {
+    if (BargePoints.BLUE_BARGE_ENTRANCE.getX() < x && x < BargePoints.RED_BARGE_ENTRANCE.getX()) {
       if (al.isPresent()) {
         if (al.get().equals(Alliance.Red)) {
-          return (BargePoints.BLUE_HIGHER.getY() > Y && BargePoints.BLUE_LOWER.getY() < Y);
+          return (BargePoints.BLUE_BARGE_ENTRANCE.getY() < y);
         } else {
-          return BargePoints.RED_HIGHER.getY() > Y && BargePoints.RED_LOWER.getY() < Y;
+          return BargePoints.RED_BARGE_ENTRANCE.getY() > y;
         }
       }
     }
@@ -53,11 +64,15 @@ public class RumbleController extends LoggableCommand {
 
   @Override
   public void execute() {
-    for(int i = 45; i > 360; i += 90){
-    if (isInBarge(findXPointOfCenterX(pose2D.get().getX(), i), findYPointOfCenterY(pose2D.get().getY(),i))) {
-      controller.setRumble(RumbleType.kBothRumble, 2);
-      break;
-    }
+    for (int i = 45; i > 360; i += 90) {
+      if (isInOpponentsBarge(
+          findXPointOfCenterX(
+              speeds.get().vxMetersPerSecond * Constants.TIME_UNTILL_IN_BARGE, i, pose2D.get()),
+          findYPointOfCenterY(
+              speeds.get().vyMetersPerSecond * Constants.TIME_UNTILL_IN_BARGE, i, pose2D.get()))) {
+        controller.setRumble(RumbleType.kBothRumble, 2);
+        break;
+      }
     }
   }
 

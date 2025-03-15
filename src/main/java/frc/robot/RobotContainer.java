@@ -97,7 +97,6 @@ import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import java.util.function.BooleanSupplier;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -255,7 +254,9 @@ public class RobotContainer {
       //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
     }
 
-    new Trigger(() -> Robot.getMode() == RobotMode.TELEOP).onTrue(new RumbleController(drivetrain::getPose, controller));
+    new Trigger(() -> Robot.getMode() == RobotMode.TELEOP)
+        .onTrue(
+            new RumbleController(drivetrain::getPose, controller, drivetrain::getChassisSpeeds));
   }
 
   public Command getAutonomousCommand() {

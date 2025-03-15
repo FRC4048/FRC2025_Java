@@ -7,9 +7,11 @@ package frc.robot;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraThread;
+import frc.robot.commands.RumbleController;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.SetBaseVisionStd;
 import frc.robot.commands.drivetrain.SetInitOdom;
@@ -157,7 +159,16 @@ public class Robot extends LoggedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("X", SmartDashboard.getNumber("X", 0.0));
+    SmartDashboard.putNumber("Y", SmartDashboard.getNumber("Y", 0.0));
+    System.out.println(
+        "IsInBarge"
+            + RumbleController.isInOpponentsBarge(
+                SmartDashboard.getNumber("X", 0.0), SmartDashboard.getNumber("y", 0.0)));
+    System.out.println("Y" + SmartDashboard.getNumber("Y", 0.0));
+    System.out.println("X" + SmartDashboard.getNumber("X", 0.0));
+  }
 
   @Override
   public void teleopExit() {}
