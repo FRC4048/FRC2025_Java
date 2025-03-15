@@ -12,6 +12,9 @@ public class MockClimberIO implements ClimberIO {
   public void setClimberSpeed(double speed) {}
 
   @Override
+  public void enableOrDisableLimitSwitch(boolean state) {}
+
+  @Override
   public void stopClimber() {}
 
   @Override

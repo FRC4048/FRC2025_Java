@@ -22,7 +22,10 @@ public class SetClimberSpeed extends LoggableCommand {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    climber.setLimitSwitchState(false);
+    timer.restart();
+  }
 
   @Override
   public void execute() {

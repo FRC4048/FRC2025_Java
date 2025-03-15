@@ -49,4 +49,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public double getEncoderPosition() {
     return climberSystem.getInputs().getEncoderPosition();
   }
+
+  public void setLimitSwitchState(boolean state) {
+    climberSystem.getIO().enableOrDisableLimitSwitch(state);
+  }
 }

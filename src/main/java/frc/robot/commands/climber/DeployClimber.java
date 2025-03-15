@@ -19,7 +19,10 @@ public class DeployClimber extends LoggableCommand {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    climber.setLimitSwitchState(true);
+    timer.restart();
+  }
 
   @Override
   public void execute() {
