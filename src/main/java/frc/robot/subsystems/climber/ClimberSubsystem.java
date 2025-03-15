@@ -45,4 +45,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public boolean isExtendedLimitSwitchPressed() {
     return climberSystem.getInputs().getFwdLimit();
   }
+
+  public double getEncoderPosition() {
+    return climberSystem.getInputs().getEncoderPosition();
+  }
 }

@@ -6,27 +6,24 @@ import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
-public class CloseClimber extends LoggableCommand {
-
+public class DeployClimber extends LoggableCommand {
   private final ClimberSubsystem climber;
   private final TimeoutLogger timeoutCounter;
   private final Timer timer;
 
-  public CloseClimber(ClimberSubsystem climber) {
+  public DeployClimber(ClimberSubsystem climber) {
     this.climber = climber;
     timer = new Timer();
-    timeoutCounter = new TimeoutLogger("Close Climber to limit switch");
+    timeoutCounter = new TimeoutLogger("DeployClimber");
     addRequirements(climber);
   }
 
   @Override
-  public void initialize() {
-    timer.restart();
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
-    climber.setClimberSpeed(Constants.CLIMBER_CLOSE_SPEED);
+    climber.setClimberSpeed(Constants.CLIMBER_PHASE1_SPEED);
   }
 
   @Override
@@ -36,18 +33,10 @@ public class CloseClimber extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if (climber.isRetractedLimitSwitchPressed()) {
-      return true;
-    } else if (timer.hasElapsed(Constants.CLOSE_CLIMBER_TIMEOUT)) {
+    if (timer.hasElapsed(Constants.CLIMBER_DEPLOY_HARPOON_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
-    } else {
-      return false;
     }
-  }
-
-  @Override
-  public boolean runsWhenDisabled() {
-    return false;
+    return climber.isExtendedLimitSwitchPressed();
   }
 }
