@@ -26,6 +26,9 @@ import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+
+import java.lang.reflect.Array;
+
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {

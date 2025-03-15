@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
+import frc.robot.constants.Constants;
 import frc.robot.utils.BargePoints;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.Optional;
@@ -24,6 +25,13 @@ public class RumbleController extends LoggableCommand {
   public RumbleController(Supplier<Pose2d> pose2D, CommandXboxController controller) {
     this.pose2D = pose2D;
     this.controller = controller;
+  }
+
+  public double findXPointOfCenterX(double x,double degreesFromBaseDegrees){
+    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)+x)*Constants.DRIVE_BASE_LENGTH);
+  }
+  public double findYPointOfCenterY(double y, double degreesFromBaseDegrees){
+    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)+y)*Constants.DRIVE_BASE_WIDTH);
   }
 
   public boolean isInBarge(double Y, double X) {
@@ -45,10 +53,12 @@ public class RumbleController extends LoggableCommand {
 
   @Override
   public void execute() {
-    if (isInBarge(pose2D.get().getX(), pose2D.get().getY())) {
+    for(int i = 0; i > 360; i += 90){
+    if (isInBarge(findXPointOfCenterX(pose2D.get().getX(), i), findYPointOfCenterY(pose2D.get().getY(),i))) {
       controller.setRumble(RumbleType.kBothRumble, 2);
+      break;
     }
-    ;
+    }
   }
 
   @Override
