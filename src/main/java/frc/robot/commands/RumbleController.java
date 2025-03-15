@@ -28,10 +28,10 @@ public class RumbleController extends LoggableCommand {
   }
 
   public double findXPointOfCenterX(double x,double degreesFromBaseDegrees){
-    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)+x)*Constants.DRIVE_BASE_LENGTH);
+    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)+(x/Constants.DRIVE_BASE_LENGTH))*Constants.DRIVE_BASE_LENGTH);
   }
   public double findYPointOfCenterY(double y, double degreesFromBaseDegrees){
-    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)+y)*Constants.DRIVE_BASE_WIDTH);
+    return (Math.cos((pose2D.get().getTranslation().getAngle().getDegrees()+degreesFromBaseDegrees)+(y/Constants.DRIVE_BASE_WIDTH))*Constants.DRIVE_BASE_WIDTH);
   }
 
   public boolean isInBarge(double Y, double X) {
