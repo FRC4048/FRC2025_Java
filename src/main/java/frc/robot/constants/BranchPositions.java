@@ -5,25 +5,26 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public enum BranchPositions {
-  CENTER(new Pose2d(4.477430593, 4.0259230378, Rotation2d.fromDegrees(0.0))),
-  CENTER_A_B(new Pose2d(3.64569375, 4.0259230378, Rotation2d.fromDegrees(0))),
-  CENTER_C_D(new Pose2d(4.0615621715, 3.30561780249853074741, Rotation2d.fromDegrees(60))),
-  CENTER_E_F(new Pose2d(4.8932990145, 3.30561780249853074741, Rotation2d.fromDegrees(120))),
-  CENTER_G_H(new Pose2d(5.309167436, 4.0259230378, Rotation2d.fromDegrees(180))),
-  CENTER_I_J(new Pose2d(4.8932990145, 4.74622827310146925259, Rotation2d.fromDegrees(240))),
-  CENTER_K_L(new Pose2d(4.0615621715, 4.74622827310146925259, Rotation2d.fromDegrees(300))),
-  BRANCH_A(new Pose2d(3.64569375, 4.2009863148, Rotation2d.fromDegrees(0))),
-  BRANCH_B(new Pose2d(3.64569375, 3.8508597608, Rotation2d.fromDegrees(0))),
-  BRANCH_C(new Pose2d(3.90995292634824796889, 3.39314944099853074741, Rotation2d.fromDegrees(60))),
-  BRANCH_D(new Pose2d(4.21317141665175203111, 3.21808616399853074741, Rotation2d.fromDegrees(60))),
-  BRANCH_E(new Pose2d(4.74168976934824796889, 3.21808616399853074741, Rotation2d.fromDegrees(120))),
-  BRANCH_F(new Pose2d(5.04490825965175203111, 3.39314944099853074741, Rotation2d.fromDegrees(120))),
-  BRANCH_G(new Pose2d(5.309167436, 3.8508597608, Rotation2d.fromDegrees(180))),
-  BRANCH_H(new Pose2d(5.309167436, 4.2009863148, Rotation2d.fromDegrees(180))),
-  BRANCH_I(new Pose2d(5.04490825965175203111, 4.65869663460146925259, Rotation2d.fromDegrees(240))),
-  BRANCH_J(new Pose2d(4.74168976934824796889, 4.83375991160146925259, Rotation2d.fromDegrees(240))),
-  BRANCH_K(new Pose2d(4.21317141665175203111, 4.83375991160146925259, Rotation2d.fromDegrees(300))),
-  BRANCH_L(new Pose2d(3.90995292634824796889, 4.65869663460146925259, Rotation2d.fromDegrees(300)));
+  CENTER(new Pose2d(0, 0, Rotation2d.fromRadians(0))), //TODO: add number for center of the reef
+  CENTER_A_B(new Pose2d(3.6576, 4.032434, Rotation2d.fromRadians(3.141592654))),
+  CENTER_C_D(new Pose2d(4.0523645, 3.348681829, Rotation2d.fromRadians(4.188790205))), 
+  CENTER_E_F(new Pose2d(4.8418935, 3.348681829, Rotation2d.fromRadians(5.235987756))), 
+  CENTER_G_H(new Pose2d(5.236658, 4.032434, Rotation2d.fromRadians(6.283185307))),
+  CENTER_I_J(new Pose2d(4.8418935, 4.716186171, Rotation2d.fromRadians(7.330382858))),
+  CENTER_K_L(new Pose2d(4.0523645, 4.716186171, Rotation2d.fromRadians(8.37758041))),
+
+  BRANCH_A(new Pose2d(3.6576, 4.196934, Rotation2d.fromRadians(3.141592654))),
+  BRANCH_B(new Pose2d(3.6576, 3.867934, Rotation2d.fromRadians(3.141592654))),
+  BRANCH_C(new Pose2d(3.909903321, 3.430931829, Rotation2d.fromRadians(4.188790205))),
+  BRANCH_D(new Pose2d(4.194825679, 3.266431829, Rotation2d.fromRadians(4.188790205))),
+  BRANCH_E(new Pose2d(4.699432321, 3.266431829, Rotation2d.fromRadians(5.235987756))),
+  BRANCH_F(new Pose2d(4.984354679, 3.430931829, Rotation2d.fromRadians(5.235987756))),
+  BRANCH_G(new Pose2d(5.236658, 3.867934, Rotation2d.fromRadians(6.283185307))),
+  BRANCH_H(new Pose2d(5.236658, 4.196934, Rotation2d.fromRadians(6.283185307))),
+  BRANCH_I(new Pose2d(4.984354679, 4.633936171, Rotation2d.fromRadians(7.330382858))),
+  BRANCH_J(new Pose2d(4.699432321, 4.798436171, Rotation2d.fromRadians(7.330382858))),
+  BRANCH_K(new Pose2d(4.194825679, 4.798436171, Rotation2d.fromRadians(8.37758041))),
+  BRANCH_L(new Pose2d(3.909903321, 4.633936171, Rotation2d.fromRadians(8.37758041)));
 
   private final Pose2d position;
 
