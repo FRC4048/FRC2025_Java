@@ -13,13 +13,26 @@ public class ThreadedGyro {
   private final AHRS gyro;
   private final AtomicBoolean shouldReset = new AtomicBoolean(false);
   private final AtomicBoolean shouldOffset = new AtomicBoolean(false);
-  private final AtomicLong lastGyro;
+  private final AtomicLong lastGyroAngle;
+  private final AtomicLong lastGyroAccelerationX;
+  private final AtomicLong lastGyroAccelerationY;
+  private final AtomicLong lastGyroAccelerationZ;
+
+  private final AtomicLong lastGyroVelX;
+  private final AtomicLong lastGyroVelY;
+  private final AtomicLong lastGyroVelZ;
   private final AtomicLong gyroOffset = new AtomicLong();
   private final ScheduledExecutorService executor;
 
   public ThreadedGyro(AHRS gyro) {
     this.gyro = gyro;
-    this.lastGyro = new AtomicLong((Double.doubleToLongBits(0)));
+    this.lastGyroAngle = new AtomicLong((Double.doubleToLongBits(0)));
+    this.lastGyroAccelerationX = new AtomicLong((Double.doubleToLongBits(0)));
+    this.lastGyroAccelerationY = new AtomicLong((Double.doubleToLongBits(0)));
+    this.lastGyroAccelerationZ = new AtomicLong((Double.doubleToLongBits(0)));
+    this.lastGyroVelX = new AtomicLong((Double.doubleToLongBits(0)));
+    this.lastGyroVelY = new AtomicLong((Double.doubleToLongBits(0)));
+    this.lastGyroVelZ = new AtomicLong((Double.doubleToLongBits(0)));
     this.executor = Executors.newScheduledThreadPool(1);
   }
 
@@ -58,11 +71,18 @@ public class ThreadedGyro {
   }
 
   private void updateGyro() {
-    lastGyro.set(Double.doubleToLongBits(((gyro.getAngle()) % 360) * -1));
+    lastGyroAngle.set(Double.doubleToLongBits(((gyro.getAngle()) % 360) * -1));
+    lastGyroAccelerationX.set(Double.doubleToLongBits(gyro.getWorldLinearAccelX()));
+    lastGyroAccelerationY.set(Double.doubleToLongBits(gyro.getWorldLinearAccelY()));
+    lastGyroAccelerationZ.set(Double.doubleToLongBits(gyro.getWorldLinearAccelZ()));
+
+    lastGyroVelX.set(Double.doubleToLongBits(gyro.getVelocityX()));
+    lastGyroVelY.set(Double.doubleToLongBits(gyro.getVelocityY()));
+    lastGyroVelZ.set(Double.doubleToLongBits(gyro.getVelocityZ()));
   }
 
   public double getGyroValue() {
-    return Double.longBitsToDouble(lastGyro.get());
+    return Double.longBitsToDouble(lastGyroAngle.get());
   }
 
   public void resetGyro() {
@@ -76,5 +96,29 @@ public class ThreadedGyro {
 
   public double getAngleOffset() {
     return Double.longBitsToDouble(gyroOffset.get());
+  }
+
+  public double getAccelX() {
+    return Double.longBitsToDouble(lastGyroAccelerationX.get());
+  }
+
+  public double getAccelY() {
+    return Double.longBitsToDouble(lastGyroAccelerationY.get());
+  }
+
+  public double getAccelZ() {
+    return Double.longBitsToDouble(lastGyroAccelerationZ.get());
+  }
+
+  public double getVelX() {
+    return Double.longBitsToDouble(lastGyroVelX.get());
+  }
+
+  public double getVelY() {
+    return Double.longBitsToDouble(lastGyroVelY.get());
+  }
+
+  public double getVelZ() {
+    return Double.longBitsToDouble(lastGyroVelZ.get());
   }
 }

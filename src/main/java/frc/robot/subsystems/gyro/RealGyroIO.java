@@ -27,5 +27,8 @@ public class RealGyroIO implements GyroIO {
   public void updateInputs(GyroInputs inputs) {
     inputs.anglesInDeg = gyro.getGyroValue();
     inputs.angleOffset = gyro.getAngleOffset();
+    inputs.accelX = gyro.getAccelX();
+    inputs.accelY = gyro.getAccelY();
+    inputs.accelZ = gyro.getAccelZ();
   }
 }

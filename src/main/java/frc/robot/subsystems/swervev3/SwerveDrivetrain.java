@@ -116,6 +116,13 @@ public class SwerveDrivetrain extends SubsystemBase {
               backRight.getPosition()
             },
             getLastGyro());
+    ChassisSpeeds chassisSpeeds = getChassisSpeeds();
+    if (Math.abs(chassisSpeeds.vxMetersPerSecond - gyroSystem.getInputs().velX) < 1) {
+      DriverStation.reportWarning("WE ARE SLIPPING!!!!", false);
+    }
+    if (Math.abs(chassisSpeeds.vyMetersPerSecond - gyroSystem.getInputs().velY) < 1) {
+      DriverStation.reportWarning("WE ARE SLIPPING!!!!", false);
+    }
     Logger.recordOutput("LastOdomModPoses", odom.modulePosition());
     poseEstimator.updatePosition(odom);
     poseEstimator.updateVision();
