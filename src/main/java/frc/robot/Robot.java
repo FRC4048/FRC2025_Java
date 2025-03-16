@@ -15,6 +15,7 @@ import frc.robot.commands.drivetrain.SetBaseVisionStd;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
+import frc.robot.constants.GameConstants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
@@ -90,26 +91,29 @@ public class Robot extends LoggedRobot {
     return mode.get();
   }
 
-  @Override
-  public void robotPeriodic() {
-    if (getMode() != RobotMode.TEST) {
-      CommandScheduler.getInstance().run();
-      if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
+    @Override
+    public void robotPeriodic() {
+        if (getMode() != RobotMode.TEST) {
+            CommandScheduler.getInstance().run();
+            if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
         allianceColor = DriverStation.getAlliance();
         if (allianceColor.isPresent()) {
           robotContainer.getAutoChooser().getProvider().forceRefresh();
         }
       }
       if (counter == 0) {
-        actualInit();
-      }
-      counter++;
-    }
+                actualInit();
+            }
+            if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
+                robotContainer.getRobotVisualizer().logMechanism();
+            }
+            counter++;
+        }
 
-    if (Constants.ENABLE_LOGGING) {
-      CommandLogger.get().log();
+        if (Constants.ENABLE_LOGGING) {
+            CommandLogger.get().log();
+        }
     }
-  }
 
   /** Use this instead of robot init. */
   private void actualInit() {
