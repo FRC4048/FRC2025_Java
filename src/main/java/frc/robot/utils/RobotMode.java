@@ -5,5 +5,5 @@ public enum RobotMode {
   TELEOP,
   AUTONOMOUS,
   TEST,
-  SIMULATION;
+  SIMULATION
 }
