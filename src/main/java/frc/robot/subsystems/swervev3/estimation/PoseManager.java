@@ -49,9 +49,9 @@ public class PoseManager {
     this(new PoseDeviation(wheelStd, visionStd), kinematics, initialOdom, estimatedPoseBuffer);
   }
 
-  public void addOdomMeasurement(OdometryMeasurement m, long timestamp) {
+  public void addOdomMeasurement(OdometryMeasurement m, double timestamp) {
     Rotation2d gyroVal = Rotation2d.fromDegrees(m.gyroValueDeg());
-    Pose2d pose = poseEstimator.update(gyroVal, m.modulePosition());
+    Pose2d pose = poseEstimator.updateWithTime(timestamp, gyroVal, m.modulePosition());
     estimatedPoseBuffer.addSample(timestamp, pose);
   }
 

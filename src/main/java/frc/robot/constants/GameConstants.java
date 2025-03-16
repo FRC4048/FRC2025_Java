@@ -74,7 +74,7 @@ public class GameConstants {
   public static final double INTAKE_LED_STRIP_TIME = 1;
 
   // Logging
-  public static final long MAX_LOG_TIME_WAIT = 10;
+  public static final double MAX_LOG_TIME_WAIT = 1e+7;
   public static final boolean ENABLE_LOGGING = true;
 
   // Treshholds

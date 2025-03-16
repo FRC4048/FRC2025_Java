@@ -105,7 +105,7 @@ public class PoseEstimator {
    */
   public void updatePosition(OdometryMeasurement m) {
     if (!Robot.getMode().equals(RobotMode.DISABLED)) {
-      poseManager.addOdomMeasurement(m, Logger.getTimestamp());
+      poseManager.addOdomMeasurement(m, Logger.getTimestamp() / 1e+6);
     }
     field.setRobotPose(poseManager.getEstimatedPosition());
   }
