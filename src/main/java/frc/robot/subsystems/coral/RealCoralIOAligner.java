@@ -3,6 +3,7 @@ package frc.robot.subsystems.coral;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
@@ -36,7 +37,12 @@ public class RealCoralIOAligner implements CoralIOAligner {
 
   @Override
   public void setAlignerSpeed(double speed) {
-    this.alignerMotor.set(speed);
+    alignerMotor.set(speed);
+  }
+
+  @Override
+  public void stopAligner() {
+    alignerMotor.stopMotor();
   }
 
   @Override

@@ -44,7 +44,7 @@ public class GameConstants {
   public static final double BYEBYE_FORWARD_SPEED = 0.5; // TODO: change later
   public static final double BYEBYE_REVERSE_SPEED = -0.7; // TODO: change later
   public static final double INTAKE_MOTOR_SPEED = 0.25;
-  public static final double INTAKE_ALIGNER_SPEED = 0.3;
+  public static final double INTAKE_ALIGNER_SPEED = 0.5;
   public static final double INTAKE_TILT_VELOCITY = 0.5;
   public static final double CORAL_SHOOTER_SPEED = 0.5;
   public static final double HIHI_EXTEND_SPEED = 0.4;

@@ -55,7 +55,7 @@ public class CoralSubsystem extends SubsystemBase {
   }
 
   public void stopAligner() {
-    coralSystemAligner.getIO().setAlignerSpeed(0);
+    coralSystemAligner.getIO().stopAligner();
   }
 
   public void setShooterSpeed(double speed) {
