@@ -103,7 +103,9 @@ public class ElevatorSimulator {
       Logger.recordOutput("ElevatorSubsystem/MotorCommandedVoltage", motorOut);
       Logger.recordOutput("ElevatorSubsystem/VelocityMPS", velocityMetersPerSecond);
       Logger.recordOutput("ElevatorSubsystem/ElevatorActualPosition", m_elevatorSim.getPositionMeters());
-      Logger.recordOutput("ElevatorSubsystem/ElevatorMechanismLength", elevatorLigament.getLength());
+      if (elevatorLigament != null) {
+        Logger.recordOutput("ElevatorSubsystem/ElevatorMechanismLength", elevatorLigament.getLength());
+      }
     }
 
     if (elevatorLigament != null) {

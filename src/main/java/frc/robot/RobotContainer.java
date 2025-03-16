@@ -143,10 +143,10 @@ public class RobotContainer {
         robotVisualizer = new RobotVisualizer();
         hihiRoller =
             new HihiRollerSubsystem(
-                new SimHihiRollerIO(robotVisualizer.getAlgaeHiHiRollerLigament()));
+                new SimHihiRollerIO(null)); // robotVisualizer.getAlgaeHiHiRollerLigament()));
         hihiExtender =
             new HihiExtenderSubsystem(
-                new SimHihiExtenderIO(robotVisualizer.getAlgaeHiHiTiltLigament()));
+                new SimHihiExtenderIO(null)); // robotVisualizer.getAlgaeHiHiTiltLigament()));
         elevatorSubsystem =
             new ElevatorSubsystem(new SimElevatorIO(robotVisualizer.getElevatorLigament()));
         coralSubsystem =

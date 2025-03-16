@@ -105,7 +105,7 @@ public class Robot extends LoggedRobot {
                 actualInit();
             }
             if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
-                m_robotContainer.getRobotVisualizer().logMechanism();
+                robotContainer.getRobotVisualizer().logMechanism();
             }
             counter++;
         }
