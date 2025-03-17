@@ -25,7 +25,6 @@ import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.byebye.SpinByeByeRoller;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -51,6 +50,7 @@ import frc.robot.commands.sequences.RemoveAlgaeFromReef;
 import frc.robot.commands.sequences.ShootAlgae;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
+import frc.robot.constants.GameConstants;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyeroller.MockAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyeroller.RealAlgaeByeByeRollerIO;
@@ -91,19 +91,20 @@ import frc.robot.subsystems.swervev3.SwerveIdConfig;
 import frc.robot.subsystems.swervev3.SwervePidConfig;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.io.abs.MockAbsIO;
+import frc.robot.subsystems.swervev3.io.abs.SimAbsIO;
 import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
+import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
+import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.simulation.RobotVisualizer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
-import frc.robot.utils.simulation.RobotVisualizer;
-import java.util.Optional;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -321,8 +322,7 @@ public class RobotContainer {
 
     GyroIO gyroIO;
     LoggableIO<ApriltagInputs> apriltagIO;
-    switch (Constants.currentMode) {
-    case REAL:
+    if (Constants.currentMode == GameConstants.Mode.REAL) {
       frontLeft =
           SwerveModule.createModule(
               frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false);
@@ -345,7 +345,7 @@ public class RobotContainer {
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       apriltagIO = new TCPApriltag();
-    case REPLAY:
+    } else if (Constants.currentMode == GameConstants.Mode.REPLAY) {
       frontLeft =
           new SwerveModule(
               new MockDriveMotorIO(),
@@ -376,14 +376,43 @@ public class RobotContainer {
               "backRight");
       gyroIO = new MockGyroIO();
       apriltagIO = new MockApriltag();
-    case SIM:
+    } else {
       SwerveDriveSimulation driveSimulation =
-              new SwerveDriveSimulation(
-                      SwerveDrivetrain.mapleConfig, new Pose2d(0, 0, new Rotation2d()));
+          new SwerveDriveSimulation(
+              SwerveDrivetrain.mapleConfig, new Pose2d(0, 0, new Rotation2d()));
       SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
       SwerveModuleSimulation[] driveModules = driveSimulation.getModules();
 
-      frontLeft = new SwerveModule(new Sim)
+      frontLeft =
+          new SwerveModule(
+              new SimDriveMotorIO(kConfig, driveModules[0]),
+              new SimSteerMotorIO(driveModules[0]),
+              new SimAbsIO(driveModules[0]),
+              pidConfig,
+              "frontLeft");
+      frontRight =
+          new SwerveModule(
+              new SimDriveMotorIO(kConfig, driveModules[1]),
+              new SimSteerMotorIO(driveModules[1]),
+              new SimAbsIO(driveModules[1]),
+              pidConfig,
+              "frontRight");
+      backLeft =
+          new SwerveModule(
+              new SimDriveMotorIO(kConfig, driveModules[2]),
+              new SimSteerMotorIO(driveModules[2]),
+              new SimAbsIO(driveModules[2]),
+              pidConfig,
+              "backLeft");
+      backRight =
+          new SwerveModule(
+              new SimDriveMotorIO(kConfig, driveModules[3]),
+              new SimSteerMotorIO(driveModules[3]),
+              new SimAbsIO(driveModules[3]),
+              pidConfig,
+              "backRight");
+      gyroIO = new MockGyroIO();
+      apriltagIO = new MockApriltag();
     }
     drivetrain =
         new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);

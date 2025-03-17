@@ -24,7 +24,6 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class SwerveModule {
   private final LoggableSystem<SwerveDriveMotorIO, MotorInputs> driveSystem;
@@ -153,8 +152,6 @@ public class SwerveModule {
         pidConfig,
         position.getLoggingKey());
   }
-
-
 
   public double getAbsPosition() {
     return absSystem.getInputs().absEncoderPosition;
