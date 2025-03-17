@@ -13,7 +13,9 @@ public class SimSteerMotorInputProvider implements MotorInputProvider {
     this.moduleSimulation = moduleSimulation;
   }
 
-  /*This will always return 25 because I don't think we can simulate temperature currently */
+  /**
+   * @return 25
+   */
   @Override
   public double getMotorTemperature() {
     return 25.0;

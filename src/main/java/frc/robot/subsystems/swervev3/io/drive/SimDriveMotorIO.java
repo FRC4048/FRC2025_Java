@@ -33,6 +33,6 @@ public class SimDriveMotorIO implements SwerveDriveMotorIO {
   }
 
   public void resetEncoder() {
-    // TODO: not implemented yet
+    // Method not needed because no steer offset
   }
 }
