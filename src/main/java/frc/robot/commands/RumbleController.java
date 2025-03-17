@@ -26,7 +26,7 @@ public class RumbleController extends LoggableCommand {
     this.controller = controller;
   }
 
-  public static boolean isInBarge(double x, double y) {
+  public static boolean isInOppositeBarge(double x, double y) {
     Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
     if ((BargePoints.BLUE_HIGHER.getX() > x)
         && (BargePoints.RED_LOWER.getX() < x)
@@ -43,7 +43,7 @@ public class RumbleController extends LoggableCommand {
 
   @Override
   public void execute() {
-    if (isInBarge(robotPose.get().getX(), robotPose.get().getY()))
+    if (isInOppositeBarge(robotPose.get().getX(), robotPose.get().getY()))
       controller.setRumble(RumbleType.kBothRumble, 0.5);
     else controller.setRumble(RumbleType.kBothRumble, 0);
   }
