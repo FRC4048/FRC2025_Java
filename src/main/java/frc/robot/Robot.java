@@ -19,6 +19,7 @@ import frc.robot.constants.GameConstants;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
+import frc.robot.utils.logging.commands.DoNothingCommand;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -118,7 +119,9 @@ public class Robot extends LoggedRobot {
   /** Use this instead of robot init. */
   private void actualInit() {
     new LoggableSequentialCommandGroup(
-            new WheelAlign(robotContainer.getDrivetrain()),
+            Constants.currentMode == GameConstants.Mode.SIM
+                ? new DoNothingCommand()
+                : new WheelAlign(robotContainer.getDrivetrain()),
             new ResetGyro(robotContainer.getDrivetrain()))
         .schedule();
   }
