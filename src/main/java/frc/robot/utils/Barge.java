@@ -4,28 +4,28 @@ public enum Barge {
   RED(7.56, 1.3646, 0, 4),
   BLUE(7.56, 1.3646, 4, 8);
 
-  private final double x1;
+  private final double x;
   private final double width;
-  private final double y1;
+  private final double y;
   private final double height;
 
-  Barge(double x1, double width, double y1, double height) {
-    this.x1 = x1;
+  Barge(double x, double width, double y, double height) {
+    this.x = x;
     this.width = width;
-    this.y1 = y1;
+    this.y = y;
     this.height = height;
   }
 
-  public double getX1() {
-    return x1;
+  public double getX() {
+    return x;
   }
 
   public double getWidth() {
     return width;
   }
 
-  public double getY1() {
-    return y1;
+  public double getY() {
+    return y;
   }
 
   public double getHeight() {
