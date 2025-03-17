@@ -193,4 +193,9 @@ public class Robot extends LoggedRobot {
   public static Optional<DriverStation.Alliance> getAllianceColor() {
     return allianceColor;
   }
+
+  @Override
+  public void simulationPeriodic() {
+    robotContainer.updateSimulation();
+  }
 }

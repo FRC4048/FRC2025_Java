@@ -1,7 +1,6 @@
 package frc.robot.subsystems.swervev3;
 
 import static edu.wpi.first.units.Units.*;
-import static edu.wpi.first.units.Units.KilogramSquareMeters;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;

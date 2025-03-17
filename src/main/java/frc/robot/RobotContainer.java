@@ -105,6 +105,7 @@ import frc.robot.utils.simulation.RobotVisualizer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
+import org.littletonrobotics.junction.Logger;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -122,6 +123,7 @@ public class RobotContainer {
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private RobotVisualizer robotVisualizer = null;
+  private SwerveDriveSimulation driveSimulation;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -377,7 +379,7 @@ public class RobotContainer {
       gyroIO = new MockGyroIO();
       apriltagIO = new MockApriltag();
     } else {
-      SwerveDriveSimulation driveSimulation =
+      driveSimulation =
           new SwerveDriveSimulation(
               SwerveDrivetrain.mapleConfig, new Pose2d(0, 0, new Rotation2d()));
       SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
@@ -502,5 +504,12 @@ public class RobotContainer {
         "LightStripPatternGreen", new SetLedPattern(lightStrip, BlinkinPattern.BLUE_GREEN));
     SmartDashboard.putData(
         "LightStripPatternViolet", new SetLedPattern(lightStrip, BlinkinPattern.BLUE_VIOLET));
+  }
+
+  public void updateSimulation() {
+    if (Constants.currentMode != Constants.Mode.SIM) return;
+    SimulatedArena.getInstance().simulationPeriodic();
+    Logger.recordOutput(
+        "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
   }
 }
