@@ -32,7 +32,7 @@ public class ClimbToLimit extends LoggableCommand {
   @Override
   public void execute() {
     if (isLimitSwitchPressed) {
-    climber.setClimberSpeed(climberSpeed);
+      climber.setClimberSpeed(climberSpeed);
     }
   }
 
