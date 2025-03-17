@@ -24,6 +24,7 @@ import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
+import frc.robot.commands.climber.ClimbToLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -43,7 +44,6 @@ import frc.robot.commands.lightStrip.SetLedPattern;
 import frc.robot.commands.sequences.ByeByeAllDone;
 import frc.robot.commands.sequences.CancelAll;
 import frc.robot.commands.sequences.DeployHarpoon;
-import frc.robot.commands.sequences.FinalClimbSequence;
 import frc.robot.commands.sequences.IntakeAlgae;
 import frc.robot.commands.sequences.LowerElevator;
 import frc.robot.commands.sequences.PickUpCoral;
@@ -251,7 +251,7 @@ public class RobotContainer {
         .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.LEVEL1));
 
     new Trigger(() -> controller.getRightY() < -Constants.CLIMBER_DEADBAND)
-        .onTrue(new FinalClimbSequence(climber));
+        .onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
         .back()
         .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
@@ -438,8 +438,6 @@ public class RobotContainer {
 
     if (Constants.CLIMBER_DEBUG) {
       // Climber Commands
-      SmartDashboard.putBoolean("Fwd Limit", climber.isExtendedLimitSwitchPressed());
-      SmartDashboard.putBoolean("Rev Limit", climber.isRetractedLimitSwitchPressed());
 
       //      SmartDashboard.putData( "Reset Climber", new ResetClimber(climber));
       //

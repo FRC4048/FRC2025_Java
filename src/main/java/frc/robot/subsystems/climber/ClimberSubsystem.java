@@ -51,6 +51,6 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void setLimitSwitchState(boolean state) {
-    climberSystem.getIO().enableOrDisableLimitSwitch(state);
+    climberSystem.getIO().enableLimitSwitch(state);
   }
 }

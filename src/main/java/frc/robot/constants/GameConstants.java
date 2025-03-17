@@ -69,7 +69,7 @@ public class GameConstants {
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
-  public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
+  public static final int CLIMBER_PHASE2_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
   public static final double INTAKE_LED_STRIP_TIME = 1;

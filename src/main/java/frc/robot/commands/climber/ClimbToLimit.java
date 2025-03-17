@@ -6,14 +6,15 @@ import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.utils.logging.TimeoutLogger;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
-public class SetClimberSpeed extends LoggableCommand {
+public class ClimbToLimit extends LoggableCommand {
 
   private final ClimberSubsystem climber;
   private final TimeoutLogger timeoutCounter;
   private final Timer timer;
   private final double climberSpeed;
+  private boolean isLimitSwitchPressed;
 
-  public SetClimberSpeed(ClimberSubsystem climber, double climberSpeed) {
+  public ClimbToLimit(ClimberSubsystem climber, double climberSpeed) {
     this.climber = climber;
     this.climberSpeed = climberSpeed;
     timer = new Timer();
@@ -23,13 +24,16 @@ public class SetClimberSpeed extends LoggableCommand {
 
   @Override
   public void initialize() {
+    isLimitSwitchPressed = climber.isExtendedLimitSwitchPressed();
     climber.setLimitSwitchState(false);
     timer.restart();
   }
 
   @Override
   public void execute() {
+    if (isLimitSwitchPressed) {
     climber.setClimberSpeed(climberSpeed);
+    }
   }
 
   @Override
@@ -39,11 +43,11 @@ public class SetClimberSpeed extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    if (timer.hasElapsed(Constants.CLOSE_CLIMBER_TIMEOUT)) {
+    if (timer.hasElapsed(Constants.CLIMBER_PHASE2_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
     } else {
-      return climber.isRetractedLimitSwitchPressed();
+      return climber.isRetractedLimitSwitchPressed() || !isLimitSwitchPressed;
     }
   }
 

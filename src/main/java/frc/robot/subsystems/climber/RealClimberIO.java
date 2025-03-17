@@ -47,7 +47,8 @@ public class RealClimberIO implements ClimberIO {
         SparkBase.PersistMode.kPersistParameters);
   }
 
-  public void enableOrDisableLimitSwitch(boolean state) {
+  @Override
+  public void enableLimitSwitch(boolean state) {
     SparkMaxConfig climberConfig = new SparkMaxConfig();
     climberConfig.apply(climberConfig.limitSwitch.forwardLimitSwitchEnabled(state));
 
