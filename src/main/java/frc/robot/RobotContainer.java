@@ -25,6 +25,7 @@ import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
+import frc.robot.commands.byebye.SpinByeByeRoller;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -57,6 +58,7 @@ import frc.robot.subsystems.algaebyebyeroller.SimAlgaeByeByeRollerIO;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
+import frc.robot.subsystems.algaebyebyetilt.SimAlgaeByeByeTiltIO;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.coral.MockCoralIOFollower;
 import frc.robot.subsystems.coral.MockCoralIOLeader;
@@ -99,6 +101,9 @@ import frc.robot.utils.motor.PID;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
+import frc.robot.utils.simulation.RobotVisualizer;
+import java.util.Optional;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -115,6 +120,7 @@ public class RobotContainer {
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
   private final Joystick joyleft = new Joystick(Constants.LEFT_JOYSTICK_ID);
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
+  private RobotVisualizer robotVisualizer = null;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -139,13 +145,26 @@ public class RobotContainer {
         lightStrip = new LightStrip(new MockLightStripIO());
       }
       case SIM -> {
-        hihiRoller = new HihiRollerSubsystem(new SimHihiRollerIO()); // TODO
-        hihiExtender = new HihiExtenderSubsystem(new SimHihiExtenderIO()); // TODO
-        elevatorSubsystem = new ElevatorSubsystem(new SimElevatorIO());
-        coralSubsystem = new CoralSubsystem(new SimCoralIOFollower(), new SimCoralIOLeader());
+        robotVisualizer = new RobotVisualizer();
+        hihiRoller =
+            new HihiRollerSubsystem(
+                new SimHihiRollerIO(null)); // robotVisualizer.getAlgaeHiHiRollerLigament()));
+        hihiExtender =
+            new HihiExtenderSubsystem(
+                new SimHihiExtenderIO(null)); // robotVisualizer.getAlgaeHiHiTiltLigament()));
+        elevatorSubsystem =
+            new ElevatorSubsystem(new SimElevatorIO(robotVisualizer.getElevatorLigament()));
+        coralSubsystem =
+            new CoralSubsystem(
+                new SimCoralIOFollower(),
+                new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()));
         //        climber = new ClimberSubsystem(new SimClimberIO());
-        byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO()); // TODO
-        byebyeRoller = new AlgaeByeByeRollerSubsystem(new SimAlgaeByeByeRollerIO());
+        byebyeTilt =
+            new AlgaeByeByeTiltSubsystem(
+                new SimAlgaeByeByeTiltIO(robotVisualizer.getAlgaeByeByeTiltLigament()));
+        byebyeRoller =
+            new AlgaeByeByeRollerSubsystem(
+                new SimAlgaeByeByeRollerIO(robotVisualizer.getAlgaeByeByeRollerLigament()));
         lightStrip = new LightStrip(new MockLightStripIO());
       }
       default -> {
@@ -372,6 +391,10 @@ public class RobotContainer {
 
   public SwerveDrivetrain getDrivetrain() {
     return drivetrain;
+  }
+
+  public RobotVisualizer getRobotVisualizer() {
+    return robotVisualizer;
   }
 
   public void putShuffleboardCommands() {

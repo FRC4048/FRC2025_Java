@@ -15,7 +15,7 @@ public class NeoPidConfig {
   private double d = DEFAULT_D;
   private double iZone = DEFAULT_IZONE;
   private double ff = DEFAULT_FF;
-  private int currentLimit;
+  private int currentLimit; // TODO: SHould this be set to 40 as a default?
   private double maxVelocity = MAX_VELOCITY;
   private double maxAccel = MAX_ACCELERATION;
   private double allowedError = ALLOWED_ERROR;
