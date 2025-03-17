@@ -22,6 +22,7 @@ public class SimDriveMotorInputProvider implements MotorInputProvider {
   public double getMotorCurrent() {
     return Math.abs(moduleSimulation.getDriveMotorStatorCurrent().in(Amps));
   }
+
   /*This will always return 25 because I don't think we can simulate temperature currently */
   @Override
   public double getMotorTemperature() {
