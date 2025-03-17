@@ -24,6 +24,7 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.math.AngleUtils;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class SwerveModule {
   private final LoggableSystem<SwerveDriveMotorIO, MotorInputs> driveSystem;
@@ -46,9 +47,15 @@ public class SwerveModule {
       TrapezoidProfile.Constraints goalConstraint,
       String moduleName) {
     MotorInputs driveInputs =
-        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Drive").addEncoder().motorCurrent().build();
+        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Drive")
+            .addEncoder()
+            .motorCurrent()
+            .build();
     MotorInputs steerInputs =
-        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Steer").addEncoder().motorCurrent().build();
+        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Steer")
+            .addEncoder()
+            .motorCurrent()
+            .build();
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));
@@ -146,6 +153,8 @@ public class SwerveModule {
         pidConfig,
         position.getLoggingKey());
   }
+
+
 
   public double getAbsPosition() {
     return absSystem.getInputs().absEncoderPosition;

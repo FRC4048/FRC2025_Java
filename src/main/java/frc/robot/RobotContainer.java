@@ -7,6 +7,8 @@ package frc.robot;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -94,6 +96,9 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import org.ironmaple.simulation.SimulatedArena;
+import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
+import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -297,7 +302,8 @@ public class RobotContainer {
 
     GyroIO gyroIO;
     LoggableIO<ApriltagInputs> apriltagIO;
-    if (Robot.isReal()) {
+    switch (Constants.currentMode) {
+    case REAL:
       frontLeft =
           SwerveModule.createModule(
               frontLeftIdConf, kConfig, pidConfig, ModulePosition.FRONT_LEFT, false);
@@ -320,7 +326,7 @@ public class RobotContainer {
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       apriltagIO = new TCPApriltag();
-    } else {
+    case REPLAY:
       frontLeft =
           new SwerveModule(
               new MockDriveMotorIO(),
@@ -351,6 +357,14 @@ public class RobotContainer {
               "backRight");
       gyroIO = new MockGyroIO();
       apriltagIO = new MockApriltag();
+    case SIM:
+      SwerveDriveSimulation driveSimulation =
+              new SwerveDriveSimulation(
+                      SwerveDrivetrain.mapleConfig, new Pose2d(0, 0, new Rotation2d()));
+      SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
+      SwerveModuleSimulation[] driveModules = driveSimulation.getModules();
+
+      frontLeft = new SwerveModule(new Sim)
     }
     drivetrain =
         new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
