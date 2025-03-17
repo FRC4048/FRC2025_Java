@@ -84,43 +84,6 @@ public class SwerveDrivetrain extends SubsystemBase {
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
     finePathController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(5)));
     trajectoryConfig = new TrajectoryConfig(0.5, 0.5);
-
-    RobotConfig config = null;
-    try {
-      config = RobotConfig.fromGUISettings();
-    } catch (Exception e) {
-      // Handle exception as needed
-      e.printStackTrace();
-    }
-
-    AutoBuilder.configure(
-        this::getPose,
-        this::resetOdometry,
-        this::getChassisSpeeds,
-        this::drive,
-        new PPHolonomicDriveController(
-            new PIDConstants(
-                Constants.PATH_PLANNER_TRANSLATION_PID_P,
-                Constants.PATH_PLANNER_TRANSLATION_PID_I,
-                Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
-            new PIDConstants(
-                Constants.PATH_PLANNER_ROTATION_PID_P,
-                Constants.PATH_PLANNER_ROTATION_PID_I,
-                Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
-            ),
-        config,
-        () -> {
-          // Boolean supplier that controls when the path will be mirrored for the red alliance
-          // This will flip the path being followed to the red side of the field.
-          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-
-          var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-            return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
-        },
-        this);
   }
 
   @Override
