@@ -29,6 +29,7 @@ import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import java.util.function.Consumer;
 import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
 import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
@@ -54,6 +55,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
+  private final Consumer<Pose2d> resetSimulationPoseCallBack;
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
@@ -61,7 +63,8 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule backLeftModule,
       SwerveModule backRightModule,
       GyroIO gyroIO,
-      LoggableIO<ApriltagInputs> apriltagIO) {
+      LoggableIO<ApriltagInputs> apriltagIO,
+      Consumer<Pose2d> resetSimulationPoseCallBack) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
@@ -70,6 +73,8 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+
+    this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
 
     RobotConfig config = null;
     try {
@@ -226,6 +231,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void resetOdometry(Pose2d startingPosition) {
     poseEstimator.resetOdometry(
         startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
+    resetSimulationPoseCallBack.accept(startingPosition);
   }
 
   public Rotation2d getGyroAngle() {

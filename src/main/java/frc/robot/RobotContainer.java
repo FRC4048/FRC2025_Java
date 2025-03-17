@@ -102,6 +102,7 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.simulation.RobotVisualizer;
+import java.util.function.Consumer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 import org.ironmaple.simulation.drivesims.SwerveModuleSimulation;
@@ -324,6 +325,7 @@ public class RobotContainer {
 
     GyroIO gyroIO;
     LoggableIO<ApriltagInputs> apriltagIO;
+    Consumer<Pose2d> resetSimulationPoseCallBack;
     if (Constants.currentMode == GameConstants.Mode.REAL) {
       frontLeft =
           SwerveModule.createModule(
@@ -347,6 +349,7 @@ public class RobotContainer {
       threadedGyro.start();
       gyroIO = new RealGyroIO(threadedGyro);
       apriltagIO = new TCPApriltag();
+      resetSimulationPoseCallBack = (pose) -> {};
     } else if (Constants.currentMode == GameConstants.Mode.REPLAY) {
       frontLeft =
           new SwerveModule(
@@ -378,10 +381,13 @@ public class RobotContainer {
               "backRight");
       gyroIO = new MockGyroIO();
       apriltagIO = new MockApriltag();
+      resetSimulationPoseCallBack = (pose) -> {};
     } else {
+
       driveSimulation =
           new SwerveDriveSimulation(
               SwerveDrivetrain.mapleConfig, new Pose2d(0, 0, new Rotation2d()));
+      resetSimulationPoseCallBack = driveSimulation::setSimulationWorldPose;
       SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
       SwerveModuleSimulation[] driveModules = driveSimulation.getModules();
 
@@ -417,7 +423,14 @@ public class RobotContainer {
       apriltagIO = new MockApriltag();
     }
     drivetrain =
-        new SwerveDrivetrain(frontLeft, frontRight, backLeft, backRight, gyroIO, apriltagIO);
+        new SwerveDrivetrain(
+            frontLeft,
+            frontRight,
+            backLeft,
+            backRight,
+            gyroIO,
+            apriltagIO,
+            resetSimulationPoseCallBack);
   }
 
   public SwerveDrivetrain getDrivetrain() {
