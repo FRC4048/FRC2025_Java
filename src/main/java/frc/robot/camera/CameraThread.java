@@ -31,6 +31,7 @@ public class CameraThread extends Thread {
   private Mat cameraMat;
   private Mat rotatedMat;
   private int errorCount;
+  private boolean running = true;
 
   public CameraThread() {
     super("CameraThread");
@@ -38,11 +39,24 @@ public class CameraThread extends Thread {
   }
 
   @Override
-  public synchronized void start() {
+  public void run() {
+    if (!initializeCamera()){
+      return;
+    }
+    while (running) {
+      try {
+        processImage();
+      } catch (Exception e) {
+        DriverStation.reportError("CameraServerException", true);
+      }
+    }
+  }
+
+  private boolean initializeCamera() {
     camera = CameraServer.startAutomaticCapture();
     if (!camera.isValid() || !camera.isConnected()) {
       DriverStation.reportError("Driver Camera is not connected!", false);
-      return;
+      return false;
     }
     // Get the USB Camera from the camera server
     camera.setResolution(WIDTH, HEIGHT);
@@ -56,18 +70,7 @@ public class CameraThread extends Thread {
     cameraMat = new Mat();
     errorCount = 0;
     rotatedMat = Mat.zeros(HEIGHT, WIDTH, 0);
-    super.start();
-  }
-
-  @Override
-  public void run() {
-    while (true) {
-      try {
-        processImage();
-      } catch (Exception e) {
-        DriverStation.reportError("CameraServerException", true);
-      }
-    }
+    return true;
   }
 
   private void processImage() {
