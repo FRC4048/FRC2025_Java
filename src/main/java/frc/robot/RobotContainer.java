@@ -518,9 +518,10 @@ public class RobotContainer {
   }
 
   public void updateSimulation() {
-    if (Constants.currentMode != Constants.Mode.SIM) return;
-    SimulatedArena.getInstance().simulationPeriodic();
-    Logger.recordOutput(
-        "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
+    if (Constants.currentMode == Constants.Mode.SIM) {
+      SimulatedArena.getInstance().simulationPeriodic();
+      Logger.recordOutput(
+          "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
+    }
   }
 }
