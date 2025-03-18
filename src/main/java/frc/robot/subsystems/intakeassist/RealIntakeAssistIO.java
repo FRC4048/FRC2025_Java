@@ -20,13 +20,17 @@ public class RealIntakeAssistIO implements IntakeAssistIO {
   private final SparkMaxInputProvider inputProvider;
 
   public RealIntakeAssistIO() {
-    this.intakeAssistMotor = new SparkMax(Constants.INTAKE_ASSIST_MOTOR_ID, SparkMax.MotorType.kBrushless);
+    this.intakeAssistMotor =
+        new SparkMax(Constants.INTAKE_ASSIST_MOTOR_ID, SparkMax.MotorType.kBrushless);
     inputProvider = new SparkMaxInputProvider(intakeAssistMotor);
     configureMotor();
     Robot.getDiagnostics()
         .addDiagnosable(
             new DiagSparkMaxEncoder(
-                "IntakeAssist", "Encoder", Constants.INTAKE_ASSIST_DIAGS_ENCODER, intakeAssistMotor));
+                "IntakeAssist",
+                "Encoder",
+                Constants.INTAKE_ASSIST_DIAGS_ENCODER,
+                intakeAssistMotor));
   }
 
   private void configureMotor() {
