@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
+import frc.robot.apriltags.SimApriltag;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
@@ -71,7 +72,6 @@ import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
 import frc.robot.subsystems.elevator.SimElevatorIO;
 import frc.robot.subsystems.gyro.*;
-import frc.robot.subsystems.gyro.SimGyroIO;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
 import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
@@ -94,6 +94,8 @@ import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
+import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
@@ -418,7 +420,8 @@ public class RobotContainer {
               pidConfig,
               "backRight");
       gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
-      apriltagIO = new MockApriltag();
+      apriltagIO = new SimApriltag(new VisionIOPhotonVisionSim(
+                    VisionConstants.camera0Name, VisionConstants.robotToCamera0, driveSimulation::getSimulatedDriveTrainPose));
     }
     drivetrain =
         new SwerveDrivetrain(
