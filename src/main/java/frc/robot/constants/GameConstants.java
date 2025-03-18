@@ -19,6 +19,7 @@ public class GameConstants {
   public static final double HIHI_EXTENDER_DIAGS_ENCODER = 1;
   public static final double CORAL_DIAGS_ENCODER = 1;
   public static final double GYRO_DIAGS_ANGLE = 30;
+  public static final double INTAKE_ASSIST_DIAGS_ENCODER = 1;
 
   // Debug
   public static final boolean SWERVE_DEBUG = false;
@@ -73,6 +74,7 @@ public class GameConstants {
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
   public static final double INTAKE_LED_STRIP_TIME = 1;
+  public static final double INTAKE_ASSIST_TIMEOUT = 3;
 
   // Logging
   public static final long MAX_LOG_TIME_WAIT = 10;
@@ -162,8 +164,10 @@ public class GameConstants {
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE = Rotation2d.fromDegrees(0);
   public static final Rotation2d HIHI_MAX_ANGLE = Rotation2d.fromDegrees(90);
-  public static final Rotation2d BYEBYE_TILT_MIN_ANGLE = Rotation2d.fromDegrees(45); // TODO: change later
-  public static final Rotation2d BYEBYE_TILT_MAX_ANGLE = Rotation2d.fromDegrees(90); // TODO: change later
+  public static final Rotation2d BYEBYE_TILT_MIN_ANGLE =
+      Rotation2d.fromDegrees(45); // TODO: change later
+  public static final Rotation2d BYEBYE_TILT_MAX_ANGLE =
+      Rotation2d.fromDegrees(90); // TODO: change later
   public static final double BYEBYE_TILT_INERTIA = 0.5; // TODO: change later
   public static final double BYEBYE_TILT_GEARING = 45.0; // TODO: change later
   public static final boolean BYEBYE_TILT_SIMULATE_GRAVITY = true;

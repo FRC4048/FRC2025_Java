@@ -12,6 +12,9 @@ public class Constants2025 extends GameConstants {
   public static final int SHOOTER_MOTOR_LEADER_ID = 53;
   public static final int SHOOTER_MOTOR_FOLLOWER_ID = 8;
 
+  // Coral Intake
+  public static final int INTAKE_ASSIST_MOTOR_ID = 10;
+
   // Algae Roller
   public static final int ALGAE_ROLLER_CAN_ID = 2;
 

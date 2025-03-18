@@ -46,9 +46,15 @@ public class SwerveModule {
       TrapezoidProfile.Constraints goalConstraint,
       String moduleName) {
     MotorInputs driveInputs =
-        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Drive").addEncoder().motorCurrent().build();
+        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Drive")
+            .addEncoder()
+            .motorCurrent()
+            .build();
     MotorInputs steerInputs =
-        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Steer").addEncoder().motorCurrent().build();
+        new MotorInputBuilder<>("Drivetrain/" + moduleName + "/Steer")
+            .addEncoder()
+            .motorCurrent()
+            .build();
     this.driveSystem = new LoggableSystem<>(driveMotorIO, driveInputs);
     this.steerSystem = new LoggableSystem<>(steerMotorIO, steerInputs);
     this.absSystem = new LoggableSystem<>(absIO, new SwerveAbsInput("Drivetrain/" + moduleName));
