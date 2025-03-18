@@ -102,6 +102,8 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.simulation.RobotVisualizer;
+import frc.robot.utils.simulation.SwerveSimulationUtils;
+
 import java.util.function.Consumer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
@@ -386,7 +388,7 @@ public class RobotContainer {
 
       driveSimulation =
           new SwerveDriveSimulation(
-              SwerveDrivetrain.mapleConfig, new Pose2d(0, 0, new Rotation2d()));
+              SwerveSimulationUtils.simulationConfig(), new Pose2d(0, 0, new Rotation2d()));
       resetSimulationPoseCallBack = driveSimulation::setSimulationWorldPose;
       SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
       SwerveModuleSimulation[] driveModules = driveSimulation.getModules();

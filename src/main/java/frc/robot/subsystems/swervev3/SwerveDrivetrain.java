@@ -259,7 +259,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void setVisionBaseSTD(Vector<N3> std) {
     ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);
   }
-
-  public static final DriveTrainSimulationConfig mapleConfig =
-      SwerveSimulationUtils.simulationConfig(kinematics);
+  public static SwerveDriveKinematics getKinematics() {
+    return kinematics;
+  }
 }

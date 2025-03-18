@@ -2,21 +2,20 @@ package frc.robot.utils.simulation;
 
 import static edu.wpi.first.units.Units.*;
 
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.constants.Constants;
 import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
 import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
+import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 
 public class SwerveSimulationUtils {
   private static final DCMotor driveMotor = DCMotor.getNEO(1);
   private static final DCMotor steerMotor = DCMotor.getNEO(1);
 
-  public static final DriveTrainSimulationConfig simulationConfig(
-      SwerveDriveKinematics kinematics) {
+  public static final DriveTrainSimulationConfig simulationConfig() {
     return DriveTrainSimulationConfig.Default()
-        .withCustomModuleTranslations(kinematics.getModules())
+        .withCustomModuleTranslations(SwerveDrivetrain.getKinematics().getModules())
         .withRobotMass(Kilograms.of(Constants.ROBOT_MASS))
         .withBumperSize(
             Meters.of(Constants.ROBOT_BUMPER_LENGTH), Meters.of(Constants.ROBOT_BUMPER_WIDTH))
