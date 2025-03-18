@@ -10,7 +10,6 @@ import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -105,7 +104,7 @@ public class PoseEstimator {
    * @see SwerveDrivePoseEstimator#update(Rotation2d, SwerveModulePosition[])
    */
   public void updatePosition(OdometryMeasurement m) {
-    if (DriverStation.isEnabled()) {
+    if (!Robot.getMode().equals(RobotMode.DISABLED)) {
       poseManager.addOdomMeasurement(m, Logger.getTimestamp());
     }
     field.setRobotPose(poseManager.getEstimatedPosition());
@@ -128,7 +127,13 @@ public class PoseEstimator {
               apriltagSystem.getInputs().posY[i],
               apriltagSystem.getInputs().poseYaw[i]
             };
-        if (validAprilTagPose(pos)) {
+        if (validAprilTagPose(pos)
+            && apriltagSystem.getInputs().apriltagNumber[i] != 15
+            && apriltagSystem.getInputs().apriltagNumber[i] != 4
+            && apriltagSystem.getInputs().apriltagNumber[i] != 14
+            && apriltagSystem.getInputs().apriltagNumber[i] != 5
+            && apriltagSystem.getInputs().apriltagNumber[i] != 16
+            && apriltagSystem.getInputs().apriltagNumber[i] != 3) {
           double serverTime = apriltagSystem.getInputs().serverTime[i];
           double timestamp = 0; // latency is not right we are assuming zero
           double latencyInSec = (serverTime - timestamp) / 1000;

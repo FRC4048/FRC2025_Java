@@ -9,6 +9,7 @@ import frc.robot.autochooser.event.AutoEvent;
 import frc.robot.autochooser.event.AutoEventProvider;
 import frc.robot.autochooser.event.AutoEventProviderIO;
 import frc.robot.commands.autos.*;
+import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.coral.CoralSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
@@ -45,11 +46,13 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
                 new AutoEvent(AutoAction.CROSS_THE_LINE, FieldLocation.RIGHT),
                 new RightCrossTheLine(elevator, coral)),
             Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.RIGHT),
-                new RightFourPieceFork(elevator, coral, lightStrip)),
+                new AutoEvent(AutoAction.TWO_PIECE_HIGH, FieldLocation.RIGHT),
+                new RightFourPieceFork(
+                    elevator, coral, lightStrip, ElevatorPosition.LEVEL4, ElevatorPosition.LEVEL4)),
             Map.entry(
-                new AutoEvent(AutoAction.FOUR_PIECE_FORK, FieldLocation.LEFT),
-                new LeftFourPieceFork(elevator, coral, lightStrip)),
+                new AutoEvent(AutoAction.TWO_PIECE_LOW, FieldLocation.RIGHT),
+                new RightFourPieceFork(
+                    elevator, coral, lightStrip, ElevatorPosition.LEVEL2, ElevatorPosition.LEVEL4)),
             Map.entry(
                 new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
                 new MiddleOnePiece(elevator, coral, lightStrip)));

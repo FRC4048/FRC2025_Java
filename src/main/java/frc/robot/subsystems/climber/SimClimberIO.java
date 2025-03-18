@@ -14,7 +14,7 @@ public class SimClimberIO extends RealClimberIO {
 
   public SimClimberIO() {
     super();
-    this.motorSimulator = new MotorSimulator(climberMotor);
+    this.motorSimulator = new MotorSimulator(climberMotor, null);
   }
 
   @Override
