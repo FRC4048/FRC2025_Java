@@ -11,8 +11,8 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -28,7 +28,6 @@ import frc.robot.commands.RollAlgae;
 import frc.robot.commands.alignment.AlignClosestBranch;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.byebye.SpinByeByeRoller;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -98,8 +97,6 @@ import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import frc.robot.utils.simulation.RobotVisualizer;
-import java.util.Optional;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;

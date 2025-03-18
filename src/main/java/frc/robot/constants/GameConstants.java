@@ -59,6 +59,7 @@ public class GameConstants {
   public static final double MAX_PATHPLANNER_ANGULAR_ACCEL = 3797;
 
   // Timeouts
+  public static final int AUTO_ALIGN_TIMEOUT = 10;
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
   public static final int ELEVATOR_RESET_TIMEOUT = 10;
@@ -166,8 +167,10 @@ public class GameConstants {
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE = Rotation2d.fromDegrees(0);
   public static final Rotation2d HIHI_MAX_ANGLE = Rotation2d.fromDegrees(90);
-  public static final Rotation2d BYEBYE_TILT_MIN_ANGLE = Rotation2d.fromDegrees(45); // TODO: change later
-  public static final Rotation2d BYEBYE_TILT_MAX_ANGLE = Rotation2d.fromDegrees(90); // TODO: change later
+  public static final Rotation2d BYEBYE_TILT_MIN_ANGLE =
+      Rotation2d.fromDegrees(45); // TODO: change later
+  public static final Rotation2d BYEBYE_TILT_MAX_ANGLE =
+      Rotation2d.fromDegrees(90); // TODO: change later
   public static final double BYEBYE_TILT_INERTIA = 0.5; // TODO: change later
   public static final double BYEBYE_TILT_GEARING = 45.0; // TODO: change later
   public static final boolean BYEBYE_TILT_SIMULATE_GRAVITY = true;

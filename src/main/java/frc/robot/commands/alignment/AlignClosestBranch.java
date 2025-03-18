@@ -1,16 +1,16 @@
 package frc.robot.commands.alignment;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.constants.AlignmentPositions;
+import frc.robot.constants.AlignmentPosition;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import org.littletonrobotics.junction.Logger;
 
 public class AlignClosestBranch extends LoggableCommand {
-  private Pose2d targetPosition;
+  private AlignmentPosition alignmentTarget;
   private final SwerveDrivetrain drivetrain;
   private LoggableCommand followTrajectory;
   private final Timer timer = new Timer();
@@ -23,10 +23,15 @@ public class AlignClosestBranch extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    targetPosition = AlignmentPositions.getClosest(drivetrain.getPose());
-    Logger.recordOutput("TargetReefPose", targetPosition);
-    followTrajectory =
-        LoggableCommandWrapper.wrap(drivetrain.generateTrajectoryCommand(targetPosition));
+    alignmentTarget = AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
+    Logger.recordOutput("TargetReefAlignment", alignmentTarget);
+    Logger.recordOutput("TargetReefPose", alignmentTarget.getPosition());
+    drivetrain.setFocusedApriltag(alignmentTarget.getTag());
+    // spotless:off (shhhh don't tell anyone about the linter bypass)
+    followTrajectory = LoggableCommandWrapper.wrap(
+            drivetrain.generateTrajectoryCommand(alignmentTarget.getPosition())
+    ).withBasicName("FollowAlignToBranchTrajectory");
+    // spotless:on
     followTrajectory.setParent(this);
     followTrajectory.schedule();
   }
@@ -36,10 +41,11 @@ public class AlignClosestBranch extends LoggableCommand {
     if (CommandScheduler.getInstance().isScheduled(followTrajectory)) {
       CommandScheduler.getInstance().cancel(followTrajectory);
     }
+    drivetrain.exitFocusMode();
   }
 
   @Override
   public boolean isFinished() {
-    return followTrajectory.isFinished() | timer.hasElapsed(10);
+    return followTrajectory.isFinished() || timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT);
   }
 }

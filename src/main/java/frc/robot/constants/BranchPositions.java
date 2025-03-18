@@ -5,10 +5,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public enum BranchPositions {
-  CENTER(new Pose2d(0, 0, Rotation2d.fromRadians(0))), //TODO: add number for center of the reef
+  CENTER(new Pose2d(0, 0, Rotation2d.fromRadians(0))), // TODO: add number for center of the reef
   CENTER_A_B(new Pose2d(3.6576, 4.032434, Rotation2d.fromRadians(3.141592654))),
-  CENTER_C_D(new Pose2d(4.0523645, 3.348681829, Rotation2d.fromRadians(4.188790205))), 
-  CENTER_E_F(new Pose2d(4.8418935, 3.348681829, Rotation2d.fromRadians(5.235987756))), 
+  CENTER_C_D(new Pose2d(4.0523645, 3.348681829, Rotation2d.fromRadians(4.188790205))),
+  CENTER_E_F(new Pose2d(4.8418935, 3.348681829, Rotation2d.fromRadians(5.235987756))),
   CENTER_G_H(new Pose2d(5.236658, 4.032434, Rotation2d.fromRadians(6.283185307))),
   CENTER_I_J(new Pose2d(4.8418935, 4.716186171, Rotation2d.fromRadians(7.330382858))),
   CENTER_K_L(new Pose2d(4.0523645, 4.716186171, Rotation2d.fromRadians(8.37758041))),

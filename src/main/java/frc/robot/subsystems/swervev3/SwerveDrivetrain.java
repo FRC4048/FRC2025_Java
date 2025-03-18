@@ -1,9 +1,5 @@
 package frc.robot.subsystems.swervev3;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
@@ -20,7 +16,6 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -32,6 +27,7 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
+import frc.robot.utils.Apriltag;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
@@ -59,6 +55,8 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
   private TrajectoryConfig trajectoryConfig;
+  private boolean focusTagMade = false;
+  private Apriltag focusedApriltag = Apriltag.ONE;
   // controller will add an additional meter per second in the x direction for every meter of error
   // in the x direction
   private final HolonomicDriveController finePathController =
@@ -244,5 +242,14 @@ public class SwerveDrivetrain extends SubsystemBase {
         finePathController,
         this::setModuleStates,
         this);
+  }
+
+  public void setFocusedApriltag(Apriltag tagToFocus) {
+    focusedApriltag = tagToFocus;
+    focusTagMade = true;
+  }
+
+  public void exitFocusMode() {
+    focusTagMade = false;
   }
 }
