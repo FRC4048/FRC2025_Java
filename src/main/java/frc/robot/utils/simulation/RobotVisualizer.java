@@ -14,8 +14,8 @@ public class RobotVisualizer {
   private final LoggedMechanismLigament2d elevatorLigament;
   private final LoggedMechanismLigament2d algaeByeByeTiltLigament;
   private final LoggedMechanismLigament2d algaeByeByeRollerLigament;
-//  private final LoggedMechanismLigament2d algaeHiHiTiltLigament;
-//  private final LoggedMechanismLigament2d algaeHiHiRollerLigament;
+  //  private final LoggedMechanismLigament2d algaeHiHiTiltLigament;
+  //  private final LoggedMechanismLigament2d algaeHiHiRollerLigament;
   private final LoggedMechanismLigament2d coralRollerLigament;
 
   private static final RobotVisualizer instance = new RobotVisualizer();
@@ -28,8 +28,8 @@ public class RobotVisualizer {
     LoggedMechanismRoot2d elevatorRoot =
         mech2d.getRoot(
             "Elevator Root", Constants.DRIVE_BASE_WIDTH / 2, Constants.INITIAL_ELEVATOR_HEIGHT);
-//    LoggedMechanismRoot2d algaeHiHiRoot =
-//        mech2d.getRoot("Algae HiHi Root", Constants.DRIVE_BASE_WIDTH - 0.05, 0.1);
+    //    LoggedMechanismRoot2d algaeHiHiRoot =
+    //        mech2d.getRoot("Algae HiHi Root", Constants.DRIVE_BASE_WIDTH - 0.05, 0.1);
     this.elevatorLigament =
         elevatorRoot.append(
             new LoggedMechanismLigament2d(
@@ -54,14 +54,14 @@ public class RobotVisualizer {
         this.algaeByeByeTiltLigament.append(
             new LoggedMechanismLigament2d(
                 "AlgaeByeByeRoller", 0.05, 180, 5, new Color8Bit(Color.kGreen)));
-//    this.algaeHiHiTiltLigament =
-//        algaeHiHiRoot.append(
-//            new LoggedMechanismLigament2d(
-//                "AlgaeHiHiTilt", 0.2, -90, 4, new Color8Bit(Color.kBlue)));
-//    this.algaeHiHiRollerLigament =
-//        algaeHiHiTiltLigament.append(
-//            new LoggedMechanismLigament2d(
-//                "AlgaeHiHiRoller", 0.05, 0, 5, new Color8Bit(Color.kGreen)));
+    //    this.algaeHiHiTiltLigament =
+    //        algaeHiHiRoot.append(
+    //            new LoggedMechanismLigament2d(
+    //                "AlgaeHiHiTilt", 0.2, -90, 4, new Color8Bit(Color.kBlue)));
+    //    this.algaeHiHiRollerLigament =
+    //        algaeHiHiTiltLigament.append(
+    //            new LoggedMechanismLigament2d(
+    //                "AlgaeHiHiRoller", 0.05, 0, 5, new Color8Bit(Color.kGreen)));
     LoggedMechanismLigament2d coralRiser =
         byeByeRiser.append(
             new LoggedMechanismLigament2d(
@@ -88,13 +88,13 @@ public class RobotVisualizer {
     return algaeByeByeRollerLigament;
   }
 
-//  public LoggedMechanismLigament2d getAlgaeHiHiTiltLigament() {
-//    return algaeHiHiTiltLigament;
-//  }
+  //  public LoggedMechanismLigament2d getAlgaeHiHiTiltLigament() {
+  //    return algaeHiHiTiltLigament;
+  //  }
 
-//  public LoggedMechanismLigament2d getAlgaeHiHiRollerLigament() {
-//    return algaeHiHiRollerLigament;
-//  }
+  //  public LoggedMechanismLigament2d getAlgaeHiHiRollerLigament() {
+  //    return algaeHiHiRollerLigament;
+  //  }
 
   public LoggedMechanismLigament2d getCoralRollerLigament() {
     return coralRollerLigament;
