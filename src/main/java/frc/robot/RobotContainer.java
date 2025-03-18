@@ -400,7 +400,7 @@ public class RobotContainer {
                 Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
             ),
         PathPlannerUtils.config,
-        () -> Robot.getAllianceColor().orElse(null) == Alliance.Red,
+        () -> Robot.getAllianceColor().orElse(Alliance.Blue) == Alliance.Red,
         drivetrain);
   }
 
