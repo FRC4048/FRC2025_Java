@@ -420,8 +420,12 @@ public class RobotContainer {
               pidConfig,
               "backRight");
       gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
-      apriltagIO = new SimApriltag(new VisionIOPhotonVisionSim(
-                    VisionConstants.camera0Name, VisionConstants.robotToCamera0, driveSimulation::getSimulatedDriveTrainPose));
+      apriltagIO =
+          new SimApriltag(
+              new VisionIOPhotonVisionSim(
+                  VisionConstants.camera0Name,
+                  VisionConstants.robotToCamera0,
+                  driveSimulation::getSimulatedDriveTrainPose));
     }
     drivetrain =
         new SwerveDrivetrain(
