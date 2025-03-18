@@ -47,7 +47,7 @@ public class Paths {
       robotOneToPostJCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post E").mirrorPath());
       robotFourToPostECommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post E"));
+          AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("BEST"));
       robotTwoToPostHCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post H"));
       // Post to Station Paths
@@ -60,7 +60,7 @@ public class Paths {
       postLToStationOneCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post L to Station 1"));
       postEToStationOneCommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post E to Station 1"));
+          AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("BEST2"));
       postBToStationTwoCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Post B to Station 2"));
       postCToStationTwoCommand =
@@ -77,7 +77,7 @@ public class Paths {
       stationTwoToPostBCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post B"));
       stationTwoToPostCCommand =
-          AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post C"));
+          AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("BEST3"));
       stationTwoToPostDCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Station 2 to Post D"));
       // Cross The Line Paths
