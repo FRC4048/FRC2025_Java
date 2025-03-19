@@ -1,5 +1,11 @@
 package frc.robot.subsystems.swervev3;
 
+import static edu.wpi.first.units.Units.*;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
@@ -31,6 +37,7 @@ import frc.robot.utils.Apriltag;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import java.util.function.Consumer;
 import java.util.Collections;
 import org.littletonrobotics.junction.Logger;
 
@@ -39,21 +46,22 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final SwerveModule frontRight;
   private final SwerveModule backLeft;
   private final SwerveModule backRight;
-  private final Translation2d frontLeftLocation =
+  private static final Translation2d frontLeftLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d frontRightLocation =
+  private static final Translation2d frontRightLocation =
       new Translation2d(Constants.DRIVE_BASE_WIDTH / 2, -Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d backLeftLocation =
+  private static final Translation2d backLeftLocation =
       new Translation2d(-Constants.DRIVE_BASE_WIDTH / 2, Constants.DRIVE_BASE_LENGTH / 2);
-  private final Translation2d backRightLocation =
+  private static final Translation2d backRightLocation =
       new Translation2d(-Constants.DRIVE_BASE_WIDTH / 2, -Constants.DRIVE_BASE_LENGTH / 2);
-  private final SwerveDriveKinematics kinematics =
+  private static final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(
           frontLeftLocation, frontRightLocation, backLeftLocation, backRightLocation);
   private final LoggableSystem<GyroIO, GyroInputs> gyroSystem;
   private DriveMode driveMode = DriveMode.FIELD_CENTRIC;
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
+  private final Consumer<Pose2d> resetSimulationPoseCallBack;
   private TrajectoryConfig trajectoryConfig;
   private boolean focusTagMade = false;
   private Apriltag focusedApriltag = Apriltag.ONE;
@@ -71,7 +79,8 @@ public class SwerveDrivetrain extends SubsystemBase {
       SwerveModule backLeftModule,
       SwerveModule backRightModule,
       GyroIO gyroIO,
-      LoggableIO<ApriltagInputs> apriltagIO) {
+      LoggableIO<ApriltagInputs> apriltagIO,
+      Consumer<Pose2d> resetSimulationPoseCallBack) {
     this.frontLeft = frontLeftModule;
     this.frontRight = frontRightModule;
     this.backLeft = backLeftModule;
@@ -80,6 +89,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
+      this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
     finePathController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(5)));
     trajectoryConfig = new TrajectoryConfig(0.5, 0.5);
   }
@@ -201,6 +211,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void resetOdometry(Pose2d startingPosition) {
     poseEstimator.resetOdometry(
         startingPosition.getRotation().getRadians(), startingPosition.getTranslation());
+    resetSimulationPoseCallBack.accept(startingPosition);
   }
 
   public Rotation2d getGyroAngle() {
@@ -229,6 +240,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public void setVisionBaseSTD(Vector<N3> std) {
     ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);
+  }
+
+  public static SwerveDriveKinematics getKinematics() {
+    return kinematics;
   }
 
   public Command generateTrajectoryCommand(Pose2d targetPose) {

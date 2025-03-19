@@ -206,6 +206,12 @@ public class GameConstants {
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
   public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.005; // TODO: change later
 
+  public static final double ROBOT_MASS = 58.967; // In Kg, change later
+  public static final double ROBOT_BUMPER_WIDTH = 0.914;
+  public static final double ROBOT_BUMPER_LENGTH = 0.914;
+  public static final double STEER_ROTATIONAL_INERTIA = 0.0325; // TODO: change later
+  public static final double COEFFICIENT_OF_FRICTION = 1.542;
+
   // ELEVATOR CONSTANTS
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
