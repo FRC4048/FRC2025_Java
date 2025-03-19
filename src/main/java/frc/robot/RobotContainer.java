@@ -70,10 +70,7 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
 import frc.robot.subsystems.elevator.SimElevatorIO;
-import frc.robot.subsystems.gyro.GyroIO;
-import frc.robot.subsystems.gyro.MockGyroIO;
-import frc.robot.subsystems.gyro.RealGyroIO;
-import frc.robot.subsystems.gyro.ThreadedGyro;
+import frc.robot.subsystems.gyro.*;
 import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
 import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
 import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
@@ -103,7 +100,6 @@ import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.simulation.RobotVisualizer;
 import frc.robot.utils.simulation.SwerveSimulationUtils;
-
 import java.util.function.Consumer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
@@ -421,7 +417,7 @@ public class RobotContainer {
               new SimAbsIO(driveModules[3]),
               pidConfig,
               "backRight");
-      gyroIO = new MockGyroIO();
+      gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
       apriltagIO = new MockApriltag();
     }
     drivetrain =

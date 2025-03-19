@@ -4,10 +4,10 @@ import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
 import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
-import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 
 public class SwerveSimulationUtils {
   private static final DCMotor driveMotor = DCMotor.getNEO(1);
