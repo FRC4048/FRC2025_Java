@@ -96,6 +96,9 @@ import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
@@ -103,7 +106,6 @@ import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.simulation.RobotVisualizer;
 import frc.robot.utils.simulation.SwerveSimulationUtils;
-
 import java.util.function.Consumer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
@@ -433,6 +435,16 @@ public class RobotContainer {
             gyroIO,
             apriltagIO,
             resetSimulationPoseCallBack);
+    Vision vision =
+        new Vision(
+            new VisionIOPhotonVisionSim(
+                VisionConstants.camera0Name,
+                VisionConstants.robotToCamera0,
+                driveSimulation::getSimulatedDriveTrainPose),
+            new VisionIOPhotonVisionSim(
+                VisionConstants.camera1Name,
+                VisionConstants.robotToCamera1,
+                driveSimulation::getSimulatedDriveTrainPose));
   }
 
   public SwerveDrivetrain getDrivetrain() {
