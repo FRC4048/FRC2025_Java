@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
-import frc.robot.utils.BargePoints;
+import frc.robot.utils.Barge;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -27,7 +27,7 @@ public class RumbleController extends LoggableCommand {
     this.controller = controller;
   }
 
-  public static boolean isInBarge(double x, double y) {
+  public static boolean isInOppositeBarge(double x, double y) {
     Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
     if ((x < BargePoints.BLUE_HIGHER.getX())
         && (x > BargePoints.RED_LOWER.getX())
@@ -44,14 +44,9 @@ public class RumbleController extends LoggableCommand {
 
   @Override
   public void execute() {
-    if (isInBarge(SmartDashboard.getNumber("X", 0.0), SmartDashboard.getNumber("Y", 0.0)))
+    if (isInOppositeBarge(robotPose.get().getX(), robotPose.get().getY()))
       controller.setRumble(RumbleType.kBothRumble, 0.5);
     else controller.setRumble(RumbleType.kBothRumble, 0);
-
-    System.out.println("X" + SmartDashboard.getNumber("X", 0.0));
-    System.out.println("Y" + SmartDashboard.getNumber("Y", 0.0));
-    System.out.println(Robot.getAllianceColor());
-    // robotPose.get().getX(), robotPose.get().getY()
   }
 
   @Override
