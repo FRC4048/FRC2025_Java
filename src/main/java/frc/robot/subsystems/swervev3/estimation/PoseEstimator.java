@@ -52,6 +52,13 @@ public class PoseEstimator {
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.01);
   private final FilterablePoseManager poseManager;
+  private int numTimeStamp = 0;
+  private int numPosX = 0;
+  private int numPosY = 0;
+  private int numPoseYaw = 0;
+  private int numServerTime = 0;
+  private int numDistanceTag = 0;
+  private int numTag = 0;
 
   public PoseEstimator(
       SwerveModule frontLeftMotor,
@@ -121,14 +128,10 @@ public class PoseEstimator {
   public void updateVision() {
     if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
       for (int i = 0;
-          i < apriltagSystem.getInputs().timestamp.length
-              && i < apriltagSystem.getInputs().posX.length
-              && i < apriltagSystem.getInputs().posY.length
-              && i < apriltagSystem.getInputs().poseYaw.length
-              && i < apriltagSystem.getInputs().apriltagNumber.length
-              && i < apriltagSystem.getInputs().serverTime.length
-              && i < apriltagSystem.getInputs().distanceToTag.length;
+          i < apriltagSystem.getInputs().apriltagNumber.length
+              && i < apriltagSystem.getInputs().timestamp.length;
           i++) {
+
         double[] pos =
             new double[] {
               apriltagSystem.getInputs().posX[i],
