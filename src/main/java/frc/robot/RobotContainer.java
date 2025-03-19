@@ -96,7 +96,7 @@ import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
 import frc.robot.subsystems.vision.Vision;
-import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.constants.VisionConstants;
 import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
@@ -428,12 +428,12 @@ public class RobotContainer {
       new Vision(
           consumer,
           new VisionIOPhotonVisionSim(
-              VisionConstants.camera0Name,
-              VisionConstants.robotToCamera0,
+              VisionConstants.CAMERA_0_NAME,
+              VisionConstants.ROBOT_TO_CAMERA_0,
               driveSimulation::getSimulatedDriveTrainPose),
           new VisionIOPhotonVisionSim(
-              VisionConstants.camera1Name,
-              VisionConstants.robotToCamera1,
+              VisionConstants.CAMERA_1_NAME,
+              VisionConstants.ROBOT_TO_CAMERA_1,
               driveSimulation::getSimulatedDriveTrainPose));
     }
     drivetrain =
