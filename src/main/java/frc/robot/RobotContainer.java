@@ -253,7 +253,8 @@ public class RobotContainer {
       //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
       //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
     }
-
+    SmartDashboard.putNumber("X", 0.0);
+    SmartDashboard.putNumber("Y", 0.0);
     new Trigger(() -> Robot.getMode() == RobotMode.TELEOP)
         .onTrue(new RumbleController(drivetrain::getPose, controller));
   }
