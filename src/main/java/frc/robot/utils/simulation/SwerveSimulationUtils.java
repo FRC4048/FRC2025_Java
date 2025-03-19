@@ -26,8 +26,8 @@ public class SwerveSimulationUtils {
                 steerMotor,
                 Constants.SWERVE_MODULE_PROFILE.getDriveGearRatio(),
                 Constants.SWERVE_MODULE_PROFILE.getSteerGearRatio(),
-                Volts.of(Constants.DRIVE_PID_FF_S),
-                Volts.of(Constants.STEER_PID_FF_S),
+                Volts.of(Constants.DRIVE_FRICTION),
+                Volts.of(Constants.STEER_FRICTION),
                 Meters.of(Constants.WHEEL_RADIUS),
                 KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
                 Constants.COEFFICIENT_OF_FRICTION));
