@@ -105,7 +105,11 @@ public class SwerveDrivetrain extends SubsystemBase {
             getLastGyro());
     Logger.recordOutput("LastOdomModPoses", odom.modulePosition());
     poseEstimator.updatePosition(odom);
-    poseEstimator.updateVision();
+    if (focusTagMade) {
+      poseEstimator.updateVision(focusedApriltag);
+    } else {
+      poseEstimator.updateVision();
+    }
     Logger.recordOutput(
         "realSwerveStates",
         frontLeft.getLatestState(),
