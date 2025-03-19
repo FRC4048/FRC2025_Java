@@ -120,7 +120,15 @@ public class PoseEstimator {
    */
   public void updateVision() {
     if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
-      for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
+      for (int i = 0;
+          i < apriltagSystem.getInputs().timestamp.length
+              && i < apriltagSystem.getInputs().posX.length
+              && i < apriltagSystem.getInputs().posY.length
+              && i < apriltagSystem.getInputs().poseYaw.length
+              && i < apriltagSystem.getInputs().apriltagNumber.length
+              && i < apriltagSystem.getInputs().serverTime.length
+              && i < apriltagSystem.getInputs().distanceToTag.length;
+          i++) {
         double[] pos =
             new double[] {
               apriltagSystem.getInputs().posX[i],

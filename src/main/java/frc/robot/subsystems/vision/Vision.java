@@ -20,6 +20,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.vision.VisionIO.PoseObservation;
 import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
 import frc.robot.utils.logging.subsystem.inputs.VisionInputs;
 import java.util.LinkedList;
@@ -30,8 +31,10 @@ public class Vision extends SubsystemBase {
   private final VisionIO[] io;
   private final VisionInputs[] inputs;
   private final Alert[] disconnectedAlerts;
+  private final VisionConsumer consumer;
 
-  public Vision(VisionIO... io) {
+  public Vision(VisionConsumer consumer, VisionIO... io) {
+    this.consumer = consumer;
     this.io = io;
 
     // Initialize inputs
@@ -133,7 +136,7 @@ public class Vision extends SubsystemBase {
           angularStdDev *= cameraStdDevFactors[cameraIndex];
         }
       }
-
+      consumer.accept(inputs[cameraIndex].poseObservations, inputs[cameraIndex].tagIds);
       // Log camera datadata
       Logger.recordOutput(
           "Vision/Camera" + Integer.toString(cameraIndex) + "/TagPoses",
@@ -164,5 +167,10 @@ public class Vision extends SubsystemBase {
     Logger.recordOutput(
         "Vision/Summary/RobotPosesRejected",
         allRobotPosesRejected.toArray(new Pose3d[allRobotPosesRejected.size()]));
+  }
+
+  @FunctionalInterface
+  public interface VisionConsumer {
+    void accept(PoseObservation[] poseObservations, int[] tagIds);
   }
 }
