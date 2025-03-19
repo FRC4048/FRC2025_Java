@@ -15,8 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.apriltags.ApriltagConsumer;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
+import frc.robot.apriltags.SimApriltagIO;
 import frc.robot.apriltags.TCPApriltag;
 import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
@@ -421,8 +423,19 @@ public class RobotContainer {
               new SimAbsIO(driveModules[3]),
               pidConfig,
               "backRight");
-        gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
-      apriltagIO = new MockApriltag();
+      gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
+      ApriltagConsumer consumer = new ApriltagConsumer();
+      apriltagIO = new SimApriltagIO(consumer);
+      new Vision(
+          consumer,
+          new VisionIOPhotonVisionSim(
+              VisionConstants.camera0Name,
+              VisionConstants.robotToCamera0,
+              driveSimulation::getSimulatedDriveTrainPose),
+          new VisionIOPhotonVisionSim(
+              VisionConstants.camera1Name,
+              VisionConstants.robotToCamera1,
+              driveSimulation::getSimulatedDriveTrainPose));
     }
     drivetrain =
         new SwerveDrivetrain(
@@ -433,16 +446,6 @@ public class RobotContainer {
             gyroIO,
             apriltagIO,
             resetSimulationPoseCallBack);
-    Vision vision =
-        new Vision(
-            new VisionIOPhotonVisionSim(
-                VisionConstants.camera0Name,
-                VisionConstants.robotToCamera0,
-                driveSimulation::getSimulatedDriveTrainPose),
-            new VisionIOPhotonVisionSim(
-                VisionConstants.camera1Name,
-                VisionConstants.robotToCamera1,
-                driveSimulation::getSimulatedDriveTrainPose));
   }
 
   public SwerveDrivetrain getDrivetrain() {
