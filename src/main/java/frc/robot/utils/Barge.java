@@ -1,34 +1,29 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot.utils;
 
-public enum Barge {
-  RED(7.56, 1.3646, 0, 4),
-  BLUE(7.56, 1.3646, 4, 8);
+/** Add your docs here. */
+public enum BargePoints {
+  BLUE_LOWER(8.9246, 0),
+  BLUE_HIGHER(8.9246, 4),
+  RED_LOWER(7.56, 4),
+  RED_HIGHER(7.56, 8);
 
   private final double x;
-  private final double width;
   private final double y;
-  private final double height;
 
-  Barge(double x, double width, double y, double height) {
+  BargePoints(double x, double y) {
     this.x = x;
-    this.width = width;
     this.y = y;
-    this.height = height;
-  }
-
-  public double getX() {
-    return x;
-  }
-
-  public double getWidth() {
-    return width;
   }
 
   public double getY() {
     return y;
   }
 
-  public double getHeight() {
-    return height;
+  public double getX() {
+    return x;
   }
 }
