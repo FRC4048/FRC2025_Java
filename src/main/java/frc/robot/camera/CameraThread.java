@@ -48,6 +48,7 @@ public class CameraThread extends Thread {
         processImage();
       } catch (Exception e) {
         DriverStation.reportError("CameraServerException", true);
+return;
       }
     }
   }
