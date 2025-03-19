@@ -5,7 +5,7 @@
 package frc.robot.utils;
 
 /** Add your docs here. */
-public enum BargePoints {
+public enum Barge {
   BLUE_LOWER(8.9246, 0),
   BLUE_HIGHER(8.9246, 4),
   RED_LOWER(7.56, 4),
@@ -14,7 +14,7 @@ public enum BargePoints {
   private final double x;
   private final double y;
 
-  BargePoints(double x, double y) {
+  Barge(double x, double y) {
     this.x = x;
     this.y = y;
   }
