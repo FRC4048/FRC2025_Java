@@ -91,29 +91,29 @@ public class Robot extends LoggedRobot {
     return mode.get();
   }
 
-    @Override
-    public void robotPeriodic() {
-        if (getMode() != RobotMode.TEST) {
-            CommandScheduler.getInstance().run();
-            if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
+  @Override
+  public void robotPeriodic() {
+    if (getMode() != RobotMode.TEST) {
+      CommandScheduler.getInstance().run();
+      if (DriverStation.isDSAttached() && allianceColor.isEmpty()) {
         allianceColor = DriverStation.getAlliance();
         if (allianceColor.isPresent()) {
           robotContainer.getAutoChooser().getProvider().forceRefresh();
         }
       }
       if (counter == 0) {
-                actualInit();
-            }
-            if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
-                robotContainer.getRobotVisualizer().logMechanism();
-            }
-            counter++;
-        }
-
-        if (Constants.ENABLE_LOGGING) {
-            CommandLogger.get().log();
-        }
+        actualInit();
+      }
+      if (Constants.currentMode.equals(GameConstants.Mode.SIM)) {
+        robotContainer.getRobotVisualizer().logMechanism();
+      }
+      counter++;
     }
+
+    if (Constants.ENABLE_LOGGING) {
+      CommandLogger.get().log();
+    }
+  }
 
   /** Use this instead of robot init. */
   private void actualInit() {

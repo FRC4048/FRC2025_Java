@@ -22,7 +22,6 @@ import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.byebye.SpinByeByeRoller;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -35,10 +34,7 @@ import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
-import frc.robot.commands.sequences.ByeByeAllDone;
-import frc.robot.commands.sequences.LowerElevator;
-import frc.robot.commands.sequences.PickUpCoral;
-import frc.robot.commands.sequences.RemoveAlgaeFromReef;
+import frc.robot.commands.sequences.*;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -80,9 +76,7 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import frc.robot.utils.simulation.RobotVisualizer;
-import java.util.Optional;
 
 public class RobotContainer {
   private AutoChooser2025 autoChooser;
@@ -125,12 +119,14 @@ public class RobotContainer {
       }
       case SIM -> {
         robotVisualizer = new RobotVisualizer();
-//        hihiRoller =
-//            new HihiRollerSubsystem(
-//                new SimHihiRollerIO(null)); // robotVisualizer.getAlgaeHiHiRollerLigament()));
-//        hihiExtender =
-//            new HihiExtenderSubsystem(
-//                new SimHihiExtenderIO(null)); // robotVisualizer.getAlgaeHiHiTiltLigament()));
+        //        hihiRoller =
+        //            new HihiRollerSubsystem(
+        //                new SimHihiRollerIO(null)); //
+        // robotVisualizer.getAlgaeHiHiRollerLigament()));
+        //        hihiExtender =
+        //            new HihiExtenderSubsystem(
+        //                new SimHihiExtenderIO(null)); //
+        // robotVisualizer.getAlgaeHiHiTiltLigament()));
         elevatorSubsystem =
             new ElevatorSubsystem(new SimElevatorIO(robotVisualizer.getElevatorLigament()));
         coralSubsystem =
@@ -243,9 +239,11 @@ public class RobotContainer {
     //    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
-    //    controller
-    //        .back()
-    //        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
+    controller
+        .back()
+        //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,
+        // hihiExtender));
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     //    if (Constants.COMMAND_DEBUG) {
@@ -379,19 +377,19 @@ public class RobotContainer {
           new PickUpCoral(elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     }
 
-    if (Constants.HIHI_DEBUG) {
-      // HiHi Commads
+    //    if (Constants.HIHI_DEBUG) {
+    // HiHi Commads
 
-      // SmartDashboard.putData("Extend HiHi", new ExtendHiHi(hihiExtender));
+    // SmartDashboard.putData("Extend HiHi", new ExtendHiHi(hihiExtender));
 
-      //  SmartDashboard.putData("Retract HiHi", new RetractHiHi(hihiExtender));
+    //  SmartDashboard.putData("Retract HiHi", new RetractHiHi(hihiExtender));
 
-      // SmartDashboard.putData("Roll HiHi Roller In", new RollHiHiRollerIn(hihiRoller));
+    // SmartDashboard.putData("Roll HiHi Roller In", new RollHiHiRollerIn(hihiRoller));
 
-      // SmartDashboard.putData("Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
+    // SmartDashboard.putData("Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
 
-      // SmartDashboard.putData("Intake Algae", new IntakeAlgae(hihiExtender, hihiRoller));
-    }
+    // SmartDashboard.putData("Intake Algae", new IntakeAlgae(hihiExtender, hihiRoller));
+    //    }
 
     if (Constants.BYEBYE_DEBUG) {
       // ByeBye Commands
