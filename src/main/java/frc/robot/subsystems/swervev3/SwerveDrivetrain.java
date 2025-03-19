@@ -28,9 +28,7 @@ import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.simulation.SwerveSimulationUtils;
 import java.util.function.Consumer;
-import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -259,6 +257,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void setVisionBaseSTD(Vector<N3> std) {
     ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);
   }
+
   public static SwerveDriveKinematics getKinematics() {
     return kinematics;
   }
