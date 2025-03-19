@@ -52,6 +52,7 @@ public class PoseEstimator {
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.01);
   private final FilterablePoseManager poseManager;
+
   public PoseEstimator(
       SwerveModule frontLeftMotor,
       SwerveModule frontRightMotor,
