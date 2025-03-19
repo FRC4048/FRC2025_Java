@@ -29,10 +29,9 @@ import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.simulation.SwerveSimulationUtils;
 import java.util.function.Consumer;
-import org.ironmaple.simulation.drivesims.COTS;
 import org.ironmaple.simulation.drivesims.configs.DriveTrainSimulationConfig;
-import org.ironmaple.simulation.drivesims.configs.SwerveModuleSimulationConfig;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -261,28 +260,7 @@ public class SwerveDrivetrain extends SubsystemBase {
   public void setVisionBaseSTD(Vector<N3> std) {
     ((DistanceVisionTruster) poseEstimator.getPoseManager().getVisionTruster()).setInitialSTD(std);
   }
-
-  private static final DCMotor driveMotor = DCMotor.getNEO(1);
-  private static final DCMotor steerMotor = DCMotor.getNEO(1);
-  private static final KinematicsConversionConfig kinematicsConfig =
-      new KinematicsConversionConfig(Constants.WHEEL_RADIUS, Constants.SWERVE_MODULE_PROFILE);
-
-  public static final DriveTrainSimulationConfig mapleConfig =
-      DriveTrainSimulationConfig.Default()
-          .withCustomModuleTranslations(kinematics.getModules())
-          .withRobotMass(Kilograms.of(Constants.ROBOT_MASS))
-          .withBumperSize(
-              Meters.of(Constants.ROBOT_BUMPER_LENGTH), Meters.of(Constants.ROBOT_BUMPER_WIDTH))
-          .withGyro(COTS.ofNav2X())
-          .withSwerveModule(
-              new SwerveModuleSimulationConfig(
-                  driveMotor,
-                  steerMotor,
-                  kinematicsConfig.getProfile().getDriveGearRatio(),
-                  kinematicsConfig.getProfile().getSteerGearRatio(),
-                  Volts.of(Constants.DRIVE_PID_FF_S),
-                  Volts.of(Constants.STEER_PID_FF_S),
-                  Meters.of(kinematicsConfig.getWheelRadius()),
-                  KilogramSquareMeters.of(Constants.STEER_ROTATIONAL_INERTIA),
-                  Constants.COEFFICIENT_OF_FRICTION));
+  public static SwerveDriveKinematics getKinematics() {
+    return kinematics;
+  }
 }

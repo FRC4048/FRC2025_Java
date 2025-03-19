@@ -18,7 +18,6 @@ public class SimSteerMotorIO implements SwerveSteerMotorIO {
             .useGenericControllerForSteer()
             .withCurrentLimit(Amps.of(Constants.DRIVE_SMART_LIMIT));
     steerInputProvider = new SimSteerMotorInputProvider(moduleSimulation);
-    resetEncoder();
   }
 
   public void updateInputs(MotorInputs inputs) {

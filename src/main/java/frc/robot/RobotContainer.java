@@ -100,6 +100,8 @@ import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
 import frc.robot.utils.simulation.RobotVisualizer;
+import frc.robot.utils.simulation.SwerveSimulationUtils;
+
 import java.util.function.Consumer;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.simulation.drivesims.SwerveDriveSimulation;
@@ -384,7 +386,7 @@ public class RobotContainer {
 
       driveSimulation =
           new SwerveDriveSimulation(
-              SwerveDrivetrain.mapleConfig, new Pose2d(0, 0, new Rotation2d()));
+              SwerveSimulationUtils.simulationConfig(), new Pose2d(0, 0, new Rotation2d()));
       resetSimulationPoseCallBack = driveSimulation::setSimulationWorldPose;
       SimulatedArena.getInstance().addDriveTrainSimulation(driveSimulation);
       SwerveModuleSimulation[] driveModules = driveSimulation.getModules();
@@ -417,7 +419,7 @@ public class RobotContainer {
               new SimAbsIO(driveModules[3]),
               pidConfig,
               "backRight");
-      gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
+        gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
       apriltagIO = new MockApriltag();
     }
     drivetrain =
@@ -518,9 +520,10 @@ public class RobotContainer {
   }
 
   public void updateSimulation() {
-    if (Constants.currentMode != Constants.Mode.SIM) return;
-    SimulatedArena.getInstance().simulationPeriodic();
-    Logger.recordOutput(
-        "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
+    if (Constants.currentMode == Constants.Mode.SIM) {
+      SimulatedArena.getInstance().simulationPeriodic();
+      Logger.recordOutput(
+          "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
+    }
   }
 }
