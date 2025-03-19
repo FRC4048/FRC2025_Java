@@ -12,63 +12,51 @@ public enum AlignmentPosition {
   BRANCH_A(
       new Pose2d(-0.3424, 4.068154, Rotation2d.fromRadians(3.141592654)),
       Apriltag.EIGHTEEN,
-      Apriltag.SEVEN
-  ),
+      Apriltag.SEVEN),
   BRANCH_B(
       new Pose2d(-0.3424, 3.739154, Rotation2d.fromRadians(3.141592654)),
       Apriltag.EIGHTEEN,
-      Apriltag.SEVEN
-  ),
+      Apriltag.SEVEN),
   BRANCH_C(
       new Pose2d(2.021430073, -0.09755978616, Rotation2d.fromRadians(4.188790205)),
       Apriltag.SEVENTEEN,
-      Apriltag.SIX
-  ),
+      Apriltag.SIX),
   BRANCH_D(
       new Pose2d(2.30635243, -0.2620597862, Rotation2d.fromRadians(4.188790205)),
       Apriltag.SEVENTEEN,
-      Apriltag.SIX
-  ),
+      Apriltag.SIX),
   BRANCH_E(
       new Pose2d(6.810959073, -0.1332797862, Rotation2d.fromRadians(5.235987756)),
       Apriltag.TWENTY_TWO,
-      Apriltag.ELEVEN
-  ),
+      Apriltag.ELEVEN),
   BRANCH_F(
       new Pose2d(7.09588143, 0.03122021384, Rotation2d.fromRadians(5.235987756)),
       Apriltag.TWENTY_TWO,
-      Apriltag.ELEVEN
-  ),
+      Apriltag.ELEVEN),
   BRANCH_G(
       new Pose2d(9.236658, 3.996714, Rotation2d.fromRadians(6.283185307)),
       Apriltag.TWENTY_ONE,
-      Apriltag.TEN
-  ),
+      Apriltag.TEN),
   BRANCH_H(
       new Pose2d(9.236658, 4.325714, Rotation2d.fromRadians(6.283185307)),
       Apriltag.TWENTY_ONE,
-      Apriltag.TEN
-  ),
+      Apriltag.TEN),
   BRANCH_I(
       new Pose2d(6.872827927, 8.162427786, Rotation2d.fromRadians(7.330382858)),
       Apriltag.TWENTY,
-      Apriltag.NINE
-  ),
+      Apriltag.NINE),
   BRANCH_J(
       new Pose2d(6.58790557, 8.326927786, Rotation2d.fromRadians(7.330382858)),
       Apriltag.TWENTY,
-      Apriltag.NINE
-  ),
+      Apriltag.NINE),
   BRANCH_K(
       new Pose2d(2.083298927, 8.198147786, Rotation2d.fromRadians(8.37758041)),
       Apriltag.NINETEEN,
-      Apriltag.EIGHT
-  ),
+      Apriltag.EIGHT),
   BRANCH_L(
       new Pose2d(1.79837657, 8.033647786, Rotation2d.fromRadians(8.37758041)),
       Apriltag.NINETEEN,
-      Apriltag.EIGHT
-  );
+      Apriltag.EIGHT);
 
   private final Pose2d position;
   private final Apriltag blueTag;

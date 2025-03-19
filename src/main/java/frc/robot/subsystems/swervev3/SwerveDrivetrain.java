@@ -2,10 +2,6 @@ package frc.robot.subsystems.swervev3;
 
 import static edu.wpi.first.units.Units.*;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
@@ -37,8 +33,8 @@ import frc.robot.utils.Apriltag;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import java.util.function.Consumer;
 import java.util.Collections;
+import java.util.function.Consumer;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveDrivetrain extends SubsystemBase {
@@ -89,7 +85,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-      this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
+    this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
     finePathController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(5)));
     trajectoryConfig = new TrajectoryConfig(0.5, 0.5);
   }
