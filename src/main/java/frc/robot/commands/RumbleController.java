@@ -8,7 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
 import frc.robot.utils.Barge;
@@ -29,12 +28,10 @@ public class RumbleController extends LoggableCommand {
 
   public static boolean isInOppositeBarge(double x, double y) {
     Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
-    if ((x < BargePoints.BLUE_HIGHER.getX())
-        && (x > BargePoints.RED_LOWER.getX())
-        && (al.isPresent())) {
+    if ((x < Barge.BLUE_HIGHER.getX()) && (x > Barge.RED_LOWER.getX()) && (al.isPresent())) {
       return al.get().equals(Alliance.Red)
-          ? (y < BargePoints.BLUE_HIGHER.getY())
-          : (y > BargePoints.RED_LOWER.getY());
+          ? (y < Barge.BLUE_HIGHER.getY())
+          : (y > Barge.RED_LOWER.getY());
     }
     return false;
   }
