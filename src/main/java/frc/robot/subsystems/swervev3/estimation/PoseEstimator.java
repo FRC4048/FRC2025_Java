@@ -127,13 +127,7 @@ public class PoseEstimator {
             };
         if (validAprilTagPose(pos)
             && !ArrayUtils.contains(
-                invalidApriltagNumbers, apriltagSystem.getInputs().apriltagNumber[i])
-            && apriltagSystem.getInputs().apriltagNumber[i] != 15
-            && apriltagSystem.getInputs().apriltagNumber[i] != 4
-            && apriltagSystem.getInputs().apriltagNumber[i] != 14
-            && apriltagSystem.getInputs().apriltagNumber[i] != 5
-            && apriltagSystem.getInputs().apriltagNumber[i] != 16
-            && apriltagSystem.getInputs().apriltagNumber[i] != 3) {
+                invalidApriltagNumbers, apriltagSystem.getInputs().apriltagNumber[i])) {
           VisionMeasurement measurement = getVisionMeasurement(pos, i);
           poseManager.registerVisionMeasurement(measurement);
         } else {
