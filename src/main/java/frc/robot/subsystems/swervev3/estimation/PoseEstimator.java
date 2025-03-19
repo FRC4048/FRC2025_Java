@@ -129,6 +129,7 @@ public class PoseEstimator {
               && i < apriltagSystem.getInputs().serverTime.length
               && i < apriltagSystem.getInputs().distanceToTag.length;
           i++) {
+            
         double[] pos =
             new double[] {
               apriltagSystem.getInputs().posX[i],
