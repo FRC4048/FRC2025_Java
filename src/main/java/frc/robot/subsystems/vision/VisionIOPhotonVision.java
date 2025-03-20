@@ -19,11 +19,11 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import frc.robot.utils.logging.subsystem.inputs.VisionInputs;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.MultiTargetPNPResult;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 /** IO implementation for real PhotonVision hardware. */
 public class VisionIOPhotonVision implements VisionIO {
@@ -48,7 +48,7 @@ public class VisionIOPhotonVision implements VisionIO {
     // Read new camera observations
     Set<Short> tagIds = new HashSet<>();
     List<PoseObservation> poseObservations = new LinkedList<>();
-    for (var result : camera.getAllUnreadResults()) {
+    for (PhotonPipelineResult result : camera.getAllUnreadResults()) {
       // Update latest target observation
       if (result.hasTargets()) {
         inputs.latestTargetObservation =
@@ -61,7 +61,7 @@ public class VisionIOPhotonVision implements VisionIO {
 
       // Add pose observation
       if (result.multitagResult.isPresent()) { // Multitag result
-        var multitagResult = result.multitagResult.get();
+        MultiTargetPNPResult multitagResult = result.multitagResult.get();
 
         // Calculate robot pose
         Transform3d fieldToCamera = multitagResult.estimatedPose.best;
@@ -70,7 +70,7 @@ public class VisionIOPhotonVision implements VisionIO {
 
         // Calculate average tag distance
         double totalTagDistance = 0.0;
-        for (var target : result.targets) {
+        for (PhotonTrackedTarget target : result.targets) {
           totalTagDistance += target.bestCameraToTarget.getTranslation().getNorm();
         }
 
@@ -92,10 +92,10 @@ public class VisionIOPhotonVision implements VisionIO {
         }
 
       } else if (!result.targets.isEmpty()) { // Single tag result
-        var target = result.targets.get(0);
+        PhotonTrackedTarget target = result.targets.get(0);
 
         // Calculate robot pose
-        var tagPose = APRIL_TAG_LAYOUT.getTagPose(target.fiducialId);
+        Optional<Pose3d> tagPose = APRIL_TAG_LAYOUT.getTagPose(target.fiducialId);
         if (tagPose.isPresent()) {
           Transform3d fieldToTarget =
               new Transform3d(tagPose.get().getTranslation(), tagPose.get().getRotation());
