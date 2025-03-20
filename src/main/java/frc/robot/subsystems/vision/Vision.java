@@ -44,12 +44,12 @@ public class Vision extends SubsystemBase {
     // Loop over cameras
     for (int cameraIndex = 0; cameraIndex < io.length; cameraIndex++) {
       // Loop over pose observations
-      consumer.accept(inputs[cameraIndex].poseObservations, inputs[cameraIndex].tagIds);
+      consumer.accept(inputs[cameraIndex].poseObservations);
     }
   }
 
   @FunctionalInterface
   public interface VisionConsumer {
-    void accept(PoseObservation[] poseObservations, int[] tagIds);
+    void accept(PoseObservation[] poseObservations);
   }
 }

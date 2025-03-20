@@ -29,7 +29,8 @@ public interface VisionIO extends LoggableIO<VisionInputs> {
       double ambiguity,
       int tagCount,
       double averageTagDistance,
-      PoseObservationType type) {}
+      PoseObservationType type,
+      int tagId) {}
 
   enum PoseObservationType {
     MEGATAG_1,

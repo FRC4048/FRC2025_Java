@@ -5,10 +5,8 @@ import frc.robot.subsystems.vision.VisionIO.PoseObservation;
 
 public class ApriltagConsumer implements VisionConsumer {
   public PoseObservation[] poseObservations = new PoseObservation[0];
-  public int[] tagIds = new int[0];
 
-  public void accept(PoseObservation[] poseObservations, int[] tagIds) {
+  public void accept(PoseObservation[] poseObservations) {
     this.poseObservations = poseObservations;
-    this.tagIds = tagIds;
   }
 }
