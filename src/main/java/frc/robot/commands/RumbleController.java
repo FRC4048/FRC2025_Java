@@ -44,7 +44,7 @@ public class RumbleController extends LoggableCommand {
   public void execute() {
     if (isInOppositeBarge(robotPose.get().getX(), robotPose.get().getY())){
      if(Constants.RUMBLE_CONTROLLER){
-      controller.setRumble(RumbleType.kBothRumble, 0.5);
+      controller.setRumble(RumbleType.kBothRumble, 1);
     }
     } else controller.setRumble(RumbleType.kBothRumble, 0);
   }
