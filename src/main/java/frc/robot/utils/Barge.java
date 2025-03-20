@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 /** Add your docs here. */
 public enum Barge {
-  BLUE_RIGHT_LOWER(8.9246, 0),
-  BLUE_RIGHT_HIGHER(8.9246, 4),
-  BLUE_LEFT_LOWER(7.56, 0),
-  BLUEL_LEFT_HIGHER(7.56, 4);
+  RIGHT_LOWER(8.9246, 0),
+  RIGHT_HIGHER(8.9246, 4),
+  LEFT_LOWER(7.56, 0),
+  LEFT_HIGHER(7.56, 4);
 
   private final double x;
   private final double y;
