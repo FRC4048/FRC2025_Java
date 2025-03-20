@@ -48,13 +48,7 @@ import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.SimAlgaeByeByeTiltIO;
-import frc.robot.subsystems.coral.CoralSubsystem;
-import frc.robot.subsystems.coral.MockCoralIOFollower;
-import frc.robot.subsystems.coral.MockCoralIOLeader;
-import frc.robot.subsystems.coral.RealCoralIOFollower;
-import frc.robot.subsystems.coral.RealCoralIOLeader;
-import frc.robot.subsystems.coral.SimCoralIOFollower;
-import frc.robot.subsystems.coral.SimCoralIOLeader;
+import frc.robot.subsystems.coral.*;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
@@ -111,7 +105,9 @@ public class RobotContainer {
         //  hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
         // hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
-        coralSubsystem = new CoralSubsystem(new RealCoralIOFollower(), new RealCoralIOLeader());
+        coralSubsystem =
+            new CoralSubsystem(
+                new RealCoralIOFollower(), new RealCoralIOLeader(), new RealCoralIOAligner());
         //                climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
@@ -121,7 +117,9 @@ public class RobotContainer {
         //  hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
         // hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
-        coralSubsystem = new CoralSubsystem(new MockCoralIOFollower(), new MockCoralIOLeader());
+        coralSubsystem =
+            new CoralSubsystem(
+                new MockCoralIOFollower(), new MockCoralIOLeader(), new MockCoralIOAligner());
         //                climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
@@ -142,7 +140,8 @@ public class RobotContainer {
         coralSubsystem =
             new CoralSubsystem(
                 new SimCoralIOFollower(),
-                new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()));
+                new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()),
+                new SimCoralIOAligner(robotVisualizer.getCoralRollerLigament()));
         //        climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt =
             new AlgaeByeByeTiltSubsystem(
