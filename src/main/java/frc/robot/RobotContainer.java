@@ -179,9 +179,9 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
+    pathPlannerCommands();
     setupAutoChooser();
     putShuffleboardCommands();
-    pathPlannerCommands();
   }
 
   private void setupAutoChooser() {
