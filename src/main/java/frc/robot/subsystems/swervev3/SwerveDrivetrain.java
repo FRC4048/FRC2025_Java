@@ -2,11 +2,10 @@ package frc.robot.subsystems.swervev3;
 
 import static edu.wpi.first.units.Units.*;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.Vector;
+import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,8 +14,13 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.GyroIO;
@@ -25,9 +29,11 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.DistanceVisionTruster;
+import frc.robot.utils.Apriltag;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import java.util.Collections;
 import java.util.function.Consumer;
 import org.littletonrobotics.junction.Logger;
 
@@ -52,6 +58,16 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
   private final Consumer<Pose2d> resetSimulationPoseCallBack;
+  private TrajectoryConfig trajectoryConfig;
+  private boolean focusTagMade = false;
+  private Apriltag focusedApriltag = Apriltag.ONE;
+  // controller will add an additional meter per second in the x direction for every meter of error
+  // in the x direction
+  private final HolonomicDriveController finePathController =
+      new HolonomicDriveController(
+          new PIDController(1, 0, 0),
+          new PIDController(1, 0, 0),
+          new ProfiledPIDController(1, 0, 0, new TrapezoidProfile.Constraints(6.28, 3.14)));
 
   public SwerveDrivetrain(
       SwerveModule frontLeftModule,
@@ -69,45 +85,9 @@ public class SwerveDrivetrain extends SubsystemBase {
     this.poseEstimator =
         new PoseEstimator(
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
-
     this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
-
-    RobotConfig config = null;
-    try {
-      config = RobotConfig.fromGUISettings();
-    } catch (Exception e) {
-      // Handle exception as needed
-      e.printStackTrace();
-    }
-
-    AutoBuilder.configure(
-        this::getPose,
-        this::resetOdometry,
-        this::getChassisSpeeds,
-        this::drive,
-        new PPHolonomicDriveController(
-            new PIDConstants(
-                Constants.PATH_PLANNER_TRANSLATION_PID_P,
-                Constants.PATH_PLANNER_TRANSLATION_PID_I,
-                Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
-            new PIDConstants(
-                Constants.PATH_PLANNER_ROTATION_PID_P,
-                Constants.PATH_PLANNER_ROTATION_PID_I,
-                Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
-            ),
-        config,
-        () -> {
-          // Boolean supplier that controls when the path will be mirrored for the red alliance
-          // This will flip the path being followed to the red side of the field.
-          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-
-          var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-            return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
-        },
-        this);
+    finePathController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(5)));
+    trajectoryConfig = new TrajectoryConfig(0.5, 0.5);
   }
 
   @Override
@@ -125,7 +105,11 @@ public class SwerveDrivetrain extends SubsystemBase {
             getLastGyro());
     Logger.recordOutput("LastOdomModPoses", odom.modulePosition());
     poseEstimator.updatePosition(odom);
-    poseEstimator.updateVision();
+    if (focusTagMade) {
+      poseEstimator.updateVision(focusedApriltag);
+    } else {
+      poseEstimator.updateVision();
+    }
     Logger.recordOutput(
         "realSwerveStates",
         frontLeft.getLatestState(),
@@ -260,5 +244,27 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   public static SwerveDriveKinematics getKinematics() {
     return kinematics;
+  }
+
+  public Command generateTrajectoryCommand(Pose2d targetPose) {
+    Trajectory trajectory =
+        TrajectoryGenerator.generateTrajectory(
+            getPose(), Collections.emptyList(), targetPose, trajectoryConfig);
+    return new SwerveControllerCommand(
+        trajectory,
+        this::getPose,
+        kinematics, // Position controllers
+        finePathController,
+        this::setModuleStates,
+        this);
+  }
+
+  public void setFocusedApriltag(Apriltag tagToFocus) {
+    focusedApriltag = tagToFocus;
+    focusTagMade = true;
+  }
+
+  public void exitFocusMode() {
+    focusTagMade = false;
   }
 }
