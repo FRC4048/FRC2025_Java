@@ -22,7 +22,6 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
-import frc.robot.commands.RollAlgae;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
@@ -35,19 +34,9 @@ import frc.robot.commands.elevator.ResetElevator;
 import frc.robot.commands.elevator.ResetElevatorEncoder;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.SetElevatorTargetPosition;
-import frc.robot.commands.hihi.ExtendHiHi;
-import frc.robot.commands.hihi.RetractHiHi;
-import frc.robot.commands.hihi.RollHiHiRollerIn;
-import frc.robot.commands.hihi.ShootHiHiRollerOut;
 import frc.robot.commands.lightStrip.SetLedFromElevatorPosition;
 import frc.robot.commands.lightStrip.SetLedPattern;
-import frc.robot.commands.sequences.ByeByeAllDone;
-import frc.robot.commands.sequences.CancelAll;
-import frc.robot.commands.sequences.IntakeAlgae;
-import frc.robot.commands.sequences.LowerElevator;
-import frc.robot.commands.sequences.PickUpCoral;
-import frc.robot.commands.sequences.RemoveAlgaeFromReef;
-import frc.robot.commands.sequences.ShootAlgae;
+import frc.robot.commands.sequences.*;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
 import frc.robot.constants.GameConstants;
@@ -65,14 +54,6 @@ import frc.robot.subsystems.elevator.MockElevatorIO;
 import frc.robot.subsystems.elevator.RealElevatorIO;
 import frc.robot.subsystems.elevator.SimElevatorIO;
 import frc.robot.subsystems.gyro.*;
-import frc.robot.subsystems.hihiextender.HihiExtenderSubsystem;
-import frc.robot.subsystems.hihiextender.MockHihiExtenderIO;
-import frc.robot.subsystems.hihiextender.RealHihiExtenderIO;
-import frc.robot.subsystems.hihiextender.SimHihiExtenderIO;
-import frc.robot.subsystems.hihiroller.HihiRollerSubsystem;
-import frc.robot.subsystems.hihiroller.MockHihiRollerIO;
-import frc.robot.subsystems.hihiroller.RealHihiRollerIO;
-import frc.robot.subsystems.hihiroller.SimHihiRollerIO;
 import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.subsystems.lightStrip.MockLightStripIO;
 import frc.robot.subsystems.lightStrip.RealLightStripIO;
@@ -105,8 +86,8 @@ public class RobotContainer {
   private SwerveDrivetrain drivetrain;
   private final AlgaeByeByeRollerSubsystem byebyeRoller;
   private final AlgaeByeByeTiltSubsystem byebyeTilt;
-  private final HihiRollerSubsystem hihiRoller;
-  private final HihiExtenderSubsystem hihiExtender;
+  //  private final HihiRollerSubsystem hihiRoller;
+  //  private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
   //  private final ClimberSubsystem climber;
@@ -121,8 +102,8 @@ public class RobotContainer {
   public RobotContainer() {
     switch (Constants.currentMode) {
       case REAL -> {
-        hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
-        hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
+        //  hihiRoller = new HihiRollerSubsystem(new RealHihiRollerIO());
+        // hihiExtender = new HihiExtenderSubsystem(new RealHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new RealElevatorIO());
         coralSubsystem =
             new CoralSubsystem(
@@ -133,8 +114,8 @@ public class RobotContainer {
         lightStrip = new LightStrip(new RealLightStripIO());
       }
       case REPLAY -> {
-        hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
-        hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
+        //  hihiRoller = new HihiRollerSubsystem(new MockHihiRollerIO());
+        // hihiExtender = new HihiExtenderSubsystem(new MockHihiExtenderIO());
         elevatorSubsystem = new ElevatorSubsystem(new MockElevatorIO());
         coralSubsystem =
             new CoralSubsystem(
@@ -146,12 +127,14 @@ public class RobotContainer {
       }
       case SIM -> {
         robotVisualizer = new RobotVisualizer();
-        hihiRoller =
-            new HihiRollerSubsystem(
-                new SimHihiRollerIO(null)); // robotVisualizer.getAlgaeHiHiRollerLigament()));
-        hihiExtender =
-            new HihiExtenderSubsystem(
-                new SimHihiExtenderIO(null)); // robotVisualizer.getAlgaeHiHiTiltLigament()));
+        //        hihiRoller =
+        //            new HihiRollerSubsystem(
+        //                new SimHihiRollerIO(null)); //
+        // robotVisualizer.getAlgaeHiHiRollerLigament()));
+        //        hihiExtender =
+        //            new HihiExtenderSubsystem(
+        //                new SimHihiExtenderIO(null)); //
+        // robotVisualizer.getAlgaeHiHiTiltLigament()));
         elevatorSubsystem =
             new ElevatorSubsystem(new SimElevatorIO(robotVisualizer.getElevatorLigament()));
         coralSubsystem =
@@ -261,20 +244,22 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
-    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
+    //    controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
+    //    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller
         .back()
-        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
+        //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,
+        // hihiExtender));
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
-    if (Constants.COMMAND_DEBUG) {
-      SmartDashboard.putData("Roll Algae", new RollAlgae(hihiRoller, 0.5));
-      //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
-      //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
-    }
+    //    if (Constants.COMMAND_DEBUG) {
+    //      SmartDashboard.putData("Roll Algae", new RollAlgae(hihiRoller, 0.5));
+    //      SmartDashboard.putData("Climber reset", new ResetClimber(climber));
+    //      SmartDashboard.putData("Climber stop", new CloseClimber(climber));
+    //    }
   }
 
   public Command getAutonomousCommand() {
@@ -450,19 +435,19 @@ public class RobotContainer {
           new PickUpCoral(elevatorSubsystem, byebyeTilt, byebyeRoller, coralSubsystem, lightStrip));
     }
 
-    if (Constants.HIHI_DEBUG) {
-      // HiHi Commads
+    //    if (Constants.HIHI_DEBUG) {
+    // HiHi Commads
 
-      SmartDashboard.putData("Extend HiHi", new ExtendHiHi(hihiExtender));
+    // SmartDashboard.putData("Extend HiHi", new ExtendHiHi(hihiExtender));
 
-      SmartDashboard.putData("Retract HiHi", new RetractHiHi(hihiExtender));
+    //  SmartDashboard.putData("Retract HiHi", new RetractHiHi(hihiExtender));
 
-      SmartDashboard.putData("Roll HiHi Roller In", new RollHiHiRollerIn(hihiRoller));
+    // SmartDashboard.putData("Roll HiHi Roller In", new RollHiHiRollerIn(hihiRoller));
 
-      SmartDashboard.putData("Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
+    // SmartDashboard.putData("Roll HiHi Roller Out", new ShootHiHiRollerOut(hihiRoller));
 
-      SmartDashboard.putData("Intake Algae", new IntakeAlgae(hihiExtender, hihiRoller));
-    }
+    // SmartDashboard.putData("Intake Algae", new IntakeAlgae(hihiExtender, hihiRoller));
+    //    }
 
     if (Constants.BYEBYE_DEBUG) {
       // ByeBye Commands
