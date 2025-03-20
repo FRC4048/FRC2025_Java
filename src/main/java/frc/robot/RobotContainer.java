@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.apriltags.ApriltagConsumer;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.SimApriltagIO;
@@ -96,7 +95,6 @@ import frc.robot.subsystems.swervev3.io.drive.MockDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.drive.SimDriveMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
-import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
@@ -423,18 +421,16 @@ public class RobotContainer {
               pidConfig,
               "backRight");
       gyroIO = new SimGyroIO(driveSimulation.getGyroSimulation());
-      ApriltagConsumer consumer = new ApriltagConsumer();
-      apriltagIO = new SimApriltagIO(consumer);
-      new Vision(
-          consumer,
-          new VisionIOPhotonVisionSim(
-              VisionConstants.CAMERA_0_NAME,
-              VisionConstants.ROBOT_TO_CAMERA_0,
-              driveSimulation::getSimulatedDriveTrainPose),
-          new VisionIOPhotonVisionSim(
-              VisionConstants.CAMERA_1_NAME,
-              VisionConstants.ROBOT_TO_CAMERA_1,
-              driveSimulation::getSimulatedDriveTrainPose));
+      apriltagIO =
+          new SimApriltagIO(
+              new VisionIOPhotonVisionSim(
+                  VisionConstants.CAMERA_0_NAME,
+                  VisionConstants.ROBOT_TO_CAMERA_0,
+                  driveSimulation::getSimulatedDriveTrainPose),
+              new VisionIOPhotonVisionSim(
+                  VisionConstants.CAMERA_1_NAME,
+                  VisionConstants.ROBOT_TO_CAMERA_1,
+                  driveSimulation::getSimulatedDriveTrainPose));
     }
     drivetrain =
         new SwerveDrivetrain(

@@ -121,7 +121,6 @@ public class PoseEstimator {
   public void updateVision() {
     if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
       for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
-
         double[] pos =
             new double[] {
               apriltagSystem.getInputs().posX[i],
