@@ -6,10 +6,10 @@ package frc.robot.utils;
 
 /** Add your docs here. */
 public enum Barge {
-  BLUE_LOWER(8.9246, 0),
-  BLUE_HIGHER(8.9246, 4),
-  RED_LOWER(7.56, 4),
-  RED_HIGHER(7.56, 8);
+  BLUER_LOWER(8.9246, 0),
+  BLUER_HIGHER(8.9246, 4),
+  BLUEL_LOWER(7.56, 0),
+  BLUEL_HIGHER(7.56, 4);
 
   private final double x;
   private final double y;
