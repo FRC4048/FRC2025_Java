@@ -22,14 +22,11 @@ public enum Barge {
     this.y = y;
   }
 
-  public double getY() {
-    return y;
-  }
-
   public double getX() {
     return x;
   }
-  public double getXBasedOnAlliance(DriverStation.Alliance AllianceColor) {
-    return AllianceColor.equals(Alliance.Blue) ? x : x+4;
+
+  public double getY(DriverStation.Alliance AllianceColor) {
+    return AllianceColor.equals(Alliance.Blue) ? y : y + 4;
   }
 }
