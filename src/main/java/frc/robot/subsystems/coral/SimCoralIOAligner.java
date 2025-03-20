@@ -3,13 +3,14 @@ package frc.robot.subsystems.coral;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.motor.MotorSimulator;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 public class SimCoralIOAligner extends RealCoralIOAligner {
   private final MotorSimulator alignerSimulator;
 
-  public SimCoralIOAligner() {
+  public SimCoralIOAligner(LoggedMechanismLigament2d ligament) {
     super();
-    alignerSimulator = new MotorSimulator(alignerMotor);
+    alignerSimulator = new MotorSimulator(alignerMotor, ligament);
   }
 
   @Override

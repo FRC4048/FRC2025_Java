@@ -1,7 +1,5 @@
 package frc.robot.subsystems.coral;
 
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 
 public class MockCoralIOAligner implements CoralIOAligner {

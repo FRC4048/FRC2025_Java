@@ -157,7 +157,8 @@ public class RobotContainer {
         coralSubsystem =
             new CoralSubsystem(
                 new SimCoralIOFollower(),
-                new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()), new SimCoralIOAligner());
+                new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()),
+                new SimCoralIOAligner(robotVisualizer.getCoralRollerLigament()));
         //        climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt =
             new AlgaeByeByeTiltSubsystem(
