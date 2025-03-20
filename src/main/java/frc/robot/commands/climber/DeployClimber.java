@@ -20,7 +20,7 @@ public class DeployClimber extends LoggableCommand {
 
   @Override
   public void initialize() {
-    climber.setLimitSwitchState(true);
+    climber.setLimitSwitchState(false);
     timer.restart();
   }
 
@@ -40,6 +40,6 @@ public class DeployClimber extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return climber.isExtendedLimitSwitchPressed();
+    return climber.isRetractedLimitSwitchPressed();
   }
 }

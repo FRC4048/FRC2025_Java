@@ -12,7 +12,7 @@ public class ClimbToLimit extends LoggableCommand {
   private final TimeoutLogger timeoutCounter;
   private final Timer timer;
   private final double climberSpeed;
-  private boolean isLimitSwitchPressed;
+  private boolean isRetractedLimitSwitchPressed;
 
   public ClimbToLimit(ClimberSubsystem climber, double climberSpeed) {
     this.climber = climber;
@@ -24,14 +24,14 @@ public class ClimbToLimit extends LoggableCommand {
 
   @Override
   public void initialize() {
-    isLimitSwitchPressed = climber.isExtendedLimitSwitchPressed();
-    climber.setLimitSwitchState(false);
+    isRetractedLimitSwitchPressed = climber.isRetractedLimitSwitchPressed();
+    climber.setLimitSwitchState(true);
     timer.restart();
   }
 
   @Override
   public void execute() {
-    if (isLimitSwitchPressed) {
+    if (isRetractedLimitSwitchPressed) {
       climber.setClimberSpeed(climberSpeed);
     }
   }
@@ -46,13 +46,7 @@ public class ClimbToLimit extends LoggableCommand {
     if (timer.hasElapsed(Constants.CLIMBER_PHASE2_TIMEOUT)) {
       timeoutCounter.increaseTimeoutCount();
       return true;
-    } else {
-      return climber.isRetractedLimitSwitchPressed() || !isLimitSwitchPressed;
     }
-  }
-
-  @Override
-  public boolean runsWhenDisabled() {
-    return false;
+    return climber.isExtendedLimitSwitchPressed() || !isRetractedLimitSwitchPressed;
   }
 }

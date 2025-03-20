@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
@@ -48,7 +47,6 @@ import frc.robot.commands.sequences.IntakeAlgae;
 import frc.robot.commands.sequences.LowerElevator;
 import frc.robot.commands.sequences.PickUpCoral;
 import frc.robot.commands.sequences.RemoveAlgaeFromReef;
-import frc.robot.commands.sequences.ShootAlgae;
 import frc.robot.constants.Constants;
 import frc.robot.constants.ElevatorPosition;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
@@ -243,15 +241,18 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
-    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
+    controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    controller
+        .a()
+        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.LEVEL1));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
-    new Trigger(() -> controller.getRightY() > Constants.CLIMBER_DEADBAND)
-        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.LEVEL1));
+    // new Trigger(() -> controller.getRightY() > Constants.CLIMBER_DEADBAND)
+    //     .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip,
+    // ElevatorPosition.LEVEL1));
 
-    new Trigger(() -> controller.getRightY() < -Constants.CLIMBER_DEADBAND)
-        .onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    // new Trigger(() -> controller.getRightY() < -Constants.CLIMBER_DEADBAND)
+    //     .onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
         .back()
         .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, hihiExtender));
