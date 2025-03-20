@@ -1,9 +1,13 @@
 package frc.robot.utils.simulation;
 
+import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Rotations;
+
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.system.plant.DCMotor;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 /**
  * A simulator for an intake mechanism: A motor hooked up to some wheels and a limit switch. The
@@ -38,6 +42,7 @@ public class IntakeSimulator {
   private final SparkMax motor;
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
+  private final LoggedMechanismLigament2d ligament;
   // The encoder simulator from the simulated motor
   private final SparkRelativeEncoderSim encoderSim;
 
@@ -46,9 +51,10 @@ public class IntakeSimulator {
   // Mode start point (encoder position when mode change)
   private double startPoint = 0;
 
-  public IntakeSimulator(SparkMax motor) {
+  public IntakeSimulator(SparkMax motor, LoggedMechanismLigament2d ligament) {
     this.motor = motor;
     motorSim = new SparkMaxSim(motor, gearbox);
+    this.ligament = ligament;
     encoderSim = motorSim.getRelativeEncoderSim();
 
     encoderSim.setPositionConversionFactor(1.0);
@@ -96,6 +102,10 @@ public class IntakeSimulator {
       }
     }
     motorSim.getForwardLimitSwitchSim().setPressed(forwardSwitch);
+
+    if (ligament != null) {
+      ligament.setAngle(Rotations.of(encoderSim.getPosition()).in(Degrees));
+    }
   }
 
   public SparkRelativeEncoderSim getEncoder() {
