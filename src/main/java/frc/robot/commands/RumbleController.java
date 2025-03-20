@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Robot;
+import frc.robot.constants.Constants;
 import frc.robot.utils.Barge;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.Optional;
@@ -41,9 +42,11 @@ public class RumbleController extends LoggableCommand {
 
   @Override
   public void execute() {
-    if (isInOppositeBarge(robotPose.get().getX(), robotPose.get().getY()))
+    if (isInOppositeBarge(robotPose.get().getX(), robotPose.get().getY())){
+     if(Constants.RUMBLE_CONTROLLER){
       controller.setRumble(RumbleType.kBothRumble, 0.5);
-    else controller.setRumble(RumbleType.kBothRumble, 0);
+    }
+    } else controller.setRumble(RumbleType.kBothRumble, 0);
   }
 
   @Override
