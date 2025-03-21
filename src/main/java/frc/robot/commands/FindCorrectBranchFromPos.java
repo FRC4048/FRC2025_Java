@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.numbers.N3;
@@ -11,20 +12,19 @@ public class FindCorrectBranchFromPos {
       Math.tan(Constants.LIMELIGHT_HALF_FOV.getX()) / Constants.LIMELIGHT_HALF_POS.getX();
   public static final double POS_TO_FOV_CONVERSION_Y =
       Math.tan(Constants.LIMELIGHT_HALF_FOV.getY()) / Constants.LIMELIGHT_HALF_POS.getY();
+  public static final double SPECIAL_X = Constants.LIMELIGHT_HALF_POS.getX() / Math.tan(Constants.LIMELIGHT_HALF_FOV.getX());
+  public static final double SPECIAL_Y = Constants.LIMELIGHT_HALF_POS.getY() / Math.tan(Constants.LIMELIGHT_HALF_FOV.getY());
+  public static final double SPECIAL_RATIO = SPECIAL_Y / SPECIAL_X;
+  private static final BranchPositions[] BRANCHES = BranchPositions.values();
+  public static BranchPositions FindBranch(Pose2d robotPos, Translation2d piecePos) {
+    final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
+    final Rotation3d invCameraRotation = cameraPos.getRotation().unaryMinus();
+    final Translation2d pieceTranslation = Constants.LIMELIGHT_HALF_POS.minus(piecePos);
 
-  public BranchPositions FindBranch(Pose2d robotPos, Translation2d piecePos) {
-    Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
-    Rotation3d invCameraRotation = cameraPos.getRotation().unaryMinus();
-    Translation2d pieceTranslation = Constants.LIMELIGHT_HALF_POS.minus(piecePos);
-    Rotation3d pieceRotation =
-        new Rotation3d(
-            0,
-            -Math.atan(pieceTranslation.getY() * POS_TO_FOV_CONVERSION_Y),
-            Math.atan(pieceTranslation.getX() * POS_TO_FOV_CONVERSION_X));
-    Vector<N3> pieceVec = new Translation3d(1, 0, 0).rotateBy(pieceRotation).toVector();
+    final Vector<N3> pieceVec = VecBuilder.fill(SPECIAL_Y, pieceTranslation.getX()*SPECIAL_RATIO, pieceTranslation.getY()).unit();
     double maxDot = -1.0;
     BranchPositions closestBranch = null;
-    for (BranchPositions branch : BranchPositions.values()) {
+    for (BranchPositions branch : BRANCHES) {
       Vector<N3> branchVec =
           branch
               .getPosition()
