@@ -12,16 +12,21 @@ public class FindCorrectBranchFromPos {
       Math.tan(Constants.LIMELIGHT_HALF_FOV.getX()) / Constants.LIMELIGHT_HALF_POS.getX();
   public static final double POS_TO_FOV_CONVERSION_Y =
       Math.tan(Constants.LIMELIGHT_HALF_FOV.getY()) / Constants.LIMELIGHT_HALF_POS.getY();
-  public static final double SPECIAL_X = Constants.LIMELIGHT_HALF_POS.getX() / Math.tan(Constants.LIMELIGHT_HALF_FOV.getX());
-  public static final double SPECIAL_Y = Constants.LIMELIGHT_HALF_POS.getY() / Math.tan(Constants.LIMELIGHT_HALF_FOV.getY());
+  public static final double SPECIAL_X =
+      Constants.LIMELIGHT_HALF_POS.getX() / Math.tan(Constants.LIMELIGHT_HALF_FOV.getX());
+  public static final double SPECIAL_Y =
+      Constants.LIMELIGHT_HALF_POS.getY() / Math.tan(Constants.LIMELIGHT_HALF_FOV.getY());
   public static final double SPECIAL_RATIO = SPECIAL_Y / SPECIAL_X;
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
+
   public static BranchPositions FindBranch(Pose2d robotPos, Translation2d piecePos) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
     final Rotation3d invCameraRotation = cameraPos.getRotation().unaryMinus();
     final Translation2d pieceTranslation = Constants.LIMELIGHT_HALF_POS.minus(piecePos);
 
-    final Vector<N3> pieceVec = VecBuilder.fill(SPECIAL_Y, pieceTranslation.getX()*SPECIAL_RATIO, pieceTranslation.getY()).unit();
+    final Vector<N3> pieceVec =
+        VecBuilder.fill(SPECIAL_Y, pieceTranslation.getX() * SPECIAL_RATIO, pieceTranslation.getY())
+            .unit();
     double maxDot = -1.0;
     BranchPositions closestBranch = null;
     for (BranchPositions branch : BRANCHES) {
