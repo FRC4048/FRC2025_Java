@@ -6,6 +6,7 @@ package frc.robot.utils;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.Robot;
 
 /** Add your docs here. */
 public enum Barge {
@@ -28,5 +29,8 @@ public enum Barge {
 
   public double getY(DriverStation.Alliance AllianceColor) {
     return AllianceColor.equals(Alliance.Blue) ? y : y + 4;
+  }
+  public double getYFromAlliaceColor() {
+    return Robot.getAllianceColor().get().equals(Alliance.Blue) ? y : y + 4;
   }
 }

@@ -33,8 +33,8 @@ public class RumbleController extends LoggableCommand {
         && (x > Barge.LEFT_LOWER.getX())
         && (al.isPresent())) {
       return al.get().equals(Alliance.Red)
-          ? (y < Barge.RIGHT_HIGHER.getY(al.get()))
-          : (y > Barge.RIGHT_HIGHER.getY(al.get()));
+          ? (y < Barge.RIGHT_HIGHER.getYFromAlliaceColor())
+          : (y > Barge.RIGHT_HIGHER.getYFromAlliaceColor());
     }
     return false;
   }
