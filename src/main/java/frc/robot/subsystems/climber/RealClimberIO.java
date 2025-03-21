@@ -40,7 +40,7 @@ public class RealClimberIO implements ClimberIO {
         .idleMode(IdleMode.kBrake)
         .limitSwitch
         .forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen)
-        .reverseLimitSwitchType(LimitSwitchConfig.Type.kNormallyClosed);
+        .reverseLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
     climberMotor.configure(
         climberConfig,
         SparkBase.ResetMode.kResetSafeParameters,
@@ -51,7 +51,6 @@ public class RealClimberIO implements ClimberIO {
   public void enableLimitSwitch(boolean state) {
     SparkMaxConfig climberConfig = new SparkMaxConfig();
     climberConfig.apply(climberConfig.limitSwitch.forwardLimitSwitchEnabled(state));
-
     climberMotor.configure(
         climberConfig,
         SparkBase.ResetMode.kNoResetSafeParameters,
