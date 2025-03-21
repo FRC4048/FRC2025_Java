@@ -5,15 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Robot;
 import frc.robot.constants.Constants;
-import frc.robot.utils.Barge;
+import frc.robot.utils.FieldZoneUtils;
 import frc.robot.utils.logging.commands.LoggableCommand;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -27,24 +23,12 @@ public class RumbleController extends LoggableCommand {
     this.controller = controller;
   }
 
-  public static boolean isInOppositeBarge(double x, double y) {
-    Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
-    if ((x < Barge.RIGHT_HIGHER.getX())
-        && (x > Barge.LEFT_LOWER.getX())
-        && (al.isPresent())) {
-      return al.get().equals(Alliance.Red)
-          ? (y < Barge.RIGHT_HIGHER.getYFromAlliaceColor())
-          : (y > Barge.RIGHT_HIGHER.getYFromAlliaceColor());
-    }
-    return false;
-  }
-
   @Override
   public void initialize() {}
 
   @Override
   public void execute() {
-    if (isInOppositeBarge(robotPose.get().getX(), robotPose.get().getY())) {
+    if (FieldZoneUtils.isInOppositeBarge(robotPose.get().getX(), robotPose.get().getY())) {
       if (Constants.RUMBLE_CONTROLLER) {
         controller.setRumble(RumbleType.kBothRumble, 1);
       }
