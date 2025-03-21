@@ -14,12 +14,17 @@ import java.util.stream.Collectors;
 public class ReefScoreTracker extends SubsystemBase {
   private final StampedTrackerHashMap<CoralPosition, BranchStatus> coralTracker;
   private ReefScoringStrategy strategy;
-  private StampedMapCleaner<CoralPosition, BranchStatus> cleaner;
-  private final StampedMapAgeClearner<CoralPosition, BranchStatus> mapAgeClearner;
-  private final StampedMapDirtyClearner<CoralPosition, BranchStatus> mapDirtyClearner;
+  private StampedMapCleaner<CoralPosition, BranchStatus> coralCleaner;
+  private final StampedMapAgeClearner<CoralPosition, BranchStatus> coralMapAgeClearner;
+  private final StampedMapDirtyClearner<CoralPosition, BranchStatus> coralMapDirtyClearner;
+
+  private final StampedTrackerHashMap<AlgaePosition, BranchStatus> algaeTracker;
+  private StampedMapCleaner<AlgaePosition, BranchStatus> algaeCleaner;
+  private final StampedMapAgeClearner<AlgaePosition, BranchStatus> algaeMapAgeClearner;
+  private final StampedMapDirtyClearner<AlgaePosition, BranchStatus> algaeMapDirtyClearner;
 
   public ReefScoreTracker(double objectLifetime) {
-    mapAgeClearner =
+    coralMapAgeClearner =
         new StampedMapAgeClearner<>(objectLifetime) {
           @Override
           public void invalidateEntry(
@@ -27,8 +32,19 @@ public class ReefScoreTracker extends SubsystemBase {
             map.put(key, StampedObject.of(BranchStatus.UNKNOWN));
           }
         };
-    mapDirtyClearner = new StampedMapDirtyClearner<>();
+    coralMapDirtyClearner = new StampedMapDirtyClearner<>();
     this.coralTracker = new StampedTrackerHashMap<>();
+
+    algaeMapAgeClearner =
+        new StampedMapAgeClearner<>(objectLifetime) {
+          @Override
+          public void invalidateEntry(
+              Map<AlgaePosition, StampedObject<BranchStatus>> map, AlgaePosition key) {
+            map.put(key, StampedObject.of(BranchStatus.UNKNOWN));
+          }
+        };
+    algaeMapDirtyClearner = new StampedMapDirtyClearner<>();
+    this.algaeTracker = new StampedTrackerHashMap<>();
   }
 
   public void setStrategy(ReefScoringStrategy strategy) {
@@ -36,16 +52,30 @@ public class ReefScoreTracker extends SubsystemBase {
   }
 
   public void setShouldMeasurementsExpire(boolean shouldMeasurementsExpire) {
-    cleaner = shouldMeasurementsExpire ? mapAgeClearner : mapDirtyClearner;
+    coralCleaner = shouldMeasurementsExpire ? coralMapAgeClearner : coralMapDirtyClearner;
+    algaeCleaner = shouldMeasurementsExpire ? algaeMapAgeClearner : algaeMapDirtyClearner;
   }
 
   public void setObjectLifetime(double objectLifetime) {
-    mapAgeClearner.setObjectLifetime(objectLifetime);
+    coralMapAgeClearner.setObjectLifetime(objectLifetime);
+    algaeMapAgeClearner.setObjectLifetime(objectLifetime);
   }
 
   @Override
   public void periodic() {
-    coralTracker.updateCollection(cleaner);
+    coralTracker.updateCollection(coralCleaner);
+    algaeTracker.updateCollection(algaeCleaner);
+  }
+
+  /**
+   * @param algaePosition the algae location of measurment
+   * @param branchStatus if the reef branch has a coral. is empty, or is unknown.
+   * @return If the operation was successful
+   */
+  public boolean setAlgaeScoreStatus(
+      AlgaePosition algaePosition, BranchStatus branchStatus, double timestampSeconds) {
+    algaeTracker.registerObject(algaePosition, new StampedObject<>(timestampSeconds, branchStatus));
+    return true;
   }
 
   /**
@@ -54,7 +84,7 @@ public class ReefScoreTracker extends SubsystemBase {
    * @param branchStatus if the reef branch has a coral. is empty, or is unknown.
    * @return If the operation was successful
    */
-  public boolean setScoreStatus(
+  public boolean setCoralScoreStatus(
       ReefTrunk reefTrunk,
       ElevatorPosition elevatorPosition,
       BranchStatus branchStatus,
@@ -68,8 +98,15 @@ public class ReefScoreTracker extends SubsystemBase {
     return true;
   }
 
-  private Set<CoralPosition> getValidFilteredByBranchStatus(BranchStatus branchStatus) {
+  private Set<CoralPosition> getCoralValidFilteredByBranchStatus(BranchStatus branchStatus) {
     return coralTracker.getReadOnlyStampedObjects().entrySet().stream()
+        .filter(e -> e.getValue().getValue().equals(branchStatus))
+        .map(Map.Entry::getKey)
+        .collect(Collectors.toSet());
+  }
+
+  private Set<AlgaePosition> getAglaeValidFilteredByBranchStatus(BranchStatus branchStatus) {
+    return algaeTracker.getReadOnlyStampedObjects().entrySet().stream()
         .filter(e -> e.getValue().getValue().equals(branchStatus))
         .map(Map.Entry::getKey)
         .collect(Collectors.toSet());
