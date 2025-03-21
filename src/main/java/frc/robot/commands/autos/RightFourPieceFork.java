@@ -13,14 +13,18 @@ import frc.robot.utils.logging.commands.LoggableWaitCommand;
 
 public class RightFourPieceFork extends LoggableSequentialCommandGroup {
   public RightFourPieceFork(
-      ElevatorSubsystem elevator, CoralSubsystem coral, LightStrip lightStrip) {
+      ElevatorSubsystem elevator,
+      CoralSubsystem coral,
+      LightStrip lightStrip,
+      ElevatorPosition scorePosition1,
+      ElevatorPosition scorePosition2) {
     super(
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(Paths.getInstance().getRobotFourToPostECommand()),
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip),
+            new SetElevatorStoredPosition(scorePosition1, elevator, lightStrip),
             new LoggableSequentialCommandGroup(
                 new LoggableWaitCommand(1.25),
-                new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4))),
+                new GoAndWaitAtElevatorPosition(elevator, scorePosition1))),
         new ShootCoral(coral, 0.5),
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
@@ -29,11 +33,14 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
                 Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to Post B
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip),
+            new SetElevatorStoredPosition(scorePosition2, elevator, lightStrip),
             new LoggableSequentialCommandGroup(
                 new LoggableWaitCommand(1.3),
-                new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4))),
-        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
+                new GoAndWaitAtElevatorPosition(elevator, scorePosition2))),
+        new GoAndWaitAtElevatorPosition(
+            elevator,
+            scorePosition2), // this line should be deleted after comp (I don't want to risk
+        // deleting it now)
         new ShootCoral(coral, 0.5)
         //        new LoggableParallelCommandGroup(
         //            new LoggableCommandWrapper(Paths.getInstance().getPostCToStationTwoCommand())
