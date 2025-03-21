@@ -12,11 +12,7 @@
     "Station 2 to Posts (12)"
   ],
   "autoFolders": [
-    "RAINBOW AUTO",
-    "Robot 1 to Posts (12)",
-    "Robot 2 to Posts (12)",
-    "Robot 3 to Reefs (12)",
-    "Robot 4 to Reefs (12)"
+    "RAINBOW AUTO"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

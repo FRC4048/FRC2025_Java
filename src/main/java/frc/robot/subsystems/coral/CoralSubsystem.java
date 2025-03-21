@@ -13,9 +13,11 @@ import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 public class CoralSubsystem extends SubsystemBase {
   private final LoggableSystem<CoralIOLeader, MotorInputs> coralSystemLeader;
   private final LoggableSystem<CoralIOFollower, MotorInputs> coralSystemFollower;
+  private final LoggableSystem<CoralIOAligner, MotorInputs> coralSystemAligner;
 
   /** Creates a new Shooter. */
-  public CoralSubsystem(CoralIOFollower ioFollower, CoralIOLeader ioLeader) {
+  public CoralSubsystem(
+      CoralIOFollower ioFollower, CoralIOLeader ioLeader, CoralIOAligner ioAligner) {
     MotorInputs followerInputs =
         new MotorInputBuilder<>("CoralSubsystem/Follower")
             .encoderVelocity()
@@ -30,14 +32,30 @@ public class CoralSubsystem extends SubsystemBase {
             .fwdLimit()
             .addStatus()
             .build();
+    MotorInputs alignerInputs =
+        new MotorInputBuilder<>("CoralSubsystem/Aligner")
+            .encoderVelocity()
+            .encoderPosition()
+            .addStatus()
+            .build();
     coralSystemFollower = new LoggableSystem<>(ioFollower, followerInputs);
     coralSystemLeader = new LoggableSystem<>(ioLeader, leaderInputs);
+    coralSystemAligner = new LoggableSystem<>(ioAligner, alignerInputs);
   }
 
   @Override
   public void periodic() {
     coralSystemLeader.updateInputs();
     coralSystemFollower.updateInputs();
+    coralSystemAligner.updateInputs();
+  }
+
+  public void setAlignerSpeed(double speed) {
+    coralSystemAligner.getIO().setAlignerSpeed(speed);
+  }
+
+  public void stopAligner() {
+    coralSystemAligner.getIO().stopAligner();
   }
 
   public void setShooterSpeed(double speed) {
