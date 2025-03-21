@@ -4,10 +4,11 @@ import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.Distance;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
-import static edu.wpi.first.units.Units.Degrees;
-import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.*;
 
 /**
  * A simulator for a climber mechanism: A motor connected to a winch that has a rope (or a strap) wrapped around a shaft.
@@ -24,13 +25,16 @@ import static edu.wpi.first.units.Units.Rotations;
  * GEARING_RATIO is the gearbox ratio for the motor.
  */
 public class ClimberSimulator {
-  // number of rotations from start point to where piece hits forward switch
-  public static final double FORWARD_ROTATIONS_TO_REVERSE_SWITCH = 40;
-  // number of rotations from start point to where piece clears the mechanism off the front
-  public static final double FORWARD_ROTATIONS_TO_FORWARD_SWITCH = 80;
+  // number of rotations from start point to where piece hits reverse switch
+  // This is also the position of full extension and the midway point, where the rope is unwound and is
+  // beginning to rewind again
+  public static final Angle FORWARD_ROTATIONS_TO_REVERSE_SWITCH = Rotations.of(40);
+  // number of rotations from start point to where the piece is back in the starting position (and hits the forsward switch again)
+  public static final Angle FORWARD_ROTATIONS_TO_FORWARD_SWITCH = Rotations.of(80);
+  public static final Angle ARM_MIN_ANGLE = Degrees.of(0);
+  public static final Angle ARM_MAX_ANGLE = Degrees.of(90);
   // The switch margin of error
   public static final double SWITCH_MARGIN = 1.0;
-
   private static final double RPM_PER_VOLT = 100;
 
   // Gearbox represents a gearbox (1:1 conversion rate) with 1 or motors connected
@@ -59,6 +63,11 @@ public class ClimberSimulator {
     // First, we set our "inputs" (voltages)
     double motorOut = motorSim.getAppliedOutput() * 12.0; // * RoboRioSim.getVInVoltage();
 
+    // motor cannot run in reverse because of the ratchet
+    if (motorOut < 0) {
+      return;
+    }
+
     // Next, we set our simulated encoder's readings and simulated battery voltage
     // We use a very simplistic formula to calculate the no-load motor speed
     double rpm = motorOut * RPM_PER_VOLT;
@@ -66,22 +75,38 @@ public class ClimberSimulator {
     double position = encoderSim.getPosition();
 
     // Finally, calculate the switch positions based off of climber-like simulation
-    boolean forwardSwitch = Math.abs(FORWARD_ROTATIONS_TO_FORWARD_SWITCH - position) < SWITCH_MARGIN;
-    boolean reverseSwitch = Math.abs(FORWARD_ROTATIONS_TO_REVERSE_SWITCH - position) < SWITCH_MARGIN;
+    boolean forwardSwitch = Math.abs(FORWARD_ROTATIONS_TO_FORWARD_SWITCH.in(Rotations) - position) < SWITCH_MARGIN;
+    boolean reverseSwitch = Math.abs(FORWARD_ROTATIONS_TO_REVERSE_SWITCH.in(Rotations) - position) < SWITCH_MARGIN;
 
     motorSim.getForwardLimitSwitchSim().setPressed(forwardSwitch);
     motorSim.getReverseLimitSwitchSim().setPressed(reverseSwitch);
 
     if (ligament != null) {
-      ligament.setAngle(Rotations.of(position).in(Degrees));
+      ligament.setAngle(fromRotations(position).plus(ARM_MIN_ANGLE).in(Degrees));
     }
-  }
-
-  public SparkRelativeEncoderSim getEncoder() {
-    return encoderSim;
   }
 
   public void close() {
     motor.close();
+  }
+
+  /**
+   * Calculate the mechanism arm angle based off of the rotations of the motor.
+   * @param rotations the encoder rotations
+   * @return the mechanism (arm) angle
+   */
+  private Angle fromRotations(double rotations) {
+    double adjustedRotations;
+    if (rotations <= FORWARD_ROTATIONS_TO_FORWARD_SWITCH.in(Rotations)) {
+      // moving in the first half of the motion
+      adjustedRotations = rotations;
+    } else {
+      // moving in the second half of the motion
+      adjustedRotations = FORWARD_ROTATIONS_TO_FORWARD_SWITCH.in(Rotations) - rotations;
+    }
+    // linear translation from motor rotations to arm rotations
+    double armRotations = (adjustedRotations / FORWARD_ROTATIONS_TO_REVERSE_SWITCH.in(Rotations))
+                          * (ARM_MAX_ANGLE.minus(ARM_MIN_ANGLE)).in(Rotations);
+    return Rotations.of(armRotations);
   }
 }
