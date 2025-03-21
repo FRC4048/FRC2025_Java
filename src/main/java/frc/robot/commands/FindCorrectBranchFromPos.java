@@ -12,8 +12,16 @@ public class FindCorrectBranchFromPos {
     Rotation3d pieceRotation =
         new Rotation3d(
             0,
-            pieceTranslation.getY() * Constants.LIMELIGHT_MAX_FOV.getY() / Constants.LIMELIGHT_MAX_POS.getY(),
-            pieceTranslation.getX() * Constants.LIMELIGHT_MAX_FOV.getX() / Constants.LIMELIGHT_MAX_POS.getX());
+            Math.atan(
+                pieceTranslation.getY()
+                    * Math.tan(Constants.LIMELIGHT_MAX_POS.getY() / 2)
+                    / (Constants.LIMELIGHT_MAX_FOV.getY())
+                    / 2),
+            Math.atan(
+                pieceTranslation.getX()
+                    * Math.tan(Constants.LIMELIGHT_MAX_POS.getX() / 2)
+                    / (Constants.LIMELIGHT_MAX_FOV.getX())
+                    / 2));
     double absAngle = 2 * Math.PI;
     BranchPositions closestBranch = null;
     for (BranchPositions branch : BranchPositions.values()) {
