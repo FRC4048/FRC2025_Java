@@ -5,7 +5,7 @@ public enum ElevatorPosition {
   LEVEL1(-3.0),
   LEVEL2(-9.28),
   LEVEL3(-24),
-  LEVEL4(-47.1);
+  LEVEL4(-47.4);
 
   private final double heightElevator;
 

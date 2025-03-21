@@ -32,6 +32,6 @@ public class WaitTillElevatorAtPosition extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return counter > 10;
+    return counter > 25;
   }
 }
