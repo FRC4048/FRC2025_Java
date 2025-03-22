@@ -33,18 +33,19 @@ public class FindCorrectBranchFromPos {
   public static BranchPositions FindCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
     return findClosestPosition(robotPos, piecePos, BRANCHES, PRECOMPUTED_BRANCH_VECS);
   }
-  public static <T extends Enum<T>> T findClosestPosition (Pose2d robotPos, Vector<N2> piecePos, T[] values, Vector<N3>[] preComputedVecs) {
+
+  public static <T extends Enum<T>> T findClosestPosition(
+      Pose2d robotPos, Vector<N2> piecePos, T[] values, Vector<N3>[] preComputedVecs) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
-            VecBuilder.fill(1, Math.tan(-piecePos.get(0)), Math.tan(piecePos.get(1)));
+        VecBuilder.fill(1, Math.tan(-piecePos.get(0)), Math.tan(piecePos.get(1)));
     double maxDot = -1.0;
     T closest = null;
     for (int i = 0; i < values.length; i++) {
-      Matrix<N3, N1> locationVec =(invCameraRotation.times(
-              preComputedVecs[i]
-                      .minus(cameraPosVec)));
+      Matrix<N3, N1> locationVec =
+          (invCameraRotation.times(preComputedVecs[i].minus(cameraPosVec)));
       double dot = pieceVec.dot((Vector<N3>) locationVec);
       if (dot > maxDot) {
         maxDot = dot;
@@ -63,7 +64,6 @@ public class FindCorrectBranchFromPos {
     double x = 0.84151552345920325992;
     double y = 0;
     return FindCoralBranch(
-        new Pose2d(2.763724485, 4.1902085050000, new Rotation2d(0)),
-        VecBuilder.fill(x, y));
+        new Pose2d(2.763724485, 4.1902085050000, new Rotation2d(0)), VecBuilder.fill(x, y));
   }
 }
