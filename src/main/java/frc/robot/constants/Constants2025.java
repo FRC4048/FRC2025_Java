@@ -11,6 +11,7 @@ public class Constants2025 extends GameConstants {
   // Coral Shooter
   public static final int SHOOTER_MOTOR_LEADER_ID = 53;
   public static final int SHOOTER_MOTOR_FOLLOWER_ID = 8;
+  public static final int SHOOTER_MOTOR_ALIGNER_ID = 10;
 
   // Algae Roller
   public static final int ALGAE_ROLLER_CAN_ID = 2;
@@ -23,7 +24,7 @@ public class Constants2025 extends GameConstants {
   public static final int ALGAE_BYEBYE_TILT_ID = 1;
 
   // Climber
-  public static final int CLIMBER_MOTOR_ID = 9; // TODO: change later
+  public static final int CLIMBER_MOTOR_ID = 61; // TODO: change later
 
   // light strip
   public static final int LIGHTSTRIP_PORT = 0; // TODO: change later
