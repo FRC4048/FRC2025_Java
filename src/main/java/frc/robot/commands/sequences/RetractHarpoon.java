@@ -5,7 +5,6 @@
 package frc.robot.commands.sequences;
 
 import frc.robot.commands.climber.ClimbToLimit;
-import frc.robot.commands.climber.DeployClimber;
 import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.commands.elevator.SetElevatorStoredPosition;
 import frc.robot.commands.elevator.WaitTillElevatorAtPosition;
@@ -17,9 +16,9 @@ import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
 /** Add your docs here. */
-public class RetractHarpoon extends LoggableSequentialCommandGroup{
-    
-    public RetractHarpoon(
+public class RetractHarpoon extends LoggableSequentialCommandGroup {
+
+  public RetractHarpoon(
       ClimberSubsystem climber,
       ElevatorSubsystem elevator,
       LightStrip lightstrip,
