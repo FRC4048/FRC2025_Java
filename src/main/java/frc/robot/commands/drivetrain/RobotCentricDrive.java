@@ -14,16 +14,16 @@ import java.util.function.DoubleSupplier;
 
 public class RobotCentricDrive extends LoggableCommand {
   private final SwerveDrivetrain drivetrain;
-  private final DoubleSupplier joystickHorizontal;
-  private final DoubleSupplier joystickVerticle;
+  private final double xMove;
+  private final double yMove;
 
   public RobotCentricDrive(
       SwerveDrivetrain drivetrain,
-      DoubleSupplier joystickHorizontal,
-      DoubleSupplier joystickVerticle) {
+      double xMove,
+      double yMove) {
     this.drivetrain = drivetrain;
-    this.joystickHorizontal = joystickHorizontal;
-    this.joystickVerticle = joystickVerticle;
+    this.xMove = xMove;
+    this.yMove = yMove;
     addRequirements(drivetrain);
   }
 
@@ -32,11 +32,7 @@ public class RobotCentricDrive extends LoggableCommand {
 
   @Override
   public void execute() {
-    double y =
-        MathUtil.applyDeadband(joystickHorizontal.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
-    double x =
-        MathUtil.applyDeadband(joystickVerticle.getAsDouble(), 0.05) * Constants.MAX_VELOCITY;
-    ChassisSpeeds speeds = drivetrain.createChassisSpeeds(x, y, 0, DriveMode.ROBOT_CENTRIC);
+    ChassisSpeeds speeds = drivetrain.createChassisSpeeds(xMove, yMove, 0, DriveMode.ROBOT_CENTRIC);
     drivetrain.drive(speeds);
   }
 
