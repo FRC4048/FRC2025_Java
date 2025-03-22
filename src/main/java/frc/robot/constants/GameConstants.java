@@ -1,11 +1,8 @@
 package frc.robot.constants;
 
-import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.math.numbers.N2;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.robot.utils.SwerveModuleProfileV2;
@@ -225,10 +222,6 @@ public class GameConstants {
   public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
 
   // Limelight
-  public static final Vector<N2> LIMELIGHT_HALF_POS =
-      new Vector<N2>(VecBuilder.fill(240, 320).div(2));
   public static final Transform3d CAMERA_TO_ROBOT =
       new Transform3d(0.0, 0.0, 0.55, new Rotation3d(0.0, 0, 0.0)); // TODO Change Later
-  public static final Vector<N2> LIMELIGHT_HALF_FOV =
-      new Vector<N2>(VecBuilder.fill(0.86742863824118179973, 1.04021623418862042785).div(2));
 }
