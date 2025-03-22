@@ -4,6 +4,7 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
@@ -20,6 +21,14 @@ public class FindCorrectBranchFromPos {
   public static final double SPECIAL_RATIO = SPECIAL_Y / SPECIAL_X;
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
+
+  public static void UnitTest1() {
+    double x = -4.1902085050000 / 3.6896079100000 * SPECIAL_X;
+    double y = 1.736182305 / 3.6896079100000 * SPECIAL_Y;
+    SmartDashboard.putString(
+        "Branch Position",
+        FindCoralBranch(new Pose2d(0, 0, new Rotation2d(0)), new Translation2d(x, y)).toString());
+  }
 
   public static BranchPositions FindCoralBranch(Pose2d robotPos, Translation2d piecePos) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);

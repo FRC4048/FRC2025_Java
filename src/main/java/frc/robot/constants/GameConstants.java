@@ -223,8 +223,7 @@ public class GameConstants {
   // Limelight
   public static final Translation2d LIMELIGHT_HALF_POS = new Translation2d(240, 320).div(2);
   public static final Transform3d CAMERA_TO_ROBOT =
-      new Transform3d(
-          0.2, 0.0, 0.2, new Rotation3d(0.0, 0.95993108859688126731, 0.0)); // TODO Change Later
+      new Transform3d(0.0, 0.0, 0.0, new Rotation3d(0.0, 0, 0.0)); // TODO Change Later
   public static final Translation2d LIMELIGHT_HALF_FOV =
       new Translation2d(0.86742863824118179973, 1.04021623418862042785).div(2);
 }

@@ -465,7 +465,7 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-
+    SmartShuffleboard.putCommand("What Branch Unit Test", "Test 1", new FindCorrectBranchFromPos.UnitTest1());
     SmartShuffleboard.putCommand("Align", "Align to Reef", new AlignClosestBranch(drivetrain));
 
     if (Constants.CORAL_DEBUG) {
