@@ -14,19 +14,24 @@ import frc.robot.constants.Constants;
 public class FindCorrectBranchFromPos {
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
-  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS;
-  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS;
+  // Precomputed vectors for positions
+  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS = precomputePositionVectors(BRANCHES);
+  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS = precomputePositionVectors(ALGAES);
 
-  static {
-    PRECOMPUTED_BRANCH_VECS = new Vector[BRANCHES.length];
-    for (int i = 0; i < BRANCHES.length; i++) {
-      PRECOMPUTED_BRANCH_VECS[i] = BRANCHES[i].getPosition().getTranslation().toVector();
+  // Precompute position vectors for any enum type with a getPosition method
+  @SuppressWarnings("unchecked")
+  private static <T extends Enum<?>> Vector<N3>[] precomputePositionVectors(T[] values) {
+    Vector<N3>[] vectors = new Vector[values.length];
+    for (int i = 0; i < values.length; i++) {
+      // Using reflection to access getPosition method - assumes the method exists on the enum
+      try {
+        Pose3d pose = (Pose3d) values[i].getClass().getMethod("getPosition").invoke(values[i]);
+        vectors[i] = pose.getTranslation().toVector();
+      } catch (Exception e) {
+        throw new RuntimeException("Failed to precompute position vectors", e);
+      }
     }
-
-    PRECOMPUTED_ALGAE_VECS = new Vector[ALGAES.length];
-    for (int i = 0; i < ALGAES.length; i++) {
-      PRECOMPUTED_ALGAE_VECS[i] = ALGAES[i].getPosition().getTranslation().toVector();
-    }
+    return vectors;
   }
 
   // PeicePos is in Radians
