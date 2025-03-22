@@ -2,6 +2,7 @@ package frc.robot.constants;
 
 public enum ElevatorPosition {
   CORAL_INTAKE(-1),
+  CLIMB(-5.2),
   LEVEL1(-3.0),
   LEVEL2(-9.28),
   LEVEL3(-24),
