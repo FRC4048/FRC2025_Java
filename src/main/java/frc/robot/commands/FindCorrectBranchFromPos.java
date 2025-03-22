@@ -14,32 +14,36 @@ public class FindCorrectBranchFromPos {
   public static final double SPECIAL_X =
       Constants.LIMELIGHT_HALF_POS.get(0) / Math.tan(Constants.LIMELIGHT_HALF_FOV.get(0));
   public static final double SPECIAL_Y =
-      Constants.LIMELIGHT_HALF_POS.get(0) / Math.tan(Constants.LIMELIGHT_HALF_FOV.get(0));
+      Constants.LIMELIGHT_HALF_POS.get(1) / Math.tan(Constants.LIMELIGHT_HALF_FOV.get(1));
   public static final double SPECIAL_RATIO = SPECIAL_Y / SPECIAL_X;
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
-  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS =
+  private static final Translation3d[] PRECOMPUTED_BRANCH_VECS =
       Arrays.stream(BranchPositions.values())
-          .map(branch -> branch.getPosition().getTranslation().toVector())
-          .toArray(Vector[]::new);
-  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS =
+          .map(branch -> branch.getPosition().getTranslation())
+          .toArray(Translation3d[]::new);
+  private static final Translation3d[] PRECOMPUTED_ALGAE_VECS =
       Arrays.stream(AlgaePositions.values())
-          .map(algae -> algae.getPosition().getTranslation().toVector())
-          .toArray(Vector[]::new);
+          .map(algae -> algae.getPosition().getTranslation())
+          .toArray(Translation3d[]::new);
 
   public static BranchPositions FindCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
-    final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
-    final Vector<N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toVector();
+    final Translation3d cameraPosVec = cameraPos.getTranslation();
+    final Rotation3d invCameraRotation = cameraPos.getRotation().unaryMinus();
     final Vector<N2> pieceTranslation = Constants.LIMELIGHT_HALF_POS.minus(piecePos);
     final Vector<N3> pieceVec =
-        VecBuilder.fill(SPECIAL_Y, pieceTranslation.get(0) * SPECIAL_RATIO, pieceTranslation.get(1))
-            .unit();
+        VecBuilder.fill(
+            SPECIAL_Y, pieceTranslation.get(0) * SPECIAL_RATIO, pieceTranslation.get(1));
     double maxDot = -1.0;
     BranchPositions closestBranch = null;
     for (int i = 0; i < BRANCHES.length; i++) {
       Vector<N3> branchVec =
-          Vector.cross(PRECOMPUTED_BRANCH_VECS[i].minus(cameraPosVec), invCameraRotation).unit();
+          PRECOMPUTED_BRANCH_VECS[i]
+              .minus(cameraPosVec)
+              .rotateBy(invCameraRotation)
+              .toVector()
+              .unit();
       double dot = pieceVec.dot(branchVec);
       if (dot > maxDot) {
         maxDot = dot;
@@ -51,17 +55,21 @@ public class FindCorrectBranchFromPos {
 
   public static AlgaePositions FindAlgae(Pose2d robotPos, Vector<N2> piecePos) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
-    final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
-    final Vector<N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toVector();
+    final Translation3d cameraPosVec = cameraPos.getTranslation();
+    final Rotation3d invCameraRotation = cameraPos.getRotation().unaryMinus();
     final Vector<N2> pieceTranslation = Constants.LIMELIGHT_HALF_POS.minus(piecePos);
     final Vector<N3> pieceVec =
-        VecBuilder.fill(SPECIAL_Y, pieceTranslation.get(0) * SPECIAL_RATIO, pieceTranslation.get(1))
-            .unit();
+        VecBuilder.fill(
+            SPECIAL_Y, pieceTranslation.get(0) * SPECIAL_RATIO, pieceTranslation.get(1));
     double maxDot = -1.0;
     AlgaePositions closestAlgae = null;
     for (int i = 0; i < ALGAES.length; i++) {
       Vector<N3> algaeVec =
-          Vector.cross(PRECOMPUTED_ALGAE_VECS[i].minus(cameraPosVec), invCameraRotation).unit();
+          PRECOMPUTED_ALGAE_VECS[i]
+              .minus(cameraPosVec)
+              .rotateBy(invCameraRotation)
+              .toVector()
+              .unit();
       double dot = pieceVec.dot(algaeVec);
       if (dot > maxDot) {
         maxDot = dot;
