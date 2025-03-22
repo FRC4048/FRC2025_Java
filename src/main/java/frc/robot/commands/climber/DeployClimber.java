@@ -40,6 +40,6 @@ public class DeployClimber extends LoggableCommand {
       timeoutCounter.increaseTimeoutCount();
       return true;
     }
-    return climber.isRetractedLimitSwitchPressed();
+    return climber.isRetractedLimitSwitchPressed() || climber.getEncoderPosition() > 50;
   }
 }

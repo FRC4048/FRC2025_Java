@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraThread;
+import frc.robot.commands.climber.ResetClimberEncoder;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.SetBaseVisionStd;
 import frc.robot.commands.drivetrain.SetInitOdom;
@@ -122,7 +123,8 @@ public class Robot extends LoggedRobot {
             Constants.currentMode == GameConstants.Mode.SIM
                 ? new DoNothingCommand()
                 : new WheelAlign(robotContainer.getDrivetrain()),
-            new ResetGyro(robotContainer.getDrivetrain()))
+            new ResetGyro(robotContainer.getDrivetrain()),
+            new ResetClimberEncoder(robotContainer.getClimber()))
         .schedule();
   }
 

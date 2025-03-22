@@ -37,8 +37,8 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final double CLIMBER_PHASE1_SPEED = 0.3; // TODO: change later
-  public static final double CLIMBER_PHASE2_SPEED = 0.3; // TODO: change later
+  public static final double CLIMBER_PHASE1_SPEED = 0.6; // TODO: change later
+  public static final double CLIMBER_PHASE2_SPEED = 0.6; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_ROLLER_SPEED = 0.5;

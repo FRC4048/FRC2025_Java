@@ -520,4 +520,8 @@ public class RobotContainer {
           "FieldSimulation/RobotPosition", driveSimulation.getSimulatedDriveTrainPose());
     }
   }
+
+  public ClimberSubsystem getClimber() {
+    return climber;
+  }
 }
