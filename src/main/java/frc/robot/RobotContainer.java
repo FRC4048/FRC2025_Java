@@ -27,6 +27,7 @@ import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.RollAlgae;
+import frc.robot.commands.UnitTester;
 import frc.robot.commands.alignment.AlignClosestBranch;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
@@ -176,7 +177,7 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
-    setupAutoChooser();
+    // setupAutoChooser();
     putShuffleboardCommands();
     pathPlannerCommands();
   }
@@ -465,7 +466,7 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-    SmartShuffleboard.putCommand("What Branch Unit Test", "Test 1", new FindCorrectBranchFromPos.UnitTest1());
+    SmartShuffleboard.putCommand("What Branch Unit Test", "Test 1", new UnitTester());
     SmartShuffleboard.putCommand("Align", "Align to Reef", new AlignClosestBranch(drivetrain));
 
     if (Constants.CORAL_DEBUG) {

@@ -4,10 +4,10 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 
 public class FindCorrectBranchFromPos {
   public static final double POS_TO_FOV_CONVERSION_X =
@@ -25,7 +25,8 @@ public class FindCorrectBranchFromPos {
   public static void UnitTest1() {
     double x = -4.1902085050000 / 3.6896079100000 * SPECIAL_X;
     double y = 1.736182305 / 3.6896079100000 * SPECIAL_Y;
-    SmartDashboard.putString(
+    SmartShuffleboard.put(
+        "What Branch Unit Test",
         "Branch Position",
         FindCoralBranch(new Pose2d(0, 0, new Rotation2d(0)), new Translation2d(x, y)).toString());
   }
