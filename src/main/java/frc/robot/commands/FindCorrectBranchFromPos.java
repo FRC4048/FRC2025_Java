@@ -8,7 +8,6 @@ import edu.wpi.first.math.numbers.N3;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
-import java.util.Arrays;
 
 public class FindCorrectBranchFromPos {
   public static final double SPECIAL_X =
@@ -32,7 +31,6 @@ public class FindCorrectBranchFromPos {
       PRECOMPUTED_ALGAE_VECS[i] = ALGAES[i].getPosition().getTranslation();
     }
   }
-
 
   public static BranchPositions FindCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
