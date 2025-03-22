@@ -18,14 +18,21 @@ public class FindCorrectBranchFromPos {
   public static final double SPECIAL_RATIO = SPECIAL_Y / SPECIAL_X;
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
-  private static final Translation3d[] PRECOMPUTED_BRANCH_VECS =
-      Arrays.stream(BranchPositions.values())
-          .map(branch -> branch.getPosition().getTranslation())
-          .toArray(Translation3d[]::new);
-  private static final Translation3d[] PRECOMPUTED_ALGAE_VECS =
-      Arrays.stream(AlgaePositions.values())
-          .map(algae -> algae.getPosition().getTranslation())
-          .toArray(Translation3d[]::new);
+  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS;
+  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS;
+
+  static {
+    PRECOMPUTED_BRANCH_VECS = new Vector[BRANCHES.length];
+    for (int i = 0; i < BRANCHES.length; i++) {
+      PRECOMPUTED_BRANCH_VECS[i] = BRANCHES[i].getPosition().getTranslation().toVector();
+    }
+
+    PRECOMPUTED_ALGAE_VECS = new Vector[ALGAES.length];
+    for (int i = 0; i < ALGAES.length; i++) {
+      PRECOMPUTED_ALGAE_VECS[i] = ALGAES[i].getPosition().getTranslation().toVector();
+    }
+  }
+
 
   public static BranchPositions FindCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
