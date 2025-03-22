@@ -249,10 +249,8 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    //    controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
-    //    controller
-        .a()
-        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+    controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    controller.a().onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
     //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
