@@ -1,6 +1,9 @@
 package frc.robot.subsystems.gyro;
 
 import com.studica.frc.AHRS;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.Vector;
+import edu.wpi.first.math.numbers.N2;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.constants.Constants;
 import java.util.concurrent.Executors;
@@ -16,13 +19,13 @@ public class ThreadedGyro {
   private final AtomicLong lastGyro;
   private final AtomicLong gyroOffset = new AtomicLong();
   private final ScheduledExecutorService executor;
-  private double currentVelocityValue;
+  private Vector<N2> currentVelocityValue;
   private double currentVelValueX;
   private double currentVelValueY;
 
   public ThreadedGyro(AHRS gyro) {
     this.gyro = gyro;
-    this.currentVelocityValue = 0;
+    this.currentVelocityValue = VecBuilder.fill(0, 0);
     this.currentVelValueX = 0;
     this.currentVelValueY = 0;
     this.lastGyro = new AtomicLong((Double.doubleToLongBits(0)));
@@ -67,14 +70,14 @@ public class ThreadedGyro {
     lastGyro.set(Double.doubleToLongBits(((gyro.getAngle()) % 360) * -1));
     currentVelValueX = gyro.getVelocityX();
     currentVelValueY = gyro.getVelocityY();
-    currentVelocityValue = Math.sqrt(Math.pow(currentVelValueX, 2) + Math.pow(currentVelValueY, 2));
+    currentVelocityValue = VecBuilder.fill(currentVelValueX, currentVelValueY);
   }
 
   public double getGyroValue() {
     return Double.longBitsToDouble(lastGyro.get());
   }
 
-  public double getVelocityValue() {
+  public Vector<N2> getVelocityValue() {
     return currentVelocityValue;
   }
 
