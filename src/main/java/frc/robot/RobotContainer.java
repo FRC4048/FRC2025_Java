@@ -22,6 +22,7 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
+import frc.robot.commands.UnitTester;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.climber.ClimbToLimit;
@@ -78,6 +79,7 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import frc.robot.utils.simulation.RobotVisualizer;
 import frc.robot.utils.simulation.SwerveSimulationUtils;
 import java.util.function.Consumer;
@@ -250,7 +252,9 @@ public class RobotContainer {
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
-    controller.a().onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+    controller
+        .a()
+        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
     //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
@@ -436,7 +440,7 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-
+    SmartShuffleboard.putCommand("What Branch Unit Test", "Test 1", new UnitTester());
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
           "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
