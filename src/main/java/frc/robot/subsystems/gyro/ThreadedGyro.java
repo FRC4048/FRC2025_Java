@@ -16,9 +16,15 @@ public class ThreadedGyro {
   private final AtomicLong lastGyro;
   private final AtomicLong gyroOffset = new AtomicLong();
   private final ScheduledExecutorService executor;
+  private double currentVelocityValue;
+  private double currentVelValueX;
+  private double currentVelValueY;
 
   public ThreadedGyro(AHRS gyro) {
     this.gyro = gyro;
+    this.currentVelocityValue = 0;
+    this.currentVelValueX = 0;
+    this.currentVelValueY = 0;
     this.lastGyro = new AtomicLong((Double.doubleToLongBits(0)));
     this.executor = Executors.newScheduledThreadPool(1);
   }
@@ -59,10 +65,17 @@ public class ThreadedGyro {
 
   private void updateGyro() {
     lastGyro.set(Double.doubleToLongBits(((gyro.getAngle()) % 360) * -1));
+    currentVelValueX = gyro.getVelocityX();
+    currentVelValueY = gyro.getVelocityY();
+    currentVelocityValue = Math.sqrt(Math.pow(currentVelValueX,2) + Math.pow(currentVelValueY, 2));
   }
 
   public double getGyroValue() {
     return Double.longBitsToDouble(lastGyro.get());
+  }
+
+  public double getVelocityValue() {
+    return currentVelocityValue;
   }
 
   public void resetGyro() {

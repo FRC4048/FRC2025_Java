@@ -199,6 +199,7 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = false;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+  public static final double COLLISION_VALUE = 10; // should be tested to find what works well
 
   public static final double ROBOT_MASS = 58.967; // In Kg, change later
   public static final double ROBOT_BUMPER_WIDTH = 0.914;
