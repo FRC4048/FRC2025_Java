@@ -67,7 +67,7 @@ public class ThreadedGyro {
     lastGyro.set(Double.doubleToLongBits(((gyro.getAngle()) % 360) * -1));
     currentVelValueX = gyro.getVelocityX();
     currentVelValueY = gyro.getVelocityY();
-    currentVelocityValue = Math.sqrt(Math.pow(currentVelValueX,2) + Math.pow(currentVelValueY, 2));
+    currentVelocityValue = Math.sqrt(Math.pow(currentVelValueX, 2) + Math.pow(currentVelValueY, 2));
   }
 
   public double getGyroValue() {

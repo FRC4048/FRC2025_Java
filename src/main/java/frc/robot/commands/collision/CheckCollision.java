@@ -1,12 +1,11 @@
 package frc.robot.commands.collision;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.math.MathUtil;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.ThreadedGyro;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.logging.commands.LoggableCommand;
+import java.util.function.DoubleSupplier;
 
 public class CheckCollision extends LoggableCommand {
   private SwerveDrivetrain drivetrain;
@@ -17,8 +16,11 @@ public class CheckCollision extends LoggableCommand {
   private double predictedVelValue;
   private boolean trustOdometry;
 
-  public CheckCollision(ThreadedGyro accelerometer, 
-  SwerveDrivetrain drivetrain, DoubleSupplier horizSupplier, DoubleSupplier vertSupplier) {
+  public CheckCollision(
+      ThreadedGyro accelerometer,
+      SwerveDrivetrain drivetrain,
+      DoubleSupplier horizSupplier,
+      DoubleSupplier vertSupplier) {
     this.drivetrain = drivetrain;
     this.horizSupplier = horizSupplier;
     this.vertSupplier = vertSupplier;
@@ -28,8 +30,7 @@ public class CheckCollision extends LoggableCommand {
   }
 
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
@@ -38,7 +39,7 @@ public class CheckCollision extends LoggableCommand {
     double y = MathUtil.applyDeadband(horizVal, 0.05) * Constants.MAX_VELOCITY / 10;
     double x = MathUtil.applyDeadband(vertVal, 0.05) * Constants.MAX_VELOCITY / 10;
     currentVelValue = accelerometer.getVelocityValue();
-    predictedVelValue = Math.sqrt(Math.pow(y,2) + Math.pow(x,2));
+    predictedVelValue = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
     if (Math.abs(currentVelValue - predictedVelValue) > Constants.COLLISION_VALUE) {
       trustOdometry = false;
     }
@@ -49,8 +50,7 @@ public class CheckCollision extends LoggableCommand {
   }
 
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   @Override
   public boolean isFinished() {
