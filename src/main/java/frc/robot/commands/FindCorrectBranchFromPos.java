@@ -29,52 +29,35 @@ public class FindCorrectBranchFromPos {
 
   // PeicePos is in Radians
   public static BranchPositions FindCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
+    return findClosestPosition(robotPos, piecePos, BRANCHES, PRECOMPUTED_BRANCH_VECS);
+  }
+  public static <T extends Enum<T>> T findClosestPosition (Pose2d robotPos, Vector<N2> piecePos, T[] values, Translation3d[] preComputedVecs) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
     final Translation3d cameraPosVec = cameraPos.getTranslation();
     final Rotation3d invCameraRotation = cameraPos.getRotation().unaryMinus();
     final Vector<N3> pieceVec =
-        VecBuilder.fill(1, Math.tan(piecePos.get(1)), Math.tan(piecePos.get(0)));
+            VecBuilder.fill(1, Math.tan(-piecePos.get(0)), Math.tan(piecePos.get(1)));
     double maxDot = -1.0;
-    BranchPositions closestBranch = null;
-    for (int i = 0; i < BRANCHES.length; i++) {
-      Vector<N3> branchVec =
-          PRECOMPUTED_BRANCH_VECS[i]
-              .minus(cameraPosVec)
-              .rotateBy(invCameraRotation)
-              .toVector()
-              .unit();
-      double dot = pieceVec.dot(branchVec);
+    T closest = null;
+    for (int i = 0; i < values.length; i++) {
+      Vector<N3> locationVec =
+              preComputedVecs[i]
+                      .minus(cameraPosVec)
+                      .rotateBy(invCameraRotation)
+                      .toVector()
+                      .unit();
+      double dot = pieceVec.dot(locationVec);
       if (dot > maxDot) {
         maxDot = dot;
-        closestBranch = BRANCHES[i];
+        closest = values[i];
       }
     }
-    return closestBranch;
+    return closest;
   }
 
   // peicepos is in Radians
   public static AlgaePositions FindAlgae(Pose2d robotPos, Vector<N2> piecePos) {
-    final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.CAMERA_TO_ROBOT);
-    final Translation3d cameraPosVec = cameraPos.getTranslation();
-    final Rotation3d invCameraRotation = cameraPos.getRotation().unaryMinus();
-    final Vector<N3> pieceVec =
-        VecBuilder.fill(1, Math.tan(-piecePos.get(0)), Math.tan(piecePos.get(1)));
-    double maxDot = -1.0;
-    AlgaePositions closestAlgae = null;
-    for (int i = 0; i < ALGAES.length; i++) {
-      Vector<N3> algaeVec =
-          PRECOMPUTED_ALGAE_VECS[i]
-              .minus(cameraPosVec)
-              .rotateBy(invCameraRotation)
-              .toVector()
-              .unit();
-      double dot = pieceVec.dot(algaeVec);
-      if (dot > maxDot) {
-        maxDot = dot;
-        closestAlgae = ALGAES[i];
-      }
-    }
-    return closestAlgae;
+    return findClosestPosition(robotPos, piecePos, ALGAES, PRECOMPUTED_ALGAE_VECS);
   }
 
   public static BranchPositions UnitTest1() {
@@ -82,6 +65,6 @@ public class FindCorrectBranchFromPos {
     double y = 0;
     return FindCoralBranch(
         new Pose2d(2.763724485, 4.1902085050000, new Rotation2d(0)),
-        new Vector<N2>(VecBuilder.fill(x, y)));
+        VecBuilder.fill(x, y));
   }
 }
