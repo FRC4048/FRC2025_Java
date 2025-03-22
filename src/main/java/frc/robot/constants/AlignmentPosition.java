@@ -11,12 +11,12 @@ import java.util.Optional;
 public enum AlignmentPosition {
   BRANCH_A(
       new Pose2d(
-          3.2576000000000, 4.0614305050000, Rotation2d.fromRadians(3.1415926535898 - Math.PI)),
+          3.2067500000000, 4.0614305050000, Rotation2d.fromRadians(3.1415926535898 - Math.PI)),
       Apriltag.EIGHTEEN,
       Apriltag.SEVEN),
   BRANCH_B(
       new Pose2d(
-          3.2576000000000, 3.7328134950000, Rotation2d.fromRadians(3.1415926535898 - Math.PI)),
+          3.2067500000000, 3.7328134950000, Rotation2d.fromRadians(3.1415926535898 - Math.PI)),
       Apriltag.EIGHTEEN,
       Apriltag.SEVEN),
   BRANCH_C(
