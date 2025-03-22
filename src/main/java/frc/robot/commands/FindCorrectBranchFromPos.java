@@ -45,13 +45,16 @@ public class FindCorrectBranchFromPos {
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
-        VecBuilder.fill(1, Math.tan(-piecePos.get(0)), Math.tan(piecePos.get(1)));
+        VecBuilder.fill(1, Math.tan(-piecePos.get(1)), Math.tan(piecePos.get(0)));
     double maxDot = -1.0;
     T closest = null;
     for (int i = 0; i < values.length; i++) {
       Matrix<N3, N1> locationVec =
           (invCameraRotation.times(preComputedVecs[i].minus(cameraPosVec)));
-      double dot = pieceVec.dot((Vector<N3>) locationVec);
+      double dot =
+          pieceVec.dot(
+              VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
+                  .unit());
       if (dot > maxDot) {
         maxDot = dot;
         closest = values[i];
