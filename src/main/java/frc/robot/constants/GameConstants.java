@@ -228,7 +228,7 @@ public class GameConstants {
   public static final Vector<N2> LIMELIGHT_HALF_POS =
       new Vector<N2>(VecBuilder.fill(240, 320).div(2));
   public static final Transform3d CAMERA_TO_ROBOT =
-      new Transform3d(0.0, 0.0, 0.0, new Rotation3d(0.0, 0, 0.0)); // TODO Change Later
+      new Transform3d(0.0, 0.0, 0.55, new Rotation3d(0.0, 0, 0.0)); // TODO Change Later
   public static final Vector<N2> LIMELIGHT_HALF_FOV =
       new Vector<N2>(VecBuilder.fill(0.86742863824118179973, 1.04021623418862042785).div(2));
 }
