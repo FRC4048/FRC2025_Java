@@ -59,7 +59,7 @@ public enum Apriltag {
     return new Translation3d(x, y, z);
   }
 
-  public double number() {
+  public int number() {
     return ordinal();
   }
 }
