@@ -18,18 +18,18 @@ public class FindCorrectBranchFromPos {
   public static final double SPECIAL_RATIO = SPECIAL_Y / SPECIAL_X;
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
-  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS;
-  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS;
+  private static final Translation3d[] PRECOMPUTED_BRANCH_VECS;
+  private static final Translation3d[] PRECOMPUTED_ALGAE_VECS;
 
   static {
-    PRECOMPUTED_BRANCH_VECS = new Vector[BRANCHES.length];
+    PRECOMPUTED_BRANCH_VECS = new Translation3d[BRANCHES.length];
     for (int i = 0; i < BRANCHES.length; i++) {
-      PRECOMPUTED_BRANCH_VECS[i] = BRANCHES[i].getPosition().getTranslation().toVector();
+      PRECOMPUTED_BRANCH_VECS[i] = BRANCHES[i].getPosition().getTranslation();
     }
 
-    PRECOMPUTED_ALGAE_VECS = new Vector[ALGAES.length];
+    PRECOMPUTED_ALGAE_VECS = new Translation3d[ALGAES.length];
     for (int i = 0; i < ALGAES.length; i++) {
-      PRECOMPUTED_ALGAE_VECS[i] = ALGAES[i].getPosition().getTranslation().toVector();
+      PRECOMPUTED_ALGAE_VECS[i] = ALGAES[i].getPosition().getTranslation();
     }
   }
 
