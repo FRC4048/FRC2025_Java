@@ -176,6 +176,7 @@ public class RobotContainer {
     }
     setupDriveTrain();
     configureBindings();
+    setupPathPlanning();
     setupAutoChooser();
     putShuffleboardCommands();
     pathPlannerCommands();
@@ -222,7 +223,6 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "ElevatorToPositionL4",
         new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevatorSubsystem, lightStrip));
-    setupPathPlanning();
   }
 
   private void configureBindings() {
