@@ -1,6 +1,9 @@
 package frc.robot.commands.collision;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.Vector;
+import edu.wpi.first.math.numbers.N2;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.gyro.ThreadedGyro;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
@@ -12,8 +15,8 @@ public class CheckCollision extends LoggableCommand {
   private DoubleSupplier horizSupplier;
   private final DoubleSupplier vertSupplier;
   private ThreadedGyro accelerometer;
-  private double currentVelValue;
-  private double predictedVelValue;
+  private Vector<N2> currentVelValue;
+  private Vector<N2> predictedVelValue;
   private boolean trustOdometry;
 
   public CheckCollision(
@@ -39,8 +42,9 @@ public class CheckCollision extends LoggableCommand {
     double y = MathUtil.applyDeadband(horizVal, 0.05) * Constants.MAX_VELOCITY / 10;
     double x = MathUtil.applyDeadband(vertVal, 0.05) * Constants.MAX_VELOCITY / 10;
     currentVelValue = accelerometer.getVelocityValue();
-    predictedVelValue = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
-    if (Math.abs(currentVelValue - predictedVelValue) > Constants.COLLISION_VALUE) {
+    predictedVelValue = VecBuilder.fill(x, y);
+    Vector<N2> diff = currentVelValue.minus(predictedVelValue);
+    if (diff.dot(diff) > Constants.COLLISION_VALUE) {
       trustOdometry = false;
     }
   }
