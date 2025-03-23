@@ -25,7 +25,6 @@ import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.UnitTester;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
-import frc.robot.commands.climber.ClimbToLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -255,7 +254,9 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    controller
+        .b()
+        .onTrue(new RetractHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
     controller
         .a()
         .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
@@ -272,7 +273,7 @@ public class RobotContainer {
         .back()
         //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,
         // hihiExtender));
-        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem));
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, climber));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     //    if (Constants.COMMAND_DEBUG) {
