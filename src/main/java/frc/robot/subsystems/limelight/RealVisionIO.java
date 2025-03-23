@@ -8,7 +8,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Robot;
-import frc.robot.commands.FindCorrectBranchFromPos;
+import frc.robot.commands.GamePieceLocate;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.diag.DiagLimelight;
@@ -46,10 +46,10 @@ public class RealVisionIO implements VisionIO {
     inputs.ty = ty.getDouble(0);
     if (inputs.tv != 0) {
       inputs.coralSeen.add(
-          FindCorrectBranchFromPos.FindCoralBranch(
+          GamePieceLocate.findCoralBranch(
               drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0))));
       inputs.algaeSeen.add(
-          FindCorrectBranchFromPos.FindAlgae(
+          GamePieceLocate.findAlgaePos(
               drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0))));
     }
   }

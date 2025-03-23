@@ -11,31 +11,25 @@ import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
 
-public class FindCorrectBranchFromPos {
+import java.util.Arrays;
+
+public class GamePieceLocate {
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
   // Precomputed vectors for positions
-  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS = precomputePositionVectors(BRANCHES);
-  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS = precomputePositionVectors(ALGAES);
+  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS = Arrays.stream(BranchPositions.values())
+          .map(branch -> branch.getPosition().getTranslation().toVector())
+          .toArray(Vector[]::new);;
 
-  // Precompute position vectors for any enum type with a getPosition method
-  @SuppressWarnings("unchecked")
-  private static <T extends Enum<?>> Vector<N3>[] precomputePositionVectors(T[] values) {
-    Vector<N3>[] vectors = new Vector[values.length];
-    for (int i = 0; i < values.length; i++) {
-      // Using reflection to access getPosition method - assumes the method exists on the enum
-      try {
-        Pose3d pose = (Pose3d) values[i].getClass().getMethod("getPosition").invoke(values[i]);
-        vectors[i] = pose.getTranslation().toVector();
-      } catch (Exception e) {
-        throw new RuntimeException("Failed to precompute position vectors", e);
-      }
-    }
-    return vectors;
-  }
+  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS = Arrays.stream(AlgaePositions.values())
+          .map(algae -> algae.getPosition().getTranslation().toVector())
+          .toArray(Vector[]::new);
+
+
+
 
   // PeicePos is in Radians
-  public static BranchPositions FindCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
+  public static BranchPositions findCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
     return findClosestPosition(robotPos, piecePos, BRANCHES, PRECOMPUTED_BRANCH_VECS);
   }
 
@@ -64,13 +58,13 @@ public class FindCorrectBranchFromPos {
   }
 
   // peicepos is in Radians
-  public static AlgaePositions FindAlgae(Pose2d robotPos, Vector<N2> piecePos) {
+  public static AlgaePositions findAlgaePos(Pose2d robotPos, Vector<N2> piecePos) {
     return findClosestPosition(robotPos, piecePos, ALGAES, PRECOMPUTED_ALGAE_VECS);
   }
 
   public static AlgaePositions UnitTest1() {
     double x = 0.31119220563058896357;
     double y = 0.06719517620178168871;
-    return FindAlgae(new Pose2d(2.614524485, 4.0259, new Rotation2d(0)), VecBuilder.fill(x, y));
+    return findAlgaePos(new Pose2d(2.614524485, 4.0259, new Rotation2d(0)), VecBuilder.fill(x, y));
   }
 }

@@ -6,7 +6,7 @@ import frc.robot.utils.shuffleboard.SmartShuffleboard;
 public class UnitTester extends Command {
   @Override
   public void execute() {
-    SmartShuffleboard.put("Branch", "Branch", FindCorrectBranchFromPos.UnitTest1().toString());
+    SmartShuffleboard.put("Branch", "Branch", GamePieceLocate.UnitTest1().toString());
   }
 
   @Override
