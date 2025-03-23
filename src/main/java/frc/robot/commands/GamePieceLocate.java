@@ -10,23 +10,22 @@ import edu.wpi.first.math.numbers.N3;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
-
 import java.util.Arrays;
 
 public class GamePieceLocate {
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
   // Precomputed vectors for positions
-  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS = Arrays.stream(BranchPositions.values())
+  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS =
+      Arrays.stream(BranchPositions.values())
           .map(branch -> branch.getPosition().getTranslation().toVector())
-          .toArray(Vector[]::new);;
+          .toArray(Vector[]::new);
+  ;
 
-  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS = Arrays.stream(AlgaePositions.values())
+  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS =
+      Arrays.stream(AlgaePositions.values())
           .map(algae -> algae.getPosition().getTranslation().toVector())
           .toArray(Vector[]::new);
-
-
-
 
   // PeicePos is in Radians
   public static BranchPositions findCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
