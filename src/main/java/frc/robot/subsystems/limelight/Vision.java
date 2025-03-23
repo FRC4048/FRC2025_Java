@@ -7,17 +7,15 @@ package frc.robot.subsystems.limelight;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
-import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
+import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import java.util.ArrayList;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
-  SwerveDrivetrain drivetrain;
 
-  public Vision(VisionIO io, SwerveDrivetrain drivetrain) {
+  public Vision(VisionIO io) {
     system = new LoggableSystem<>(io, new VisionInputs("limelight"));
-    this.drivetrain = drivetrain;
   }
 
   /**
@@ -49,5 +47,11 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     system.updateInputs();
+    if (getAllAlgaePosition() != null) {
+      SmartShuffleboard.put("peice pos", "Algae", getAllAlgaePosition());
+    }
+    if (getAllBranchPosition() != null) {
+      SmartShuffleboard.put("peice pos", "Coral", getAllBranchPosition());
+    }
   }
 }

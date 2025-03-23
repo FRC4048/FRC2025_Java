@@ -23,8 +23,12 @@ public class VisionInputs extends FolderLoggableInputs {
     table.put("tv", tv);
     table.put("tx", tx);
     table.put("ty", ty);
-    table.put("coralSeen", coralSeen.toArray(BranchPositions[]::new));
-    table.put("algaeSeen", algaeSeen.toArray(AlgaePositions[]::new));
+    if (coralSeen != null) {
+      table.put("coralSeen", coralSeen.toArray(BranchPositions[]::new));
+    }
+    if (algaeSeen != null) {
+      table.put("algaeSeen", algaeSeen.toArray(AlgaePositions[]::new));
+    }
   }
 
   @Override

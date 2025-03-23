@@ -63,6 +63,8 @@ import frc.robot.subsystems.gyro.*;
 import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.subsystems.lightStrip.MockLightStripIO;
 import frc.robot.subsystems.lightStrip.RealLightStripIO;
+import frc.robot.subsystems.limelight.RealVisionIO;
+import frc.robot.subsystems.limelight.Vision;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -105,6 +107,7 @@ public class RobotContainer {
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private RobotVisualizer robotVisualizer = null;
   private SwerveDriveSimulation driveSimulation;
+  private final Vision vision;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -163,6 +166,7 @@ public class RobotContainer {
       }
     }
     setupDriveTrain();
+    vision = new Vision(new RealVisionIO(drivetrain));
     configureBindings();
     setupAutoChooser();
     putShuffleboardCommands();
