@@ -17,17 +17,17 @@ public class GamePieceLocate {
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
   // Precomputed vectors for positions
   private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS =
-      Arrays.stream(BranchPositions.values())
+      Arrays.stream(BRANCHES)
           .map(branch -> branch.getPosition().getTranslation().toVector())
           .toArray(Vector[]::new);
   ;
 
   private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS =
-      Arrays.stream(AlgaePositions.values())
+      Arrays.stream(ALGAES)
           .map(algae -> algae.getPosition().getTranslation().toVector())
           .toArray(Vector[]::new);
 
-  // PeicePos is in Radians
+  // Piece Pos is in Radians
   public static BranchPositions findCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
     return findClosestPosition(robotPos, piecePos, BRANCHES, PRECOMPUTED_BRANCH_VECS);
   }
@@ -56,7 +56,7 @@ public class GamePieceLocate {
     return closest;
   }
 
-  // peicepos is in Radians
+  // piece pos is in Radians
   public static AlgaePositions findAlgaePos(Pose2d robotPos, Vector<N2> piecePos) {
     return findClosestPosition(robotPos, piecePos, ALGAES, PRECOMPUTED_ALGAE_VECS);
   }
