@@ -4,26 +4,25 @@
 
 package frc.robot.commands.drivetrain;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import frc.robot.constants.Constants;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.DriveMode;
 import frc.robot.utils.logging.commands.LoggableCommand;
-import java.util.function.DoubleSupplier;
 
 public class RobotCentricDrive extends LoggableCommand {
   private final SwerveDrivetrain drivetrain;
   private final double xMove;
-  private final double yMove;
+  private final double time;
+  private final Timer timer;
 
   public RobotCentricDrive(
       SwerveDrivetrain drivetrain,
-      double xMove,
-      double yMove) {
+      double xMove, double time) {
     this.drivetrain = drivetrain;
     this.xMove = xMove;
-    this.yMove = yMove;
+    this.time = time;
+    timer = new Timer();
     addRequirements(drivetrain);
   }
 
@@ -32,15 +31,18 @@ public class RobotCentricDrive extends LoggableCommand {
 
   @Override
   public void execute() {
-    ChassisSpeeds speeds = drivetrain.createChassisSpeeds(xMove, yMove, 0, DriveMode.ROBOT_CENTRIC);
+    ChassisSpeeds speeds = drivetrain.createChassisSpeeds(xMove, 0, 0, DriveMode.ROBOT_CENTRIC);
     drivetrain.drive(speeds);
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    ChassisSpeeds speeds = drivetrain.createChassisSpeeds(0, 0, 0, DriveMode.FIELD_CENTRIC);
+    drivetrain.drive(speeds);
+  }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.hasElapsed(time);
   }
 }
