@@ -267,7 +267,7 @@ public class RobotContainer {
         .back()
         //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,
         // hihiExtender));
-        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem));
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, climber));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     //    if (Constants.COMMAND_DEBUG) {
