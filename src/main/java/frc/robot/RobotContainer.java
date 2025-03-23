@@ -48,6 +48,10 @@ import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.SimAlgaeByeByeTiltIO;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.climber.MockClimberIO;
+import frc.robot.subsystems.climber.RealClimberIO;
+import frc.robot.subsystems.climber.SimClimberIO;
 import frc.robot.subsystems.coral.*;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
@@ -90,7 +94,7 @@ public class RobotContainer {
   //  private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
-  //  private final ClimberSubsystem climber;
+  private final ClimberSubsystem climber;
   private final LightStrip lightStrip;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
@@ -108,7 +112,7 @@ public class RobotContainer {
         coralSubsystem =
             new CoralSubsystem(
                 new RealCoralIOFollower(), new RealCoralIOLeader(), new RealCoralIOAligner());
-        //                climber = new ClimberSubsystem(new RealClimberIO());
+        climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new RealLightStripIO());
@@ -120,7 +124,7 @@ public class RobotContainer {
         coralSubsystem =
             new CoralSubsystem(
                 new MockCoralIOFollower(), new MockCoralIOLeader(), new MockCoralIOAligner());
-        //                climber = new ClimberSubsystem(new MockClimberIO());
+        climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new MockLightStripIO());
@@ -142,7 +146,7 @@ public class RobotContainer {
                 new SimCoralIOFollower(),
                 new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()),
                 new SimCoralIOAligner(robotVisualizer.getCoralRollerLigament()));
-        //        climber = new ClimberSubsystem(new SimClimberIO());
+        climber = new ClimberSubsystem(new SimClimberIO());
         byebyeTilt =
             new AlgaeByeByeTiltSubsystem(
                 new SimAlgaeByeByeTiltIO(robotVisualizer.getAlgaeByeByeTiltLigament()));
@@ -244,10 +248,21 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    //    controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
-    //    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
+    controller
+        .b()
+        .onTrue(new RetractHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+    controller
+        .a()
+        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+    //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
+    // new Trigger(() -> controller.getRightY() > Constants.CLIMBER_DEADBAND)
+    //     .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip,
+    // ElevatorPosition.LEVEL1));
+
+    // new Trigger(() -> controller.getRightY() < -Constants.CLIMBER_DEADBAND)
+    //     .onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
         .back()
         //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,

@@ -37,7 +37,8 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
+  public static final double CLIMBER_PHASE1_SPEED = 0.3; // TODO: change later
+  public static final double CLIMBER_PHASE2_SPEED = 0.3; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_ROLLER_SPEED = 0.5;
@@ -71,7 +72,7 @@ public class GameConstants {
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
-  public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
+  public static final int CLIMBER_PHASE2_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
   public static final double INTAKE_LED_STRIP_TIME = 1;
@@ -179,6 +180,11 @@ public class GameConstants {
   public static final double FRONT_LEFT_ABS_ENCODER_ZERO = -0.059082; // TODO: change later
   public static final double BACK_LEFT_ABS_ENCODER_ZERO = 0.379150; // TODO: change later
   public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.100586; // TODO: change later
+
+  // Climber
+  public static final double CLIMBER_PHASE1_POSITION = 150.0;
+  public static final double CLIMBER_DEADBAND = 0.4;
+  public static final double CLIMBER_DEPLOY_HARPOON_TIMEOUT = 10;
 
   // Drivetrain
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
