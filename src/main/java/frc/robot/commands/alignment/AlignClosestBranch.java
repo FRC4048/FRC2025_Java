@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.constants.AlignmentPosition;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
+import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import org.littletonrobotics.junction.Logger;
@@ -12,12 +14,14 @@ import org.littletonrobotics.junction.Logger;
 public class AlignClosestBranch extends LoggableCommand {
   private AlignmentPosition alignmentTarget;
   private final SwerveDrivetrain drivetrain;
+  private final LightStrip light;
   private LoggableCommand followTrajectory;
   private final Timer timer = new Timer();
 
-  public AlignClosestBranch(SwerveDrivetrain drivetrain) {
+  public AlignClosestBranch(SwerveDrivetrain drivetrain, LightStrip lightStrip) {
     this.drivetrain = drivetrain;
-    addRequirements(drivetrain);
+    this.light = lightStrip;
+    addRequirements(drivetrain, lightStrip);
   }
 
   @Override
@@ -46,6 +50,14 @@ public class AlignClosestBranch extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return followTrajectory.isFinished() || timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT);
+    if (followTrajectory.isFinished()) {
+      light.setPattern(BlinkinPattern.LAWN_GREEN);
+      return true;
+    } else if (timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT)) {
+      light.setPattern(BlinkinPattern.HEARTBEAT_RED);
+      return true;
+    } else {
+      return false;
+    }
   }
 }
