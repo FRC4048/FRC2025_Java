@@ -250,7 +250,9 @@ public class RobotContainer {
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
     controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
-    controller.a().onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+    controller
+        .a()
+        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
     //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
@@ -264,7 +266,7 @@ public class RobotContainer {
         .back()
         //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,
         // hihiExtender));
-        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem));
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, climber));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     //    if (Constants.COMMAND_DEBUG) {

@@ -25,7 +25,7 @@ public class ClimbToLimit extends LoggableCommand {
   @Override
   public void initialize() {
     isRetractedLimitSwitchPressed =
-        climber.isRetractedLimitSwitchPressed() || climber.getEncoderPosition() > 50;
+        climber.isRetractedLimitSwitchPressed() || climber.getEncoderPosition() > 110;
     climber.setLimitSwitchState(true);
     timer.restart();
   }
