@@ -242,7 +242,7 @@ public class RobotContainer {
         .povRight()
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
-    //controller.rightBumper().onTrue(); noahs align 
+    // controller.rightBumper().onTrue(); noahs align
     controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
