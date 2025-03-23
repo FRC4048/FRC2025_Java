@@ -224,4 +224,5 @@ public class GameConstants {
   // Limelight
   public static final Transform3d CAMERA_TO_ROBOT =
       new Transform3d(0.0, 0.0, 0.55, new Rotation3d(0.0, 0, 0.0)); // TODO Change Later
+  public static final String LIMELIGHT_IP_ADDRESS = "10.40.48.36"; // TODO Change Later
 }
