@@ -143,13 +143,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     setModuleStates(swerveModuleStates);
   }
 
-  public ChassisSpeeds speedsFromStates() {
-    return kinematics.toChassisSpeeds(
-        frontLeft.getLatestState(),
-        frontRight.getLatestState(),
-        backLeft.getLatestState(),
-        backRight.getLatestState());
-  }
+
 
   private void setModuleStates(SwerveModuleState[] desiredStates) {
     Logger.recordOutput("desiredStates", desiredStates);
