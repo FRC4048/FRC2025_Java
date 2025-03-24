@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.utils;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -180,11 +180,5 @@ public class GamePieceLocate {
       }
     }
     return closest;
-  }
-
-  public static AlgaePositions UnitTest1() {
-    double x = 0.31119220563058896357;
-    double y = 0.06719517620178168871;
-    return findAlgaePos(new Pose2d(2.614524485, 4.0259, new Rotation2d(0)), VecBuilder.fill(x, y));
   }
 }
