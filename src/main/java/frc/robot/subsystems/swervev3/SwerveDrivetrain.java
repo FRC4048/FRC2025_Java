@@ -143,8 +143,6 @@ public class SwerveDrivetrain extends SubsystemBase {
     setModuleStates(swerveModuleStates);
   }
 
-
-
   private void setModuleStates(SwerveModuleState[] desiredStates) {
     Logger.recordOutput("desiredStates", desiredStates);
     frontLeft.setState(desiredStates[0]);

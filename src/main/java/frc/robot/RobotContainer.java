@@ -447,7 +447,7 @@ public class RobotContainer {
     AutoBuilder.configure(
         drivetrain::getPose,
         drivetrain::resetOdometry,
-        drivetrain::speedsFromStates,
+        drivetrain::getChassisSpeeds,
         drivetrain::drive,
         new PPHolonomicDriveController(
             new PIDConstants(
