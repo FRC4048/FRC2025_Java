@@ -8,9 +8,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Robot;
-import frc.robot.commands.GamePieceLocate;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
+import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.diag.DiagLimelight;
 import java.util.Map;
 

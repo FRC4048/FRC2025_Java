@@ -22,7 +22,6 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
-import frc.robot.commands.UnitTester;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.coral.IntakeCoral;
@@ -80,7 +79,6 @@ import frc.robot.utils.ModulePosition;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import frc.robot.utils.simulation.RobotVisualizer;
 import frc.robot.utils.simulation.SwerveSimulationUtils;
 import java.util.function.Consumer;
@@ -445,7 +443,6 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-    SmartShuffleboard.putCommand("What Branch Unit Test", "Test 1", new UnitTester());
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
           "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
