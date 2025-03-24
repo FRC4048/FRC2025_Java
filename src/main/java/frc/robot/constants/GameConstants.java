@@ -161,6 +161,9 @@ public class GameConstants {
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.2; // TODO: change later
   public static final double BYEBYE_TILT_LENGTH = 0.2; // TODO: change later
+  public static final double INITIAL_CLIMBER_HEIGHT = 0.2;
+  public static final double CLIMBER_BASE_LENGTH = 0.2;
+  public static final double CLIMBER_ARM_LENGTH = 0.2;
 
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE = Rotation2d.fromDegrees(0);
