@@ -16,8 +16,8 @@ public class FieldZoneUtils {
     Optional<DriverStation.Alliance> al = Robot.getAllianceColor();
     if ((x < Barge.RIGHT_HIGHER.getX()) && (x > Barge.LEFT_LOWER.getX()) && (al.isPresent())) {
       return al.get().equals(Alliance.Red)
-          ? (y < Barge.RIGHT_HIGHER.getYFromAlliaceColor())
-          : (y > Barge.RIGHT_HIGHER.getYFromAlliaceColor());
+          ? (y < Barge.RIGHT_HIGHER.getY())
+          : (y > Barge.RIGHT_HIGHER.getY());
     }
     return false;
   }

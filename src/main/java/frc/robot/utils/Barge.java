@@ -31,7 +31,7 @@ public enum Barge {
     return AllianceColor.equals(Alliance.Blue) ? y : y + 4;
   }
 
-  public double getYFromAlliaceColor() {
+  public double getY() {
     return Robot.getAllianceColor().isPresent()
         ? Robot.getAllianceColor().get().equals(Alliance.Blue) ? y : y + 4
         : y;
