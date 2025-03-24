@@ -35,7 +35,7 @@ public class GamePieceLocate {
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
         VecBuilder.fill(1, -Math.tan(piecePos.get(1)), -Math.tan(piecePos.get(0))).unit();
-    double maxDot = Constants.MINUMUM_PIECE_DETECTION_DOT;
+    double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     BranchPositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
     if (n == 0) {

@@ -3,8 +3,6 @@ package frc.robot.subsystems.limelight;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
-import java.util.ArrayList;
-import java.util.List;
 import org.littletonrobotics.junction.LogTable;
 
 public class VisionInputs extends FolderLoggableInputs {

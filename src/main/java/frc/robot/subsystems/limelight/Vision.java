@@ -9,7 +9,6 @@ import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
-import java.util.ArrayList;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
@@ -36,11 +35,11 @@ public class Vision extends SubsystemBase {
     return system.getInputs().tv != 0;
   }
 
-  public ArrayList<BranchPositions> getAllBranchPosition() {
+  public BranchPositions[] getAllBranchPosition() {
     return system.getInputs().coralSeen;
   }
 
-  public ArrayList<AlgaePositions> getAllAlgaePosition() {
+  public AlgaePositions[] getAllAlgaePosition() {
     return system.getInputs().algaeSeen;
   }
 

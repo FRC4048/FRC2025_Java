@@ -54,14 +54,14 @@ public class RealVisionIO implements VisionIO {
       for (int i = 0; i < oldCoralArrayLength; i++) {
         newCoralArray[i] = inputs.coralSeen[i];
       }
-      newCoralArray[oldCoralArrayLength+1] =
+      newCoralArray[oldCoralArrayLength + 1] =
           GamePieceLocate.findCoralBranch(
               drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
 
       for (int i = 0; i < oldAlgaeArrayLength; i++) {
         newAlgaeArray[i] = inputs.algaeSeen[i];
       }
-      newAlgaeArray[oldAlgaeArrayLength+1] =
+      newAlgaeArray[oldAlgaeArrayLength + 1] =
           GamePieceLocate.findAlgaePos(
               drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
 
