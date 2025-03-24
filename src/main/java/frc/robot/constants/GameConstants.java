@@ -222,7 +222,7 @@ public class GameConstants {
   public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
 
   // Limelight
-  public static final Transform3d CAMERA_TO_ROBOT =
+  public static final Transform3d LIMELIGHT_TO_ROBOT =
       new Transform3d(
           0.0, 0.0, 0.720725, new Rotation3d(0.0, Math.PI / 6, 0.0)); // TODO Change Later
   public static final String LIMELIGHT_IP_ADDRESS = "10.40.48.104"; // TODO Change Later
