@@ -7,14 +7,15 @@ package frc.robot.subsystems.coral;
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
 import frc.robot.utils.simulation.IntakeSimulator;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 /** Add your docs here. */
 public class SimCoralIOLeader extends RealCoralIOLeader {
   private final IntakeSimulator simCoralIOLeader;
 
-  public SimCoralIOLeader() {
+  public SimCoralIOLeader(LoggedMechanismLigament2d ligament) {
     super();
-    simCoralIOLeader = new IntakeSimulator(shooterMotorLeader);
+    simCoralIOLeader = new IntakeSimulator(shooterMotorLeader, ligament);
   }
 
   @Override

@@ -6,22 +6,23 @@ package frc.robot.subsystems.climber;
 
 import frc.robot.constants.Constants;
 import frc.robot.utils.logging.subsystem.inputs.MotorInputs;
-import frc.robot.utils.motor.MotorSimulator;
+import frc.robot.utils.simulation.ClimberSimulator;
+import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 /** Add your docs here. */
 public class SimClimberIO extends RealClimberIO {
-  private final MotorSimulator motorSimulator;
+  private final ClimberSimulator climberSimulator;
 
-  public SimClimberIO() {
+  public SimClimberIO(LoggedMechanismLigament2d ligament) {
     super();
-    this.motorSimulator = new MotorSimulator(climberMotor);
+    this.climberSimulator = new ClimberSimulator(climberMotor, ligament);
   }
 
   @Override
   public void updateInputs(MotorInputs inputs) {
     super.updateInputs(inputs);
     if (Constants.currentMode == Constants.Mode.SIM) {
-      motorSimulator.stepSimulation();
+      climberSimulator.stepSimulation();
     }
   }
 }
