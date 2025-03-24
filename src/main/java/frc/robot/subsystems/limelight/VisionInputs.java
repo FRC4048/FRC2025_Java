@@ -11,8 +11,8 @@ public class VisionInputs extends FolderLoggableInputs {
   public double tv = 0;
   public double tx = 0;
   public double ty = 0;
-  public ArrayList<BranchPositions> coralSeen;
-  public ArrayList<AlgaePositions> algaeSeen;
+  public BranchPositions[] coralSeen;
+  public AlgaePositions[] algaeSeen;
 
   public VisionInputs(String folder) {
     super(folder);
@@ -23,12 +23,8 @@ public class VisionInputs extends FolderLoggableInputs {
     table.put("tv", tv);
     table.put("tx", tx);
     table.put("ty", ty);
-    if (coralSeen != null) {
-      table.put("coralSeen", coralSeen.toArray(BranchPositions[]::new));
-    }
-    if (algaeSeen != null) {
-      table.put("algaeSeen", algaeSeen.toArray(AlgaePositions[]::new));
-    }
+    table.put("coralSeen", coralSeen);
+    table.put("algaeSeen", algaeSeen);
   }
 
   @Override
@@ -36,9 +32,7 @@ public class VisionInputs extends FolderLoggableInputs {
     tv = table.get("tv", tv);
     tx = table.get("tx", tx);
     ty = table.get("ty", ty);
-    coralSeen =
-        new ArrayList<>(List.of(table.get("coralSeen", coralSeen.toArray(BranchPositions[]::new))));
-    algaeSeen =
-        new ArrayList<>(List.of(table.get("algaeSeen", algaeSeen.toArray(AlgaePositions[]::new))));
+    coralSeen = table.get("coralSeen", coralSeen);
+    algaeSeen = table.get("algaeSeen", algaeSeen);
   }
 }

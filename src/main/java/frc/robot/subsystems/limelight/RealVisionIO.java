@@ -8,6 +8,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Robot;
+import frc.robot.constants.AlgaePositions;
+import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.utils.GamePieceLocate;
@@ -45,12 +47,26 @@ public class RealVisionIO implements VisionIO {
     inputs.tx = tx.getDouble(0);
     inputs.ty = ty.getDouble(0);
     if (inputs.tv != 0) {
-      inputs.coralSeen.add(
+      BranchPositions[] newCoralArray = new BranchPositions[inputs.coralSeen.length + 1];
+      AlgaePositions[] newAlgaeArray = new AlgaePositions[inputs.algaeSeen.length + 1];
+      int oldCoralArrayLength = inputs.coralSeen.length;
+      int oldAlgaeArrayLength = inputs.algaeSeen.length;
+      for (int i = 0; i < oldCoralArrayLength; i++) {
+        newCoralArray[i] = inputs.coralSeen[i];
+      }
+      newCoralArray[oldCoralArrayLength+1] =
           GamePieceLocate.findCoralBranch(
-              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0))));
-      inputs.algaeSeen.add(
+              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
+
+      for (int i = 0; i < oldAlgaeArrayLength; i++) {
+        newAlgaeArray[i] = inputs.algaeSeen[i];
+      }
+      newAlgaeArray[oldAlgaeArrayLength+1] =
           GamePieceLocate.findAlgaePos(
-              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0))));
+              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
+
+      inputs.coralSeen = newCoralArray;
+      inputs.algaeSeen = newAlgaeArray;
     }
   }
 }
