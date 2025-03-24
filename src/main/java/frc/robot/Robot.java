@@ -16,6 +16,7 @@ import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.constants.GameConstants;
+import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
@@ -141,7 +142,7 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     mode.set(RobotMode.AUTONOMOUS);
     new SetInitOdom(robotContainer.getDrivetrain(), robotContainer.getAutoChooser()).schedule();
-    new SetBaseVisionStd(robotContainer.getDrivetrain(), VecBuilder.fill(0.45, 0.45, 0.1));
+    new SetBaseVisionStd(robotContainer.getDrivetrain(), VecBuilder.fill(0.45, 0.45, 0.1)).schedule();
     autoCommand = robotContainer.getAutonomousCommand();
     if (autoCommand != null) {
       autoCommand.schedule();
@@ -156,6 +157,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
+    new SetBaseVisionStd(robotContainer.getDrivetrain(), PoseEstimator.visionMeasurementStdDevs2).schedule();
     mode.set(RobotMode.TELEOP);
     diagnostics.reset();
     if (autoCommand != null) {

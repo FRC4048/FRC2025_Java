@@ -43,7 +43,7 @@ public class PoseEstimator {
   private int invalidCounter = 0;
 
   /* standard deviation of robot states, the lower the numbers arm, the more we trust odometry */
-  private static final Vector<N3> stateStdDevs1 = VecBuilder.fill(0.075, 0.075, 0.001);
+  public static final Vector<N3> stateStdDevs1 = VecBuilder.fill(0.075, 0.075, 0.001);
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   //  private static final Vector<N3> visionMeasurementStdDevs1 = VecBuilder.fill(0.5, 0.5, 0.5);
@@ -52,7 +52,7 @@ public class PoseEstimator {
   private static final double visionStdRateOfChange = 1;
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
-  private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.1, 0.1, 0.01);
+  public static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.1, 0.1, 0.01);
   private final FilterablePoseManager poseManager;
 
   public PoseEstimator(
