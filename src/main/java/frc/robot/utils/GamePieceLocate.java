@@ -5,7 +5,6 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N2;
 import edu.wpi.first.math.numbers.N3;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
@@ -29,12 +28,17 @@ public class GamePieceLocate {
           .toArray(Vector[]::new);
 
   // Piece Pos is in Radians
-  public static BranchPositions findCoralBranch(Pose2d robotPos, Vector<N2> piecePos) {
+  public static BranchPositions findCoralBranch(
+      Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
-        VecBuilder.fill(1, -Math.tan(piecePos.get(1)), -Math.tan(piecePos.get(0))).unit();
+        VecBuilder.fill(
+                1,
+                -Math.tan(piecePosTXDeg * Math.PI / 180),
+                -Math.tan(piecePosTYDeg * Math.PI / 180))
+            .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     BranchPositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
@@ -56,12 +60,15 @@ public class GamePieceLocate {
   }
 
   // piece pos is in Radians
-  public static AlgaePositions findAlgaePos(Pose2d robotPos, Vector<N2> piecePos) {
+  public static AlgaePositions findAlgaePos(
+      Pose2d robotPos, double piecePosXDeg, double piecePosYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
-        VecBuilder.fill(1, -Math.tan(piecePos.get(1)), -Math.tan(piecePos.get(0)));
+        VecBuilder.fill(
+                1, -Math.tan(piecePosXDeg * Math.PI / 180), -Math.tan(piecePosYDeg * Math.PI / 180))
+            .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     AlgaePositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
