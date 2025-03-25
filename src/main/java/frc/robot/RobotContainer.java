@@ -214,9 +214,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
-    new Trigger(() -> Robot.getMode() == RobotMode.TELEOP)
-        .onTrue(new RumbleController(drivetrain::getPose, controller));
+    if (Constants.RUMBLE_CONTROLLER) {
+      new Trigger(() -> Robot.getMode() == RobotMode.TELEOP)
+          .onTrue(new RumbleController(drivetrain::getPose, controller));
+    }
     lightStrip.setDefaultCommand(
         new SetLedFromElevatorPosition(elevatorSubsystem::getStoredReefPosition, lightStrip));
     drivetrain.setDefaultCommand(
