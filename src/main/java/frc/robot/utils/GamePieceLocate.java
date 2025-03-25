@@ -36,8 +36,8 @@ public class GamePieceLocate {
     final Vector<N3> pieceVec =
         VecBuilder.fill(
                 1,
-                -Math.tan(Math.toRadians(piecePosTXDeg)),
-                -Math.tan(Math.toRadians(piecePosTYDeg)))
+                -Math.tan(Math.toRadians(piecePosTYDeg)),
+                -Math.tan(Math.toRadians(piecePosTXDeg)))
             .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     BranchPositions closest = null;
@@ -68,8 +68,8 @@ public class GamePieceLocate {
     final Vector<N3> pieceVec =
         VecBuilder.fill(
                 1,
-                -Math.tan(Math.toRadians(piecePosTXDeg)),
-                -Math.tan(Math.toRadians(piecePosTYDeg)))
+                -Math.tan(Math.toRadians(piecePosTYDeg)),
+                -Math.tan(Math.toRadians(piecePosTXDeg)))
             .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     AlgaePositions closest = null;
