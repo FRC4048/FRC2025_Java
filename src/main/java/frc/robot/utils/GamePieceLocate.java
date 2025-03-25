@@ -35,7 +35,9 @@ public class GamePieceLocate {
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
         VecBuilder.fill(
-                1, -Math.tan(Math.toRadians(piecePosTXDeg)), -Math.tan(Math.toRadians(piecePosTYDeg)))
+                1,
+                -Math.tan(Math.toRadians(piecePosTXDeg)),
+                -Math.tan(Math.toRadians(piecePosTYDeg)))
             .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     BranchPositions closest = null;
@@ -64,9 +66,11 @@ public class GamePieceLocate {
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
-            VecBuilder.fill(
-                            1, -Math.tan(Math.toRadians(piecePosTXDeg)), -Math.tan(Math.toRadians(piecePosTYDeg)))
-                    .unit();
+        VecBuilder.fill(
+                1,
+                -Math.tan(Math.toRadians(piecePosTXDeg)),
+                -Math.tan(Math.toRadians(piecePosTYDeg)))
+            .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     AlgaePositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
