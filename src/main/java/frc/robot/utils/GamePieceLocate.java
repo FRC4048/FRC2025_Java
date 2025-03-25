@@ -43,7 +43,7 @@ public class GamePieceLocate {
     BranchPositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
     for (int i = 6 * n - 3; i < 6 * n + 9; i++) {
-      int f = i % BRANCHES.length;
+      int f = Math.floorMod(i, BRANCHES.length);
       Matrix<N3, N1> locationVec =
           (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[f].minus(cameraPosVec)));
       double dot =
@@ -75,7 +75,7 @@ public class GamePieceLocate {
     AlgaePositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
     for (int i = 2 * n - 2; i < 2 * n + 4; i++) {
-      int f = i % ALGAES.length;
+      int f = Math.floorMod(i, ALGAES.length);
       Matrix<N3, N1> locationVec =
           (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[f].minus(cameraPosVec)));
       double dot =
