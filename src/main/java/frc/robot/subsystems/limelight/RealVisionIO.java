@@ -33,7 +33,8 @@ public class RealVisionIO implements VisionIO {
 
   @Override
   public void updateInputs(VisionInputs inputs) {
-    //this might take a while so we might now want to update this every tick and do it in another thread.
+    // this might take a while so we might now want to update this every tick and do it in another
+    // thread.
     results = LimelightHelpers.getLatestResults("");
     LimelightHelpers.LimelightTarget_Detector[] targetsDetector = results.targets_Detector;
     int detectionLength = targetsDetector.length;

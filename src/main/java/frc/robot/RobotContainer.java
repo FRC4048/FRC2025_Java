@@ -164,7 +164,7 @@ public class RobotContainer {
       }
     }
     setupDriveTrain();
-    vision = new Vision(new RealVisionIO(drivetrain));
+    vision = new Vision(new RealVisionIO(), drivetrain::getPose);
     configureBindings();
     setupAutoChooser();
     putShuffleboardCommands();

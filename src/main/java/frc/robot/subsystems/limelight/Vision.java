@@ -11,16 +11,14 @@ import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
 import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
-import org.littletonrobotics.junction.AutoLogOutput;
-
 import java.util.ArrayList;
 import java.util.function.Supplier;
+import org.littletonrobotics.junction.AutoLogOutput;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
-    private final Supplier<Pose2d> pose2dSupplier;
-    ArrayList<AlgaePositions> currentAlgaePosition = new ArrayList<>();
+  private final Supplier<Pose2d> pose2dSupplier;
+  ArrayList<AlgaePositions> currentAlgaePosition = new ArrayList<>();
   ArrayList<BranchPositions> currentCoralPositions = new ArrayList<>();
 
   public Vision(VisionIO io, Supplier<Pose2d> pose2dSupplier) {
@@ -32,9 +30,9 @@ public class Vision extends SubsystemBase {
    * @return The piece's x offset angle in degrees and 0.0 if the piece isn't seen
    */
   public Double getPieceOffsetAngleX(int detectionIndex) {
-    if (system.getInputs().tx.length > detectionIndex){
+    if (system.getInputs().tx.length > detectionIndex) {
       return system.getInputs().tx[detectionIndex];
-    }else{
+    } else {
       return Double.NaN;
     }
   }
@@ -42,18 +40,12 @@ public class Vision extends SubsystemBase {
   /**
    * @return The piece's y offset angle in degrees and 0.0 if the piece isn't seen
    */
-  public double getPieceOffsetAngleY(int detectionIndex
-
-  ) {
-    if (system.getInputs().tx.length > detectionIndex){
-      return system.getInputs().tx[detectionIndex];
-    }else{
-      return Double.NaN;
-    }
+  public double[] getPieceOffsetAngleY() {
+    return system.getInputs().tx;
   }
 
   public boolean isPieceSeen() {
-    return system.getInputs().tv != 0;
+    return system.getInputs().valid;
   }
 
   @AutoLogOutput
@@ -70,18 +62,30 @@ public class Vision extends SubsystemBase {
   public void periodic() {
     system.updateInputs();
     locateGamePieces();
-    if (getAllAlgaePosition() != null) {
-      SmartShuffleboard.put("peice pos", "Algae", getAllAlgaePosition());
-    }
-    if (getAllBranchPosition() != null) {
-      SmartShuffleboard.put("peice pos", "Coral", getAllBranchPosition());
-    }
   }
 
   private void locateGamePieces() {
     currentAlgaePosition.clear();
     currentCoralPositions.clear();
-    //to implement detection
-
+    int detectionLength = system.getInputs().tx.length;
+    if (!system.getInputs().valid) {
+      return;
+    }
+    for (int i = 0; i < detectionLength; i++) {
+      String className = system.getInputs().className[i];
+      if (className.equalsIgnoreCase("algae")) {
+        BranchPositions coralBranch =
+            GamePieceLocate.findCoralBranch(
+                pose2dSupplier.get(),
+                VecBuilder.fill(system.getInputs().tx[i], system.getInputs().ty[i]));
+        currentCoralPositions.add(coralBranch);
+      } else if (className.equalsIgnoreCase("coral")) {
+        AlgaePositions algaePos =
+            GamePieceLocate.findAlgaePos(
+                pose2dSupplier.get(),
+                VecBuilder.fill(system.getInputs().tx[i], system.getInputs().ty[i]));
+        currentAlgaePosition.add(algaePos);
+      }
+    }
   }
 }

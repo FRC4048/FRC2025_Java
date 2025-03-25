@@ -53,7 +53,8 @@ public class VisionInputs extends FolderLoggableInputs {
     latency_pipeline = table.get("latency_pipeline", latency_pipeline);
     latency_capture = table.get("latency_capture", latency_capture);
     latency_jsonParse = table.get("latency_jsonParse", latency_jsonParse);
-    timestamp_LIMELIGHT_publish = table.get("timestamp_LIMELIGHT_publish", timestamp_LIMELIGHT_publish);
+    timestamp_LIMELIGHT_publish =
+        table.get("timestamp_LIMELIGHT_publish", timestamp_LIMELIGHT_publish);
     timestamp_RIOFPGA_capture = table.get("timestamp_RIOFPGA_capture", timestamp_RIOFPGA_capture);
     valid = table.get("valid", valid);
     className = table.get("classNames", className);
