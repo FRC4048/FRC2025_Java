@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.constants.Constants;
 import frc.robot.utils.FieldZoneUtils;
 import frc.robot.utils.logging.commands.LoggableCommand;
 import java.util.function.Supplier;
