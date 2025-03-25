@@ -1,35 +1,25 @@
 package frc.robot.subsystems.limelight;
 
 import edu.wpi.first.cscore.HttpCamera;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Robot;
-import frc.robot.constants.AlgaePositions;
-import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.swervev3.SwerveDrivetrain;
-import frc.robot.utils.GamePieceLocate;
+import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.diag.DiagLimelight;
 import java.util.Map;
 
 public class RealVisionIO implements VisionIO {
-  private final NetworkTableEntry tv;
-  private final NetworkTableEntry tx;
-  private final NetworkTableEntry ty;
-  private final SwerveDrivetrain drivetrain;
+  private LimelightHelpers.LimelightResults results;
+  private final NetworkTableEntry ledModeEntry;
 
-  public RealVisionIO(SwerveDrivetrain drivetrain) {
-    this.drivetrain = drivetrain;
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-    tv = table.getEntry("tv");
-    tx = table.getEntry("tx");
-    ty = table.getEntry("ty");
+  public RealVisionIO() {
     Robot.getDiagnostics().addDiagnosable(new DiagLimelight("Vision", "Piece Seen"));
-
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    ledModeEntry = table.getEntry("ledMode");
     HttpCamera limelightFeed =
         new HttpCamera(
             "limelight", "http://" + Constants.LIMELIGHT_IP_ADDRESS + ":5800/stream.mjpg");
@@ -43,30 +33,36 @@ public class RealVisionIO implements VisionIO {
 
   @Override
   public void updateInputs(VisionInputs inputs) {
-    inputs.tv = tv.getDouble(0);
-    inputs.tx = tx.getDouble(0);
-    inputs.ty = ty.getDouble(0);
-    if (inputs.tv != 0) {
-      BranchPositions[] newCoralArray = new BranchPositions[inputs.coralSeen.length + 1];
-      AlgaePositions[] newAlgaeArray = new AlgaePositions[inputs.algaeSeen.length + 1];
-      int oldCoralArrayLength = inputs.coralSeen.length;
-      int oldAlgaeArrayLength = inputs.algaeSeen.length;
-      for (int i = 0; i < oldCoralArrayLength; i++) {
-        newCoralArray[i] = inputs.coralSeen[i];
-      }
-      newCoralArray[oldCoralArrayLength + 1] =
-          GamePieceLocate.findCoralBranch(
-              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
-
-      for (int i = 0; i < oldAlgaeArrayLength; i++) {
-        newAlgaeArray[i] = inputs.algaeSeen[i];
-      }
-      newAlgaeArray[oldAlgaeArrayLength + 1] =
-          GamePieceLocate.findAlgaePos(
-              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
-
-      inputs.coralSeen = newCoralArray;
-      inputs.algaeSeen = newAlgaeArray;
+    // this might take a while so we might now want to update this every tick and do it in another
+    // thread.
+    results = LimelightHelpers.getLatestResults("");
+    LimelightHelpers.LimelightTarget_Detector[] targetsDetector = results.targets_Detector;
+    int detectionLength = targetsDetector.length;
+    inputs.className = new String[detectionLength];
+    inputs.classID = new double[detectionLength];
+    inputs.confidence = new double[detectionLength];
+    inputs.ta = new double[detectionLength];
+    inputs.tx = new double[detectionLength];
+    inputs.ty = new double[detectionLength];
+    inputs.tx_pixels = new double[detectionLength];
+    inputs.ty_pixels = new double[detectionLength];
+    for (int i = 0; i < detectionLength; i++) {
+      inputs.className[i] = targetsDetector[i].className;
+      inputs.classID[i] = targetsDetector[i].classID;
+      inputs.confidence[i] = targetsDetector[i].confidence;
+      inputs.ta[i] = targetsDetector[i].ta;
+      inputs.tx[i] = targetsDetector[i].tx;
+      inputs.ty[i] = targetsDetector[i].ty;
+      inputs.tx_pixels[i] = targetsDetector[i].tx_pixels;
+      inputs.ty_pixels[i] = targetsDetector[i].ty_pixels;
     }
+    inputs.pipelineID = results.pipelineID;
+    inputs.latency_pipeline = results.latency_pipeline;
+    inputs.latency_capture = results.latency_capture;
+    inputs.latency_jsonParse = results.latency_jsonParse;
+    inputs.timestamp_LIMELIGHT_publish = results.timestamp_LIMELIGHT_publish;
+    inputs.timestamp_RIOFPGA_capture = results.timestamp_RIOFPGA_capture;
+    inputs.valid = results.valid;
+    inputs.ledMode = (int) ledModeEntry.getInteger(-1);
   }
 }
