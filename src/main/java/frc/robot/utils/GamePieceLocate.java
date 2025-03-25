@@ -59,14 +59,14 @@ public class GamePieceLocate {
 
   // piece pos is in DEGREES, not RD
   public static AlgaePositions findAlgaePos(
-      Pose2d robotPos, double piecePosXDeg, double piecePosYDeg) {
+      Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
     final Vector<N3> pieceVec =
-        VecBuilder.fill(
-                1, -Math.tan(piecePosXDeg * Math.PI / 180), -Math.tan(piecePosYDeg * Math.PI / 180))
-            .unit();
+            VecBuilder.fill(
+                            1, -Math.tan(Math.toRadians(piecePosTXDeg)), -Math.tan(Math.toRadians(piecePosTYDeg)))
+                    .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     AlgaePositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
