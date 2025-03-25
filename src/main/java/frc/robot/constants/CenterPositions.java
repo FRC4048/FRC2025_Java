@@ -22,9 +22,9 @@ public enum CenterPositions {
   }
 
   public static int getClosest(Pose2d robotPose) {
-    double closeDistance = 100;
+    double closeDistance = robotPose.getTranslation().getDistance(values()[0].getPosition());
     int n = 0;
-    for (int i = 0; i < values().length; i++) {
+    for (int i = 1; i < values().length; i++) {
       double distance = robotPose.getTranslation().getDistance(values()[i].getPosition());
       if (distance < closeDistance) {
         n = i;
