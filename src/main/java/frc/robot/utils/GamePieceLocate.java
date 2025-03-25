@@ -38,70 +38,20 @@ public class GamePieceLocate {
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     BranchPositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
-    if (n == 0) {
-      for (int i = 0; i < 9; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = BRANCHES[i];
-        }
-      }
-      for (int i = 33; i < 36; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = BRANCHES[i];
-        }
-      }
-    } else if (n == 5) {
-      for (int i = 0; i < 3; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = BRANCHES[i];
-        }
-      }
-      for (int i = 6 * n - 3; i < 6 * n + 6; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = BRANCHES[i];
-        }
-      }
-    } else {
-      for (int i = 6 * n - 3; i < 6 * n + 9; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = BRANCHES[i];
-        }
+    for (int i = 6 * n - 3; i < 6 * n + 9; i++) {
+      int f = i % BRANCHES.length;
+      Matrix<N3, N1> locationVec =
+          (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[f].minus(cameraPosVec)));
+      double dot =
+          pieceVec.dot(
+              VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
+                  .unit());
+      if (dot > maxDot) {
+        maxDot = dot;
+        closest = BRANCHES[f];
       }
     }
+
     return closest;
   }
 
