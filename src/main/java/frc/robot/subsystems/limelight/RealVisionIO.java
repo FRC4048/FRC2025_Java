@@ -1,18 +1,13 @@
 package frc.robot.subsystems.limelight;
 
 import edu.wpi.first.cscore.HttpCamera;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Robot;
-import frc.robot.constants.AlgaePositions;
-import frc.robot.constants.BranchPositions;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.swervev3.SwerveDrivetrain;
-import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.diag.DiagLimelight;
 import java.util.Map;
 
@@ -20,14 +15,40 @@ public class RealVisionIO implements VisionIO {
   private final NetworkTableEntry tv;
   private final NetworkTableEntry tx;
   private final NetworkTableEntry ty;
-  private final SwerveDrivetrain drivetrain;
+  private final NetworkTableEntry txnc;
+  private final NetworkTableEntry tync;
+  private final NetworkTableEntry ta;
+  private final NetworkTableEntry tl;
+  private final NetworkTableEntry cl;
+  private final NetworkTableEntry t2d;
+  private final NetworkTableEntry getpipe;
+  private final NetworkTableEntry getpipetype;
+  private final NetworkTableEntry tclass;
+  private final NetworkTableEntry hb;
+  private final NetworkTableEntry hw;
+  private final NetworkTableEntry tcclass;
+  private final NetworkTableEntry tdclass;
+  private final NetworkTableEntry ledMode;
 
-  public RealVisionIO(SwerveDrivetrain drivetrain) {
-    this.drivetrain = drivetrain;
+  public RealVisionIO() {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     tv = table.getEntry("tv");
     tx = table.getEntry("tx");
     ty = table.getEntry("ty");
+    txnc = table.getEntry("txnc");
+    tync = table.getEntry("tync");
+    ta = table.getEntry("ta");
+    tl = table.getEntry("tl");
+    cl = table.getEntry("cl");
+    t2d = table.getEntry("t2d");
+    getpipe = table.getEntry("getpipe");
+    getpipetype = table.getEntry("getpipetype");
+    tclass = table.getEntry("tclass");
+    hb = table.getEntry("hb");
+    hw = table.getEntry("hw");
+    tcclass = table.getEntry("tcclass");
+    tdclass = table.getEntry("tdclass");
+    ledMode = table.getEntry("ledMode");
     Robot.getDiagnostics().addDiagnosable(new DiagLimelight("Vision", "Piece Seen"));
 
     HttpCamera limelightFeed =
@@ -43,30 +64,22 @@ public class RealVisionIO implements VisionIO {
 
   @Override
   public void updateInputs(VisionInputs inputs) {
-    inputs.tv = tv.getDouble(0);
-    inputs.tx = tx.getDouble(0);
-    inputs.ty = ty.getDouble(0);
-    if (inputs.tv != 0) {
-      BranchPositions[] newCoralArray = new BranchPositions[inputs.coralSeen.length + 1];
-      AlgaePositions[] newAlgaeArray = new AlgaePositions[inputs.algaeSeen.length + 1];
-      int oldCoralArrayLength = inputs.coralSeen.length;
-      int oldAlgaeArrayLength = inputs.algaeSeen.length;
-      for (int i = 0; i < oldCoralArrayLength; i++) {
-        newCoralArray[i] = inputs.coralSeen[i];
-      }
-      newCoralArray[oldCoralArrayLength + 1] =
-          GamePieceLocate.findCoralBranch(
-              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
-
-      for (int i = 0; i < oldAlgaeArrayLength; i++) {
-        newAlgaeArray[i] = inputs.algaeSeen[i];
-      }
-      newAlgaeArray[oldAlgaeArrayLength + 1] =
-          GamePieceLocate.findAlgaePos(
-              drivetrain.getPose(), VecBuilder.fill(tx.getDouble(0), ty.getDouble(0)));
-
-      inputs.coralSeen = newCoralArray;
-      inputs.algaeSeen = newAlgaeArray;
-    }
+    inputs.tv = (int) tv.getInteger(0);
+    inputs.tx = tx.getDouble(-1);
+    inputs.ty = ty.getDouble(-1);
+    inputs.txnc = txnc.getDouble(-1);
+    inputs.tync = tync.getDouble(-1);
+    inputs.ta = ta.getDouble(-1);
+    inputs.tl = tl.getDouble(-1);
+    inputs.cl = cl.getDouble(-1);
+    inputs.t2d = t2d.getDouble(-1);
+    inputs.getpipe = (int) getpipe.getInteger(-1);
+    inputs.getpipetype = getpipetype.getString("");
+    inputs.tclass = tclass.getString("");
+    inputs.hb = hb.getDouble(0);
+    inputs.hw = hw.getDoubleArray(new double[0]);
+    inputs.tcclass = tcclass.getString("");
+    inputs.tdclass = tdclass.getString("");
+    inputs.ledMode = (int) ledMode.getInteger(-1);
   }
 }

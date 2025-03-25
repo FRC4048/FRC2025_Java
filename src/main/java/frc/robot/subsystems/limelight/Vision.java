@@ -4,17 +4,28 @@
 
 package frc.robot.subsystems.limelight;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
+import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.shuffleboard.SmartShuffleboard;
+import org.littletonrobotics.junction.AutoLogOutput;
+
+import java.util.ArrayList;
+import java.util.function.Supplier;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
+    private final Supplier<Pose2d> pose2dSupplier;
+    ArrayList<AlgaePositions> currentAlgaePosition = new ArrayList<>();
+  ArrayList<BranchPositions> currentCoralPositions = new ArrayList<>();
 
-  public Vision(VisionIO io) {
-    system = new LoggableSystem<>(io, new VisionInputs("limelight"));
+  public Vision(VisionIO io, Supplier<Pose2d> pose2dSupplier) {
+    this.system = new LoggableSystem<>(io, new VisionInputs("limelight"));
+    this.pose2dSupplier = pose2dSupplier;
   }
 
   /**
@@ -35,22 +46,32 @@ public class Vision extends SubsystemBase {
     return system.getInputs().tv != 0;
   }
 
+  @AutoLogOutput
   public BranchPositions[] getAllBranchPosition() {
-    return system.getInputs().coralSeen;
+    return currentCoralPositions.toArray(BranchPositions[]::new);
   }
 
+  @AutoLogOutput
   public AlgaePositions[] getAllAlgaePosition() {
-    return system.getInputs().algaeSeen;
+    return currentAlgaePosition.toArray(AlgaePositions[]::new);
   }
 
   @Override
   public void periodic() {
     system.updateInputs();
+    locateGamePieces();
     if (getAllAlgaePosition() != null) {
       SmartShuffleboard.put("peice pos", "Algae", getAllAlgaePosition());
     }
     if (getAllBranchPosition() != null) {
       SmartShuffleboard.put("peice pos", "Coral", getAllBranchPosition());
     }
+  }
+
+  private void locateGamePieces() {
+    currentAlgaePosition.clear();
+    currentCoralPositions.clear();
+    //to implement detection
+
   }
 }
