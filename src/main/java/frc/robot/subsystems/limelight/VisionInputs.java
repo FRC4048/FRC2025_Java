@@ -4,47 +4,24 @@ import frc.robot.utils.logging.subsystem.FolderLoggableInputs;
 import org.littletonrobotics.junction.LogTable;
 
 public class VisionInputs extends FolderLoggableInputs {
-  // 1 if valid target exists. 0 if no valid targets exist
-  public int tv = 0;
-  // Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27 degrees / LL2: -29.8 to 29.8
-  // degrees)
-  public double tx = 0;
-  // Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5 degrees / LL2: -24.85 to
-  // 24.85 degrees)
-  public double ty = 0;
-  // Horizontal Offset From Principal Pixel To Target (degrees)
-  public double txnc = 0;
-  // Vertical Offset From Principal Pixel To Target (degrees)
-  public double tync = 0;
-  // Target Area (0% of image to 100% of image)
-  public double ta = 0;
-  // The pipeline's latency contribution (ms). Add to "cl" to get total latency.
-  public double tl = 0;
-  // Capture pipeline latency (ms). Time between the end of the exposure of the middle row of the
-  // sensor to the beginning of the tracking pipeline.
-  public double cl = 0;
-  // Array containing several values for matched-timestamp statistics: [targetValid, targetCount,
-  // targetLatency, captureLatency, tx, ty, txnc, tync, ta, tid, targetClassIndexDetector ,
-  // targetClassIndexClassifier, targetLongSidePixels, targetShortSidePixels,
-  // targetHorizontalExtentPixels, targetVerticalExtentPixels, targetSkewDegrees]
-  public double t2d = 0;
-  // True active pipeline index of the camera (0 .. 9)
-  public int getpipe = 0;
-  // True active pipeline index of the camera (0 .. 9)
-  public String getpipetype = "";
-  // True active pipeline index of the camera (0 .. 9)
-  public String tclass = "";
-  // heartbeat value. Increases once per frame, resets at 2 billion
-  public double hb = 0;
-  // HW metrics [fps, cpu temp, ram usage, temp]
-  public double[] hw = new double[0];
-  // Name of classifier pipeline's computed class
-  public String tcclass = "";
-  // Name of classifier pipeline's computed class
-  public String tdclass = "";
-  // green Led Mode, 0 = use the LED Mode set in the current pipeline, 1 = force off, 2 = force
-  // blink, 3 = 	force on
+  public double pipelineID;
+  public double latency_pipeline;
+  public double latency_capture;
+  public double latency_jsonParse;
+  public double timestamp_LIMELIGHT_publish;
+  public double timestamp_RIOFPGA_capture;
+  public boolean valid;
   public int ledMode = -1;
+
+  // from LimelightHelpers.LimelightTarget_Detector[]
+  public String[] className = new String[0];
+  public double[] classID = new double[0];
+  public double[] confidence = new double[0];
+  public double[] ta = new double[0];
+  public double[] tx = new double[0];
+  public double[] ty = new double[0];
+  public double[] tx_pixels = new double[0];
+  public double[] ty_pixels = new double[0];
 
   public VisionInputs(String folder) {
     super(folder);
@@ -52,43 +29,41 @@ public class VisionInputs extends FolderLoggableInputs {
 
   @Override
   public void toLog(LogTable table) {
-    table.put("tv", tv);
+    table.put("pipelineID", pipelineID);
+    table.put("latency_pipeline", latency_pipeline);
+    table.put("latency_capture", latency_capture);
+    table.put("latency_jsonParse", latency_jsonParse);
+    table.put("timestamp_LIMELIGHT_publish", timestamp_LIMELIGHT_publish);
+    table.put("timestamp_RIOFPGA_capture", timestamp_RIOFPGA_capture);
+    table.put("valid", valid);
+    table.put("classNames", className);
+    table.put("classID", classID);
+    table.put("confidence", confidence);
+    table.put("ta", ta);
     table.put("tx", tx);
     table.put("ty", ty);
-    table.put("txnc", txnc);
-    table.put("tync", tync);
-    table.put("ta", ta);
-    table.put("tl", tl);
-    table.put("cl", cl);
-    table.put("t2d", t2d);
-    table.put("getpipe", getpipe);
-    table.put("getpipetype", getpipetype);
-    table.put("tclass", tclass);
-    table.put("hb", hb);
-    table.put("hw", hw);
-    table.put("tcclass", tcclass);
-    table.put("tdclass", tdclass);
+    table.put("tx_pixels", tx_pixels);
+    table.put("ty_pixels", ty_pixels);
     table.put("ledMode", ledMode);
   }
 
   @Override
   public void fromLog(LogTable table) {
-    tv = table.get("tv", tv);
+    pipelineID = table.get("pipelineID", pipelineID);
+    latency_pipeline = table.get("latency_pipeline", latency_pipeline);
+    latency_capture = table.get("latency_capture", latency_capture);
+    latency_jsonParse = table.get("latency_jsonParse", latency_jsonParse);
+    timestamp_LIMELIGHT_publish = table.get("timestamp_LIMELIGHT_publish", timestamp_LIMELIGHT_publish);
+    timestamp_RIOFPGA_capture = table.get("timestamp_RIOFPGA_capture", timestamp_RIOFPGA_capture);
+    valid = table.get("valid", valid);
+    className = table.get("classNames", className);
+    classID = table.get("classID", classID);
+    confidence = table.get("confidence", confidence);
+    ta = table.get("ta", ta);
     tx = table.get("tx", tx);
     ty = table.get("ty", ty);
-    txnc = table.get("txnc", txnc);
-    tync = table.get("tync", tync);
-    ta = table.get("ta", ta);
-    tl = table.get("tl", tl);
-    cl = table.get("cl", cl);
-    t2d = table.get("t2d", t2d);
-    getpipe = table.get("getpipe", getpipe);
-    getpipetype = table.get("getpipetype", getpipetype);
-    tclass = table.get("tclass", tclass);
-    hb = table.get("hb", hb);
-    hw = table.get("hw", hw);
-    tcclass = table.get("tcclass", tcclass);
-    tdclass = table.get("tdclass", tdclass);
+    tx_pixels = table.get("tx_pixels", tx_pixels);
+    ty_pixels = table.get("ty_pixels", ty_pixels);
     ledMode = table.get("ledMode", ledMode);
   }
 }

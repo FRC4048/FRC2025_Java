@@ -31,15 +31,25 @@ public class Vision extends SubsystemBase {
   /**
    * @return The piece's x offset angle in degrees and 0.0 if the piece isn't seen
    */
-  public double getPieceOffsetAngleX() {
-    return system.getInputs().tx;
+  public Double getPieceOffsetAngleX(int detectionIndex) {
+    if (system.getInputs().tx.length > detectionIndex){
+      return system.getInputs().tx[detectionIndex];
+    }else{
+      return Double.NaN;
+    }
   }
 
   /**
    * @return The piece's y offset angle in degrees and 0.0 if the piece isn't seen
    */
-  public double getPieceOffsetAngleY() {
-    return system.getInputs().ty;
+  public double getPieceOffsetAngleY(int detectionIndex
+
+  ) {
+    if (system.getInputs().tx.length > detectionIndex){
+      return system.getInputs().tx[detectionIndex];
+    }else{
+      return Double.NaN;
+    }
   }
 
   public boolean isPieceSeen() {
