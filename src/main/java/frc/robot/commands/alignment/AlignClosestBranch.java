@@ -11,7 +11,7 @@ import frc.robot.utils.logging.commands.LoggableCommandWrapper;
 import org.littletonrobotics.junction.Logger;
 
 public class AlignClosestBranch extends LoggableCommand {
-    private final SwerveDrivetrain drivetrain;
+  private final SwerveDrivetrain drivetrain;
   private LoggableCommand followTrajectory;
   private final Timer timer = new Timer();
 
@@ -23,7 +23,8 @@ public class AlignClosestBranch extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    AlignmentPosition alignmentTarget = AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
+    AlignmentPosition alignmentTarget =
+        AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
     Logger.recordOutput("TargetReefAlignment", alignmentTarget);
     Pose2d position = alignmentTarget.getPosition();
     Logger.recordOutput("TargetReefPose", position);
