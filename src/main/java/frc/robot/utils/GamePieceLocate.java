@@ -74,58 +74,8 @@ public class GamePieceLocate {
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     AlgaePositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
-    if (n == 0) {
-      for (int i = 0; i < 6; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = ALGAES[i];
-        }
-      }
-      for (int i = 10; i < 12; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = ALGAES[i];
-        }
-      }
-    } else if (n == 5) {
-      for (int i = 0; i < 3; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = ALGAES[i];
-        }
-      }
-      for (int i = 8; i < 12; i++) {
-        Matrix<N3, N1> locationVec =
-            (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[i].minus(cameraPosVec)));
-        double dot =
-            pieceVec.dot(
-                VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
-                    .unit());
-        if (dot > maxDot) {
-          maxDot = dot;
-          closest = ALGAES[i];
-        }
-      }
-    } else {
       for (int i = 2 * n - 2; i < 2 * n + 4; i++) {
+        int f = i % ALGAES.length;
         Matrix<N3, N1> locationVec =
             (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[i].minus(cameraPosVec)));
         double dot =
@@ -136,7 +86,6 @@ public class GamePieceLocate {
           maxDot = dot;
           closest = ALGAES[i];
         }
-      }
     }
     return closest;
   }
