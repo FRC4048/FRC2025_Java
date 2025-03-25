@@ -27,7 +27,7 @@ public class GamePieceLocate {
           .map(algae -> algae.getPosition().getTranslation().toVector())
           .toArray(Vector[]::new);
 
-  // Piece Pos is in Radians
+  // piece pos is in DEGREES, not RD
   public static BranchPositions findCoralBranch(
       Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
@@ -57,7 +57,7 @@ public class GamePieceLocate {
     return closest;
   }
 
-  // piece pos is in Radians
+  // piece pos is in DEGREES, not RD
   public static AlgaePositions findAlgaePos(
       Pose2d robotPos, double piecePosXDeg, double piecePosYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
