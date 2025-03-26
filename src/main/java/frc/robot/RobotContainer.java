@@ -26,6 +26,7 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
+import frc.robot.commands.SuperAutoScore;
 import frc.robot.commands.alignment.AlignClosestBranch;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
@@ -233,6 +234,9 @@ public class RobotContainer {
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
     controller.rightBumper().onTrue(new AlignClosestBranch(drivetrain));
+    controller
+        .rightTrigger()
+        .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
     controller
         .leftTrigger()
         .onTrue(
