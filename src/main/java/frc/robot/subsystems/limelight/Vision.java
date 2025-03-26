@@ -12,7 +12,7 @@ import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import java.util.ArrayList;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.AutoLogOutput;
+import org.littletonrobotics.junction.Logger;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
@@ -43,12 +43,10 @@ public class Vision extends SubsystemBase {
     return system.getInputs().valid;
   }
 
-  @AutoLogOutput
   public BranchPositions[] getAllBranchPosition() {
     return currentCoralPositions.toArray(BranchPositions[]::new);
   }
 
-  @AutoLogOutput
   public AlgaePositions[] getAllAlgaePosition() {
     return currentAlgaePosition.toArray(AlgaePositions[]::new);
   }
@@ -57,6 +55,8 @@ public class Vision extends SubsystemBase {
   public void periodic() {
     system.updateInputs();
     locateGamePieces();
+    Logger.recordOutput("coralPoses", getAllBranchPosition());
+    Logger.recordOutput("algaePoses", getAllAlgaePosition());
   }
 
   private void locateGamePieces() {
@@ -68,16 +68,20 @@ public class Vision extends SubsystemBase {
     }
     for (int i = 0; i < detectionLength; i++) {
       String className = system.getInputs().className[i];
-      if (className.equalsIgnoreCase("algae")) {
+      if (className.equalsIgnoreCase("coral")) {
         BranchPositions coralBranch =
             GamePieceLocate.findCoralBranch(
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
-        currentCoralPositions.add(coralBranch);
-      } else if (className.equalsIgnoreCase("coral")) {
+        if (coralBranch != null) {
+          currentCoralPositions.add(coralBranch);
+        }
+      } else if (className.equalsIgnoreCase("algae")) {
         AlgaePositions algaePos =
             GamePieceLocate.findAlgaePos(
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
-        currentAlgaePosition.add(algaePos);
+        if (algaePos != null) {
+          currentAlgaePosition.add(algaePos);
+        }
       }
     }
   }

@@ -233,7 +233,7 @@ public class GameConstants {
 
   // Limelight
   public static final Transform3d LIMELIGHT_TO_ROBOT =
-      new Transform3d(0.0, 0.0, 0, new Rotation3d(0.0, -Math.PI / 6, 0.0)); // z = 0.720725
+      new Transform3d(0.3429, -0.0635, 0, new Rotation3d(0.0, -Math.PI / 4, 0.0)); // z = 0.720725
   public static final String LIMELIGHT_IP_ADDRESS = "10.40.48.104"; // TODO Change Later
   public static final double MINIMUM_PIECE_DETECTION_DOT = 0;
 }
