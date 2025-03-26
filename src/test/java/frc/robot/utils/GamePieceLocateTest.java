@@ -13,11 +13,10 @@ class GamePieceLocateTest {
   void findAlgaePos() {
     double robotX = Apriltag.EIGHTEEN.getX() - 0.889;
     double robotY = Apriltag.EIGHTEEN.getY();
-    double visionX = 5; // degrees
-    double visionY = -1; // degrees
+    double txDeg = 0; // degrees
+    double dyDeg = 5; // degrees
     AlgaePositions algaePos =
-        GamePieceLocate.findAlgaePos(
-            new Pose2d(robotX, robotY, new Rotation2d(0)), visionX, visionY);
+        GamePieceLocate.findAlgaePos(new Pose2d(robotX, robotY, new Rotation2d(0)), txDeg, dyDeg);
     assertEquals(AlgaePositions.Algae_AB_LOW, algaePos);
   }
 }
