@@ -6,7 +6,7 @@ import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import frc.robot.constants.AlgaePositions;
+import frc.robot.constants.AlgaePosition;
 import frc.robot.constants.BranchPositions;
 import frc.robot.constants.CenterPositions;
 import frc.robot.constants.Constants;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class GamePieceLocate {
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
-  private static final AlgaePositions[] ALGAES = AlgaePositions.values();
+  private static final AlgaePosition[] ALGAES = AlgaePosition.values();
   // Precomputed vectors for positions
   private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS =
       Arrays.stream(BRANCHES)
@@ -60,7 +60,7 @@ public class GamePieceLocate {
   }
 
   // piece pos is in DEGREES, not RD
-  public static AlgaePositions findAlgaePos(
+  public static AlgaePosition findAlgaePos(
       Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
@@ -72,7 +72,7 @@ public class GamePieceLocate {
                 Math.tan(Math.toRadians(piecePosTYDeg)))
             .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
-    AlgaePositions closest = null;
+    AlgaePosition closest = null;
     int n = CenterPositions.getClosest(robotPos);
     for (int i = 2 * n - 2; i < 2 * n + 4; i++) {
       int f = Math.floorMod(i, ALGAES.length);

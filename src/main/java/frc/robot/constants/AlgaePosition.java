@@ -3,7 +3,7 @@ package frc.robot.constants;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 
-public enum AlgaePositions {
+public enum AlgaePosition {
   Algae_AB_LOW(
       new Pose3d(
           3.8337244850000, 4.0259000000000, 0.909311815, new Rotation3d(0, 0, 3.1415926535898))),
@@ -42,7 +42,7 @@ public enum AlgaePositions {
           4.1615306625000, 4.5936769544649, 1.313978795, new Rotation3d(0, 0, 8.3775804095728)));
   private final Pose3d position;
 
-  AlgaePositions(Pose3d position) {
+  AlgaePosition(Pose3d position) {
     this.position = position;
   }
 
