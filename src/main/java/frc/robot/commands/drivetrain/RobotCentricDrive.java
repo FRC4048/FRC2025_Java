@@ -25,7 +25,9 @@ public class RobotCentricDrive extends LoggableCommand {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.restart();
+  }
 
   @Override
   public void execute() {
