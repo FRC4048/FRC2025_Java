@@ -156,8 +156,6 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
-    new SetBaseVisionStd(robotContainer.getDrivetrain(), PoseEstimator.visionMeasurementStdDevs2)
-        .schedule();
     mode.set(RobotMode.TELEOP);
     diagnostics.reset();
     if (autoCommand != null) {
