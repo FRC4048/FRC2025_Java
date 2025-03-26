@@ -1,7 +1,5 @@
 package frc.robot.subsystems.swervev3;
 
-import static edu.wpi.first.units.Units.*;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -180,6 +178,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     frontRight.stop();
     backLeft.stop();
     backRight.stop();
+  }
+
+  public void addMockVisionMeasurement() {
+    poseEstimator.addMockVisionMeasurement();
   }
 
   public void zeroRelativeEncoders() {

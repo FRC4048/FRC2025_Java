@@ -90,7 +90,7 @@ public class PoseEstimator {
                 return measurement.measurement();
               }
             },
-            new SquareVisionTruster(visionMeasurementStdDevs2, visionStdRateOfChange));
+            new SquareVisionTruster(visionMeasurementStdDevs2, 0.5));
     SmartDashboard.putData(field);
   }
 
@@ -120,6 +120,7 @@ public class PoseEstimator {
    */
   public void updateVision() {
     if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
+      long start = System.currentTimeMillis();
       for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
         double[] pos =
             new double[] {
@@ -147,6 +148,8 @@ public class PoseEstimator {
           Logger.recordOutput("Apriltag/ValidationFailureCount", invalidCounter);
         }
       }
+      long end = System.currentTimeMillis();
+      Logger.recordOutput("RegisteringVisionTimeMillis", end - start);
     }
   }
 
@@ -180,5 +183,10 @@ public class PoseEstimator {
 
   public FilterablePoseManager getPoseManager() {
     return poseManager;
+  }
+
+  public void addMockVisionMeasurement() {
+    poseManager.registerVisionMeasurement(
+        new VisionMeasurement(getEstimatedPose(), 0, Logger.getTimestamp() / 1e6));
   }
 }
