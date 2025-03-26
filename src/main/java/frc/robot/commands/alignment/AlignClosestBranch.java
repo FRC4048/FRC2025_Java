@@ -24,9 +24,9 @@ public class AlignClosestBranch extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    try{
+    try {
       AlignmentPosition alignmentTarget =
-              AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
+          AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
       Logger.recordOutput("TargetReefAlignment", alignmentTarget);
       Pose2d position = alignmentTarget.getPosition();
       Logger.recordOutput("TargetReefPose", position);
@@ -38,11 +38,10 @@ public class AlignClosestBranch extends LoggableCommand {
       // spotless:on
       followTrajectory.setParent(this);
       followTrajectory.schedule();
-    }catch (Exception e){
+    } catch (Exception e) {
       DriverStation.reportError(e.getMessage(), true);
       followTrajectory = null;
     }
-
   }
 
   @Override
@@ -55,6 +54,8 @@ public class AlignClosestBranch extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return followTrajectory == null || followTrajectory.isFinished() || timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT);
+    return followTrajectory == null
+        || followTrajectory.isFinished()
+        || timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT);
   }
 }

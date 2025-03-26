@@ -13,16 +13,16 @@ public enum AlignmentPosition {
   // spotless:off Although this makes it harder to read it makes it easy to copy and paste from sheets
   BRANCH_A(new Pose2d(3.2076000000000, 4.0614305050000, Rotation2d.fromDegrees(0)), Apriltag.EIGHTEEN, Apriltag.SEVEN),
   BRANCH_B(new Pose2d(3.2076000000000, 3.7328134950000, Rotation2d.fromRadians(0)), Apriltag.EIGHTEEN, Apriltag.SEVEN),
-  BRANCH_C(new Pose2d(3.8176981000607, 2.9336485880936, Rotation2d.fromDegrees(60)), Apriltag.SEVENTEEN, Apriltag.SIX),
-  BRANCH_D(new Pose2d(4.1022887788364, 2.7693400830936, Rotation2d.fromDegrees(60)), Apriltag.SEVENTEEN, Apriltag.SIX),
-  BRANCH_E(new Pose2d(5.0994349400607, 2.8981180830936, Rotation2d.fromDegrees(120)), Apriltag.TWENTY_TWO, Apriltag.ELEVEN),
-  BRANCH_F(new Pose2d(5.3840256188364, 3.0624265880936, Rotation2d.fromDegrees(120)), Apriltag.TWENTY_TWO, Apriltag.ELEVEN),
+  BRANCH_C(new Pose2d(3.8176981000607, 2.9336485880936, Rotation2d.fromDegrees(60)), Apriltag.SEVENTEEN, Apriltag.EIGHT),
+  BRANCH_D(new Pose2d(4.1022887788364, 2.7693400830936, Rotation2d.fromDegrees(60)), Apriltag.SEVENTEEN, Apriltag.EIGHT),
+  BRANCH_E(new Pose2d(5.0994349400607, 2.8981180830936, Rotation2d.fromDegrees(120)), Apriltag.TWENTY_TWO, Apriltag.NINE),
+  BRANCH_F(new Pose2d(5.3840256188364, 3.0624265880936, Rotation2d.fromDegrees(120)), Apriltag.TWENTY_TWO, Apriltag.NINE),
   BRANCH_G(new Pose2d(5.7710736800000, 3.9903694950000, Rotation2d.fromDegrees(180)), Apriltag.TWENTY_ONE, Apriltag.TEN),
   BRANCH_H(new Pose2d(5.7710736800000, 4.3189865050000, Rotation2d.fromDegrees(180)), Apriltag.TWENTY_ONE, Apriltag.TEN),
-  BRANCH_I(new Pose2d(5.1609755799393, 5.1181514119064, Rotation2d.fromDegrees(240)), Apriltag.TWENTY, Apriltag.NINE),
-  BRANCH_J(new Pose2d(4.8763849011636, 5.2824599169064, Rotation2d.fromDegrees(240)), Apriltag.TWENTY, Apriltag.NINE),
-  BRANCH_K(new Pose2d(3.8792387399393, 5.1536819169064, Rotation2d.fromDegrees(300)), Apriltag.NINETEEN, Apriltag.EIGHT),
-  BRANCH_L(new Pose2d(3.5946480611636, 4.9893734119064, Rotation2d.fromDegrees(300)), Apriltag.NINETEEN, Apriltag.EIGHT);
+  BRANCH_I(new Pose2d(5.1609755799393, 5.1181514119064, Rotation2d.fromDegrees(240)), Apriltag.TWENTY, Apriltag.ELEVEN),
+  BRANCH_J(new Pose2d(4.8763849011636, 5.2824599169064, Rotation2d.fromDegrees(240)), Apriltag.TWENTY, Apriltag.ELEVEN),
+  BRANCH_K(new Pose2d(3.8792387399393, 5.1536819169064, Rotation2d.fromDegrees(300)), Apriltag.NINETEEN, Apriltag.SIX),
+  BRANCH_L(new Pose2d(3.5946480611636, 4.9893734119064, Rotation2d.fromDegrees(300)), Apriltag.NINETEEN, Apriltag.SIX);
     // spotless:on
 
   private final Pose2d bluePosition;
