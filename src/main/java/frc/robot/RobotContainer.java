@@ -172,6 +172,7 @@ public class RobotContainer {
     autoChooser =
         new AutoChooser2025(
             new RealAutoEventProvider(AutoAction.DO_NOTHING, FieldLocation.ZERO),
+            drivetrain,
             elevatorSubsystem,
             coralSubsystem,
             lightStrip,
