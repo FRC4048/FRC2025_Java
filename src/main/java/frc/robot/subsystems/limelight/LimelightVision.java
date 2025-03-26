@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class LimelightVision extends SubsystemBase {
@@ -83,15 +84,16 @@ public class LimelightVision extends SubsystemBase {
     return system.getInputs().valid;
   }
 
-//  @AutoLogOutput
-//  public BranchPositions[] getAllBranchPosition() {
-//    return currentCoralPositions.toArray(BranchPositions[]::new);
-//  }
-//
-//  @AutoLogOutput
-//  public AlgaePositions[] getAllAlgaePosition() {
-//    return currentAlgaePosition.toArray(AlgaePositions[]::new);
-//  }
+  @AutoLogOutput
+  public CoralPosition[] getAllBranchPosition() {
+    return coralTracker.getReadOnlyStampedObjects().keySet().toArray(CoralPosition[]::new);
+  }
+
+  @AutoLogOutput
+  public AlgaePosition[] getAllAlgaePosition() {
+    return algaeTracker.getReadOnlyStampedObjects().keySet().toArray(AlgaePosition[]::new);
+
+  }
 
   @Override
   public void periodic() {
