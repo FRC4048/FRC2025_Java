@@ -147,7 +147,7 @@ public class RobotContainer {
                 new SimCoralIOFollower(),
                 new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()),
                 new SimCoralIOAligner(robotVisualizer.getCoralRollerLigament()));
-        climber = new ClimberSubsystem(new SimClimberIO());
+        climber = new ClimberSubsystem(new SimClimberIO(robotVisualizer.getClimberLigament()));
         byebyeTilt =
             new AlgaeByeByeTiltSubsystem(
                 new SimAlgaeByeByeTiltIO(robotVisualizer.getAlgaeByeByeTiltLigament()));
@@ -266,7 +266,7 @@ public class RobotContainer {
         .back()
         //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,
         // hihiExtender));
-        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem));
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, climber));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     //    if (Constants.COMMAND_DEBUG) {
@@ -502,6 +502,9 @@ public class RobotContainer {
     }
 
     if (Constants.CLIMBER_DEBUG) {
+      SmartDashboard.putData(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+      SmartDashboard.putData(
+          new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
       // Climber Commands
 
       //      SmartDashboard.putData( "Reset Climber", new ResetClimber(climber));

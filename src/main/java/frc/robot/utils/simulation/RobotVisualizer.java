@@ -12,6 +12,7 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 public class RobotVisualizer {
   private final LoggedMechanism2d mech2d = new LoggedMechanism2d(2, Units.feetToMeters(7));
   private final LoggedMechanismLigament2d elevatorLigament;
+  private final LoggedMechanismLigament2d climberLigament;
   private final LoggedMechanismLigament2d algaeByeByeTiltLigament;
   private final LoggedMechanismLigament2d algaeByeByeRollerLigament;
   //  private final LoggedMechanismLigament2d algaeHiHiTiltLigament;
@@ -74,6 +75,21 @@ public class RobotVisualizer {
         coralExtension.append(
             new LoggedMechanismLigament2d(
                 "CoralRoller", 0.05, 180, 5, new Color8Bit(Color.kGreen)));
+    LoggedMechanismRoot2d climberRoot =
+        mech2d.getRoot(
+            "Climber Root", Constants.DRIVE_BASE_WIDTH, Constants.INITIAL_CLIMBER_HEIGHT);
+    LoggedMechanismLigament2d climberBase =
+        climberRoot.append(
+            new LoggedMechanismLigament2d(
+                "Climber Base",
+                Constants.CLIMBER_BASE_LENGTH,
+                90,
+                4,
+                new Color8Bit(Color.kDarkGray)));
+    this.climberLigament =
+        climberBase.append(
+            new LoggedMechanismLigament2d(
+                "Climber Arm", Constants.CLIMBER_ARM_LENGTH, 0, 4, new Color8Bit(Color.kOrange)));
   }
 
   public LoggedMechanismLigament2d getElevatorLigament() {
@@ -86,6 +102,10 @@ public class RobotVisualizer {
 
   public LoggedMechanismLigament2d getAlgaeByeByeRollerLigament() {
     return algaeByeByeRollerLigament;
+  }
+
+  public LoggedMechanismLigament2d getClimberLigament() {
+    return climberLigament;
   }
 
   //  public LoggedMechanismLigament2d getAlgaeHiHiTiltLigament() {
