@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2025.3.1"
+    id "edu.wpi.first.GradleRIO" version "2025.3.2"
     id "com.peterabeles.gversion" version "1.10"
     id "com.diffplug.spotless" version "7.0.2"
 }
@@ -27,6 +27,9 @@ deploy {
             artifacts {
                 // First part is artifact name, 2nd is artifact type
                 // getTargetTypeClass is a shortcut to get the class type using a string
+
+                // cd "C:\Users\Public\wpilib\visualvm_2110\bin"
+                // visualvm --jdkhome "C:\Users\Public\wpilib\2025\jdk"
 
 
                 frcJava(getArtifactTypeClass('FRCJavaArtifact')) {
