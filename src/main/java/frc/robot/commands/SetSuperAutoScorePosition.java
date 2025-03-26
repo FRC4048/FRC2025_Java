@@ -33,13 +33,19 @@ public class SetSuperAutoScorePosition extends LoggableCommand {
     if (relevantPoses.length == 0
         || relevantPoses[0].getElevatorLevel() != ElevatorPosition.LEVEL4) {
       elevatorSubsystem.setElevatorPosition(ElevatorPosition.LEVEL4.getElevatorHeight());
-    } else if (relevantPoses.length == 1
+      return;
+    }
+    if (relevantPoses.length == 1
         || relevantPoses[1].getElevatorLevel() != ElevatorPosition.LEVEL3) {
       elevatorSubsystem.setElevatorPosition(ElevatorPosition.LEVEL3.getElevatorHeight());
-    } else if (relevantPoses.length == 2
+      return;
+    }
+    if (relevantPoses.length == 2
         || relevantPoses[2].getElevatorLevel() != ElevatorPosition.LEVEL2) {
       elevatorSubsystem.setElevatorPosition(ElevatorPosition.LEVEL3.getElevatorHeight());
-    } else if (relevantPoses.length == 3
+      return;
+    }
+    if (relevantPoses.length == 3
         || relevantPoses[3].getElevatorLevel() != ElevatorPosition.LEVEL1) {
       elevatorSubsystem.setElevatorPosition(ElevatorPosition.LEVEL3.getElevatorHeight());
     }

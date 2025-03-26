@@ -5,18 +5,15 @@
 package frc.robot;
 
 import com.pathplanner.lib.pathfinding.Pathfinding;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraThread;
 import frc.robot.commands.drivetrain.ResetGyro;
-import frc.robot.commands.drivetrain.SetBaseVisionStd;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
 import frc.robot.constants.GameConstants;
-import frc.robot.subsystems.swervev3.estimation.PoseEstimator;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.diag.Diagnostics;
 import frc.robot.utils.logging.commands.CommandLogger;
