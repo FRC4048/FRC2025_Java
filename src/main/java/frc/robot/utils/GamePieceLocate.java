@@ -28,7 +28,7 @@ public class GamePieceLocate {
           .toArray(Vector[]::new);
 
   // piece pos is in DEGREES, not RD
-  public static BranchPositions findCoralBranch(
+  public static double[] findCoralBranch(
       Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
@@ -40,8 +40,10 @@ public class GamePieceLocate {
                 Math.tan(Math.toRadians(piecePosTYDeg)))
             .unit();
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
-    BranchPositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
+    int maxf = 0;
+    double secondDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
+    double[] returnArray = new double[2];
     for (int i = 6 * n - 3; i < 6 * n + 9; i++) {
       int f = Math.floorMod(i, BRANCHES.length);
       Matrix<N3, N1> locationVec =
@@ -51,16 +53,21 @@ public class GamePieceLocate {
               VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
                   .unit());
       if (dot > maxDot) {
+        secondDot = maxDot;
         maxDot = dot;
-        closest = BRANCHES[f];
+        maxf = f;
+      }
+      if (dot>secondDot && dot!=maxDot){
+        secondDot = dot;
       }
     }
-
-    return closest;
+    returnArray[0] = maxf;
+    returnArray[1] = maxDot-secondDot;
+    return returnArray;
   }
 
   // piece pos is in DEGREES, not RD
-  public static AlgaePositions findAlgaePos(
+  public static double[] findAlgaePos(
       Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
@@ -74,6 +81,9 @@ public class GamePieceLocate {
     double maxDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
     AlgaePositions closest = null;
     int n = CenterPositions.getClosest(robotPos);
+    int maxf = 0;
+    double secondDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
+    double[] returnArray = new double[2];
     for (int i = 2 * n - 2; i < 2 * n + 4; i++) {
       int f = Math.floorMod(i, ALGAES.length);
       Matrix<N3, N1> locationVec =
@@ -83,10 +93,15 @@ public class GamePieceLocate {
               VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))
                   .unit());
       if (dot > maxDot) {
+        secondDot = maxDot;
         maxDot = dot;
-        closest = ALGAES[f];
+        maxf = f;
+      } else if (dot>secondDot && dot!=maxDot){
+        secondDot = dot;
       }
     }
-    return closest;
+    returnArray[0] = maxf;
+    returnArray[1] = maxDot-secondDot;
+    return returnArray;
   }
 }

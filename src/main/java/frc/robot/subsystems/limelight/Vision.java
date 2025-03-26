@@ -5,19 +5,24 @@
 package frc.robot.subsystems.limelight;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
+import frc.robot.constants.Constants;
 import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.AutoLogOutput;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
   private final Supplier<Pose2d> pose2dSupplier;
+  double[] algaeConfidences = new double[AlgaePositions.values().length];
   ArrayList<AlgaePositions> currentAlgaePosition = new ArrayList<>();
+  double[] coralConfidences = new double[BranchPositions.values().length];
   ArrayList<BranchPositions> currentCoralPositions = new ArrayList<>();
 
   public Vision(VisionIO io, Supplier<Pose2d> pose2dSupplier) {
@@ -69,15 +74,23 @@ public class Vision extends SubsystemBase {
     for (int i = 0; i < detectionLength; i++) {
       String className = system.getInputs().className[i];
       if (className.equalsIgnoreCase("algae")) {
-        BranchPositions coralBranch =
-            GamePieceLocate.findCoralBranch(
+        double[] returnArray = GamePieceLocate.findCoralBranch(
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
-        currentCoralPositions.add(coralBranch);
-      } else if (className.equalsIgnoreCase("coral")) {
         AlgaePositions algaePos =
-            GamePieceLocate.findAlgaePos(
+            AlgaePositions.values()[(int) returnArray[0]];
+        coralConfidences[(int)returnArray[0]]+= returnArray[1]* Constants.PIECE_DETECTION_PROBABILITY_SCALAR;
+        if (coralConfidences[(int)returnArray[0]] > Constants.MINUMUM_PIECE_DETECTION_CONFIRMED_DOT) {
+          currentAlgaePosition.add(algaePos);
+        }
+      } else if (className.equalsIgnoreCase("coral")) {
+        double[] returnArray = GamePieceLocate.findCoralBranch(
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
-        currentAlgaePosition.add(algaePos);
+        BranchPositions coralBranch =
+            BranchPositions.values()[(int) returnArray[0]];
+        coralConfidences[(int)returnArray[0]]+= returnArray[1] * Constants.PIECE_DETECTION_PROBABILITY_SCALAR;
+        if (coralConfidences[(int)returnArray[0]] > Constants.MINUMUM_PIECE_DETECTION_CONFIRMED_DOT) {
+          currentCoralPositions.add(coralBranch);
+        }
       }
     }
   }
