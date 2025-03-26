@@ -95,7 +95,7 @@ public class GameConstants {
   public static final int HIHI_EXTENDER_TICK_LIMIT = 10;
 
   // Mode
-  public static final Mode simMode = Mode.REAL;
+  public static final Mode simMode = Mode.SIM;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
   public enum Mode {
