@@ -1,6 +1,7 @@
 package frc.robot.commands.alignment;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.constants.AlignmentPosition;
@@ -23,24 +24,30 @@ public class AlignClosestBranch extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    AlignmentPosition alignmentTarget =
-        AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
-    Logger.recordOutput("TargetReefAlignment", alignmentTarget);
-    Pose2d position = alignmentTarget.getPosition();
-    Logger.recordOutput("TargetReefPose", position);
-    drivetrain.setFocusedApriltag(alignmentTarget.getTag());
-    // spotless:off (shhhh don't tell anyone about the linter bypass)
-    followTrajectory = LoggableCommandWrapper.wrap(
-            drivetrain.generateTrajectoryCommand(position)
-    ).withBasicName("FollowAlignToBranchTrajectory");
-    // spotless:on
-    followTrajectory.setParent(this);
-    followTrajectory.schedule();
+    try{
+      AlignmentPosition alignmentTarget =
+              AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
+      Logger.recordOutput("TargetReefAlignment", alignmentTarget);
+      Pose2d position = alignmentTarget.getPosition();
+      Logger.recordOutput("TargetReefPose", position);
+      drivetrain.setFocusedApriltag(alignmentTarget.getTag());
+      // spotless:off (shhhh don't tell anyone about the linter bypass)
+      followTrajectory = LoggableCommandWrapper.wrap(
+              drivetrain.generateTrajectoryCommand(position)
+      ).withBasicName("FollowAlignToBranchTrajectory");
+      // spotless:on
+      followTrajectory.setParent(this);
+      followTrajectory.schedule();
+    }catch (Exception e){
+      DriverStation.reportError(e.getMessage(), true);
+      followTrajectory = null;
+    }
+
   }
 
   @Override
   public void end(boolean interrupted) {
-    if (CommandScheduler.getInstance().isScheduled(followTrajectory)) {
+    if (followTrajectory != null && CommandScheduler.getInstance().isScheduled(followTrajectory)) {
       CommandScheduler.getInstance().cancel(followTrajectory);
     }
     drivetrain.exitFocusMode();
@@ -48,6 +55,6 @@ public class AlignClosestBranch extends LoggableCommand {
 
   @Override
   public boolean isFinished() {
-    return followTrajectory.isFinished() || timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT);
+    return followTrajectory == null || followTrajectory.isFinished() || timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT);
   }
 }
