@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 5.72,
-        "y": 3.97
+        "x": 5.32107368,
+        "y": 4.190208505
       },
       "prevControl": {
-        "x": 5.97,
-        "y": 3.97
+        "x": 5.57107368,
+        "y": 4.190208505
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ScorePostH"
     }
   ],
   "rotationTargets": [],

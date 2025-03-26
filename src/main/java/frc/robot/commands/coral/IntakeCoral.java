@@ -26,11 +26,13 @@ public class IntakeCoral extends LoggableCommand {
   @Override
   public void execute() {
     intake.setShooterSpeed(Constants.INTAKE_MOTOR_SPEED);
+    intake.setAlignerSpeed((Constants.INTAKE_ALIGNER_SPEED));
   }
 
   @Override
   public void end(boolean interrupted) {
     intake.stopShooterMotors();
+    intake.stopAligner();
   }
 
   @Override
