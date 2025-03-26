@@ -43,7 +43,7 @@ public class GamePieceLocate {
     int n = CenterPositions.getClosest(robotPos);
     int maxf = 0;
     double secondDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
-    double[] returnArray = new double[2];
+    double[] returnArray = new double[3];
     for (int i = 6 * n - 3; i < 6 * n + 9; i++) {
       int f = Math.floorMod(i, BRANCHES.length);
       Matrix<N3, N1> locationVec =
@@ -63,6 +63,7 @@ public class GamePieceLocate {
     }
     returnArray[0] = maxf;
     returnArray[1] = maxDot-secondDot;
+    returnArray[2] = maxDot;
     return returnArray;
   }
 
@@ -83,7 +84,7 @@ public class GamePieceLocate {
     int n = CenterPositions.getClosest(robotPos);
     int maxf = 0;
     double secondDot = Constants.MINIMUM_PIECE_DETECTION_DOT;
-    double[] returnArray = new double[2];
+    double[] returnArray = new double[3];
     for (int i = 2 * n - 2; i < 2 * n + 4; i++) {
       int f = Math.floorMod(i, ALGAES.length);
       Matrix<N3, N1> locationVec =
@@ -102,6 +103,7 @@ public class GamePieceLocate {
     }
     returnArray[0] = maxf;
     returnArray[1] = maxDot-secondDot;
+    returnArray[2] = maxDot;
     return returnArray;
   }
 }

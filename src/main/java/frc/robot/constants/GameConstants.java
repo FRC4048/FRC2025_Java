@@ -232,4 +232,5 @@ public class GameConstants {
   public static final double MINIMUM_PIECE_DETECTION_DOT = 0;
   public static final double PIECE_DETECTION_PROBABILITY_SCALAR = 1.0; // TODO: change later
   public static final double MINUMUM_PIECE_DETECTION_CONFIRMED_DOT = 0.8;
+  public static final double DECAY_CONSTANT = 2.3; // TODO: change later
 }

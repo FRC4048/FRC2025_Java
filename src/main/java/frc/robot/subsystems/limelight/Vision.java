@@ -4,8 +4,16 @@
 
 package frc.robot.subsystems.limelight;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N12;
+
+import edu.wpi.first.math.numbers.N6;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
@@ -15,14 +23,16 @@ import frc.robot.utils.logging.subsystem.LoggableSystem;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.function.Supplier;
+
+import org.ejml.simple.SimpleMatrix;
 import org.littletonrobotics.junction.AutoLogOutput;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
   private final Supplier<Pose2d> pose2dSupplier;
-  double[] algaeConfidences = new double[AlgaePositions.values().length];
+  Matrix<N12, N1> algaeConfidences = new Matrix<N12,N1>(Nat.N12(),Nat.N1(),new double[12]);
   ArrayList<AlgaePositions> currentAlgaePosition = new ArrayList<>();
-  double[] coralConfidences = new double[BranchPositions.values().length];
+  Matrix<N6,N6> coralConfidences = new Matrix<N6,N6>(Nat.N6(),Nat.N6(),new double[36]);
   ArrayList<BranchPositions> currentCoralPositions = new ArrayList<>();
 
   public Vision(VisionIO io, Supplier<Pose2d> pose2dSupplier) {
@@ -62,6 +72,8 @@ public class Vision extends SubsystemBase {
   public void periodic() {
     system.updateInputs();
     locateGamePieces();
+    algaeConfidences.elementPower(Constants.DECAY_CONSTANT);
+    coralConfidences.elementPower(Constants.DECAY_CONSTANT);
   }
 
   private void locateGamePieces() {
@@ -78,8 +90,8 @@ public class Vision extends SubsystemBase {
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
         AlgaePositions algaePos =
             AlgaePositions.values()[(int) returnArray[0]];
-        coralConfidences[(int)returnArray[0]]+= returnArray[1]* Constants.PIECE_DETECTION_PROBABILITY_SCALAR;
-        if (coralConfidences[(int)returnArray[0]] > Constants.MINUMUM_PIECE_DETECTION_CONFIRMED_DOT) {
+        algaeConfidences.set((int)returnArray[0], 1,(algaeConfidences.get((int)(returnArray[0]), 1) + Math.pow(returnArray[2],3)*Math.pow(returnArray[1],2)* Constants.PIECE_DETECTION_PROBABILITY_SCALAR));
+        if (algaeConfidences.get((int)(returnArray[0]/6), (int)(returnArray[0]%6)) > Constants.MINUMUM_PIECE_DETECTION_CONFIRMED_DOT) {
           currentAlgaePosition.add(algaePos);
         }
       } else if (className.equalsIgnoreCase("coral")) {
@@ -87,8 +99,8 @@ public class Vision extends SubsystemBase {
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
         BranchPositions coralBranch =
             BranchPositions.values()[(int) returnArray[0]];
-        coralConfidences[(int)returnArray[0]]+= returnArray[1] * Constants.PIECE_DETECTION_PROBABILITY_SCALAR;
-        if (coralConfidences[(int)returnArray[0]] > Constants.MINUMUM_PIECE_DETECTION_CONFIRMED_DOT) {
+        coralConfidences.set(((int)returnArray[0])/6, ((int)returnArray[1])%6, Math.pow(returnArray[2],3)*Math.pow(returnArray[1],2) * Constants.PIECE_DETECTION_PROBABILITY_SCALAR);
+        if (coralConfidences.get((int)(returnArray[0]/6), (int)(returnArray[0]%6)) > Constants.MINUMUM_PIECE_DETECTION_CONFIRMED_DOT) {
           currentCoralPositions.add(coralBranch);
         }
       }
