@@ -32,7 +32,7 @@ public enum AlignmentPosition {
 
   AlignmentPosition(Pose2d position, Apriltag blueTag, Apriltag redTag) {
     this.bluePosition = position;
-    Rotation2d redRotation = Rotation2d.fromRadians(Math.PI - position.getRotation().getRadians());
+    Rotation2d redRotation = Rotation2d.fromRadians(Math.PI + position.getRotation().getRadians());
     double redX = FieldLocation.LENGTH_OF_FIELD - bluePosition.getX();
     double redY = FieldLocation.HEIGHT_OF_FIELD - bluePosition.getY();
     this.redPosition = new Pose2d(redX, redY, redRotation);
