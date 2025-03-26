@@ -48,6 +48,16 @@ public class RealClimberIO implements ClimberIO {
   }
 
   @Override
+  public void enableLimitSwitch(boolean state) {
+    SparkMaxConfig climberConfig = new SparkMaxConfig();
+    climberConfig.apply(climberConfig.limitSwitch.forwardLimitSwitchEnabled(state));
+    climberMotor.configure(
+        climberConfig,
+        SparkBase.ResetMode.kNoResetSafeParameters,
+        SparkBase.PersistMode.kNoPersistParameters);
+  }
+
+  @Override
   public void setClimberSpeed(double speed) {
     climberMotor.set(speed);
   }

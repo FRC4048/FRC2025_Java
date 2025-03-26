@@ -14,5 +14,7 @@ public interface ClimberIO extends LoggableIO<MotorInputs> {
 
   void stopClimber();
 
+  void enableLimitSwitch(boolean state);
+
   void resetClimberEncoder();
 }

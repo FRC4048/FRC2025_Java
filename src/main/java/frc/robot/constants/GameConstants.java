@@ -1,6 +1,8 @@
 package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.robot.utils.SwerveModuleProfileV2;
@@ -37,7 +39,8 @@ public class GameConstants {
   // Speeds
   public static final double MAX_AUTO_ALIGN_SPEED = 0.9;
   public static final double ELEVATOR_RISE_SPEED = 0.66;
-  public static final double CLIMBER_CLOSE_SPEED = 0.66; // TODO: change later
+  public static final double CLIMBER_PHASE1_SPEED = 0.3; // TODO: change later
+  public static final double CLIMBER_PHASE2_SPEED = 0.3; // TODO: change later
   public static final double ELEVATOR_LOWER_SPEED = -0.5;
   public static final int ALGAE_EXTENDER_MOTOR_SPEED = 4; // TODO: change later
   public static final double BYEBYE_ROLLER_SPEED = 0.5;
@@ -71,7 +74,7 @@ public class GameConstants {
   public static final double HIHI_ROLLER_OUT_TIMEOUT = 5;
   public static final double HIHI_ROLLER_IN_TIMEOUT = 5;
   public static final int INTAKE_CORAL_TIMEOUT = 10;
-  public static final int CLOSE_CLIMBER_TIMEOUT = 10; // TODO: change later
+  public static final int CLIMBER_PHASE2_TIMEOUT = 10; // TODO: change later
   public static final int RESET_CLIMBER_TIMEOUT = 10;
   public static final double HIHI_INTAKE_TIMEOUT = 10; // TODO: Change Later
   public static final double INTAKE_LED_STRIP_TIME = 1;
@@ -87,7 +90,7 @@ public class GameConstants {
   public static final int HIHI_EXTENDER_TICK_LIMIT = 10;
 
   // Mode
-  public static final Mode simMode = Mode.SIM;
+  public static final Mode simMode = Mode.REAL;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
   public enum Mode {
@@ -160,6 +163,9 @@ public class GameConstants {
   public static final double INITIAL_ELEVATOR_HEIGHT = 0; // TODO: change later
   public static final double HIHI_LENGTH = 0.2; // TODO: change later
   public static final double BYEBYE_TILT_LENGTH = 0.2; // TODO: change later
+  public static final double INITIAL_CLIMBER_HEIGHT = 0.2;
+  public static final double CLIMBER_BASE_LENGTH = 0.2;
+  public static final double CLIMBER_ARM_LENGTH = 0.2;
 
   // Angles
   public static final Rotation2d HIHI_MIN_ANGLE = Rotation2d.fromDegrees(0);
@@ -179,6 +185,11 @@ public class GameConstants {
   public static final double FRONT_LEFT_ABS_ENCODER_ZERO = -0.059082; // TODO: change later
   public static final double BACK_LEFT_ABS_ENCODER_ZERO = 0.379150; // TODO: change later
   public static final double FRONT_RIGHT_ABS_ENCODER_ZERO = -0.100586; // TODO: change later
+
+  // Climber
+  public static final double CLIMBER_PHASE1_POSITION = 150.0;
+  public static final double CLIMBER_DEADBAND = 0.4;
+  public static final double CLIMBER_DEPLOY_HARPOON_TIMEOUT = 10;
 
   // Drivetrain
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
@@ -205,11 +216,18 @@ public class GameConstants {
   public static final double ROBOT_MASS = 58.967; // In Kg, change later
   public static final double ROBOT_BUMPER_WIDTH = 0.914;
   public static final double ROBOT_BUMPER_LENGTH = 0.914;
-  public static final double STEER_ROTATIONAL_INERTIA = 0.0325; // TODO: change later
+  public static final double STEER_ROTATIONAL_INERTIA = 0.03; // TODO: change later
   public static final double COEFFICIENT_OF_FRICTION = 1.542;
+  public static final double STEER_FRICTION_VOLTAGE = 0.2;
 
   // ELEVATOR CONSTANTS
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
+
+  // Limelight
+  public static final Transform3d LIMELIGHT_TO_ROBOT =
+      new Transform3d(0.0, 0.0, 0, new Rotation3d(0.0, -Math.PI / 6, 0.0)); // z = 0.720725
+  public static final String LIMELIGHT_IP_ADDRESS = "10.40.48.104"; // TODO Change Later
+  public static final double MINIMUM_PIECE_DETECTION_DOT = 0;
 }

@@ -24,6 +24,7 @@ import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
+import frc.robot.commands.climber.ClimbToLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -48,6 +49,10 @@ import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.MockAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.RealAlgaeByeByeTiltIO;
 import frc.robot.subsystems.algaebyebyetilt.SimAlgaeByeByeTiltIO;
+import frc.robot.subsystems.climber.ClimberSubsystem;
+import frc.robot.subsystems.climber.MockClimberIO;
+import frc.robot.subsystems.climber.RealClimberIO;
+import frc.robot.subsystems.climber.SimClimberIO;
 import frc.robot.subsystems.coral.*;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.subsystems.elevator.MockElevatorIO;
@@ -57,6 +62,8 @@ import frc.robot.subsystems.gyro.*;
 import frc.robot.subsystems.lightStrip.LightStrip;
 import frc.robot.subsystems.lightStrip.MockLightStripIO;
 import frc.robot.subsystems.lightStrip.RealLightStripIO;
+import frc.robot.subsystems.limelight.RealVisionIO;
+import frc.robot.subsystems.limelight.Vision;
 import frc.robot.subsystems.swervev3.KinematicsConversionConfig;
 import frc.robot.subsystems.swervev3.SwerveDrivetrain;
 import frc.robot.subsystems.swervev3.SwerveIdConfig;
@@ -90,7 +97,7 @@ public class RobotContainer {
   //  private final HihiExtenderSubsystem hihiExtender;
   private final ElevatorSubsystem elevatorSubsystem;
   private final CoralSubsystem coralSubsystem;
-  //  private final ClimberSubsystem climber;
+  private final ClimberSubsystem climber;
   private final LightStrip lightStrip;
   private final CommandXboxController controller =
       new CommandXboxController(Constants.XBOX_CONTROLLER_ID);
@@ -98,6 +105,7 @@ public class RobotContainer {
   private final Joystick joyright = new Joystick(Constants.RIGHT_JOYSTICK_ID);
   private RobotVisualizer robotVisualizer = null;
   private SwerveDriveSimulation driveSimulation;
+  private final Vision vision;
 
   public RobotContainer() {
     switch (Constants.currentMode) {
@@ -108,7 +116,7 @@ public class RobotContainer {
         coralSubsystem =
             new CoralSubsystem(
                 new RealCoralIOFollower(), new RealCoralIOLeader(), new RealCoralIOAligner());
-        //                climber = new ClimberSubsystem(new RealClimberIO());
+        climber = new ClimberSubsystem(new RealClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new RealAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new RealAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new RealLightStripIO());
@@ -120,7 +128,7 @@ public class RobotContainer {
         coralSubsystem =
             new CoralSubsystem(
                 new MockCoralIOFollower(), new MockCoralIOLeader(), new MockCoralIOAligner());
-        //                climber = new ClimberSubsystem(new MockClimberIO());
+        climber = new ClimberSubsystem(new MockClimberIO());
         byebyeRoller = new AlgaeByeByeRollerSubsystem(new MockAlgaeByeByeRollerIO());
         byebyeTilt = new AlgaeByeByeTiltSubsystem(new MockAlgaeByeByeTiltIO());
         lightStrip = new LightStrip(new MockLightStripIO());
@@ -142,7 +150,7 @@ public class RobotContainer {
                 new SimCoralIOFollower(),
                 new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()),
                 new SimCoralIOAligner(robotVisualizer.getCoralRollerLigament()));
-        //        climber = new ClimberSubsystem(new SimClimberIO());
+        climber = new ClimberSubsystem(new SimClimberIO(robotVisualizer.getClimberLigament()));
         byebyeTilt =
             new AlgaeByeByeTiltSubsystem(
                 new SimAlgaeByeByeTiltIO(robotVisualizer.getAlgaeByeByeTiltLigament()));
@@ -156,6 +164,7 @@ public class RobotContainer {
       }
     }
     setupDriveTrain();
+    vision = new Vision(new RealVisionIO(), drivetrain::getPose);
     configureBindings();
     setupAutoChooser();
     putShuffleboardCommands();
@@ -244,15 +253,24 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    //    controller.b().onTrue(new IntakeAlgae(hihiExtender, hihiRoller));
-    //    controller.a().onTrue(new ShootAlgae(hihiExtender, hihiRoller));
+    controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    controller
+        .a()
+        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+    //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
+    // new Trigger(() -> controller.getRightY() > Constants.CLIMBER_DEADBAND)
+    //     .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip,
+    // ElevatorPosition.LEVEL1));
+
+    // new Trigger(() -> controller.getRightY() < -Constants.CLIMBER_DEADBAND)
+    //     .onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
         .back()
         //            .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem,
         // hihiExtender));
-        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem));
+        .onTrue(new CancelAll(byebyeTilt, byebyeRoller, elevatorSubsystem, climber));
     joyRight1.onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
     // climber on Right Trigger
     //    if (Constants.COMMAND_DEBUG) {
@@ -424,7 +442,6 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
           "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
@@ -488,6 +505,9 @@ public class RobotContainer {
     }
 
     if (Constants.CLIMBER_DEBUG) {
+      SmartDashboard.putData(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+      SmartDashboard.putData(
+          new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
       // Climber Commands
 
       //      SmartDashboard.putData( "Reset Climber", new ResetClimber(climber));

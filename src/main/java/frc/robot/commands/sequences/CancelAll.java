@@ -5,8 +5,10 @@
 package frc.robot.commands.sequences;
 
 import frc.robot.commands.ResetAll;
+import frc.robot.commands.climber.StopClimber;
 import frc.robot.subsystems.algaebyebyeroller.AlgaeByeByeRollerSubsystem;
 import frc.robot.subsystems.algaebyebyetilt.AlgaeByeByeTiltSubsystem;
+import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 
@@ -16,8 +18,10 @@ public class CancelAll extends LoggableSequentialCommandGroup {
   public CancelAll(
       AlgaeByeByeTiltSubsystem algaeByeByeTiltSubsystem,
       AlgaeByeByeRollerSubsystem algaebyebyeroller,
-      ElevatorSubsystem elevatorSubsystem) {
+      ElevatorSubsystem elevatorSubsystem,
+      ClimberSubsystem climberSubsystem) {
     super(
+        new StopClimber(climberSubsystem),
         new ByeByeAllDone(algaeByeByeTiltSubsystem, algaebyebyeroller, elevatorSubsystem),
         //        new ResetAll(elevatorSubsystem, hihiExtenderSubsystem));
         new ResetAll(elevatorSubsystem));
