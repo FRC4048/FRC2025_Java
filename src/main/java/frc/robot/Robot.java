@@ -142,8 +142,6 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     mode.set(RobotMode.AUTONOMOUS);
     new SetInitOdom(robotContainer.getDrivetrain(), robotContainer.getAutoChooser()).schedule();
-    new SetBaseVisionStd(robotContainer.getDrivetrain(), VecBuilder.fill(0.45, 0.45, 0.1))
-        .schedule();
     autoCommand = robotContainer.getAutonomousCommand();
     if (autoCommand != null) {
       autoCommand.schedule();
