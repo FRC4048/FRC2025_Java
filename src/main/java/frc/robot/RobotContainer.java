@@ -243,15 +243,14 @@ public class RobotContainer {
         .povRight()
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
-    controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
-    controller.leftBumper().onTrue(new LowerElevator(byebyeTilt, byebyeRoller, elevatorSubsystem));
-    controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    // controller.rightBumper().onTrue(); noahs align
+    controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    controller.a().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
-        .a()
+        .b()
         .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
     //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
