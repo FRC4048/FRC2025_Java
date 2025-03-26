@@ -24,6 +24,7 @@ import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
+import frc.robot.commands.climber.ClimbToLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
@@ -146,7 +147,7 @@ public class RobotContainer {
                 new SimCoralIOFollower(),
                 new SimCoralIOLeader(robotVisualizer.getCoralRollerLigament()),
                 new SimCoralIOAligner(robotVisualizer.getCoralRollerLigament()));
-        climber = new ClimberSubsystem(new SimClimberIO());
+        climber = new ClimberSubsystem(new SimClimberIO(robotVisualizer.getClimberLigament()));
         byebyeTilt =
             new AlgaeByeByeTiltSubsystem(
                 new SimAlgaeByeByeTiltIO(robotVisualizer.getAlgaeByeByeTiltLigament()));
@@ -247,9 +248,7 @@ public class RobotContainer {
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller
-        .a()
-        .onTrue(new RetractHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+    controller.a().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
         .b()
         .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
@@ -502,6 +501,9 @@ public class RobotContainer {
     }
 
     if (Constants.CLIMBER_DEBUG) {
+      SmartDashboard.putData(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+      SmartDashboard.putData(
+          new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
       // Climber Commands
 
       //      SmartDashboard.putData( "Reset Climber", new ResetClimber(climber));
