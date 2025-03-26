@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.apriltags.ApriltagInputs;
 import frc.robot.apriltags.MockApriltag;
 import frc.robot.apriltags.TCPApriltag;
@@ -22,6 +23,7 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
+import frc.robot.commands.RumbleController;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.climber.ClimbToLimit;
@@ -75,6 +77,7 @@ import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
+import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
@@ -211,6 +214,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    if (Constants.RUMBLE_CONTROLLER) {
+      new Trigger(() -> Robot.getMode() == RobotMode.TELEOP)
+          .onTrue(new RumbleController(drivetrain::getPose, controller));
+    }
     lightStrip.setDefaultCommand(
         new SetLedFromElevatorPosition(elevatorSubsystem::getStoredReefPosition, lightStrip));
     drivetrain.setDefaultCommand(
