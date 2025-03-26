@@ -28,6 +28,7 @@ import frc.robot.commands.climber.ClimbToLimit;
 import frc.robot.commands.coral.IntakeCoral;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.RobotCentricDrive;
 import frc.robot.commands.drivetrain.RobotSlide;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.elevator.ElevatorToStoredPosition;
@@ -211,6 +212,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    SmartDashboard.putData("Move Forward", new RobotCentricDrive(drivetrain, 0.5, 10));
     lightStrip.setDefaultCommand(
         new SetLedFromElevatorPosition(elevatorSubsystem::getStoredReefPosition, lightStrip));
     drivetrain.setDefaultCommand(

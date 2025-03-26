@@ -16,9 +16,7 @@ public class RobotCentricDrive extends LoggableCommand {
   private final double time;
   private final Timer timer;
 
-  public RobotCentricDrive(
-      SwerveDrivetrain drivetrain,
-      double xMove, double time) {
+  public RobotCentricDrive(SwerveDrivetrain drivetrain, double xMove, double time) {
     this.drivetrain = drivetrain;
     this.xMove = xMove;
     this.time = time;
