@@ -1,16 +1,11 @@
 package frc.robot.subsystems.limelight;
 
-import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Robot;
-import frc.robot.constants.Constants;
 import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.diag.DiagLimelight;
-import java.util.Map;
 
 public class RealVisionIO implements VisionIO {
   private LimelightHelpers.LimelightResults results;
