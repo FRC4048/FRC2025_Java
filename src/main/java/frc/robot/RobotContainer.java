@@ -86,7 +86,6 @@ import frc.robot.utils.auto.PathPlannerUtils;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
-import frc.robot.utils.shuffleboard.SmartShuffleboard;
 import frc.robot.utils.simulation.RobotVisualizer;
 import frc.robot.utils.simulation.SwerveSimulationUtils;
 import java.util.function.Consumer;
