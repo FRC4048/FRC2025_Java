@@ -59,7 +59,12 @@ public class GameConstants {
   public static final double CLIMBER_RISE_SPEED = 0.5;
   public static final double HIHI_INTAKE_BASE_VELOCITY = 7000.0;
 
+  // Accelerations
+  public static final double MAX_PATHPLANNER_ACCEL = 11.7;
+  public static final double MAX_PATHPLANNER_ANGULAR_ACCEL = 3797;
+
   // Timeouts
+  public static final int AUTO_ALIGN_TIMEOUT = 10;
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
   public static final int ELEVATOR_RESET_TIMEOUT = 10;
@@ -212,6 +217,7 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = false;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+  public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.005; // TODO: change later
 
   public static final double ROBOT_MASS = 58.967; // In Kg, change later
   public static final double ROBOT_BUMPER_WIDTH = 0.914;
