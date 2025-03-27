@@ -20,6 +20,7 @@ public class Vision extends SubsystemBase {
   private final Supplier<Pose2d> pose2dSupplier;
   ArrayList<GamePieceLocate.AlgaePositionMeasurement> currentAlgaePosition = new ArrayList<>();
   ArrayList<GamePieceLocate.BranchPositionMeasurement> currentCoralPositions = new ArrayList<>();
+  double keepTicks = 0;
 
   public Vision(VisionIO io, Supplier<Pose2d> pose2dSupplier) {
     this.system = new LoggableSystem<>(io, new VisionInputs("limelight"));
@@ -75,8 +76,12 @@ public class Vision extends SubsystemBase {
   }
 
   private void locateGamePieces() {
-    currentAlgaePosition.clear();
-    currentCoralPositions.clear();
+    keepTicks++;
+    if (keepTicks > 10) {
+      keepTicks = 0;
+      currentAlgaePosition.clear();
+      currentCoralPositions.clear();
+    }
     int detectionLength = system.getInputs().tx.length;
     if (!system.getInputs().valid) {
       return;
