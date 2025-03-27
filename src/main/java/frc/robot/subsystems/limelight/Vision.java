@@ -13,7 +13,6 @@ import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import java.util.ArrayList;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Vision extends SubsystemBase {
@@ -45,12 +44,10 @@ public class Vision extends SubsystemBase {
     return system.getInputs().valid;
   }
 
-  @AutoLogOutput
   public BranchPositions[] getAllBranchPosition() {
     return currentCoralPositions.toArray(BranchPositions[]::new);
   }
 
-  @AutoLogOutput
   public AlgaePositions[] getAllAlgaePosition() {
     return currentAlgaePosition.toArray(AlgaePositions[]::new);
   }
