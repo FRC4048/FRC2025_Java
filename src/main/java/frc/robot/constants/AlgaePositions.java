@@ -47,7 +47,7 @@ public enum AlgaePositions {
       new Pose3d(
           5.1449491950000, 4.0259000000000, 0.909311815, new Rotation3d(0, 0, 6.2831853071796))),
   Algae_GH_HIGH(
-      AlignmentPosition.H,
+      AlignmentPosition.G,
       AlignmentPosition.H,
       true,
       new Pose3d(
