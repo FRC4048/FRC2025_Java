@@ -15,9 +15,9 @@ public class PathPlannerUtils {
   private static final PathConstraints defualtPathConstraints =
       new PathConstraints(
           Constants.MAX_VELOCITY,
-          Constants.MAX_VELOCITY,
-          Math.toRadians(1000),
-          Math.toRadians(1000));
+          Constants.MAX_PATHPLANNER_ACCEL,
+          Constants.MAX_ANGULAR_SPEED,
+          Math.toRadians(Constants.MAX_PATHPLANNER_ANGULAR_ACCEL));
 
   public static PathPlannerPath createManualPath(
       Pose2d startPose, Pose2d targetPos, double endVelocity) {

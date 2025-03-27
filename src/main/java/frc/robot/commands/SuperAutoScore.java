@@ -21,9 +21,10 @@ public class SuperAutoScore extends LoggableSequentialCommandGroup {
       Vision vision) {
     super(
         new SetSuperAutoScorePosition(drivetrain, elevator, vision),
-        new RoughAlignClosestBranch(drivetrain),
-        new LoggableParallelCommandGroup(
-            new AlignClosestBranch(drivetrain), new ElevatorToStoredPosition(elevator)),
+        new LoggableSequentialCommandGroup(
+            new RoughAlignClosestBranch(drivetrain),
+            new LoggableParallelCommandGroup(
+                new AlignClosestBranch(drivetrain), new ElevatorToStoredPosition(elevator))),
         new LoggableWaitCommand(0.2),
         new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
   }

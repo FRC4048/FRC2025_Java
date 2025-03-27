@@ -1,7 +1,6 @@
 package frc.robot.commands.alignment;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.AlignmentPosition;
 import frc.robot.constants.Constants;
@@ -23,22 +22,21 @@ public class RoughAlignClosestBranch extends LoggableCommand {
   @Override
   public void initialize() {
     timer.restart();
-    try {
-      AlignmentPosition alignmentTarget =
-          AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
-      Logger.recordOutput("TargetReefRoughAlignment", alignmentTarget);
-      Pose2d position = alignmentTarget.getPathPlannerPosition();
-      Logger.recordOutput("TargetReefRoughPose", position);
-      PathPlannerUtils.pathToPose(position, 0).schedule();
-    } catch (Exception e) {
-      DriverStation.reportError(e.getMessage(), true);
-    }
+    AlignmentPosition alignmentTarget =
+        AlignmentPosition.getClosest(drivetrain.getPose().getTranslation());
+    Logger.recordOutput("TargetReefRoughAlignment", alignmentTarget);
+    Pose2d position = alignmentTarget.getPathPlannerPosition();
+    Logger.recordOutput("TargetReefRoughPose", position);
+    PathPlannerUtils.pathToPose(position, 0).schedule();
   }
 
   @Override
   public boolean isFinished() {
-    return drivetrain.getPose().getTranslation().getDistance(position.getTranslation())
-            < Constants.AUTO_ALIGN_THRESHOLD
-        || timer.hasElapsed(Constants.AUTO_ALIGN_TIMEOUT);
+    if (drivetrain.getPose().getTranslation().getDistance(position.getTranslation())
+        < Constants.ALIGNMENT_DISTANCE_THRESHOLD) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
