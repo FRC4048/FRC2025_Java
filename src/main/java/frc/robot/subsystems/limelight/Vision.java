@@ -7,6 +7,9 @@ package frc.robot.subsystems.limelight;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N12;
+import edu.wpi.first.math.numbers.N6;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
@@ -63,8 +66,8 @@ public class Vision extends SubsystemBase {
       locateGamePieces();
       Logger.recordOutput("coralPoses", getAllBranchPosition());
       Logger.recordOutput("algaePoses", getAllAlgaePosition());
-        algaeConfidences.elementPower(Constants.DECAY_CONSTANT);
-        coralConfidences.elementPower(Constants.DECAY_CONSTANT);
+      algaeConfidences.elementPower(Constants.DECAY_CONSTANT);
+      coralConfidences.elementPower(Constants.DECAY_CONSTANT);
     }
   }
 
