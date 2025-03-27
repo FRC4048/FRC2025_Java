@@ -12,9 +12,8 @@ public class RealVisionIO implements VisionIO {
   private final NetworkTableEntry ledModeEntry;
 
   public RealVisionIO() {
-    Robot.getDiagnostics().addDiagnosable(
+    Robot.getDiagnostics().addDiagnosable(new DiagLimelight("Vision", "Piece Seen"));
 
-            new DiagLimelight("Vision", "Piece Seen"));
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     ledModeEntry = table.getEntry("ledMode");
   }

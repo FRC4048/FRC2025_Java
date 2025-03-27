@@ -57,19 +57,18 @@ public class GamePieceLocate {
         maxDot = dot;
         maxf = f;
       }
-      if (dot>secondDot && dot!=maxDot){
+      if (dot > secondDot && dot != maxDot) {
         secondDot = dot;
       }
     }
     returnArray[0] = maxf;
-    returnArray[1] = maxDot-secondDot;
+    returnArray[1] = maxDot - secondDot;
     returnArray[2] = maxDot;
     return returnArray;
   }
 
   // piece pos is in DEGREES, not RD
-  public static double[] findAlgaePos(
-      Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
+  public static double[] findAlgaePos(Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
@@ -97,12 +96,12 @@ public class GamePieceLocate {
         secondDot = maxDot;
         maxDot = dot;
         maxf = f;
-      } else if (dot>secondDot && dot!=maxDot){
+      } else if (dot > secondDot && dot != maxDot) {
         secondDot = dot;
       }
     }
     returnArray[0] = maxf;
-    returnArray[1] = maxDot-secondDot;
+    returnArray[1] = maxDot - secondDot;
     returnArray[2] = maxDot;
     return returnArray;
   }
