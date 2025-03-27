@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
+import frc.robot.constants.Constants;
 import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import java.util.ArrayList;
@@ -54,9 +55,11 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     system.updateInputs();
-    locateGamePieces();
-    Logger.recordOutput("coralPoses", getAllBranchPosition());
-    Logger.recordOutput("algaePoses", getAllAlgaePosition());
+    if (Constants.ENABLE_FANCY_LIMELIGHT_MATH) {
+      locateGamePieces();
+      Logger.recordOutput("coralPoses", getAllBranchPosition());
+      Logger.recordOutput("algaePoses", getAllAlgaePosition());
+    }
   }
 
   private void locateGamePieces() {
