@@ -235,9 +235,11 @@ public class RobotContainer {
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
     controller.rightBumper().onTrue(new AlignClosestBranch(drivetrain));
-    controller
-        .rightTrigger()
-        .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
+    if (Constants.ENABLE_FANCY_LIMELIGHT_MATH) {
+      controller
+          .rightTrigger()
+          .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
+    }
     controller
         .leftTrigger()
         .onTrue(

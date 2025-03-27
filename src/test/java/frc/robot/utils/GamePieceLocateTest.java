@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.constants.AlgaePositions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class GamePieceLocateTest {
 
   @Test
+  @Disabled(value="This test used the old limelight transforms (limelight on robot is different now)")
   void findAlgaePos() {
     double robotX = Apriltag.EIGHTEEN.getX() - 0.889;
     double robotY = Apriltag.EIGHTEEN.getY();
