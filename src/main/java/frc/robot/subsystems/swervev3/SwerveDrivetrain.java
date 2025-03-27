@@ -158,6 +158,10 @@ public class SwerveDrivetrain extends SubsystemBase {
     backRight.stop();
   }
 
+  public void addMockVisionMeasurement() {
+    poseEstimator.addMockVisionMeasurement();
+  }
+
   public void zeroRelativeEncoders() {
     frontLeft.resetRelativeEnc();
     frontRight.resetRelativeEnc();

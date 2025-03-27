@@ -8,7 +8,6 @@ public class ConstantVisionTruster extends DistanceVisionTruster {
 
   public ConstantVisionTruster(Vector<N3> initialSTD) {
     super(initialSTD);
-    this.initialSTD = initialSTD;
   }
 
   @Override
