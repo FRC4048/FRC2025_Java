@@ -229,8 +229,8 @@ public class GameConstants {
   public static final Transform3d LIMELIGHT_TO_ROBOT =
       new Transform3d(0.0, 0.0, 0, new Rotation3d(0.0, -Math.PI / 6, 0.0)); // z = 0.720725
   public static final String LIMELIGHT_IP_ADDRESS = "10.40.48.104"; // TODO Change Later
-  public static final double MINIMUM_PIECE_DETECTION_DOT = 0;
-  public static final double PIECE_DETECTION_PROBABILITY_SCALAR = 1.0; // TODO: change later
+  public static final double MINIMUM_PIECE_DETECTION_DOT = 0.5;
+  public static final double PIECE_DETECTION_PROBABILITY_SCALAR = 0.195571; // TODO: change later
   public static final double MINUMUM_PIECE_DETECTION_CONFIRMED_DOT = 0.8;
-  public static final double DECAY_CONSTANT = 2.3; // TODO: change later
+  public static final double DECAY_CONSTANT = 1.0002; // TODO: change later
 }
