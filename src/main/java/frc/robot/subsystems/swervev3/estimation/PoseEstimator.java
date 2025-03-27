@@ -19,7 +19,7 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
-import frc.robot.subsystems.swervev3.vision.ConstantVisionTruster;
+import frc.robot.subsystems.swervev3.vision.SquareVisionTruster;
 import frc.robot.utils.Apriltag;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
@@ -52,7 +52,7 @@ public class PoseEstimator {
   private static final double visionStdRateOfChange = 1;
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
-  public static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.1, 0.1, 100);
+  public static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.3, 0.3, 100);
   private final FilterablePoseManager poseManager;
 
   public PoseEstimator(
@@ -92,7 +92,7 @@ public class PoseEstimator {
                 return measurement.measurement();
               }
             },
-            new SquareVisionTruster(visionMeasurementStdDevs2, 0.5));
+            new SquareVisionTruster(visionMeasurementStdDevs2, 0.4));
     SmartDashboard.putData(field);
   }
 
