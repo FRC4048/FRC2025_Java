@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.commands.alignment.AlignClosestBranch;
+import frc.robot.commands.alignment.RoughAlignClosestBranch;
 import frc.robot.commands.coral.ShootCoral;
 import frc.robot.commands.elevator.ElevatorToStoredPosition;
 import frc.robot.constants.Constants;
@@ -20,6 +21,7 @@ public class SuperAutoScore extends LoggableSequentialCommandGroup {
       Vision vision) {
     super(
         new SetSuperAutoScorePosition(drivetrain, elevator, vision),
+        new RoughAlignClosestBranch(drivetrain),
         new LoggableParallelCommandGroup(
             new AlignClosestBranch(drivetrain), new ElevatorToStoredPosition(elevator)),
         new LoggableWaitCommand(0.2),
