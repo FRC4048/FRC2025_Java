@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraThread;
+import frc.robot.commands.RegisterMockVisionMeasurement;
 import frc.robot.commands.drivetrain.ResetGyro;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.drivetrain.WheelAlign;
@@ -127,6 +128,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void disabledInit() {
     mode.set(RobotMode.DISABLED);
+    new RegisterMockVisionMeasurement(robotContainer.getDrivetrain()).schedule();
   }
 
   @Override
