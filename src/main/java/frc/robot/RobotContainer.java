@@ -4,12 +4,16 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +26,8 @@ import frc.robot.autochooser.AutoAction;
 import frc.robot.autochooser.FieldLocation;
 import frc.robot.autochooser.chooser.AutoChooser2025;
 import frc.robot.autochooser.event.RealAutoEventProvider;
+import frc.robot.commands.SuperAutoScore;
+import frc.robot.commands.alignment.AlignClosestBranch;
 import frc.robot.commands.byebye.ByeByeToFwrLimit;
 import frc.robot.commands.byebye.ByeByeToRevLimit;
 import frc.robot.commands.climber.ClimbToLimit;
@@ -77,6 +83,7 @@ import frc.robot.subsystems.swervev3.io.steer.MockSteerMotorIO;
 import frc.robot.subsystems.swervev3.io.steer.SimSteerMotorIO;
 import frc.robot.utils.BlinkinPattern;
 import frc.robot.utils.ModulePosition;
+import frc.robot.utils.auto.PathPlannerUtils;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.motor.Gain;
 import frc.robot.utils.motor.PID;
@@ -166,6 +173,7 @@ public class RobotContainer {
     setupDriveTrain();
     vision = new Vision(new RealVisionIO(), drivetrain::getPose);
     configureBindings();
+    setupPathPlanning();
     setupAutoChooser();
     putShuffleboardCommands();
     pathPlannerCommands();
@@ -175,6 +183,7 @@ public class RobotContainer {
     autoChooser =
         new AutoChooser2025(
             new RealAutoEventProvider(AutoAction.DO_NOTHING, FieldLocation.ZERO),
+            drivetrain,
             elevatorSubsystem,
             coralSubsystem,
             lightStrip,
@@ -225,7 +234,10 @@ public class RobotContainer {
     JoystickButton joyRight1 = new JoystickButton(joyright, 1);
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
-
+    controller.rightBumper().onTrue(new AlignClosestBranch(drivetrain));
+    controller
+        .rightTrigger()
+        .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
     controller
         .leftTrigger()
         .onTrue(
@@ -247,15 +259,14 @@ public class RobotContainer {
         .povRight()
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
-    controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
-    controller.leftBumper().onTrue(new LowerElevator(byebyeTilt, byebyeRoller, elevatorSubsystem));
-    controller.rightTrigger().onTrue(new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
+    // controller.rightBumper().onTrue(); noahs align
+    controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    controller.b().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    controller.a().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
-        .a()
+        .b()
         .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
     //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
@@ -435,6 +446,27 @@ public class RobotContainer {
 
   public SwerveDrivetrain getDrivetrain() {
     return drivetrain;
+  }
+
+  private void setupPathPlanning() {
+    AutoBuilder.configure(
+        drivetrain::getPose,
+        drivetrain::resetOdometry,
+        drivetrain::getChassisSpeeds,
+        drivetrain::drive,
+        new PPHolonomicDriveController(
+            new PIDConstants(
+                Constants.PATH_PLANNER_TRANSLATION_PID_P,
+                Constants.PATH_PLANNER_TRANSLATION_PID_I,
+                Constants.PATH_PLANNER_TRANSLATION_PID_D), // Translation PID constants
+            new PIDConstants(
+                Constants.PATH_PLANNER_ROTATION_PID_P,
+                Constants.PATH_PLANNER_ROTATION_PID_I,
+                Constants.PATH_PLANNER_ROTATION_PID_D) // Rotation PID constants
+            ),
+        PathPlannerUtils.config,
+        () -> Robot.getAllianceColor().orElse(Alliance.Blue) == Alliance.Red,
+        drivetrain);
   }
 
   public RobotVisualizer getRobotVisualizer() {

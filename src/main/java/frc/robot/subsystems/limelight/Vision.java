@@ -7,9 +7,6 @@ package frc.robot.subsystems.limelight;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N12;
-import edu.wpi.first.math.numbers.N6;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.AlgaePositions;
 import frc.robot.constants.BranchPositions;
@@ -18,7 +15,7 @@ import frc.robot.utils.GamePieceLocate;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import java.util.ArrayList;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.AutoLogOutput;
+import org.littletonrobotics.junction.Logger;
 
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
@@ -51,12 +48,10 @@ public class Vision extends SubsystemBase {
     return system.getInputs().valid;
   }
 
-  @AutoLogOutput
   public BranchPositions[] getAllBranchPosition() {
     return currentCoralPositions.toArray(BranchPositions[]::new);
   }
 
-  @AutoLogOutput
   public AlgaePositions[] getAllAlgaePosition() {
     return currentAlgaePosition.toArray(AlgaePositions[]::new);
   }
@@ -64,9 +59,13 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     system.updateInputs();
-    locateGamePieces();
-    algaeConfidences.elementPower(Constants.DECAY_CONSTANT);
-    coralConfidences.elementPower(Constants.DECAY_CONSTANT);
+    if (Constants.ENABLE_FANCY_LIMELIGHT_MATH) {
+      locateGamePieces();
+      Logger.recordOutput("coralPoses", getAllBranchPosition());
+      Logger.recordOutput("algaePoses", getAllAlgaePosition());
+        algaeConfidences.elementPower(Constants.DECAY_CONSTANT);
+        coralConfidences.elementPower(Constants.DECAY_CONSTANT);
+    }
   }
 
   private void locateGamePieces() {

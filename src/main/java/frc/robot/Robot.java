@@ -5,13 +5,11 @@
 package frc.robot;
 
 import com.pathplanner.lib.pathfinding.Pathfinding;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraThread;
 import frc.robot.commands.drivetrain.ResetGyro;
-import frc.robot.commands.drivetrain.SetBaseVisionStd;
 import frc.robot.commands.drivetrain.SetInitOdom;
 import frc.robot.commands.drivetrain.WheelAlign;
 import frc.robot.constants.Constants;
@@ -141,7 +139,6 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     mode.set(RobotMode.AUTONOMOUS);
     new SetInitOdom(robotContainer.getDrivetrain(), robotContainer.getAutoChooser()).schedule();
-    new SetBaseVisionStd(robotContainer.getDrivetrain(), VecBuilder.fill(0.45, 0.45, 0.1));
     autoCommand = robotContainer.getAutonomousCommand();
     if (autoCommand != null) {
       autoCommand.schedule();
