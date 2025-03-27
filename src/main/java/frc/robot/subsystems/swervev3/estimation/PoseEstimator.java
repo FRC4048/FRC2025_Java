@@ -52,7 +52,7 @@ public class PoseEstimator {
   private static final double visionStdRateOfChange = 1;
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
-  public static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.1, 0.1, 0.01);
+  public static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.1, 0.1, 100);
   private final FilterablePoseManager poseManager;
 
   public PoseEstimator(
