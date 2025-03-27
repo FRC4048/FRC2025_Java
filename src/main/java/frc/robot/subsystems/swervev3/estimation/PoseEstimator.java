@@ -19,11 +19,13 @@ import frc.robot.subsystems.swervev3.bags.OdometryMeasurement;
 import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.io.SwerveModule;
 import frc.robot.subsystems.swervev3.vision.BasicVisionFilter;
-import frc.robot.subsystems.swervev3.vision.SquareVisionTruster;
+import frc.robot.subsystems.swervev3.vision.ConstantVisionTruster;
+import frc.robot.utils.Apriltag;
 import frc.robot.utils.RobotMode;
 import frc.robot.utils.logging.LoggableIO;
 import frc.robot.utils.logging.subsystem.LoggableSystem;
 import frc.robot.utils.math.ArrayUtils;
+import java.util.Arrays;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -41,7 +43,7 @@ public class PoseEstimator {
   private int invalidCounter = 0;
 
   /* standard deviation of robot states, the lower the numbers arm, the more we trust odometry */
-  private static final Vector<N3> stateStdDevs1 = VecBuilder.fill(0.075, 0.075, 0.001);
+  public static final Vector<N3> stateStdDevs1 = VecBuilder.fill(0.075, 0.075, 0.001);
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
   //  private static final Vector<N3> visionMeasurementStdDevs1 = VecBuilder.fill(0.5, 0.5, 0.5);
@@ -50,7 +52,7 @@ public class PoseEstimator {
   private static final double visionStdRateOfChange = 1;
 
   /* standard deviation of vision readings, the lower the numbers arm, the more we trust vision */
-  private static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.45, 0.45, 0.01);
+  public static final Vector<N3> visionMeasurementStdDevs2 = VecBuilder.fill(0.1, 0.1, 100);
   private final FilterablePoseManager poseManager;
 
   public PoseEstimator(
@@ -114,11 +116,7 @@ public class PoseEstimator {
     return !ArrayUtils.allMatch(measurement, -1.0) && measurement.length == 3;
   }
 
-  /**
-   * Collects Apriltag measurement(s) from the IO and checks their validity. If they are valid they
-   * are sent to the {@link PoseManager} for further processing
-   */
-  public void updateVision() {
+  private void updateVision(int... invalidApriltagNumbers) {
     if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
       long start = System.currentTimeMillis();
       for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
@@ -129,19 +127,9 @@ public class PoseEstimator {
               apriltagSystem.getInputs().poseYaw[i]
             };
         if (validAprilTagPose(pos)
-            && apriltagSystem.getInputs().apriltagNumber[i] != 15
-            && apriltagSystem.getInputs().apriltagNumber[i] != 4
-            && apriltagSystem.getInputs().apriltagNumber[i] != 14
-            && apriltagSystem.getInputs().apriltagNumber[i] != 5
-            && apriltagSystem.getInputs().apriltagNumber[i] != 16
-            && apriltagSystem.getInputs().apriltagNumber[i] != 3) {
-          double serverTime = apriltagSystem.getInputs().serverTime[i];
-          double timestamp = 0; // latency is not right we are assuming zero
-          double latencyInSec = (serverTime - timestamp) / 1000;
-          Pose2d visionPose = new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation());
-          double distanceFromTag = apriltagSystem.getInputs().distanceToTag[i];
-          VisionMeasurement measurement =
-              new VisionMeasurement(visionPose, distanceFromTag, latencyInSec);
+            && !ArrayUtils.contains(
+                invalidApriltagNumbers, apriltagSystem.getInputs().apriltagNumber[i])) {
+          VisionMeasurement measurement = getVisionMeasurement(pos, i);
           poseManager.registerVisionMeasurement(measurement);
         } else {
           invalidCounter++;
@@ -151,6 +139,32 @@ public class PoseEstimator {
       long end = System.currentTimeMillis();
       Logger.recordOutput("RegisteringVisionTimeMillis", end - start);
     }
+  }
+
+  private VisionMeasurement getVisionMeasurement(double[] pos, int index) {
+    double serverTime = apriltagSystem.getInputs().serverTime[index];
+    double timestamp = 0; // latency is not right we are assuming zero
+    double latencyInSec = (serverTime - timestamp) / 1000;
+    Pose2d visionPose = new Pose2d(pos[0], pos[1], getEstimatedPose().getRotation());
+    double distanceFromTag = apriltagSystem.getInputs().distanceToTag[index];
+    return new VisionMeasurement(visionPose, distanceFromTag, latencyInSec);
+  }
+
+  /**
+   * Collects Apriltag measurement(s) from the IO and checks their validity. If they are valid they
+   * are sent to the {@link PoseManager} for further processing
+   */
+  public void updateVision() {
+    updateVision(15, 4, 14, 5, 16, 3);
+  }
+
+  public void updateVision(Apriltag focusedTag) {
+    int[] invalidTags =
+        Arrays.stream(Apriltag.values())
+            .filter(a -> a != focusedTag)
+            .mapToInt(Apriltag::number)
+            .toArray();
+    updateVision(invalidTags);
   }
 
   /**

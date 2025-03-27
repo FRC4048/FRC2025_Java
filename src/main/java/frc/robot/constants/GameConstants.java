@@ -1,6 +1,8 @@
 package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.robot.utils.SwerveModuleProfileV2;
@@ -57,7 +59,12 @@ public class GameConstants {
   public static final double CLIMBER_RISE_SPEED = 0.5;
   public static final double HIHI_INTAKE_BASE_VELOCITY = 7000.0;
 
+  // Accelerations
+  public static final double MAX_PATHPLANNER_ACCEL = 11.7;
+  public static final double MAX_PATHPLANNER_ANGULAR_ACCEL = 3797;
+
   // Timeouts
+  public static final int AUTO_ALIGN_TIMEOUT = 10;
   public static final int SERVER_SOCKET_CONNECTION_TIMEOUT = 2000;
   public static final int ELEVATOR_TIMEOUT = 10;
   public static final int ELEVATOR_RESET_TIMEOUT = 10;
@@ -210,6 +217,7 @@ public class GameConstants {
   public static final boolean HI_HI_SIMULATE_GRAVITY = false;
   public static final int MAX_VALID_TICKS_INTAKE = 15; // TODO: Change Later
   public static final int MAX_VALID_TICKS_ELEVATOR = 10; // TODO: Change Later
+  public static final double ALIGNMENT_DISTANCE_THRESHOLD = 0.005; // TODO: change later
 
   public static final double ROBOT_MASS = 58.967; // In Kg, change later
   public static final double ROBOT_BUMPER_WIDTH = 0.914;
@@ -222,4 +230,12 @@ public class GameConstants {
   public static final double ELEVATOR_MANUAL_DEADBAND = 0.2;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_UP = -.3;
   public static final double ELEVATOR_MANUAL_MAX_SPEED_DOWN = .15;
+
+  // Limelight
+  public static final Transform3d LIMELIGHT_TO_ROBOT =
+      new Transform3d(
+          0.3429, -0.0635, 0, new Rotation3d(0.0, (-47 * Math.PI) / 180, 0.0)); // z = 0.720725
+  public static final String LIMELIGHT_IP_ADDRESS = "10.40.48.104"; // TODO Change Later
+  public static final double MINIMUM_PIECE_DETECTION_DOT = 0;
+  public static final boolean ENABLE_FANCY_LIMELIGHT_MATH = false;
 }

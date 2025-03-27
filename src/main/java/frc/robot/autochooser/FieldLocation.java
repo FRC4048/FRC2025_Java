@@ -19,7 +19,8 @@ public enum FieldLocation {
   RIGHT(7.150, 2.000, 180, "Processor Side");
 
   private static final double RED_X_POS = 2.3876; // meters
-  private static final double HEIGHT_OF_FIELD = 8.05;
+  public static final double HEIGHT_OF_FIELD = 8.05;
+  public static final double LENGTH_OF_FIELD = 17.548225;
   private final double yPose;
   private final double xPose;
   private final double angle;
