@@ -15,21 +15,31 @@ import java.util.Arrays;
 public class GamePieceLocate {
   private static final BranchPositions[] BRANCHES = BranchPositions.values();
   private static final AlgaePositions[] ALGAES = AlgaePositions.values();
-  // Precomputed vectors for positions
-  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS =
-      Arrays.stream(BRANCHES)
-          .map(branch -> branch.getPosition().getTranslation().toVector())
-          .toArray(Vector[]::new);
-  ;
+  private static Vector<N3>[] PRECOMPUTED_BRANCH_VECS;
+  private static Vector<N3>[] PRECOMPUTED_ALGAE_VECS;
+  private static boolean vecsComputed = false;
 
-  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS =
-      Arrays.stream(ALGAES)
-          .map(algae -> algae.getPosition().getTranslation().toVector())
-          .toArray(Vector[]::new);
+  public static void PreComputeBranchVectors() {
+    // Precomputed vectors for positions
+    PRECOMPUTED_BRANCH_VECS =
+        Arrays.stream(BRANCHES)
+            .map(branch -> branch.getPosition().getTranslation().toVector())
+            .toArray(Vector[]::new);
+    ;
+
+    PRECOMPUTED_ALGAE_VECS =
+        Arrays.stream(ALGAES)
+            .map(algae -> algae.getPosition().getTranslation().toVector())
+            .toArray(Vector[]::new);
+    vecsComputed = true;
+  }
 
   // piece pos is in DEGREES, not RD
   public static BranchPositions findCoralBranch(
       Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
+    if (!vecsComputed) {
+      PreComputeBranchVectors();
+    }
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
@@ -62,6 +72,9 @@ public class GamePieceLocate {
   // piece pos is in DEGREES, not RD
   public static AlgaePositions findAlgaePos(
       Pose2d robotPos, double piecePosTXDeg, double piecePosTYDeg) {
+    if (!vecsComputed) {
+      PreComputeBranchVectors();
+    }
     final Pose3d cameraPos = new Pose3d(robotPos).transformBy(Constants.LIMELIGHT_TO_ROBOT);
     final Vector<N3> cameraPosVec = cameraPos.getTranslation().toVector();
     final Matrix<N3, N3> invCameraRotation = cameraPos.getRotation().unaryMinus().toMatrix();
