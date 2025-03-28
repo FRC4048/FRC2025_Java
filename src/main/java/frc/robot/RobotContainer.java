@@ -474,7 +474,8 @@ public class RobotContainer {
   }
 
   public void putShuffleboardCommands() {
-
+    SmartDashboard.putData(
+        "Align", new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
     if (Constants.CORAL_DEBUG) {
       SmartDashboard.putData(
           "Shoot Coral", new ShootCoral(coralSubsystem, Constants.CORAL_SHOOTER_SPEED));
