@@ -237,5 +237,5 @@ public class GameConstants {
           0.3429, -0.0635, 0, new Rotation3d(0.0, (-47 * Math.PI) / 180, 0.0)); // z = 0.720725
   public static final String LIMELIGHT_IP_ADDRESS = "10.40.48.104"; // TODO Change Later
   public static final double MINIMUM_PIECE_DETECTION_DOT = 0;
-  public static final boolean ENABLE_FANCY_LIMELIGHT_MATH = false;
+  public static final boolean ENABLE_FANCY_LIMELIGHT_MATH = true;
 }

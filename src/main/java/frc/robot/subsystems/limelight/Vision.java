@@ -18,8 +18,9 @@ import org.littletonrobotics.junction.Logger;
 public class Vision extends SubsystemBase {
   LoggableSystem<VisionIO, VisionInputs> system;
   private final Supplier<Pose2d> pose2dSupplier;
-  ArrayList<AlgaePositions> currentAlgaePosition = new ArrayList<>();
-  ArrayList<BranchPositions> currentCoralPositions = new ArrayList<>();
+  ArrayList<GamePieceLocate.AlgaePositionMeasurement> currentAlgaePosition = new ArrayList<>();
+  ArrayList<GamePieceLocate.BranchPositionMeasurement> currentCoralPositions = new ArrayList<>();
+  double keepTicks = 0;
 
   public Vision(VisionIO io, Supplier<Pose2d> pose2dSupplier) {
     this.system = new LoggableSystem<>(io, new VisionInputs("limelight"));
@@ -45,11 +46,23 @@ public class Vision extends SubsystemBase {
   }
 
   public BranchPositions[] getAllBranchPosition() {
-    return currentCoralPositions.toArray(BranchPositions[]::new);
+    return currentCoralPositions.stream()
+        .map(GamePieceLocate.BranchPositionMeasurement::branchPosition)
+        .toArray(BranchPositions[]::new);
   }
 
   public AlgaePositions[] getAllAlgaePosition() {
-    return currentAlgaePosition.toArray(AlgaePositions[]::new);
+    return currentAlgaePosition.stream()
+        .map(GamePieceLocate.AlgaePositionMeasurement::algaePosition)
+        .toArray(AlgaePositions[]::new);
+  }
+
+  public GamePieceLocate.BranchPositionMeasurement[] getAllBranchMeasurements() {
+    return currentCoralPositions.toArray(GamePieceLocate.BranchPositionMeasurement[]::new);
+  }
+
+  public GamePieceLocate.AlgaePositionMeasurement[] getAllAlgaeMeasurements() {
+    return currentAlgaePosition.toArray(GamePieceLocate.AlgaePositionMeasurement[]::new);
   }
 
   @Override
@@ -57,14 +70,18 @@ public class Vision extends SubsystemBase {
     system.updateInputs();
     if (Constants.ENABLE_FANCY_LIMELIGHT_MATH) {
       locateGamePieces();
-      Logger.recordOutput("coralPoses", getAllBranchPosition());
-      Logger.recordOutput("algaePoses", getAllAlgaePosition());
+      Logger.recordOutput("coralPoses", getAllBranchMeasurements());
+      Logger.recordOutput("algaePoses", getAllAlgaeMeasurements());
     }
   }
 
   private void locateGamePieces() {
-    currentAlgaePosition.clear();
-    currentCoralPositions.clear();
+    keepTicks++;
+    if (keepTicks > 10) {
+      keepTicks = 0;
+      currentAlgaePosition.clear();
+      currentCoralPositions.clear();
+    }
     int detectionLength = system.getInputs().tx.length;
     if (!system.getInputs().valid) {
       return;
@@ -72,14 +89,14 @@ public class Vision extends SubsystemBase {
     for (int i = 0; i < detectionLength; i++) {
       String className = system.getInputs().className[i];
       if (className.equalsIgnoreCase("coral")) {
-        BranchPositions coralBranch =
+        GamePieceLocate.BranchPositionMeasurement coralBranch =
             GamePieceLocate.findCoralBranch(
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
         if (coralBranch != null) {
           currentCoralPositions.add(coralBranch);
         }
       } else if (className.equalsIgnoreCase("algae")) {
-        AlgaePositions algaePos =
+        GamePieceLocate.AlgaePositionMeasurement algaePos =
             GamePieceLocate.findAlgaePos(
                 pose2dSupplier.get(), system.getInputs().tx[i], system.getInputs().ty[i]);
         if (algaePos != null) {
