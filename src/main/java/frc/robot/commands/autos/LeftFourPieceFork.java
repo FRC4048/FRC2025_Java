@@ -13,25 +13,29 @@ import frc.robot.utils.logging.commands.LoggableWaitCommand;
 
 public class LeftFourPieceFork extends LoggableSequentialCommandGroup {
   public LeftFourPieceFork(
-      ElevatorSubsystem elevator, CoralSubsystem coral, LightStrip lightStrip) {
+      ElevatorSubsystem elevator,
+      CoralSubsystem coral,
+      LightStrip lightStrip,
+      ElevatorPosition scorePosition1,
+      ElevatorPosition scorePosition2) {
     super(
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(Paths.getInstance().getRobotOneToPostJCommand()),
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL2, elevator, lightStrip),
+            new SetElevatorStoredPosition(scorePosition1, elevator, lightStrip),
             new LoggableSequentialCommandGroup(
                 new LoggableWaitCommand(1.25),
-                new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL2))),
+                new GoAndWaitAtElevatorPosition(elevator, scorePosition1))),
         new ShootCoral(coral, 0.5),
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(Paths.getInstance().getPostJToStationOneCommand()),
             new LightlessPickup(elevator, coral)),
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(Paths.getInstance().getStationOneToPostKCommand()),
-            new SetElevatorStoredPosition(ElevatorPosition.LEVEL4, elevator, lightStrip),
+            new SetElevatorStoredPosition(scorePosition2, elevator, lightStrip),
             new LoggableSequentialCommandGroup(
                 new LoggableWaitCommand(1.8),
-                new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4))),
-        new GoAndWaitAtElevatorPosition(elevator, ElevatorPosition.LEVEL4),
+                new GoAndWaitAtElevatorPosition(elevator, scorePosition2))),
+        new GoAndWaitAtElevatorPosition(elevator, scorePosition2),
         new ShootCoral(coral, 0.5)
         //            new LoggableParallelCommandGroup(
         //                new LoggableCommandWrapper(

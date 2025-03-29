@@ -59,6 +59,14 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
                 new RightFourPieceFork(
                     elevator, coral, lightStrip, ElevatorPosition.LEVEL2, ElevatorPosition.LEVEL4)),
             Map.entry(
+                new AutoEvent(AutoAction.TWO_PIECE_HIGH, FieldLocation.LEFT),
+                new LeftFourPieceFork(
+                    elevator, coral, lightStrip, ElevatorPosition.LEVEL4, ElevatorPosition.LEVEL4)),
+            Map.entry(
+                new AutoEvent(AutoAction.TWO_PIECE_LOW, FieldLocation.LEFT),
+                new LeftFourPieceFork(
+                    elevator, coral, lightStrip, ElevatorPosition.LEVEL2, ElevatorPosition.LEVEL4)),
+            Map.entry(
                 new AutoEvent(AutoAction.ONE_PIECE, FieldLocation.MIDDLE),
                 new MiddleOnePiece(elevator, coral, lightStrip)));
   }
