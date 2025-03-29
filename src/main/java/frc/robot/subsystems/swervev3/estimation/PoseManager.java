@@ -56,12 +56,17 @@ public class PoseManager {
   }
 
   public void registerVisionMeasurement(VisionMeasurement measurement) {
+    if(measurement == null) {
+      return;
+    }
+    while (visionMeasurementQueue.size() >= 3){
+      visionMeasurementQueue.poll();
+    }
     visionMeasurementQueue.add(measurement);
-    processQueue();
   }
 
   // override for filtering
-  protected void processQueue() {
+  public void processQueue() {
     VisionMeasurement m = visionMeasurementQueue.poll();
     while (m != null) {
       addVisionMeasurement(m);

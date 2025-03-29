@@ -117,8 +117,8 @@ public class PoseEstimator {
   }
 
   private void updateVision(int... invalidApriltagNumbers) {
+    long start = System.currentTimeMillis();
     if (Constants.ENABLE_VISION && Robot.getMode() != RobotMode.DISABLED) {
-      long start = System.currentTimeMillis();
       for (int i = 0; i < apriltagSystem.getInputs().timestamp.length; i++) {
         double[] pos =
             new double[] {
@@ -136,9 +136,10 @@ public class PoseEstimator {
           Logger.recordOutput("Apriltag/ValidationFailureCount", invalidCounter);
         }
       }
+    }
       long end = System.currentTimeMillis();
       Logger.recordOutput("RegisteringVisionTimeMillis", end - start);
-    }
+    poseManager.processQueue();
   }
 
   private VisionMeasurement getVisionMeasurement(double[] pos, int index) {
