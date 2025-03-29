@@ -234,10 +234,12 @@ public class RobotContainer {
     JoystickButton joyRight1 = new JoystickButton(joyright, 1);
     RobotSlide robotSlide = new RobotSlide(drivetrain, joyleft::getX, joyleft::getY);
     joyLeft2.whileTrue(robotSlide);
-    controller.rightBumper().onTrue(new AlignClosestBranch(drivetrain));
-    controller
-        .rightTrigger()
-        .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
+    controller.leftBumper().onTrue(new AlignClosestBranch(drivetrain));
+    if (Constants.ENABLE_FANCY_LIMELIGHT_MATH) {
+      controller
+          .rightTrigger()
+          .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
+    }
     controller
         .leftTrigger()
         .onTrue(
@@ -260,7 +262,7 @@ public class RobotContainer {
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     // controller.rightBumper().onTrue(); noahs align
-    controller.leftBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
+    controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
