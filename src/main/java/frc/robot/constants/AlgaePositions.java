@@ -2,6 +2,10 @@ package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Robot;
+import frc.robot.autochooser.FieldLocation;
+import java.util.Optional;
 
 public enum AlgaePositions {
   Algae_AB_LOW(
@@ -76,20 +80,43 @@ public enum AlgaePositions {
       true,
       new Pose3d(
           4.1615306625000, 4.5936769544649, 1.313978795, new Rotation3d(0, 0, 8.3775804095728)));
+  private final Pose3d bluePosition;
+  private final Pose3d redPosition;
   private final AlignmentPosition al1;
   private final AlignmentPosition al2;
   private final boolean high;
-  private final Pose3d position;
 
   AlgaePositions(AlignmentPosition al1, AlignmentPosition al2, boolean high, Pose3d position) {
     this.al1 = al1;
     this.al2 = al2;
     this.high = high;
-    this.position = position;
+    this.bluePosition = position;
+    double redRotationX = Math.PI + position.getRotation().getX();
+    double redRotationY = position.getRotation().getY();
+    double redRotationZ = position.getRotation().getZ();
+    Rotation3d redRotation = new Rotation3d(redRotationX, redRotationY, redRotationZ);
+
+    double redX = FieldLocation.LENGTH_OF_FIELD - bluePosition.getX();
+    double redY = FieldLocation.HEIGHT_OF_FIELD - bluePosition.getY();
+    double redZ = bluePosition.getZ();
+    this.redPosition = new Pose3d(redX, redY, redZ, redRotation);
+  }
+
+  public Pose3d getBluePosition() {
+    return bluePosition;
+  }
+
+  public Pose3d getRedPosition() {
+    return redPosition;
   }
 
   public Pose3d getPosition() {
-    return position;
+    Optional<DriverStation.Alliance> allianceColor = Robot.getAllianceColor();
+    return allianceColor
+        .map(
+            alliance ->
+                alliance == DriverStation.Alliance.Blue ? getBluePosition() : getRedPosition())
+        .orElse(new Pose3d());
   }
 
   public AlignmentPosition getAlignmentPosition1() {

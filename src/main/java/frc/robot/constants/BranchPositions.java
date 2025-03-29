@@ -2,6 +2,10 @@
 package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Robot;
+import frc.robot.autochooser.FieldLocation;
+import java.util.Optional;
 
 // TODO: change all of these later to the correct values
 public enum BranchPositions {
@@ -188,16 +192,39 @@ public enum BranchPositions {
 
   private final AlignmentPosition trunk;
   private final ElevatorPosition elevatorPosition;
-  private final Pose3d position;
+  private final Pose3d bluePosition;
+  private final Pose3d redPosition;
+
+  public Pose3d getBluePosition() {
+    return bluePosition;
+  }
+
+  public Pose3d getRedPosition() {
+    return redPosition;
+  }
+
+  public Pose3d getPosition() {
+    Optional<DriverStation.Alliance> allianceColor = Robot.getAllianceColor();
+    return allianceColor
+        .map(
+            alliance ->
+                alliance == DriverStation.Alliance.Blue ? getBluePosition() : getRedPosition())
+        .orElse(new Pose3d());
+  }
 
   BranchPositions(AlignmentPosition trunk, ElevatorPosition elevatorPosition, Pose3d position) {
     this.trunk = trunk;
     this.elevatorPosition = elevatorPosition;
-    this.position = position;
-  }
+    this.bluePosition = position;
+    double redRotationX = Math.PI + position.getRotation().getX();
+    double redRotationY = position.getRotation().getY();
+    double redRotationZ = position.getRotation().getZ();
+    Rotation3d redRotation = new Rotation3d(redRotationX, redRotationY, redRotationZ);
 
-  public Pose3d getPosition() {
-    return position;
+    double redX = FieldLocation.LENGTH_OF_FIELD - bluePosition.getX();
+    double redY = FieldLocation.HEIGHT_OF_FIELD - bluePosition.getY();
+    double redZ = bluePosition.getZ();
+    this.redPosition = new Pose3d(redX, redY, redZ, redRotation);
   }
 
   public AlignmentPosition getTrunk() {
