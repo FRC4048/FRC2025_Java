@@ -37,7 +37,6 @@ public class SetLedFromElevatorPosition extends LoggableCommand {
         lightStrip.setPattern(BlinkinPattern.RAINBOW_RAINBOW_PALETTE);
         break;
       case CLIMB:
-        lightStrip.setPattern(BlinkinPattern.ORANGE);
         break;
       default:
         DriverStation.reportWarning("Invalid Reef Position selected", true);
