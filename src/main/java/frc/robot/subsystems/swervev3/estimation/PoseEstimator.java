@@ -137,8 +137,8 @@ public class PoseEstimator {
         }
       }
     }
-      long end = System.currentTimeMillis();
-      Logger.recordOutput("RegisteringVisionTimeMillis", end - start);
+    long end = System.currentTimeMillis();
+    Logger.recordOutput("RegisteringVisionTimeMillis", end - start);
     poseManager.processQueue();
   }
 

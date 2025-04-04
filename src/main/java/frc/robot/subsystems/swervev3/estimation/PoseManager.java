@@ -56,10 +56,10 @@ public class PoseManager {
   }
 
   public void registerVisionMeasurement(VisionMeasurement measurement) {
-    if(measurement == null) {
+    if (measurement == null) {
       return;
     }
-    while (visionMeasurementQueue.size() >= 3){
+    while (visionMeasurementQueue.size() >= 3) {
       visionMeasurementQueue.poll();
     }
     visionMeasurementQueue.add(measurement);
