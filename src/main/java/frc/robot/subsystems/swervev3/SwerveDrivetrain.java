@@ -87,7 +87,7 @@ public class SwerveDrivetrain extends SubsystemBase {
             frontLeft, frontRight, backLeft, backRight, apriltagIO, kinematics, getLastGyro());
     this.resetSimulationPoseCallBack = resetSimulationPoseCallBack;
     finePathController.setTolerance(new Pose2d(0.02, 0.02, Rotation2d.fromDegrees(5)));
-    trajectoryConfig = new TrajectoryConfig(0.5, 0.5);
+    trajectoryConfig = new TrajectoryConfig(2, 2);
   }
 
   @Override
