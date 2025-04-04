@@ -55,7 +55,7 @@ public class FilterablePoseManager extends PoseManager {
   }
 
   @Override
-  protected void processQueue() {
+  public void processQueue() {
     LinkedHashMap<VisionMeasurement, FilterResult> filteredData =
         filter.filter(visionMeasurementQueue);
     visionMeasurementQueue.clear();
