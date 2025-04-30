@@ -52,4 +52,8 @@ public class RealVisionIO implements VisionIO {
     inputs.valid = results.valid;
     inputs.ledMode = (int) ledModeEntry.getInteger(-1);
   }
+
+  public void setLedMode(int mode) {
+    ledModeEntry.setNumber(mode);
+  }
 }
