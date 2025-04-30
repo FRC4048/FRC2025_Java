@@ -84,7 +84,7 @@ public class Robot extends LoggedRobot {
     CommandLogger.get().init();
     robotContainer = new RobotContainer();
 
-    new CameraThread();
+    new CameraThread().start();
   }
 
   public static RobotMode getMode() {
