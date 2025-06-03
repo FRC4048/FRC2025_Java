@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  */
 public abstract class DiagMinMax implements Diagnosable {
 
-  private String name;
-  private String title;
-  private double minValue;
-  private double maxValue;
+  private final String name;
+  private final String title;
+  private final double minValue;
+  private final double maxValue;
   private GenericEntry networkTableEntry;
 
   private boolean seenMinValue;

@@ -1,7 +1,5 @@
 package frc.robot.subsystems.swervev3;
 
-import static edu.wpi.first.units.Units.*;
-
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
@@ -58,10 +56,10 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final PoseEstimator poseEstimator;
   private boolean facingTarget = false;
   private final Consumer<Pose2d> resetSimulationPoseCallBack;
-  private TrajectoryConfig trajectoryConfig;
+  private final TrajectoryConfig trajectoryConfig;
   private boolean focusTagMade = false;
   private Apriltag focusedApriltag = Apriltag.ONE;
-  // controller will add an additional meter per second in the x direction for every meter of error
+  // controller will add a meter per second in the x direction for every meter of error
   // in the x direction
   private final HolonomicDriveController finePathController =
       new HolonomicDriveController(

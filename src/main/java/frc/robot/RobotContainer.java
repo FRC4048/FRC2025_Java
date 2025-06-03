@@ -166,9 +166,7 @@ public class RobotContainer {
                 new SimAlgaeByeByeRollerIO(robotVisualizer.getAlgaeByeByeRollerLigament()));
         lightStrip = new LightStrip(new MockLightStripIO());
       }
-      default -> {
-        throw new RuntimeException("Did not specify Robot Mode");
-      }
+      default -> throw new RuntimeException("Did not specify Robot Mode");
     }
     setupDriveTrain();
     vision = new Vision(new RealVisionIO(), drivetrain::getPose);

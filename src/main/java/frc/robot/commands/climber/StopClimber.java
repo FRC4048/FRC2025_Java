@@ -4,7 +4,7 @@ import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class StopClimber extends LoggableCommand {
-  private ClimberSubsystem climber;
+  private final ClimberSubsystem climber;
 
   public StopClimber(ClimberSubsystem climber) {
     this.climber = climber;

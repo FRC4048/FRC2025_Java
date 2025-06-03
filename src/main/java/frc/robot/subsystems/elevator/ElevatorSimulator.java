@@ -38,8 +38,6 @@ public class ElevatorSimulator {
   private final LoggedMechanismLigament2d elevatorLigament;
   // Whether the elevator is "inverted" - going down onn positives motor
   private final boolean inverted;
-  // The encoder simulator from the simulated motor
-  private final SparkRelativeEncoderSim encoderSim;
   // The forward switch simulator
   private final SparkLimitSwitchSim forwardSwitchSim;
   // The reverse switch simulator
@@ -68,7 +66,8 @@ public class ElevatorSimulator {
     motorSim = new SparkMaxSim(motor, elevatorGearbox);
     this.elevatorLigament = elevatorLigament;
     this.inverted = inverted;
-    encoderSim = motorSim.getRelativeEncoderSim();
+    // The encoder simulator from the simulated motor
+    SparkRelativeEncoderSim encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
   }

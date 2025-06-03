@@ -71,9 +71,7 @@ public class FilterablePoseManager extends PoseManager {
           addVisionMeasurement(v);
         }
         case NOT_PROCESSED -> visionMeasurementQueue.add(v);
-        case REJECTED -> {
-          invalidMeasurements.add(v.measurement());
-        }
+        case REJECTED -> invalidMeasurements.add(v.measurement());
       }
     }
     Logger.recordOutput("Apriltag/acceptedMeasurements", validMeasurements.toArray(Pose2d[]::new));

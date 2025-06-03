@@ -13,23 +13,22 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
 public class MotorSimulator {
   private static final double RPM_PER_VOLT = 100;
-  // Gearbox represents a gearbox (1:1 conversion rate) with 1 or motors connected
-  private final DCMotor gearbox = DCMotor.getNEO(1);
   private final SparkMax motor;
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
   private final LoggedMechanismLigament2d ligament;
   // The encoder simulator from the simulated motor
   private final SparkRelativeEncoderSim encoderSim;
-  private final SparkBaseConfig config;
 
   public MotorSimulator(SparkMax motor, LoggedMechanismLigament2d ligament) {
     this.motor = motor;
+    // Gearbox represents a gearbox (1:1 conversion rate) with 1 or motors connected
+    DCMotor gearbox = DCMotor.getNEO(1);
     motorSim = new SparkMaxSim(motor, gearbox);
     this.ligament = ligament;
     encoderSim = motorSim.getRelativeEncoderSim();
 
-    config = new SparkMaxConfig();
+    SparkBaseConfig config = new SparkMaxConfig();
     config.encoder.positionConversionFactor(1.0);
     motor.configure(config, null, null);
     encoderSim.setPosition(0.0);

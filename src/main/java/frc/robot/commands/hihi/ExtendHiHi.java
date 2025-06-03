@@ -8,12 +8,11 @@ import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class ExtendHiHi extends LoggableCommand {
   private final HihiExtenderSubsystem hihiExtender;
-  private Timer timer;
-  private final TimeoutLogger timeoutCounter;
+  private final Timer timer;
 
   public ExtendHiHi(HihiExtenderSubsystem hihiExtender) {
     this.hihiExtender = hihiExtender;
-    timeoutCounter = new TimeoutLogger("ExtendHiHi");
+    TimeoutLogger timeoutCounter = new TimeoutLogger("ExtendHiHi");
     timer = new Timer();
     addRequirements(hihiExtender);
   }

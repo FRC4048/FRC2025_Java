@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
  */
 public class DiagPot extends DiagMinMax {
 
-  private AnalogPotentiometer pot;
+  private final AnalogPotentiometer pot;
 
   /**
    * Constructor

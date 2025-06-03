@@ -19,9 +19,9 @@ public class Diagnostics extends SubsystemBase {
   public static final String SHUFFLEBOARD_TAB_NAME = "Diagnostics";
   public static final int width = 1, height = 4;
 
-  private ShuffleboardTab shuffleBoardTab;
+  private final ShuffleboardTab shuffleBoardTab;
 
-  private List<Diagnosable> diagnosables;
+  private final List<Diagnosable> diagnosables;
 
   public Diagnostics() {
     shuffleBoardTab = Shuffleboard.getTab(SHUFFLEBOARD_TAB_NAME);

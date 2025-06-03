@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
  */
 public class DiagDutyCycleEncoder extends DiagDistanceTraveled {
 
-  private DutyCycleEncoder encoder;
+  private final DutyCycleEncoder encoder;
 
   /**
    * Constructor

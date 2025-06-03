@@ -22,7 +22,6 @@ import java.util.Map;
 public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
   private final Map<AutoEvent, Command> commandMap;
   private final AutoEventProvider provider;
-  private final SwerveDrivetrain drivetrain;
 
   public AutoChooser2025(
       AutoEventProviderIO providerIO,
@@ -32,7 +31,6 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
       LightStrip lightStrip,
       AlgaeByeByeTiltSubsystem byeBye) {
     provider = new AutoEventProvider(providerIO, this::isValid);
-    this.drivetrain = drivetrain;
     commandMap =
         Map.ofEntries(
             Map.entry(

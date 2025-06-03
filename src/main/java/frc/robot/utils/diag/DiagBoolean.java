@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  */
 public abstract class DiagBoolean implements Diagnosable {
 
-  private String title;
-  private String name;
+  private final String title;
+  private final String name;
   private GenericEntry networkTableEntry;
 
   private boolean seenFalse;

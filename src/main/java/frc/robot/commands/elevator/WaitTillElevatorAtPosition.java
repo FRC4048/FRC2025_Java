@@ -8,7 +8,7 @@ import frc.robot.subsystems.elevator.ElevatorSubsystem;
 import frc.robot.utils.logging.commands.LoggableCommand;
 
 public class WaitTillElevatorAtPosition extends LoggableCommand {
-  private double position;
+  private final double position;
   private final ElevatorSubsystem elevatorSubsystem;
   private double counter = 0;
 

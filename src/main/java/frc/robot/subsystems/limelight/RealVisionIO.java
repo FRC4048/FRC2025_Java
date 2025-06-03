@@ -8,7 +8,6 @@ import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.diag.DiagLimelight;
 
 public class RealVisionIO implements VisionIO {
-  private LimelightHelpers.LimelightResults results;
   private final NetworkTableEntry ledModeEntry;
 
   public RealVisionIO() {
@@ -22,7 +21,7 @@ public class RealVisionIO implements VisionIO {
   public void updateInputs(VisionInputs inputs) {
     // this might take a while so we might now want to update this every tick and do it in another
     // thread.
-    results = LimelightHelpers.getLatestResults("limelight");
+    LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults("limelight");
     LimelightHelpers.LimelightTarget_Detector[] targetsDetector = results.targets_Detector;
     int detectionLength = targetsDetector.length;
     inputs.className = new String[detectionLength];

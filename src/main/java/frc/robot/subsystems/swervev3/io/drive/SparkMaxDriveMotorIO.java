@@ -32,11 +32,11 @@ public class SparkMaxDriveMotorIO implements SwerveDriveMotorIO {
 
   private void setConversionFactors(KinematicsConversionConfig conversionConfig) {
     double driveVelConvFactor =
-        (2 * conversionConfig.getWheelRadius() * Math.PI)
-            / (conversionConfig.getProfile().getDriveGearRatio() * 60);
+        (2 * conversionConfig.wheelRadius() * Math.PI)
+            / (conversionConfig.profile().getDriveGearRatio() * 60);
     double drivePosConvFactor =
-        (2 * conversionConfig.getWheelRadius() * Math.PI)
-            / (conversionConfig.getProfile().getDriveGearRatio());
+        (2 * conversionConfig.wheelRadius() * Math.PI)
+            / (conversionConfig.profile().getDriveGearRatio());
     driveConfig
         .encoder
         .positionConversionFactor(drivePosConvFactor)

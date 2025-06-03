@@ -13,7 +13,7 @@ public class SwerveSimulationUtils {
   private static final DCMotor driveMotor = DCMotor.getNEO(1);
   private static final DCMotor steerMotor = DCMotor.getNEO(1);
 
-  public static final DriveTrainSimulationConfig simulationConfig() {
+  public static DriveTrainSimulationConfig simulationConfig() {
     return DriveTrainSimulationConfig.Default()
         .withCustomModuleTranslations(SwerveDrivetrain.getKinematics().getModules())
         .withRobotMass(Kilograms.of(Constants.ROBOT_MASS))

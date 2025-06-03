@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class DiagLimelight implements Diagnosable {
   private DoubleSubscriber subscriber;
-  private String title;
-  private String name;
+  private final String title;
+  private final String name;
   private GenericEntry networkTableEntry;
 
   public DiagLimelight(String title, String name) {

@@ -70,7 +70,7 @@ public abstract class BasicVisionFilter implements VisionFilter, VisionTransform
     if (odomPoseAtVis1.isEmpty() || odomPoseAtVis2.isEmpty()) {
       return false;
     }
-    if (!inBounds(m1Pose) || !inBounds(m2Pose)) {
+    if (inBounds(m1Pose) || inBounds(m2Pose)) {
       return false;
     }
     double odomDiff1To2 =
@@ -81,6 +81,9 @@ public abstract class BasicVisionFilter implements VisionFilter, VisionTransform
   }
 
   private boolean inBounds(Pose2d pose2d) {
-    return pose2d.getX() > 0 && pose2d.getX() < 20 && pose2d.getY() > 0 && pose2d.getY() < 20;
+    return !(pose2d.getX() > 0)
+        || !(pose2d.getX() < 20)
+        || !(pose2d.getY() > 0)
+        || !(pose2d.getY() < 20);
   }
 }

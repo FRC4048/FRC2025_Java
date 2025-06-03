@@ -39,8 +39,6 @@ public class IntakeSimulator {
 
   private static final double RPM_PER_VOLT = 100;
 
-  // Gearbox represents a gearbox (1:1 conversion rate) with 1 or motors connected
-  private final DCMotor gearbox = DCMotor.getNEO(1);
   private final SparkMax motor;
   // The simulated motor controller wrapping the actual motor
   private final SparkMaxSim motorSim;
@@ -52,15 +50,16 @@ public class IntakeSimulator {
   private Mode mode = Mode.EMPTY;
   // Mode start point (encoder position when mode change)
   private double startPoint = 0;
-  private final SparkBaseConfig config;
 
   public IntakeSimulator(SparkMax motor, LoggedMechanismLigament2d ligament) {
     this.motor = motor;
+    // Gearbox represents a gearbox (1:1 conversion rate) with 1 or motors connected
+    DCMotor gearbox = DCMotor.getNEO(1);
     motorSim = new SparkMaxSim(motor, gearbox);
     this.ligament = ligament;
     encoderSim = motorSim.getRelativeEncoderSim();
 
-    config = new SparkMaxConfig();
+    SparkBaseConfig config = new SparkMaxConfig();
     config.encoder.positionConversionFactor(1.0);
     motor.configure(config, null, null);
     encoderSim.setPosition(0.0);

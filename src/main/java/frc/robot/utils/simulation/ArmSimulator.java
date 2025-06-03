@@ -24,8 +24,6 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
  * information. Does not interfere with production behavior.
  */
 public class ArmSimulator {
-  // Gearbox represents a gearbox (1:1 conversion rate) with 1 motor connected
-  private final DCMotor gearbox = DCMotor.getNEO(1);
   // The motor (that sits underneath the motor simulator)
   // In case of follower/leader, this should be the leader
   private final SparkMax motor;
@@ -42,10 +40,11 @@ public class ArmSimulator {
   private final SingleJointedArmSim armSim;
   private final double armGearing;
   private final String name;
-  private final SparkBaseConfig config;
 
   /** Constructor. */
   public ArmSimulator(SparkMax motor, ArmParameters params, LoggedMechanismLigament2d ligament) {
+    // Gearbox represents a gearbox (1:1 conversion rate) with 1 motor connected
+    DCMotor gearbox = DCMotor.getNEO(1);
     armSim =
         new SingleJointedArmSim(
             gearbox,
@@ -64,7 +63,7 @@ public class ArmSimulator {
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
-    config = new SparkMaxConfig();
+    SparkBaseConfig config = new SparkMaxConfig();
     config.encoder.positionConversionFactor(1.0);
     motor.configure(config, null, null);
     encoderSim.setPosition(0.0);

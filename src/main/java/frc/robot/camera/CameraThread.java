@@ -31,14 +31,13 @@ public class CameraThread {
     cameraThread.start();
   }
 
-  private class CameraRunner implements Runnable {
+  private static class CameraRunner implements Runnable {
     @Override
     public void run() {
       try {
         processImage();
       } catch (Exception e) {
         e.printStackTrace();
-        return;
       }
     }
 
@@ -48,7 +47,7 @@ public class CameraThread {
       camera.setResolution(WIDTH, HEIGHT);
 
       // Get a CvSink. This will capture Mats from the Camera
-      // Setup a CvSource. This will send images back to the dashboard
+      // Set up a CvSource. This will send images back to the dashboard
       CvSink cvSink = CameraServer.getVideo();
       CvSource outputStream = CameraServer.putVideo(LOGGING_PREFIX, WIDTH, HEIGHT);
 
@@ -93,7 +92,10 @@ public class CameraThread {
       Imgproc.line(
           mat, new Point(HORIZ_LINE, 0), new Point(HORIZ_LINE, HEIGHT), new Scalar(20, 97, 255));
       Imgproc.line(
-          mat, new Point(0, HEIGHT / 2), new Point(WIDTH, HEIGHT / 2), new Scalar(20, 97, 255));
+          mat,
+          new Point(0, (double) HEIGHT / 2),
+          new Point(WIDTH, (double) HEIGHT / 2),
+          new Scalar(20, 97, 255));
 
       // Leaving this commented out right now, may bring back two lines
       // Imgproc.line(mat, new Point(0, TOP_Y), new Point(WIDTH, TOP_Y), new Scalar(0, 255, 0));

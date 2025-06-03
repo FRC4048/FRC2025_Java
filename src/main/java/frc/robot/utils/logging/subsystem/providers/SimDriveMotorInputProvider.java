@@ -44,13 +44,13 @@ public class SimDriveMotorInputProvider implements MotorInputProvider {
   @Override
   public double getEncoderVelocity() {
     return moduleSimulation.getDriveWheelFinalSpeed().in(RadiansPerSecond)
-        * (conversionConfig.getWheelRadius());
+        * (conversionConfig.wheelRadius());
   }
 
   @Override
   public double getEncoderPosition() {
     return moduleSimulation.getDriveWheelFinalPosition().in(Radians)
-        * (conversionConfig.getWheelRadius());
+        * (conversionConfig.wheelRadius());
   }
 
   @Override

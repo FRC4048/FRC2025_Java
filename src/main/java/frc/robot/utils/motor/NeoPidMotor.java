@@ -26,7 +26,6 @@ public class NeoPidMotor {
 
   // The neo motor controller
   private final SparkMax neoMotor;
-  private final NeoPidConfig pidConfig; // if using arbff we need to keep track of pidConfig
   // The built-in relative encoder
   private final RelativeEncoder encoder;
   // The built-in PID controller
@@ -46,7 +45,7 @@ public class NeoPidMotor {
 
   public NeoPidMotor(int id, NeoPidConfig pidConfig) {
     neoMotor = new SparkMax(id, SparkLowLevel.MotorType.kBrushless);
-    this.pidConfig = pidConfig;
+    // if using arbff we need to keep track of pidConfig
     encoder = neoMotor.getEncoder();
 
     pidController = neoMotor.getClosedLoopController();

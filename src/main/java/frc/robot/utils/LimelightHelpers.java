@@ -438,13 +438,13 @@ public class LimelightHelpers {
 
   /** Represents a Limelight Raw Fiducial result from Limelight's NetworkTables output. */
   public static class RawFiducial {
-    public int id = 0;
-    public double txnc = 0;
-    public double tync = 0;
-    public double ta = 0;
-    public double distToCamera = 0;
-    public double distToRobot = 0;
-    public double ambiguity = 0;
+    public int id;
+    public double txnc;
+    public double tync;
+    public double ta;
+    public double distToCamera;
+    public double distToRobot;
+    public double ambiguity;
 
     public RawFiducial(
         int id,
@@ -480,18 +480,18 @@ public class LimelightHelpers {
 
   /** Represents a Limelight Raw Neural Detector result from Limelight's NetworkTables output. */
   public static class RawDetection {
-    public int classId = 0;
-    public double txnc = 0;
-    public double tync = 0;
-    public double ta = 0;
-    public double corner0_X = 0;
-    public double corner0_Y = 0;
-    public double corner1_X = 0;
-    public double corner1_Y = 0;
-    public double corner2_X = 0;
-    public double corner2_Y = 0;
-    public double corner3_X = 0;
-    public double corner3_Y = 0;
+    public int classId;
+    public double txnc;
+    public double tync;
+    public double ta;
+    public double corner0_X;
+    public double corner0_Y;
+    public double corner1_X;
+    public double corner1_Y;
+    public double corner2_X;
+    public double corner2_Y;
+    public double corner3_X;
+    public double corner3_Y;
 
     public RawDetection(
         int classId,
@@ -622,7 +622,7 @@ public class LimelightHelpers {
   /** Print JSON Parse time to the console in milliseconds */
   static boolean profileJSON = false;
 
-  static final String sanitizeName(String name) {
+  static String sanitizeName(String name) {
     if ("".equals(name) || name == null) {
       return "limelight";
     }
@@ -739,9 +739,7 @@ public class LimelightHelpers {
     int valsPerFiducial = 7;
     int expectedTotalVals = 11 + valsPerFiducial * tagCount;
 
-    if (poseArray.length != expectedTotalVals) {
-      // Don't populate fiducials
-    } else {
+    if (poseArray.length == expectedTotalVals) {
       for (int i = 0; i < tagCount; i++) {
         int baseIndex = 11 + (i * valsPerFiducial);
         int id = (int) poseArray[baseIndex];
@@ -1481,11 +1479,7 @@ public class LimelightHelpers {
   /** Sets 3D offset point for easy 3D targeting. */
   public static void setFiducial3DOffset(
       String limelightName, double offsetX, double offsetY, double offsetZ) {
-    double[] entries = new double[3];
-    entries[0] = offsetX;
-    entries[1] = offsetY;
-    entries[2] = offsetZ;
-    setLimelightNTDoubleArray(limelightName, "fiducial_offset_set", entries);
+    SetFidcuial3DOffset(limelightName, offsetX, offsetY, offsetZ);
   }
 
   /**
@@ -1580,8 +1574,8 @@ public class LimelightHelpers {
   }
 
   /**
-   * Sets the 3D point-of-interest offset for the current fiducial pipeline.
-   * https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-3d#point-of-interest-tracking
+   * Sets the 3D point-of-interest offset for the current fiducial pipeline. <a
+   * href="https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-3d#point-of-interest-tracking">...</a>
    *
    * @param limelightName Name/identifier of the Limelight
    * @param x X offset in meters
@@ -1685,18 +1679,16 @@ public class LimelightHelpers {
 
   /** Asynchronously take snapshot. */
   public static CompletableFuture<Boolean> takeSnapshot(String tableName, String snapshotName) {
-    return CompletableFuture.supplyAsync(
-        () -> {
-          return SYNCH_TAKESNAPSHOT(tableName, snapshotName);
-        });
+    return CompletableFuture.supplyAsync(() -> SYNCH_TAKESNAPSHOT(tableName, snapshotName));
   }
 
   private static boolean SYNCH_TAKESNAPSHOT(String tableName, String snapshotName) {
     URL url = getLimelightURLString(tableName, "capturesnapshot");
     try {
+      assert url != null;
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestMethod("GET");
-      if (snapshotName != null && !"".equals(snapshotName)) {
+      if (snapshotName != null && !snapshotName.isEmpty()) {
         connection.setRequestProperty("snapname", snapshotName);
       }
 

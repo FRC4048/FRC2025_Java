@@ -20,13 +20,12 @@ public class GamePieceLocate {
   private static final Comparator<BranchPositions> branchComparator =
       Comparator.comparingInt(b -> b.getElevatorLevel().getWeight());
   // Precomputed vectors for positions
-  private static final Vector<N3>[] PRECOMPUTED_BRANCH_VECS =
+  private static final Vector[] PRECOMPUTED_BRANCH_VECS =
       Arrays.stream(BRANCHES)
           .map(branch -> branch.getPosition().getTranslation().toVector())
           .toArray(Vector[]::new);
-  ;
 
-  private static final Vector<N3>[] PRECOMPUTED_ALGAE_VECS =
+  private static final Vector[] PRECOMPUTED_ALGAE_VECS =
       Arrays.stream(ALGAES)
           .map(algae -> algae.getPosition().getTranslation().toVector())
           .toArray(Vector[]::new);
@@ -132,15 +131,9 @@ public class GamePieceLocate {
     boolean l2Score = false;
     for (BranchPositions b : relevantBranches) {
       switch (b.getElevatorLevel()) {
-        case LEVEL4 -> {
-          l4Score = true;
-        }
-        case LEVEL3 -> {
-          l3Score = true;
-        }
-        case LEVEL2 -> {
-          l2Score = true;
-        }
+        case LEVEL4 -> l4Score = true;
+        case LEVEL3 -> l3Score = true;
+        case LEVEL2 -> l2Score = true;
       }
     }
     if (!l4Score) {
