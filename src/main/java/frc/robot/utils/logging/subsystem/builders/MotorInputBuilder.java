@@ -24,7 +24,7 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
     return new MotorInputs(this);
   }
 
-  public T reset() {
+  public void reset() {
     logEncoderPosition = false;
     logEncoderVelocity = false;
     logMotorCurrent = false;
@@ -32,7 +32,6 @@ public class MotorInputBuilder<T extends MotorInputBuilder<T>> {
     logFwdLimit = false;
     logRevLimit = false;
     logAppliedOutput = false;
-    return self();
   }
 
   public T motorAppliedOutput() {

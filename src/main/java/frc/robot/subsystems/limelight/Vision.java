@@ -16,10 +16,12 @@ import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class Vision extends SubsystemBase {
-  LoggableSystem<VisionIO, VisionInputs> system;
+  final LoggableSystem<VisionIO, VisionInputs> system;
   private final Supplier<Pose2d> pose2dSupplier;
-  ArrayList<GamePieceLocate.AlgaePositionMeasurement> currentAlgaePosition = new ArrayList<>();
-  ArrayList<GamePieceLocate.BranchPositionMeasurement> currentCoralPositions = new ArrayList<>();
+  final ArrayList<GamePieceLocate.AlgaePositionMeasurement> currentAlgaePosition =
+      new ArrayList<>();
+  final ArrayList<GamePieceLocate.BranchPositionMeasurement> currentCoralPositions =
+      new ArrayList<>();
   double keepTicks = 0;
 
   public Vision(VisionIO io, Supplier<Pose2d> pose2dSupplier) {

@@ -4,7 +4,6 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.*;
-import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import frc.robot.constants.*;
 import java.util.Arrays;
@@ -47,7 +46,7 @@ public class GamePieceLocate {
     int n = CenterPositions.getClosest(robotPos);
     for (int i = 6 * n - 3; i < 6 * n + 9; i++) {
       int f = Math.floorMod(i, BRANCHES.length);
-      Matrix<N3, N1> locationVec =
+      Matrix locationVec =
           (invCameraRotation.times(PRECOMPUTED_BRANCH_VECS[f].minus(cameraPosVec)));
       double dot =
           pieceVec.dot(
@@ -81,8 +80,7 @@ public class GamePieceLocate {
     int n = CenterPositions.getClosest(robotPos);
     for (int i = 2 * n - 2; i < 2 * n + 4; i++) {
       int f = Math.floorMod(i, ALGAES.length);
-      Matrix<N3, N1> locationVec =
-          (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[f].minus(cameraPosVec)));
+      Matrix locationVec = (invCameraRotation.times(PRECOMPUTED_ALGAE_VECS[f].minus(cameraPosVec)));
       double dot =
           pieceVec.dot(
               VecBuilder.fill(locationVec.get(0, 0), locationVec.get(1, 0), locationVec.get(2, 0))

@@ -1,3 +1,6 @@
+import edu.wpi.first.gradlerio.GradleRIOPlugin
+import groovy.json.JsonSlurper
+
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2025.3.2"
@@ -67,7 +70,7 @@ wpi.java.debugJni = false
 def includeDesktopSupport = true
 
 // Configuration for AdvantageKit
-task(replayWatch, type: JavaExec) {
+tasks.register('replayWatch', JavaExec) {
     mainClass = "org.littletonrobotics.junction.ReplayWatch"
     classpath = sourceSets.main.runtimeClasspath
 }
@@ -96,7 +99,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    def akitJson = new groovy.json.JsonSlurper().parseText(new File(projectDir.getAbsolutePath() + "/vendordeps/AdvantageKit.json").text)
+    def akitJson = new JsonSlurper().parseText(new File(projectDir.getAbsolutePath() + "/vendordeps/AdvantageKit.json").text)
     annotationProcessor "org.littletonrobotics.akit:akit-autolog:$akitJson.version"
 }
 
@@ -119,7 +122,7 @@ jar {
         }
     }
     from sourceSets.main.allSource
-    manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+    manifest GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
@@ -129,12 +132,12 @@ wpi.java.configureExecutableTasks(jar)
 wpi.java.configureTestTasks(test)
 
 // Configure string concat to always inline compile
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.compilerArgs.add '-XDstringConcat=inline'
 }
 // Create commit with working changes on event branches
 //if branch begins with "event" make sure all deployed code is committed
-task(eventDeploy) {
+tasks.register('eventDeploy') {
     doLast {
         if (project.gradle.startParameter.taskNames.any({ it.toLowerCase().contains("deploy") })) {
             def branchPrefix = "event"
@@ -191,15 +194,15 @@ spotless {
         leadingTabsToSpaces(4)
         trimTrailingWhitespace()
         custom("ClassNameUppercase"){line ->
-            def pattern = "(?<=\\n|\\A)(?:public\\s+|protected\\s+|private\\s+)?(?:abstract\\s+)?(?:static\\s+)?(class|interface|enum|record)\\s+([^\\n\\s]*)"; //https://regex101.com/r/dzmrrd/1
+            def pattern = "(?<=\\n|\\A)(?:public\\s+|protected\\s+|private\\s+)?(?:abstract\\s+)?(?:static\\s+)?(class|interface|enum|record)\\s+([^\\n\\s]*)" //https://regex101.com/r/dzmrrd/1
             def matcher = line =~ pattern
             if(matcher.find()){
                 def className = matcher.group(2)
                 if (!(className.substring(0, 1).toUpperCase() == className.substring(0, 1))){
-                    throw new IllegalArgumentException('Class names must start with an uppercase letter.');
+                    throw new IllegalArgumentException('Class names must start with an uppercase letter.')
                 }
             }
-            return line;
+            return line
         }
     }
     groovyGradle {

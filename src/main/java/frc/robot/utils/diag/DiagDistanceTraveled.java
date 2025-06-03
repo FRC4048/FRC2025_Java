@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  */
 public abstract class DiagDistanceTraveled implements Diagnosable {
 
-  protected String name;
-  protected String title;
-  protected double requiredTravel;
+  protected final String name;
+  protected final String title;
+  protected final double requiredTravel;
   protected GenericEntry networkTableEntry;
   private double initialValue;
   private boolean traveledDistance;

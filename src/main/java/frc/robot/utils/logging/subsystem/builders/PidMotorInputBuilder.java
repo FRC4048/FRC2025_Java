@@ -20,10 +20,9 @@ public class PidMotorInputBuilder<T extends PidMotorInputBuilder<T>> extends Mot
   }
 
   @Override
-  public T reset() {
+  public void reset() {
     super.reset();
     logPidSetpoint = false;
-    return self();
   }
 
   public T pidSetpoint() {

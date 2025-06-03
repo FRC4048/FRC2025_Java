@@ -438,10 +438,10 @@ public class LimelightHelpers {
 
   /** Represents a Limelight Raw Fiducial result from Limelight's NetworkTables output. */
   public static class RawFiducial {
-    public int id;
-    public double txnc;
-    public double tync;
-    public double ta;
+    public final int id;
+    public final double txnc;
+    public final double tync;
+    public final double ta;
     public double distToCamera;
     public double distToRobot;
     public double ambiguity;
