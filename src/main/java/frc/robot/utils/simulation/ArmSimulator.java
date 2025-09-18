@@ -7,6 +7,8 @@ import com.revrobotics.sim.SparkLimitSwitchSim;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
@@ -61,7 +63,9 @@ public class ArmSimulator {
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
-    // encoderSim.setPositionConversionFactor(1.0); trust this works
+    SparkBaseConfig config = new SparkMaxConfig();
+    config.encoder.positionConversionFactor(1.0);
+    motor.configure(config, null, null);
     encoderSim.setPosition(0.0);
     encoderSim.setInverted(false);
   }

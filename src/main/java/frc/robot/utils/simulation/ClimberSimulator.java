@@ -5,6 +5,8 @@ import static edu.wpi.first.units.Units.*;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.Angle;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
@@ -52,7 +54,9 @@ public class ClimberSimulator {
     this.ligament = ligament;
     encoderSim = motorSim.getRelativeEncoderSim();
 
-    // encoderSim.setPositionConversionFactor(1.0); trust this works
+    SparkBaseConfig config = new SparkMaxConfig();
+    config.encoder.positionConversionFactor(1.0);
+    motor.configure(config, null, null);
     encoderSim.setPosition(0.0);
     encoderSim.setInverted(false);
   }
