@@ -57,7 +57,6 @@ public class IntakeSimulator {
     this.ligament = ligament;
     encoderSim = motorSim.getRelativeEncoderSim();
 
-    encoderSim.setPositionConversionFactor(1.0);
     encoderSim.setPosition(0.0);
     encoderSim.setInverted(false);
   }

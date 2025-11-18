@@ -61,7 +61,7 @@ public class ArmSimulator {
     encoderSim = motorSim.getRelativeEncoderSim();
     forwardSwitchSim = motorSim.getForwardLimitSwitchSim();
     reverseSwitchSim = motorSim.getReverseLimitSwitchSim();
-    encoderSim.setPositionConversionFactor(1.0);
+
     encoderSim.setPosition(0.0);
     encoderSim.setInverted(false);
   }
