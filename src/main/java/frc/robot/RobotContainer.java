@@ -236,9 +236,9 @@ public class RobotContainer {
     joyLeft2.whileTrue(robotSlide);
     controller.leftBumper().onTrue(new AlignClosestBranch(drivetrain));
     if (Constants.ENABLE_FANCY_LIMELIGHT_MATH) {
-      /*controller
+      controller
           .rightTrigger()
-          .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));*/
+          .onTrue(new SuperAutoScore(drivetrain, elevatorSubsystem, coralSubsystem, vision));
     }
     controller
         .leftTrigger()
@@ -262,14 +262,14 @@ public class RobotContainer {
         .onTrue(
             new SetElevatorStoredPosition(ElevatorPosition.LEVEL3, elevatorSubsystem, lightStrip));
     // controller.rightBumper().onTrue(); noahs align
-    /*controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));*/
+    controller.rightBumper().onTrue(new ElevatorToStoredPosition(elevatorSubsystem));
     SetElevatorTargetPosition setElevatorTargetPosition =
         new SetElevatorTargetPosition(controller::getLeftY, elevatorSubsystem);
     elevatorSubsystem.setDefaultCommand(setElevatorTargetPosition);
-    /*controller.a().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
+    controller.a().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
         .b()
-        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));*/
+        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
     //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
