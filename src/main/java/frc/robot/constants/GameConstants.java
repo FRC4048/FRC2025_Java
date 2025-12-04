@@ -198,7 +198,7 @@ public class GameConstants {
 
   // Drivetrain
   public static final double WHEEL_RADIUS = 0.0508; // TODO: change later
-  public static final double MAX_VELOCITY = 3.81; // 4 meters per second //TODO: change later
+  public static final double MAX_VELOCITY = 1.5; // 4 meters per second //TODO: change later
   public static final double MAX_ANGULAR_SPEED = 6 * Math.PI; // TODO: change later
 
   // Other
