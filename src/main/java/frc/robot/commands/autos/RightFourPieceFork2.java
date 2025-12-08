@@ -11,8 +11,8 @@ import frc.robot.utils.logging.commands.LoggableParallelCommandGroup;
 import frc.robot.utils.logging.commands.LoggableSequentialCommandGroup;
 import frc.robot.utils.logging.commands.LoggableWaitCommand;
 
-public class RightFourPieceFork extends LoggableSequentialCommandGroup {
-  public RightFourPieceFork(
+public class RightFourPieceFork2 extends LoggableSequentialCommandGroup {
+  public RightFourPieceFork2(
       ElevatorSubsystem elevator,
       CoralSubsystem coral,
       LightStrip lightStrip,
@@ -20,7 +20,7 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
       ElevatorPosition scorePosition2) {
     super(
         new LoggableParallelCommandGroup(
-            new LoggableCommandWrapper(Paths.getInstance().getRobotFourToPostECommand()),
+            new LoggableCommandWrapper(Paths.getInstance().getRobotFourToPostECommand2()),
             new SetElevatorStoredPosition(scorePosition1, elevator, lightStrip),
             new LoggableSequentialCommandGroup(
                 new LoggableWaitCommand(1.25),
@@ -28,11 +28,11 @@ public class RightFourPieceFork extends LoggableSequentialCommandGroup {
         new ShootCoral(coral, 0.5),
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
-                Paths.getInstance().getPostEToStationOneCommand()), // Post E to Station
+                Paths.getInstance().getPostEToStationOneCommand2()), // Post E to Station
             new LightlessPickup(elevator, coral)),
         new LoggableParallelCommandGroup(
             new LoggableCommandWrapper(
-                Paths.getInstance().getStationTwoToPostCCommand()), // Station 2 to Post B
+                Paths.getInstance().getStationTwoToPostCCommand2()), // Station 2 to Post B
             new SetElevatorStoredPosition(scorePosition2, elevator, lightStrip),
             new LoggableSequentialCommandGroup(
                 new LoggableWaitCommand(1.3),
