@@ -52,7 +52,7 @@ public class Paths {
       robotFourToPostECommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 4 to Post E"));
       robotFourToPostECommand2 =
-          AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("R4 to Post E"));
+          AutoBuilder.followPath(PathPlannerPath.fromChoreoTrajectory("Simple path 1"));
       robotTwoToPostHCommand =
           AutoBuilder.followPath(PathPlannerPath.fromPathFile("Robot 2 to Post H"));
       // Post to Station Paths
