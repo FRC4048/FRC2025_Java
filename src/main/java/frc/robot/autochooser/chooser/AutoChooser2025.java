@@ -52,11 +52,11 @@ public class AutoChooser2025 extends SubsystemBase implements AutoChooser {
                 new RobotCentricDrive(drivetrain, 0.25, 3)),
             Map.entry(
                 new AutoEvent(AutoAction.TWO_PIECE_HIGH, FieldLocation.RIGHT),
-                new RightFourPieceFork(
+                new RightFourPieceFork2(
                     elevator, coral, lightStrip, ElevatorPosition.LEVEL4, ElevatorPosition.LEVEL4)),
             Map.entry(
                 new AutoEvent(AutoAction.TWO_PIECE_LOW, FieldLocation.RIGHT),
-                new RightFourPieceFork(
+                new RightFourPieceFork2(
                     elevator, coral, lightStrip, ElevatorPosition.LEVEL2, ElevatorPosition.LEVEL4)),
             Map.entry(
                 new AutoEvent(AutoAction.TWO_PIECE_HIGH, FieldLocation.LEFT),

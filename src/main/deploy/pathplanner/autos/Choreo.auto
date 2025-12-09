@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R4 to Post E"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post E to S1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "S1 to Post C"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post C to S1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "S1 to Post D"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Post D to S1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "S1 to Post B"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": true
+}
