@@ -73,7 +73,7 @@ public class GyroInputs extends FolderLoggableInputs {
 
   @Override
   public void fromLog(LogTable table) {
-    anglesInDeg = table.get("anglesInDeg", anglesInDeg);
+    anglesInDeg = table.get("anglesInDeg22", anglesInDeg);
     angleOffset = table.get("angleOffset", angleOffset);
     blah1 = table.get("blah1", blah1);
     worldLinearAccelX = table.get("worldLinearAccelX", worldLinearAccelX);

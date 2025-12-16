@@ -29,5 +29,30 @@ public class RealGyroIO implements GyroIO {
     inputs.angleOffset = gyro.getAngleOffset();
     inputs.blah1 = gyro.getBlah1();
     inputs.worldLinearAccelX = gyro.getWorldLinearAccelX();
+    inputs.worldLinearAccelY = gyro.getWorldLinearAccelY();
+    inputs.worldLinearAccelZ = gyro.getWorldLinearAccelZ();
+    inputs.velocityX = gyro.getVelocityX();
+    inputs.velocityY = gyro.getVelocityY();
+    inputs.velocityZ = gyro.getVelocityZ();
+    inputs.displacementX = gyro.getDisplacementX();
+    inputs.displacementY = gyro.getDisplacementY();
+    inputs.displacementZ = gyro.getDisplacementZ();
+    inputs.rawGyroX = gyro.getRawGyroX();
+    inputs.rawGyroY = gyro.getRawGyroY();
+    inputs.rawGyroZ = gyro.getRawGyroZ();
+    inputs.rawAccelX = gyro.getRawAccelX();
+    inputs.rawAccelY = gyro.getRawAccelY();
+    inputs.rawAccelZ = gyro.getRawAccelZ();
+    inputs.rawMagX = gyro.getRawMagX();
+    inputs.rawMagY = gyro.getRawMagY();
+    inputs.rawMagZ = gyro.getRawMagZ();
+    inputs.yaw = gyro.getYaw();
+    inputs.pitch = gyro.getPitch();
+    inputs.roll = gyro.getRoll();
+    inputs.compassHeading = gyro.getCompassHeading();
+    inputs.fusedHeading = gyro.getFusedHeading();
+    inputs.robotCentricVelocityX = gyro.getRobotCentricVelocityX();
+    inputs.robotCentricVelocityY = gyro.getRobotCentricVelocityY();
+    inputs.robotCentricVelocityZ = gyro.getRobotCentricVelocityZ();
   }
 }
