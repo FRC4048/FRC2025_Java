@@ -45,7 +45,7 @@ public class GyroInputs extends FolderLoggableInputs {
     table.put("blah1", blah1);
     table.put("worldLinearAccelX", worldLinearAccelX);
     table.put("worldLinearAccelY", worldLinearAccelY);
-    table.put("worldLinearAccelY", worldLinearAccelY);
+    table.put("worldLinearAccelZ", worldLinearAccelY);
     table.put("velocityX", velocityX);
     table.put("velocityY", velocityY);
     table.put("velocityZ", velocityZ);
@@ -73,7 +73,7 @@ public class GyroInputs extends FolderLoggableInputs {
 
   @Override
   public void fromLog(LogTable table) {
-    anglesInDeg = table.get("anglesInDeg22", anglesInDeg);
+    anglesInDeg = table.get("anglesInDeg", anglesInDeg);
     angleOffset = table.get("angleOffset", angleOffset);
     blah1 = table.get("blah1", blah1);
     worldLinearAccelX = table.get("worldLinearAccelX", worldLinearAccelX);
