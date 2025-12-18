@@ -45,7 +45,7 @@ public class GyroInputs extends FolderLoggableInputs {
     table.put("blah1", blah1);
     table.put("worldLinearAccelX", worldLinearAccelX);
     table.put("worldLinearAccelY", worldLinearAccelY);
-    table.put("worldLinearAccelZ", worldLinearAccelY);
+    table.put("worldLinearAccelZ", worldLinearAccelZ);
     table.put("velocityX", velocityX);
     table.put("velocityY", velocityY);
     table.put("velocityZ", velocityZ);
