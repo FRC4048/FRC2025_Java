@@ -6,6 +6,8 @@ import static edu.wpi.first.units.Units.Rotations;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.system.plant.DCMotor;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 
@@ -19,6 +21,7 @@ public class MotorSimulator {
   private final LoggedMechanismLigament2d ligament;
   // The encoder simulator from the simulated motor
   private final SparkRelativeEncoderSim encoderSim;
+  private final SparkBaseConfig config;
 
   public MotorSimulator(SparkMax motor, LoggedMechanismLigament2d ligament) {
     this.motor = motor;
@@ -26,7 +29,9 @@ public class MotorSimulator {
     this.ligament = ligament;
     encoderSim = motorSim.getRelativeEncoderSim();
 
-    encoderSim.setPositionConversionFactor(1.0);
+    config = new SparkMaxConfig();
+    config.encoder.positionConversionFactor(1.0);
+    motor.configure(config, null, null);
     encoderSim.setPosition(0.0);
     encoderSim.setInverted(false);
   }
