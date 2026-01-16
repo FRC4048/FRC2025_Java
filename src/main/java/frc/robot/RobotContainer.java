@@ -269,7 +269,7 @@ public class RobotContainer {
     controller.a().onTrue(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
     controller
         .b()
-        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+        .onTrue(new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB, lightStrip));
     //    controller.a().onTrue(new DeployClimber(climber));
     controller.x().onTrue(new ByeByeAllDone(byebyeTilt, byebyeRoller, elevatorSubsystem));
     controller.y().onTrue(new RemoveAlgaeFromReef(byebyeTilt, byebyeRoller, elevatorSubsystem));
@@ -542,7 +542,7 @@ public class RobotContainer {
     if (Constants.CLIMBER_DEBUG) {
       SmartDashboard.putData(new ClimbToLimit(climber, Constants.CLIMBER_PHASE2_SPEED));
       SmartDashboard.putData(
-          new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB));
+          new DeployHarpoon(climber, elevatorSubsystem, lightStrip, ElevatorPosition.CLIMB, lightStrip));
       // Climber Commands
 
       //      SmartDashboard.putData( "Reset Climber", new ResetClimber(climber));
