@@ -139,7 +139,7 @@ public class PoseEstimator {
     }
     long end = System.currentTimeMillis();
     Logger.recordOutput("RegisteringVisionTimeMillis", end - start);
-    poseManager.processQueue();
+    poseManager.updateInputs();
   }
 
   private VisionMeasurement getVisionMeasurement(double[] pos, int index) {
