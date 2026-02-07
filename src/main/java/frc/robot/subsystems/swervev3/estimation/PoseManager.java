@@ -13,13 +13,16 @@ import frc.robot.subsystems.swervev3.bags.VisionMeasurement;
 import frc.robot.subsystems.swervev3.vision.PoseDeviation;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import frc.robot.subsystems.swervev3.vision.VisionInputs;
+import frc.robot.utils.logging.LoggableIO;
 import org.littletonrobotics.junction.Logger;
 
 /**
  * Processes swerve odometry. Feeds odometry measurements and vision measurements into a Kalman
  * Filter which outputs a combined robot position
  */
-public class PoseManager {
+public class PoseManager implements LoggableIO<VisionInputs> {
   private final TimeInterpolatableBuffer<Pose2d> estimatedPoseBuffer;
   private final SwerveDrivePoseEstimator poseEstimator;
   protected final Queue<VisionMeasurement> visionMeasurementQueue = new LinkedList<>();
@@ -66,7 +69,7 @@ public class PoseManager {
   }
 
   // override for filtering
-  public void processQueue() {
+  public void updateInputs(VisionInputs inputs) {
     VisionMeasurement m = visionMeasurementQueue.poll();
     while (m != null) {
       addVisionMeasurement(m);
